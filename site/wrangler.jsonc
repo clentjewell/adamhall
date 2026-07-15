@@ -1,0 +1,11 @@
+{
+  // Adam Hall proposal — static web deck served by a Cloudflare Worker.
+  // Assets-only Worker (no server code): Wrangler uploads ./public and serves it
+  // from Cloudflare's edge. See https://developers.cloudflare.com/workers/static-assets/
+  "name": "adamhall-proposal",
+  "compatibility_date": "2026-07-15",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "single-page-application"
+  }
+}
