@@ -40,6 +40,15 @@ One file, no build step, no external dependencies (fast, offline-safe, nothing t
 front of a client). Edit `site/public/index.html`, then push (auto-deploy) or `npm run deploy`.
 Keep the copy in sync with the source doc in `00 Admin/08 Proposal + Pricing`.
 
+## Branding
+
+Uses the **Jewell Projects house system** (matching `estipaint-proposal`, `assurant-presentation`, etc.):
+
+- Palette: cream `#FAF8F4`, near-black `#111111` / section `#0C0C0C`, signal-blue `#2D5BFF`, mid-grey `#666666`, rule `#D4D2D0`.
+- Type: **Poppins** (Google Fonts, weights 300–600).
+- Wordmark: `site/public/jewell-logo.svg` (served at `/jewell-logo.svg`, also the favicon).
+- Patterns: fixed header + logo, numbered eyebrows (`01 — …`), alternating cream/near-black sections, `num-lg` blue figures, `budget-row` investment table, `gap-item` lists, scroll-reveal, progress bar — a scrolling editorial proposal (not scroll-snap slides).
+
 ## Guardrails
 
 - Only confirmed figures appear on-slide (~$5M, ~25 cars/month, 90/10, ~$4,200 gross).
