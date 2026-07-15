@@ -190,7 +190,7 @@ That's the path — a named, trusted buying brand a team can run and a buyer wou
 
 **Headline:** The Adam Hall Standard, made teachable.
 
-**Body:** Empathy first, then the solution. Daily self-criticism. Ownership, not excuses. Stay in the room. Value your time commercially.
+**Body:** Empathy first, then the solution. Daily self-reflection for improvement. Ownership, not excuses. Stay in the room. Value your time commercially.
 
 We hire and train for these values first, skills second — because skill hired before values is how you end up carrying the risk yourself.
 
