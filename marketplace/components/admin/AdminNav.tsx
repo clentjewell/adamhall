@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  Bank,
   ChartBar,
   ChatCircleDots,
   Garage,
@@ -17,6 +18,7 @@ const items = [
   { href: "/admin/submissions", label: "Submissions", icon: Tray, exact: false },
   { href: "/admin/inventory", label: "Inventory", icon: Garage, exact: false },
   { href: "/admin/enquiries", label: "Enquiries", icon: ChatCircleDots, exact: false },
+  { href: "/admin/finance", label: "Finance", icon: Bank, exact: false },
   { href: "/admin/analytics", label: "Analytics", icon: ChartBar, exact: false },
 ];
 

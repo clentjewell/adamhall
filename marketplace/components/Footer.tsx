@@ -23,6 +23,12 @@ export default function Footer() {
           <ul className="space-y-2 text-sm">
             <li><Link href="/cars" className="hover:text-white">Cars for sale</Link></li>
             <li><Link href="/sell" className="hover:text-white">Sell your car</Link></li>
+            <li><Link href="/finance" className="hover:text-white">Finance</Link></li>
+            <li><Link href="/saved" className="hover:text-white">Saved cars</Link></li>
+            <li><Link href="/compare" className="hover:text-white">Compare</Link></li>
+            <li><Link href="/about" className="hover:text-white">About Adam</Link></li>
+            <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
+            <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
             <li><Link href="/admin" className="hover:text-white">Dealer login</Link></li>
           </ul>
         </div>
@@ -37,9 +43,14 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <p className="max-w-6xl mx-auto px-4 py-4 text-xs text-stone-400">
-          © {new Date().getFullYear()} Adam Hall Buy My Car. Licensed motor dealer.
-        </p>
+        <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-xs text-stone-400">
+          <p>© {new Date().getFullYear()} Adam Hall Buy My Car. Licensed motor dealer.</p>
+          <Link href="/legal/privacy" className="hover:text-white">Privacy</Link>
+          <Link href="/legal/terms" className="hover:text-white">Terms</Link>
+          <Link href="/legal/finance-disclaimer" className="hover:text-white">Finance disclaimer</Link>
+          <Link href="/legal/website-disclaimer" className="hover:text-white">Website disclaimer</Link>
+          <Link href="/legal/complaints" className="hover:text-white">Complaints</Link>
+        </div>
       </div>
     </footer>
   );

@@ -14,6 +14,9 @@ export default function ReviewsStrip() {
           <p className="font-semibold">
             {googleReviews.rating} from {googleReviews.count} Google reviews
           </p>
+          <span className="text-xs text-forest-200/80 basis-full sm:basis-auto">
+            Sample reviews shown while the live Google feed is connected
+          </span>
         </div>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {googleReviews.quotes.map((q) => (
