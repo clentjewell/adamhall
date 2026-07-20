@@ -15,8 +15,9 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Full-viewport hero: looping blueprint video over the photo poster */}
-      <section className="relative min-h-[calc(100dvh-4rem)] flex items-end">
+      {/* True full-page hero: the video runs edge-to-edge under the
+          transparent header (-mt-16 pulls it behind the sticky bar) */}
+      <section className="relative min-h-[100dvh] -mt-16 flex items-end">
         <HeroVideo
           src={heroVideo}
           poster={heroImages.home}
