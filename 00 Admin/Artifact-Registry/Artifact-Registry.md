@@ -2,7 +2,7 @@
 
 Single inventory of every artefact in this repository. Update this table whenever an artefact is added, promoted, or superseded. Status per Jewell OS: Draft / Review / Final / Live.
 
-**Client:** Adam Hall Buy My Car · **Engagement:** 3D Process — Operating System · **Registry updated:** 15 July 2026
+**Client:** Adam Hall Buy My Car · **Engagement:** 3D Process — Operating System · **Registry updated:** 20 July 2026
 
 | Code | Title | Phase | Status | Version | Location |
 |---|---|---|---|---|---|
@@ -16,6 +16,7 @@ Single inventory of every artefact in this repository. Update this table wheneve
 | DECK | Next Phase Proposal deck | Admin | Final | v01 | `00 Admin/08 Proposal + Pricing/` |
 | MTG | Business OS Intro — notes + transcript | Admin | Final | — | `00 Admin/02 Meeting Notes/` · `meetings/` |
 | SOP | Orchestration SOP (Jewell OS) | Blueprint | Live | v01 | `05 Blueprint Extraction/ORCHESTRATION-SOP.md` |
+| B01 | Marketplace web app (Next.js + Supabase) | Deploy | Draft | v01 | `marketplace/` |
 
 ## Version and status notes
 

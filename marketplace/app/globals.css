@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/*
+  Adam Hall design tokens.
+  Shape rule (locked): buttons = pill, cards = rounded-2xl, inputs = rounded-lg.
+  One accent (forest green) everywhere; amber reserved for status/highlight only.
+*/
+@theme {
+  --color-ink: #16211b;
+  --color-paper: #f4f5f2;
+  --color-card: #ffffff;
+  --color-forest-50: #eef4f0;
+  --color-forest-100: #d8e6dd;
+  --color-forest-200: #b0cdbb;
+  --color-forest-500: #2e6e4e;
+  --color-forest-600: #1e5c41;
+  --color-forest-700: #174a34;
+  --color-forest-800: #123a29;
+  --color-amber-accent: #c47b0a;
+  --color-amber-soft: #fdf3e2;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-paper text-ink font-body antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none;
+}
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none bg-forest-600 text-white hover:bg-forest-700 px-6 py-3;
+}
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none border-2 border-forest-600 text-forest-700 hover:bg-forest-50 px-6 py-3;
+}
+@utility btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none text-forest-700 hover:bg-forest-50 px-4 py-2;
+}
+
+@utility card {
+  @apply bg-card rounded-2xl border border-stone-200;
+}
+
+@utility input {
+  @apply w-full rounded-lg border border-stone-300 bg-white px-3.5 py-2.5 text-ink placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-forest-500;
+}
+@utility label {
+  @apply block text-sm font-semibold text-ink mb-1.5;
+}
+@utility helper {
+  @apply text-sm text-stone-500 mt-1.5;
+}
+@utility error-text {
+  @apply text-sm font-medium text-red-700 mt-1.5;
+}
+
+@utility skeleton {
+  @apply animate-pulse bg-stone-200 rounded-lg;
+}
