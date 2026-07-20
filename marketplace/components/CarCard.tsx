@@ -10,7 +10,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
   return (
     <Link
       href={`/cars/${car.slug}`}
-      className="card overflow-hidden group hover:border-forest-200 hover:shadow-lg hover:shadow-stone-200/60 transition-all"
+      className="card overflow-hidden group hover:border-forest-200 hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-1 transition-all duration-300"
     >
       <div className="relative aspect-[3/2] bg-stone-200 overflow-hidden">
         {photo ? (

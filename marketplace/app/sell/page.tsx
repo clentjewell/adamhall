@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Lightning } from "@phosphor-icons/react/dist/ssr";
+import { Lightning, Star } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug } from "@/lib/cars";
 import { getResponseStat } from "@/lib/stats";
 import { carTitle } from "@/lib/format";
 import { googleReviews } from "@/lib/config";
+import { heroImages } from "@/lib/heroes";
 import SellFlow from "@/components/sell/SellFlow";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Sell your car",
@@ -24,33 +26,39 @@ export default async function SellPage({ searchParams }: Props) {
   ]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <div className="max-w-xl mx-auto text-center mb-10">
-        <h1 className="font-display font-extrabold text-3xl md:text-4xl tracking-tight">
-          Sell your car without the circus
-        </h1>
-        <p className="mt-3 text-stone-600 leading-relaxed">
-          About five minutes on your phone. No listing fees, no tyre-kickers,
-          no strangers at your house.
-        </p>
-        <div className="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-semibold">
-          {stat && (
-            <span className="inline-flex items-center gap-1.5 text-forest-700">
-              <Lightning size={16} weight="fill" className="text-amber-accent" />
-              Typical response: {stat.label}
+    <>
+      <PageHero
+        image={heroImages.sell}
+        imageAlt="Keys changing hands over a car bonnet"
+        title="Sell your car without the circus"
+      >
+        <div>
+          <p className="text-stone-200 max-w-[52ch] text-lg">
+            About five minutes on your phone. No listing fees, no tyre-kickers,
+            no strangers at your house.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
+            {stat && (
+              <span className="inline-flex items-center gap-1.5 text-white">
+                <Lightning size={16} weight="fill" className="text-amber-accent" />
+                Typical response: {stat.label}
+              </span>
+            )}
+            <span className="inline-flex items-center gap-1.5 text-stone-300">
+              <Star size={16} weight="fill" className="text-amber-accent" />
+              {googleReviews.rating} on Google ({googleReviews.count} reviews)
             </span>
-          )}
-          <span className="text-stone-500">
-            {googleReviews.rating}★ on Google ({googleReviews.count} reviews)
-          </span>
+          </div>
         </div>
-      </div>
+      </PageHero>
 
-      <SellFlow
-        tradeTarget={
-          tradeCar ? { id: tradeCar.id, title: carTitle(tradeCar) } : null
-        }
-      />
-    </div>
+      <div className="max-w-6xl mx-auto px-4 py-12">
+        <SellFlow
+          tradeTarget={
+            tradeCar ? { id: tradeCar.id, title: carTitle(tradeCar) } : null
+          }
+        />
+      </div>
+    </>
   );
 }

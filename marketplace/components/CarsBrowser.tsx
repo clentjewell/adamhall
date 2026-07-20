@@ -6,6 +6,7 @@ import { FunnelSimple, X } from "@phosphor-icons/react";
 import type { Car } from "@/lib/types";
 import { applyFilters, type CarFilters } from "@/lib/filters";
 import CarCard from "@/components/CarCard";
+import { CardReveal } from "@/components/motion/Reveal";
 
 // Filters live in the URL so any filtered view is shareable; filtering
 // itself is instant client-side over the server-fetched list.
@@ -161,7 +162,9 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
           {filtered.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((car, i) => (
-                <CarCard key={car.id} car={car} priority={i < 3} />
+                <CardReveal key={car.id} index={i}>
+                  <CarCard car={car} priority={i < 3} />
+                </CardReveal>
               ))}
             </div>
           ) : (
