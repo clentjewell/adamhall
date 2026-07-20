@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { List, X, Phone } from "@phosphor-icons/react";
+import GarageNavBadge from "@/components/garage/GarageNavBadge";
 
 const PHONE = "0400 000 000"; // placeholder until Adam's trading number is confirmed
 const PHONE_HREF = "tel:+61400000000";
@@ -11,6 +12,7 @@ const PHONE_HREF = "tel:+61400000000";
 const links = [
   { href: "/cars", label: "Cars for sale" },
   { href: "/sell", label: "Sell your car" },
+  { href: "/finance", label: "Finance" },
 ];
 
 export default function Header() {
@@ -71,6 +73,11 @@ export default function Header() {
               {l.label}
             </Link>
           ))}
+          <GarageNavBadge
+            className={`px-3 py-2 rounded-full text-sm font-semibold transition-colors ${
+              transparent ? "text-white hover:bg-white/15" : "text-ink hover:bg-stone-100"
+            }`}
+          />
           <a
             href={PHONE_HREF}
             className={`btn text-sm ml-2 px-6 py-2.5 ${

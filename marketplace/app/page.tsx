@@ -5,6 +5,7 @@ import { fetchPublicCars } from "@/lib/cars";
 import { heroImages, heroVideo } from "@/lib/heroes";
 import CarCard from "@/components/CarCard";
 import HeroVideo from "@/components/HeroVideo";
+import QuickSearch from "@/components/home/QuickSearch";
 import ReviewsStrip from "@/components/ReviewsStrip";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
@@ -12,6 +13,8 @@ export default async function HomePage() {
   const cars = await fetchPublicCars();
   const live = cars.filter((c) => c.status === "published");
   const latest = live.slice(0, 4);
+  const makes = [...new Set(live.map((c) => c.make))].sort();
+  const bodies = [...new Set(live.map((c) => c.body_type))].sort();
 
   return (
     <>
@@ -49,6 +52,11 @@ export default async function HomePage() {
                 >
                   Sell your car
                 </Link>
+              </div>
+            </HeroItem>
+            <HeroItem>
+              <div className="mt-6">
+                <QuickSearch makes={makes} bodies={bodies} />
               </div>
             </HeroItem>
           </HeroStagger>

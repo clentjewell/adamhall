@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
+import { ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
+import { estimateWeekly } from "@/lib/finance";
 import CarHero from "@/components/CarHero";
 import TrustBlock from "@/components/TrustBlock";
 import EnquiryForm from "@/components/EnquiryForm";
+import TestDriveForm from "@/components/TestDriveForm";
+import MobileActionBar from "@/components/MobileActionBar";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import CarCard from "@/components/CarCard";
+import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
+import RecentViewTracker from "@/components/garage/RecentViewTracker";
 import { Reveal, CardReveal } from "@/components/motion/Reveal";
 
 export const revalidate = 60;
@@ -104,12 +110,19 @@ export default async function CarDetailPage({ params }: Props) {
       />
 
       <CarHero photos={car.photos} title={title} price={car.price} sold={sold} />
+      <RecentViewTracker carId={car.id} />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <Link href="/cars" className="btn-ghost text-sm -ml-3 mb-6">
-          <ArrowLeft size={16} weight="bold" />
-          All cars
-        </Link>
+      <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Cars for sale", href: "/cars" },
+              { label: title },
+            ]}
+          />
+          <SaveCompareButtons carId={car.id} variant="detail" />
+        </div>
 
         <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
           <div className="min-w-0">
@@ -169,7 +182,22 @@ export default async function CarDetailPage({ params }: Props) {
             <TrustBlock car={car} />
             {!sold && (
               <>
+                <Link
+                  href="/finance"
+                  className="card p-4 flex items-center justify-between gap-3 hover:border-forest-200 transition-colors text-sm"
+                >
+                  <span>
+                    <span className="font-bold">
+                      From ~{formatPrice(estimateWeekly(car.price))}/week
+                    </span>
+                    <span className="block text-stone-500">
+                      Estimate only, not an offer. Run your own numbers.
+                    </span>
+                  </span>
+                  <span className="btn-ghost !py-1.5 !px-3 shrink-0">Calculator</span>
+                </Link>
                 <EnquiryForm carId={car.id} carName={title} />
+                <TestDriveForm carId={car.id} carName={title} />
                 <Link
                   href={`/sell?trade=${car.slug}`}
                   className="card p-5 flex items-center gap-4 hover:border-forest-200 hover:-translate-y-0.5 transition-all group"
@@ -206,6 +234,8 @@ export default async function CarDetailPage({ params }: Props) {
           </section>
         )}
       </div>
+
+      <MobileActionBar phoneHref="tel:+61400000000" carId={car.id} sold={sold} />
     </>
   );
 }

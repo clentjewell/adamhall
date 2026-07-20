@@ -48,14 +48,14 @@ const selling: Faq[] = [
   },
   {
     q: "How fast will I actually get paid?",
-    a: "Adam personally reviews every car and comes back with a real offer within one business day. If you accept, settlement happens the same day the paperwork clears — usually that day or the next.",
+    a: "Adam personally reviews every car and comes back with a real offer within one business day. If you accept, settlement happens the same day the paperwork clears, usually that day or the next.",
   },
   {
     q: "Do you take trade-ins?",
     a: "Yes. If you're buying a car and selling one at the same time, tell us upfront and we'll value both at once.",
   },
   {
-    q: "What if my car isn't perfect — high kms, a dent, no books?",
+    q: "What if my car isn't perfect, like high kms, a dent, or no books?",
     a: "Tell us straight up. It won't stop us making an offer, it just affects the number. We'd rather know before we look at it than find out standing in your driveway.",
   },
   {
