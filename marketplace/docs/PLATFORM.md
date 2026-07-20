@@ -53,7 +53,7 @@ show. **None of this is real inventory.** The Google review quotes in
 Google Business Profile. Car photography in the seed data is a mix of stock
 and AI-generated placeholder images — **no photo currently on the site is
 a real photo of a real car on Adam's lot.** All of this must be swapped
-before go-live (see §4).
+before go-live (see §3).
 
 ---
 
@@ -441,90 +441,55 @@ deploy instructions.
 
 ## 12. Manual QA checklist
 
-**Public — browse & buy**
+**Public — browse, buy, finance, saved/compare**
 
-- [ ] `/cars` filters (make, model, price range, km max, body, transmission,
-      fuel) narrow results correctly and combine without conflicting
-- [ ] Sort by price ascending/descending works
-- [ ] Filters persist in the URL (shareable/bookmarkable link reproduces
-      the same result set)
-- [ ] Car detail page renders gallery, PPSR badge, service history, and
-      "Adam's take" for every seed car
-- [ ] Sold cars remain visible with a SOLD badge; check one that's >30 days
-      old is *not* visible (or manually test the archive function)
-- [ ] Enquiry form submits successfully and appears in `/admin/enquiries`
-- [ ] Book-a-look form submits with a time window and appears correctly
-      tagged as `book_look`
-- [ ] Trade-in bridge link (`/sell?trade=slug`) pre-fills the target car
-
-**Finance**
-
-- [ ] Calculator updates live as term/rate/deposit/balloon change
-- [ ] Weekly, fortnightly, and monthly frequencies all produce sane numbers
-- [ ] Zero-deposit and full-deposit (amount financed = 0) edge cases don't
-      break the UI
-- [ ] Finance enquiry submits and lands in `/admin/finance` with correct
-      consent flag
-- [ ] Finance disclaimer link is visible near the calculator
-
-**Saved / compare (guest, localStorage)**
-
-- [ ] Saving a car from a card and from the detail page both update
-      `/saved` and the nav badge
-- [ ] Adding a 4th car to compare is rejected with the inline error, not a
-      silent drop
-- [ ] Compare page renders a clean side-by-side for 2–3 cars
-- [ ] Recently-viewed updates on every car detail visit, capped at 12,
-      de-duped
-- [ ] State survives a page reload (localStorage) but is scoped to one
-      browser (no sync across devices — confirm this is expected)
+- [ ] `/cars` filters (make, model, price, km max, body, transmission, fuel)
+      narrow correctly and combine without conflicting; price sort works
+- [ ] Filters persist in the URL (shareable link reproduces the same results)
+- [ ] Car detail renders gallery, PPSR badge, service history, "Adam's take"
+- [ ] Sold cars show a SOLD badge and stay visible only within 30 days
+- [ ] Enquiry and book-a-look forms submit and appear in `/admin/enquiries`,
+      correctly tagged by `kind`
+- [ ] Trade-in bridge (`/sell?trade=slug`) pre-fills the target car
+- [ ] Finance calculator updates live across weekly/fortnightly/monthly,
+      handles zero-deposit and fully-covered (amount financed = 0) edges
+- [ ] Finance enquiry submits, lands in `/admin/finance` with consent flag set
+- [ ] Save/compare update instantly from both card and detail-page buttons
+- [ ] A 4th compare addition is rejected with an inline error, not a silent drop
+- [ ] Recently-viewed is de-duped, capped at 12, survives a reload
 
 **Sell / trade pipeline**
 
-- [ ] All 4 steps of `/sell` validate before allowing "Next"
-- [ ] Photo upload compresses client-side and completes on a slow
-      connection (throttle test)
-- [ ] Abandoning mid-flow and returning restores progress (localStorage
-      save-and-resume)
-- [ ] Submission appears in `/admin/submissions` with status `new` and a
-      matching `status_events` row
-- [ ] `/sell/status/[token]` shows correct status and is *not* accessible
-      without the token
-- [ ] `/sell/status/[token]` is excluded from `/robots.txt` and `/sitemap.xml`
+- [ ] All 4 `/sell` steps validate before "Next" proceeds
+- [ ] Photo upload compresses client-side and completes on a throttled connection
+- [ ] Abandon-and-return restores progress (localStorage save-and-resume)
+- [ ] Submission lands in `/admin/submissions` as `new` with a matching
+      `status_events` row
+- [ ] `/sell/status/[token]` resolves only with a valid token, and is excluded
+      from `/robots.txt` and `/sitemap.xml`
 
 **Admin**
 
-- [ ] Login rejects a non-allowlisted Supabase user (`?denied=1` redirect)
-- [ ] Valuation worksheet margin auto-computes and is read-only (generated
-      column, never hand-typed)
-- [ ] Sending an offer email and a decline email both log to
-      `status_events` and actually send (check Resend logs or console in
-      dev)
-- [ ] Settlement checklist requires each item ticked individually; each
-      tick records who + when
-- [ ] "Convert to listing" carries over vehicle details/photos into a
-      draft car
-- [ ] `/admin/analytics` numbers change sensibly after actioning a test
-      submission end-to-end
-- [ ] Admin photo viewing uses signed URLs (submission photos never
-      resolve via a public/unsigned bucket URL)
+- [ ] Login rejects a non-allowlisted Supabase user (`?denied=1`)
+- [ ] Valuation margin auto-computes and is read-only (generated column)
+- [ ] Offer and decline emails send and log to `status_events`
+- [ ] Settlement checklist ticks are individual, each stamped with who + when
+- [ ] "Convert to listing" carries vehicle details/photos into a draft car
+- [ ] `/admin/analytics` numbers move sensibly after an end-to-end test run
+- [ ] Submission photos only ever resolve via signed URLs, never a public path
 
 **Mobile**
 
-- [ ] Sticky mobile action bar (`components/MobileActionBar.tsx`) doesn't
-      overlap content or the sell-flow step indicator
-- [ ] Sell flow's 4 steps are usable one-handed on a small viewport
-- [ ] Gallery swiping and finance calculator inputs work on touch
+- [ ] Sticky mobile action bar doesn't overlap content or the sell-flow steps
+- [ ] Sell flow is usable one-handed on a small viewport
+- [ ] Gallery swipe and finance calculator inputs work on touch
 
 **Accessibility**
 
-- [ ] All forms have associated labels and visible focus states
-- [ ] Colour contrast holds for the amber "SOLD" / status highlights
-      against bone/paper backgrounds
-- [ ] Images have meaningful `alt` text (flag any seed placeholders with
-      generic alt text for follow-up)
-- [ ] Keyboard-only navigation can complete an enquiry and the full sell
-      flow
+- [ ] Forms have associated labels and visible focus states
+- [ ] Colour contrast holds for amber SOLD/status highlights on bone/paper
+- [ ] Images carry meaningful `alt` text (flag generic seed placeholders)
+- [ ] Keyboard-only navigation completes an enquiry and the full sell flow
 
 ---
 

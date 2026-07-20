@@ -1,7 +1,8 @@
 "use client";
 
 import { useActionState } from "react";
-import { bookTestDrive, TIME_WINDOWS, type TestDriveActionState } from "@/app/actions/testdrive";
+import { bookTestDrive, type TestDriveActionState } from "@/app/actions/testdrive";
+import { TIME_WINDOWS } from "@/lib/testdrive-windows";
 
 const initial: TestDriveActionState = { ok: false };
 

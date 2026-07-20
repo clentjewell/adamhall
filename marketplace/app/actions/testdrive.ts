@@ -3,21 +3,15 @@
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { notifier } from "@/lib/notify";
+import { TIME_WINDOWS } from "@/lib/testdrive-windows";
 
 export interface TestDriveActionState {
   ok: boolean;
   error?: string;
 }
 
-// Shared with components/TestDriveForm.tsx so the <select> options and the
-// server-side validation never drift apart.
-export const TIME_WINDOWS = [
-  "Morning 9-12",
-  "Midday 12-3",
-  "Afternoon 3-5:30",
-  "Saturday morning",
-] as const;
-export type TimeWindow = (typeof TIME_WINDOWS)[number];
+// TIME_WINDOWS lives in lib/testdrive-windows.ts — "use server" modules
+// may only export async functions.
 
 function todayIso(): string {
   return new Date().toISOString().slice(0, 10);

@@ -40,7 +40,7 @@ export default function FinancePage() {
       >
         <p className="text-stone-200 max-w-[52ch] text-lg">
           Get a feel for the repayments first, then send us the numbers.
-          We&apos;ll tell you straight what&apos;s realistic — no guesswork,
+          We&apos;ll tell you straight what&apos;s realistic. No guesswork,
           no approval promises until a lender&apos;s actually looked at it.
         </p>
       </PageHero>
