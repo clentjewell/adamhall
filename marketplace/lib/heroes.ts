@@ -7,3 +7,7 @@ export const heroImages = {
   cars: `${base}/cars.jpg`,
   sell: `${base}/sell.jpg`,
 };
+
+// Looping blueprint animation behind the home hero; heroImages.home is its
+// poster and reduced-motion/save-data fallback.
+export const heroVideo = `${base}/hero-loop.mp4`;

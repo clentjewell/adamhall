@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, CaretDown, ShieldCheck, Clock, HandCoins } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
-import { heroImages } from "@/lib/heroes";
+import { heroImages, heroVideo } from "@/lib/heroes";
 import CarCard from "@/components/CarCard";
+import HeroVideo from "@/components/HeroVideo";
 import ReviewsStrip from "@/components/ReviewsStrip";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
@@ -14,15 +15,12 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Full-viewport hero over brand photography */}
+      {/* Full-viewport hero: looping blueprint video over the photo poster */}
       <section className="relative min-h-[calc(100dvh-4rem)] flex items-end">
-        <Image
-          src={heroImages.home}
-          alt="The Adam Hall forecourt at dusk"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+        <HeroVideo
+          src={heroVideo}
+          poster={heroImages.home}
+          posterAlt="The Adam Hall forecourt at dusk"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/15" />
         <div className="relative w-full max-w-6xl mx-auto px-4 pb-20 pt-40">
