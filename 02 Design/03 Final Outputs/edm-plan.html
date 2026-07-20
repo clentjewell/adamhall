@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EDM Plan — Adam Hall Buy My Car</title>
+    <meta name="maxxim:client" content="adam-hall">
+    <meta name="maxxim:phase" content="design">
+    <meta name="maxxim:skill" content="edm-plan">
+    <meta name="maxxim:generated" content="2026-07-20">
+  </head>
+  <body>
+    <h1>EDM Plan</h1>
+
+    <section>
+      <h2>How to read this document</h2>
+      <p>This is the build plan for a channel that does not exist yet. <code>marketing-plan.html</code>'s Always-on Activity table states plainly that email nurture is "not yet possible — no CRM/EDM system exists today," and <code>sales-process-review.html</code> confirms lead intake is phone-only with no digital capture of any kind. This document is therefore written as a staged build, not an activation plan for a channel already running — every section below states what exists today (almost always: nothing) before it states what to build.</p>
+      <p><strong>Where the list comes from.</strong> There is no subscriber list today and no consented email address on file for a single customer (<code>funnel-review.html</code>; <code>sales-process-review.html</code>). This plan does not assume a list can be bought, scraped, or bootstrapped from anywhere other than two genuine, consented sources: <strong>settled customers</strong> (captured at the point of sale, with explicit consent, once the intake/settlement process supports it) and <strong>callback requests</strong> from the rebuilt website (once <code>website-strategy.html</code> ships a callback form as an alternative to calling immediately). Both sources are gated behind other Design-phase work landing first — see section 2.</p>
+      <p><strong>Frequency is low, deliberately.</strong> This audience is 60–75+ primary, phone-first, and confirmed to prefer plain, unhurried communication over frequent digital contact (<code>customer-profile.html</code>; <code>audience-teardown.html</code>). Every cadence recommendation below errs toward less, not more, and toward large-type, accessible design over polished template density.</p>
+      <p>This document is written for the Design-phase channel-plan set alongside <code>paid-media-plan.html</code> and <code>crm-plan.html</code>, and is an input to <code>crm-plan.html</code>'s data-flow section, written after this one in the same run.</p>
+    </section>
+
+    <section>
+      <h2>1. EDM objectives</h2>
+      <p><strong>Growth targets.</strong> [Hypothesis — no baseline exists] There is no subscriber count today, so no month-1 target is meaningful. A realistic first milestone is the list-building mechanism itself going live — a settlement-point consent capture and a website callback form — by month 6–9 (aligned to the Next stage in <code>growth-roadmap.html</code>, once the website rebuild ships). A first list-size milestone should be set once three months of settled-customer consent capture shows a real monthly addition rate, not assumed here.</p>
+      <p><strong>Open rate and click rate benchmarks.</strong> No historical data exists for this business on any email metric. Industry-general benchmarks for a small, highly engaged, low-volume local-service list (as opposed to a mass consumer list) are a reasonable planning reference once sending begins, but should be replaced with this list's own first-quarter data as soon as it exists rather than held as a permanent target.</p>
+      <p><strong>Revenue attribution targets.</strong> Not set. With average retail gross at ~$4,200 per car (<code>business-plan.html</code>) and monthly volume capped at ~25 cars by the one-person capacity ceiling (<code>funnel-review.html</code>), email's realistic contribution is to <em>referral and repeat advocacy</em>, not direct transactional revenue — most subscribers will be past customers unlikely to sell another car soon. Revenue attribution is not the right frame for this list; referral generation and word-of-mouth density are.</p>
+      <p><strong>Automation coverage goals.</strong> Zero today. The first automation to build (section 4) is the single most valuable one available: a settlement-follow-up sequence that carries the referral ask already designed in <code>messaging-by-stage.html</code> Stage 6 into a written, repeatable channel. No other automation should be attempted before this one is live and working.</p>
+    </section>
+
+    <section>
+      <h2>2. List strategy</h2>
+      <p><strong>Acquisition sources.</strong> Two only, both consent-first and both gated behind other Design-phase work:</p>
+      <ul>
+        <li><strong>Settled customers.</strong> Captured at the point of sale, alongside the existing paperwork step (<code>sales-process-review.html</code>, step 5) — a simple, plainly worded consent line ("Can I send you a short note once your payment clears, and the occasional update after that?") added to whatever intake or paperwork process the second-buyer onboarding work formalises. This is the highest-quality source available: a customer who has just had a genuinely good, trust-building experience is the best possible subscriber.</li>
+        <li><strong>Callback requests.</strong> Once the rebuilt website (<code>website-strategy.html</code>) offers a callback-request option as an alternative to calling immediately — for a visitor not ready to pick up the phone yet, particularly plausible for the estate/health-crisis segment researching quietly before acting (<code>customer-profile.html</code>, Jen persona) — that form captures explicit opt-in consent at the point of submission.</li>
+      </ul>
+      <p><strong>No other source is recommended.</strong> No purchased list, no scraped contacts, no import of any existing contact list — none exists to import from, and even if one did, it would carry no consent under the Australian Spam Act (section 9).</p>
+      <p><strong>Opt-in approach.</strong> Single opt-in, with an explicit, plainly worded consent statement at the point of capture — not a pre-ticked box, not an assumed opt-in from a phone conversation alone. [Hypothesis, to confirm with legal-compliance review] A confirmed single opt-in with a clear unsubscribe in every message is the standard approach recommended for a small, low-volume, relationship-based list under the Spam Act; double opt-in is not recommended here as it adds a step this audience is likely to abandon (<code>audience-teardown.html</code>, technology-fluency assumptions) for marginal deliverability benefit at this list size.</p>
+      <p><strong>Segmentation model overview.</strong> Two segments only at launch, detailed fully in section 5: settled customers (post-sale, advocacy-focused) and callback/enquiry contacts who did not yet convert to a sale (nurture-focused, small in number). No further segmentation is justified until list size supports it.</p>
+      <p><strong>List hygiene practices.</strong> Bounce and complaint handling per whichever ESP is selected (section 10) — remove hard bounces immediately, suppress after a single spam complaint, review soft bounces monthly. Given the tiny expected list size in year one, hygiene is a monthly manual check, not an automated workflow requiring dedicated tooling.</p>
+      <p><strong>Suppression rules.</strong> Immediate, permanent suppression on unsubscribe, hard bounce or complaint — no re-permission campaign to a suppressed contact without fresh, explicit consent. No role-based addresses are expected on a consumer list of this kind, but the rule applies regardless.</p>
+    </section>
+
+    <section>
+      <h2>3. Email types &amp; cadence</h2>
+      <p><strong>Newsletter.</strong> Not recommended in year one. A regular newsletter needs more raw content and a bigger list than this business will have — <code>content-strategy.html</code>'s own minimum-viable cadence (one hero piece a month) is barely enough to feed the website, radio talking points and social calendar together; a newsletter would be the first thing to cut under capacity pressure, so it should not be started at all until list size and content capacity both justify it.</p>
+      <p><strong>Promotional campaigns.</strong> Not applicable in the conventional sense — there is no discount, sale or seasonal-offer mechanic in this business's model (a fair, honest valuation is the entire offer, per <code>offer-worksheet.html</code> and <code>conversion-pathway.html</code>'s explicit caution against manufactured urgency). Any "campaign" email should be an informational share of a seasonal moment from <code>campaign-calendar.html</code> (e.g. a spring-decluttering reminder), not a discount push.</p>
+      <p><strong>Lifecycle emails.</strong> The one email type this plan actively builds — see the settlement-follow-up automation in section 4.</p>
+      <p><strong>Transactional emails.</strong> [Assumption, to confirm with Adam] Order/settlement confirmation-style emails are not currently sent by any system; if the second-buyer onboarding and settlement-documentation work in <code>growth-roadmap.html</code> introduces a written confirmation of sale, it should be considered here, but this document does not assume that process exists yet — see <code>sales-process-review.html</code>'s HIGH-CONTROL flag on the payment-to-settlement sequence, which this plan does not describe or invent.</p>
+      <p><strong>Send calendar overview.</strong> Given the volumes involved (up to ~25 settlement emails a month at full capacity, plus an occasional seasonal share), this list needs no formal weekly/monthly send calendar in year one — the settlement-follow-up automation fires on its own trigger (section 4), and any seasonal share is timed to <code>campaign-calendar.html</code>'s quarterly themes, at most once a quarter.</p>
+    </section>
+
+    <section>
+      <h2>4. Automation workflows</h2>
+      <p>Only one workflow is recommended for build in year one. The remaining four workflow types named in the EDM skill framework are explicitly deferred, with reasons stated rather than silently omitted.</p>
+      <h3>Settlement follow-up and referral ask (the one workflow to build)</h3>
+      <p><strong>Trigger.</strong> A car is settled and the customer has given consent to be contacted (section 2).</p>
+      <p><strong>Sequence.</strong> One email, sent 3–5 days after settlement — long enough that payment has cleared and the experience is settled, short enough that goodwill is still fresh. Content: a short, warm thank-you in Adam's voice, a restatement of the referral ask already designed in <code>messaging-by-stage.html</code> Stage 6 ("If this was a good experience, I'd really appreciate you telling someone else who might need the same thing"), and a simple way to pass on Adam's number.</p>
+      <p><strong>Timing.</strong> Single send, no multi-step sequence — a second or third follow-up email risks feeling like pressure, which directly contradicts the brand's no-pressure promise (<code>brand-strategy.html</code>).</p>
+      <p><strong>Branching logic.</strong> None at launch — one message, one audience (all settled, consented customers), matching the same "one variable at a time" testing discipline recommended in <code>social-strategy.html</code> section 8 for paid media.</p>
+      <p><strong>Exit condition.</strong> The sequence ends after the single send; a customer who later refers someone is thanked personally by Adam (a human moment, not an automated one), consistent with the rule that the human touch never moves to automation at the moments that matter most (<code>messaging-by-stage.html</code>, message spine).</p>
+      <h3>Deferred workflows, with reasons</h3>
+      <ul>
+        <li><strong>Welcome series.</strong> Deferred — there is no meaningful "welcome" moment for a list built entirely from settled customers and callback requests; a lengthy onboarding sequence would be manufactured content for an audience that just wants to know it worked.</li>
+        <li><strong>Abandoned cart/inquiry recovery.</strong> Deferred until the website rebuild's callback-request mechanism exists and shows real volume; a phone-first business has no "cart" to abandon in the conventional sense, and a callback-nurture sequence should be designed once real callback volume and drop-off data exists, not before.</li>
+        <li><strong>Re-engagement/win-back.</strong> Deferred — this business's customers are, almost by definition, one-time sellers; a win-back sequence assumes a repeat-purchase pattern this model does not have. The equivalent value here is referral, already covered above.</li>
+        <li><strong>Lead nurturing (education-to-conversion).</strong> Deferred until callback-request volume justifies it; in the meantime, any nurture need is served by the phone-based follow-up already proposed in <code>conversion-pathway.html</code>'s Friction to Remove table, not by email.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>5. Segmentation model</h2>
+      <p>Two segments only, matching the two acquisition sources in section 2 — anything more granular is not justified at the list sizes this business will realistically reach in year one.</p>
+      <table>
+        <thead><tr><th>Segment</th><th>Definition</th><th>Personalisation approach</th><th>Frequency</th></tr></thead>
+        <tbody>
+          <tr><td>Settled customers</td><td>Anyone who completed a sale and consented at settlement</td><td>Warm, personal, referral-focused; addressed by first name; content acknowledges the transaction is complete, not "come back and sell again"</td><td>One email (the settlement follow-up), plus at most one seasonal share per quarter — deliberately rare</td></tr>
+          <tr><td>Callback/enquiry contacts who did not convert</td><td>Website callback requests that did not (yet) result in a sale</td><td>[Hypothesis, to design once volume exists] Content should answer the specific objection that likely stalled them — matched to the objection patterns already documented in <code>customer-profile.html</code> and <code>buying-triggers-barriers.html</code> — rather than a generic nurture template</td><td>Low — no more than monthly, and only once this segment shows enough volume to justify a dedicated workflow (section 4)</td></tr>
+        </tbody>
+      </table>
+      <p>Demographic segmentation (age, region) is not layered on top of these two at launch — the whole list is 60–75+-skewing and three-region by definition, so a further split would fragment an already small list without a clear personalisation payoff.</p>
+    </section>
+
+    <section>
+      <h2>6. Content &amp; design framework</h2>
+      <p><strong>Template requirements.</strong> A single, simple template: a clear header with the Adam Hall Buy My Car name (or "The Adam Hall Standard," pending CQ11 per <code>brand-strategy.html</code>), one short block of body text, one clear call-to-action, and a plain, compliant footer with a working unsubscribe link (mandatory, section 9). No multi-column layouts, no dense image grids.</p>
+      <p><strong>Content guidelines per email type.</strong> Warm, personal, unhurried tone throughout, matching the brand voice in <code>brand-strategy.html</code> — this is the one written channel where the tone must read exactly like Adam, not like a marketing template. Short: 100–150 words is enough for the settlement follow-up; nothing here should read like a newsletter trying to fill space.</p>
+      <p><strong>Subject line frameworks.</strong> Plain and direct, never clickbait or urgency-driven — for example "Thanks again, [first name]" or "One quick favour, if you don't mind." Avoid anything resembling a promotional subject line; this list should never feel like it is being sold to.</p>
+      <p><strong>Preview text approach.</strong> A plain continuation of the subject line's sentiment — no separate "teaser" copy that contradicts or oversells the body content.</p>
+      <p><strong>Mobile-first, large-type, accessible design.</strong> This is a hard requirement, not a nice-to-have, given the confirmed 60–75+ primary audience (<code>audience-teardown.html</code>; <code>customer-profile.html</code>): single-column layout only; a minimum body-text size well above typical email-template defaults, matching the large-type direction already set for the website in <code>brand-strategy.html</code>; generous line spacing; large, unambiguous tap targets for the one call-to-action link; high colour contrast; no light-grey-on-white body text. Every template decision should be checked against "would Barbara be able to read this without her glasses on the first try," not against a generic email-design best-practice checklist.</p>
+    </section>
+
+    <section>
+      <h2>7. Deliverability strategy</h2>
+      <p><strong>Authentication setup.</strong> SPF, DKIM and DMARC must be configured on whichever sending domain is used — most practically the same domain as the rebuilt website (<code>website-strategy.html</code>), set up once during the website build rather than as a separate later project. This is non-negotiable even at a tiny list size; an unauthenticated sending domain risks landing every email in spam regardless of content quality.</p>
+      <p><strong>Warm-up plan.</strong> Given the very small expected sending volume (a handful of settlement emails a month at full capacity), a formal IP/domain warm-up schedule is not necessary in the way it would be for a high-volume sender — but the domain's authentication records should still be verified and tested with a handful of seed sends before the first real customer email goes out.</p>
+      <p><strong>List cleaning cadence.</strong> Monthly manual review while list size is small; move to automated suppression rules once a proper ESP is in place (section 10).</p>
+      <p><strong>Engagement-based sending.</strong> Given the low, deliberate send frequency in this plan, engagement-based suppression is a lower priority than for a high-frequency sender — but any contact who has not opened either of the last two emails should be excluded from further sends until they take some other action (e.g. a new enquiry), rather than sent to indefinitely.</p>
+      <p><strong>Sender reputation monitoring.</strong> Basic ESP-native reputation reporting is sufficient at this volume; a dedicated reputation-monitoring tool is not justified until list size and send frequency both grow meaningfully beyond what this plan describes.</p>
+    </section>
+
+    <section>
+      <h2>8. A/B testing plan</h2>
+      <p><strong>What to test, and when.</strong> Not recommended in year one. The realistic list size in the first 12 months (a modest number of settled-customer opt-ins, per the gated build timeline in section 1) is almost certainly too small to reach any meaningful statistical significance on a subject-line or send-time test. Running a "test" on 20–40 emails a month would produce noise, not a finding.</p>
+      <p><strong>Revisit trigger.</strong> Once the list reaches a size where a genuine per-variant minimum sample can be met — a threshold to set once real list-growth data exists, not assumed here — subject-line and send-time testing become worth the effort. Until then, judgement (does this read like Adam, is it too long, is the CTA clear) is the right quality check, not a statistical test.</p>
+    </section>
+
+    <section>
+      <h2>9. Compliance &amp; privacy</h2>
+      <p><strong>Australian Spam Act compliance.</strong> Every email requires: clear sender identification (the business name and a real contact method); a functional, one-click unsubscribe in every message, processed within the legally required period; and consent obtained before the first send, matching the single opt-in approach in section 2. [Flagged for direct legal-compliance-advisor review, not invented here] — the exact wording of the consent statement at settlement and at the callback form, and confirmation that a verbal "yes" at settlement (as opposed to a ticked box) satisfies Spam Act consent requirements, should be confirmed with a qualified adviser before the settlement-consent line in section 2 is finalised and used.</p>
+      <p><strong>Unsubscribe process.</strong> One-click, and processed promptly — no multi-step "are you sure" flow, which is both poor practice for this audience's technology comfort (<code>customer-profile.html</code>) and a compliance risk if it delays actioning the request.</p>
+      <p><strong>Data handling.</strong> [Flagged for advice, no specific compliance mechanism invented here] What subscriber data is collected (name, email, and implicitly a link to the settled-sale or enquiry record), where it is stored, and for how long, are all matters that fall under the Australian Privacy Act's principles for handling personal information — this plan does not state a specific retention period, storage location or data-sharing policy, because doing so without qualified legal input would be inventing compliance detail rather than reporting it. This same flag is carried in <code>crm-plan.html</code> section 8 and <code>paid-media-plan.html</code> section 9 — one flag, not three separate ad hoc judgement calls, should govern data handling across every channel.</p>
+      <p><strong>Consent management.</strong> Record, at minimum, the date and mechanism of consent (settlement conversation vs. website callback form) alongside each contact — this record is what would be produced if a subscriber later asks how their address was obtained, a reasonable and foreseeable question given how personally this business operates.</p>
+      <p><strong>GDPR considerations.</strong> Not expected to be material — this is a Gold Coast/Brisbane/Northern Rivers local service business with no stated international subscriber base; flagged here only to note that if an EU-resident subscriber were ever added (for example, an adult child managing a parent's affairs from overseas), GDPR's stricter consent and rights-of-access rules would apply on top of the Spam Act baseline, and should be raised with legal-compliance-advisor if that scenario ever arises.</p>
+    </section>
+
+    <section>
+      <h2>10. Platform &amp; integration</h2>
+      <p><strong>Recommended ESP features.</strong> Given the extremely small scale described throughout this plan, the platform choice matters less than usual — the must-haves are: simple template building with genuinely large default type sizes, a straightforward two-segment list structure, one basic automation (the settlement follow-up), and Spam-Act-compliant unsubscribe handling by default. Advanced automation builders, predictive send-time tools, and enterprise-grade deliverability suites are not justified at this scale and would add cost and complexity without a corresponding benefit.</p>
+      <p><strong>CRM integration requirements.</strong> No CRM exists today (<code>sales-process-review.html</code>); once <code>crm-plan.html</code>'s recommended lightweight system is in place, the ESP should sync on two fields at minimum — settlement date (to trigger the follow-up) and consent status/date (to prove compliant opt-in). This plan does not specify a platform for that sync; see <code>crm-plan.html</code> section 10 for the platform-agnostic recommendation it defers to.</p>
+      <p><strong>Website tracking integration.</strong> The callback-request form on the rebuilt website (<code>website-strategy.html</code>) should write directly to whichever system holds the list — form capture and consent capture should be the same action, not two separate steps a visitor could complete one without the other.</p>
+      <p><strong>Reporting setup.</strong> Given the volumes involved, a simple monthly glance at sends, opens and unsubscribes is sufficient — folded into the same monthly report structure as <code>measurement-plan.html</code>, not run as a separate dashboard. No automated reporting infrastructure is justified before the list itself exists.</p>
+    </section>
+  </body>
+</html>

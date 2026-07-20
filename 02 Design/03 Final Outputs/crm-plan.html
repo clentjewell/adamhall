@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CRM Plan — Adam Hall Buy My Car</title>
+    <meta name="maxxim:client" content="adam-hall">
+    <meta name="maxxim:phase" content="design">
+    <meta name="maxxim:skill" content="crm-plan">
+    <meta name="maxxim:generated" content="2026-07-20">
+  </head>
+  <body>
+    <h1>CRM Plan</h1>
+
+    <section>
+      <h2>How to read this document</h2>
+      <p>This plan starts from zero, because that is where this business actually stands. <code>sales-process-review.html</code> confirms plainly: "there is no CRM or lead-capture system; lead intake is phone-only," and <code>funnel-review.html</code> confirms nothing about lead volume, source, conversion or referral is tracked today. Today's real system is phone plus, at best, paper or memory — every recommendation below is written for that starting point, not for a business migrating between two existing platforms.</p>
+      <p><strong>This is Objective 1's home document.</strong> <code>marketing-plan.html</code> names "make the lead engine visible before growing it" as the first marketing objective, and <code>measurement-plan.html</code> names the lead log as the precondition for every other metric in the engagement. This CRM plan is the concrete design of that lead log and what it grows into — not a generic CRM-platform recommendation bolted on afterward.</p>
+      <p><strong>Design constraint: dead simple, for a one-person operation today and a two-person operation soon.</strong> Every recommendation is built for Adam operating alone, with the explicit expectation that a second buyer joins within the Next stage horizon (<code>growth-roadmap.html</code>). Nothing here should require dedicated admin support, a training course, or more than a few minutes per enquiry to use — if a recommendation would not survive being used at 9pm after a long day of home visits, it is the wrong recommendation for this business.</p>
+      <p><strong>Data handling flag.</strong> This document identifies what customer data should be captured and why, but does not state specific Australian Privacy Act compliance mechanisms (retention periods, storage security specifics, disclosure wording) — those are flagged throughout for direct legal-compliance-advisor input, consistent with the same flag carried in <code>edm-plan.html</code> section 9 and <code>paid-media-plan.html</code> section 9. This plan is deliberately platform-agnostic; a specific tool is evaluated only once Adam confirms budget and appetite for a paid platform versus a spreadsheet-based start.</p>
+    </section>
+
+    <section>
+      <h2>1. CRM objectives</h2>
+      <p><strong>Customer data goals.</strong> A single, simple source of truth for every enquiry — replacing "nothing tracked" with one lead log that every channel feeds, matching the Channel Integration principle in <code>marketing-plan.html</code> ("every channel above feeds one source of truth... rather than each channel keeping its own separate record"). A realistic completeness target for year one is 100% of enquiries logged with at minimum name, car details and source — anything less defeats the purpose of building this at all.</p>
+      <p><strong>Lifecycle automation targets.</strong> Zero automation exists today. The one automation this plan recommends building (section 6) — the settlement follow-up and referral ask — should cover 100% of settled sales by month 6–9, once the intake and settlement-consent capture described in <code>edm-plan.html</code> section 2 is in place.</p>
+      <p><strong>Retention KPIs.</strong> Not applicable in the conventional repeat-purchase sense — this business's customers are almost always one-time sellers (a car sold is a car sold), so churn rate and repeat-purchase rate are the wrong frame. The equivalent retention metric here is referral rate — a satisfied past customer "retained" as an advocate, not a repeat buyer — already defined in <code>measurement-plan.html</code> under Objective 1.</p>
+      <p><strong>Data quality benchmarks.</strong> Baseline TBD — there is no existing data to measure quality against. The first quarter's benchmark is simply: is every enquiry logged, and is the source field filled in every time? Duplicate rate and field-completeness targets are premature until a full quarter of real logging exists to show what "normal" completeness looks like for this business.</p>
+    </section>
+
+    <section>
+      <h2>2. Customer data model</h2>
+      <p>A deliberately small model — four entities, no more, matched to how simple this business's actual relationships are.</p>
+      <table>
+        <thead><tr><th>Entity</th><th>Standard fields</th><th>Recommended custom fields</th><th>Data source</th></tr></thead>
+        <tbody>
+          <tr><td>Contact (the seller)</td><td>Name, phone number, suburb/region</td><td><em>Segment</em> (text: downsizer / estate-health-crisis / licence-loss / other, matched to <code>customer-profile.html</code>'s three named segments); <em>Decision-maker relationship</em> (text: self / adult child acting on behalf of / other — needed given the inverted decision-making unit described in <code>customer-profile.html</code>); <em>Communication preference</em> (text: phone confirmed as default per <code>customer-profile.html</code>, but capture if anything different is stated); <em>Email consent</em> (yes/no/date, feeding <code>edm-plan.html</code> section 2)</td><td>Captured entirely at first contact by Adam or, once hired, the second buyer</td></tr>
+          <tr><td>Vehicle</td><td>Make, model, year, condition notes, kilometres</td><td><em>Retail/wholesale routing decision</em> (text, once CQ02/CQ03 valuation-rule documentation exists — not invented here, HIGH-CONTROL-adjacent per <code>sales-process-review.html</code>)</td><td>Captured at first contact; confirmed at home visit</td></tr>
+          <tr><td>Enquiry/deal</td><td>Date of first contact, source, status (enquiry / visit booked / visit completed / sold — declined / sold — settled), settlement date</td><td><em>Lead source</em> (radio / word-of-mouth-referral / website / other — the single field <code>funnel-review.html</code> names as the biggest visibility gap); <em>Referred by</em> (text, linking to another Contact record once referral tracking begins, <code>strategic-priorities.html</code> Bet 3); <em>Adam-hours logged</em> (number, feeding the capacity-ceiling metric in <code>measurement-plan.html</code>)</td><td>Logged by whoever takes the call, updated at each stage transition (section 4)</td></tr>
+          <tr><td>Interaction/activity</td><td>Date, type (call / home visit / follow-up call / settlement-follow-up email), brief note</td><td>None beyond the standard fields — this entity is deliberately minimal, a running note rather than a structured activity system, to keep logging fast enough to survive real use</td><td>Logged in real time or same-day by Adam or the second buyer</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Sync approach between systems.</strong> At launch: none needed — a single spreadsheet or simple lead-log tool holds all four entities as one flat table per enquiry, avoiding any sync complexity entirely. Once the website rebuild (<code>website-strategy.html</code>) and <code>edm-plan.html</code>'s ESP exist, the only sync required is one-way: a new callback-request form submission creates a new Contact/Enquiry record, and a settlement-date update triggers the EDM automation in <code>edm-plan.html</code> section 4. No two-way sync, no accounting-system integration, is recommended at this scale — added complexity with no proven benefit yet.</p>
+    </section>
+
+    <section>
+      <h2>3. Lead management</h2>
+      <p><strong>Lead capture points.</strong> Today: the phone, exclusively (<code>sales-process-review.html</code>). Near-term addition: a website callback-request form (<code>website-strategy.html</code>; <code>edm-plan.html</code>), for a visitor not ready to call immediately. No paid channels, landing-page forms or events exist as capture points yet — those become relevant only once <code>paid-media-plan.html</code>'s Moderate scenario activates (Next stage), and even then the phone call remains the actual conversion point, with any form only a lower-friction first step (<code>conversion-pathway.html</code>).</p>
+      <p><strong>Lead scoring model.</strong> A formal points-based B2B-style lead-scoring model (firmographic fit plus behavioural engagement) does not fit this business — there is no "company size" or "job title" here, and behavioural signals like email opens are close to nonexistent on a list this small (<code>edm-plan.html</code>). The functional equivalent already exists in <code>sales-process-review.html</code> step 2: Adam's own qualification judgement, sorting "a genuine seller" from "a time-waster," based on car details and a short conversation. This plan recommends formalising that judgement as a simple three-question checklist — car type confirmed as one this business buys; a real car, real seller, real intent to sell (not just curiosity about price); rough condition and location within the three-region service area — rather than inventing a numeric score this business has no data to calibrate.</p>
+      <p><strong>MQL and SQL thresholds.</strong> Not applicable in the marketing-qualified/sales-qualified sense — there is no separate marketing team generating leads a sales team later qualifies; Adam (and soon the second buyer) does both in the same phone call. The equivalent distinction that matters here is <em>enquiry</em> (a call has come in) versus <em>qualified</em> (passes the three-question checklist above and a home visit is worth booking).</p>
+      <p><strong>Lead routing rules.</strong> Today: 100% to Adam, by necessity. Once a second buyer is onboarded (<code>growth-roadmap.html</code> Next stage), routing should be by geography or by whoever has capacity that week, not by deal size or a round-robin system built for a larger sales team than this one — the routing rule itself should be one sentence, agreed between Adam and the second buyer directly, not a system-enforced workflow.</p>
+      <p><strong>SLA for follow-up response time.</strong> [Hypothesis, to confirm with Adam] Given this business's entire value proposition rests on being reachable and responsive (<code>customer-profile.html</code>; <code>positioning.html</code>), a same-business-day return-call commitment for any enquiry not answered live is a reasonable starting SLA — tightened once real response-time data exists from the lead log.</p>
+    </section>
+
+    <section>
+      <h2>4. Customer lifecycle stages</h2>
+      <p>Stage names are taken directly from <code>customer-journey.html</code> and <code>messaging-by-stage.html</code>, not renamed to a generic CRM template — this keeps the CRM, the messaging brief and the conversion pathway describing the same six moments rather than three slightly different funnels.</p>
+      <table>
+        <thead><tr><th>Stage</th><th>Entry criteria</th><th>Key actions at transition</th><th>Responsible</th><th>Metric tracked</th></tr></thead>
+        <tbody>
+          <tr><td>1. Exposure</td><td>Not logged as an individual record — this stage is pre-contact (radio, word of mouth); logging begins at the next stage</td><td>None in the CRM itself; covered by <code>social-strategy.html</code> and <code>campaign-calendar.html</code></td><td>N/A</td><td>Not tracked per-contact; tracked in aggregate via <code>measurement-plan.html</code>'s channel metrics</td></tr>
+          <tr><td>2. Consideration → First contact</td><td>A phone call (or, later, a callback-request form) is received</td><td>Create the Enquiry record; log source, car details, contact preference</td><td>Adam (or second buyer, once onboarded)</td><td>Lead volume; lead source split</td></tr>
+          <tr><td>3. Qualified / visit booked</td><td>Passes the three-question checklist in section 3; a home-visit time is agreed</td><td>Update Enquiry status; log visit date</td><td>Adam / second buyer</td><td>Lead-to-visit conversion rate</td></tr>
+          <tr><td>4. Home visit and decision</td><td>The home visit has occurred and a yes/no decision has been given</td><td>Update Enquiry status (sold — settling, or declined); log Adam-hours for the visit</td><td>Adam / second buyer</td><td>Visit-to-sale conversion rate; Adam-hours per deal</td></tr>
+          <tr><td>5. Settlement and pick-up</td><td>Payment made and car collected</td><td>Update status to "settled"; log settlement date; capture EDM consent (<code>edm-plan.html</code> section 2)</td><td>Adam / second buyer</td><td>Days lead-to-settlement</td></tr>
+          <tr><td>6. Advocacy</td><td>A settled customer has been sent (or, once live, automatically triggered) the referral ask</td><td>Log referral ask sent; log any referral received against the new Contact it produces</td><td>Adam initially; the EDM automation in <code>edm-plan.html</code> section 4 once live</td><td>Referral rate and referral source</td></tr>
+        </tbody>
+      </table>
+      <p>No stage above requires the seller to do anything they are not already doing — every transition is logged by Adam or the second buyer as a byproduct of the conversation or visit that is already happening, not an extra task imposed on the customer.</p>
+    </section>
+
+    <section>
+      <h2>5. Segmentation framework</h2>
+      <p>Segmentation here serves two audiences: Adam's own operational judgement, and Maxxim's marketing reporting. Both draw from the same underlying fields — no separate segmentation system.</p>
+      <table>
+        <thead><tr><th>Segment</th><th>Definition</th><th>Size estimate approach</th><th>Primary use case</th></tr></thead>
+        <tbody>
+          <tr><td>By persona/segment</td><td>Downsizer / estate-health-crisis / licence-loss / other, per <code>customer-profile.html</code></td><td>Baseline TBD — tag every enquiry from month 1; a real split is knowable only after a full quarter of tagging</td><td>Marketing reporting (Objective 3 segment-share metrics, <code>measurement-plan.html</code>); tone-matching at first contact (<code>messaging-by-stage.html</code>)</td></tr>
+          <tr><td>By lead source</td><td>Radio / word-of-mouth-referral / website / other, per <code>funnel-review.html</code></td><td>Baseline TBD — same, month 1 onward</td><td>Marketing reporting; the single metric <code>marketing-plan.html</code> calls the most important visibility gap to close</td></tr>
+          <tr><td>By lifecycle stage</td><td>The six stages in section 4</td><td>Live count at any time, once the log exists</td><td>Operational — knowing how many enquiries are open, how many visits are booked this week</td></tr>
+          <tr><td>By engagement level (settled vs. not yet converted)</td><td>Settled customer vs. open enquiry vs. declined</td><td>Live count</td><td>EDM segmentation (<code>edm-plan.html</code> section 5) and referral targeting</td></tr>
+          <tr><td>By region</td><td>Gold Coast / Brisbane / Northern Rivers</td><td>Baseline TBD, tagged from month 1</td><td>Tracking the Northern Rivers geography claim (Bet 4, <code>strategic-priorities.html</code>; Campaign 3, <code>marketing-plan.html</code>)</td></tr>
+        </tbody>
+      </table>
+      <p>Value-tier segmentation (by sale price or gross) is not recommended — every seller receives the same fair, transparent process regardless of car value, and building a value-tier segment would risk treating sellers differently in a way that contradicts the brand's honesty-with-reasons position (<code>brand-strategy.html</code>; <code>positioning.html</code>).</p>
+    </section>
+
+    <section>
+      <h2>6. Automation workflows</h2>
+      <p>Matching the deliberately minimal approach in <code>edm-plan.html</code>, only two workflows are recommended for build in year one; the rest are named and explicitly deferred with reasons, not silently dropped.</p>
+      <h3>Workflows to build</h3>
+      <p><strong>Lead assignment.</strong> <em>Trigger:</em> a new enquiry is logged. <em>Action:</em> today, 100% routes to Adam automatically by default (no system decision needed); once a second buyer joins, route by simple geography or stated capacity for that week. <em>Timing:</em> immediate — a call should never sit unassigned. <em>Ownership:</em> Adam until a second buyer exists, then a one-line agreed rule between the two of them.</p>
+      <p><strong>Settlement follow-up and referral ask.</strong> <em>Trigger:</em> Enquiry status changes to "settled" and email consent is on file. <em>Action:</em> the single settlement-follow-up email defined in <code>edm-plan.html</code> section 4 fires. <em>Timing:</em> 3–5 days post-settlement. <em>Ownership:</em> automated once the ESP-CRM sync in section 2 exists; manually sent by Adam before that.</p>
+      <h3>Workflows explicitly deferred, with reasons</h3>
+      <ul>
+        <li><strong>Lead nurturing (MQL toward SQL).</strong> Deferred — there is no meaningful gap between "enquiry" and "qualified" for this business to nurture across; the qualification happens in a single phone call (section 3), not over a multi-touch nurture campaign.</li>
+        <li><strong>Onboarding (new customer activation).</strong> Not applicable — there is no ongoing product relationship to onboard a customer into; the transaction is complete at settlement.</li>
+        <li><strong>Renewal/upsell.</strong> Not applicable — this is a one-time transaction business by nature, not a subscription or repeat-service model.</li>
+        <li><strong>At-risk intervention (churn signals).</strong> Not applicable in the customer sense; the operationally relevant version of this idea is a capacity/business-health signal (Adam approaching his personal hours ceiling), which is tracked as a business metric in <code>measurement-plan.html</code>, not as a CRM workflow against an individual contact.</li>
+        <li><strong>Win-back.</strong> Deferred, same reasoning as <code>edm-plan.html</code> — sellers rarely have a second car to sell soon after the first; win-back does not fit this model's realistic repeat-purchase pattern.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>7. Sales &amp; marketing alignment</h2>
+      <p>There is no separate sales and marketing team today — Adam (soon Adam plus a second buyer) is the entire "sales" function, and Maxxim is the entire "marketing" function acting on his behalf. This section is therefore about alignment between Adam and Maxxim, not between two internal departments.</p>
+      <p><strong>Shared definitions.</strong> "Qualified" means passes the three-question checklist in section 3 and a home visit is booked — one definition, used identically in marketing reporting and in Adam's own operational judgement, so a lead reported as "qualified" in a monthly report means the same thing it means to Adam on the phone.</p>
+      <p><strong>Handoff process.</strong> When a channel (Facebook, Google, once <code>paid-media-plan.html</code>'s Moderate scenario is live, or a partnership referral per <code>partnership-referral-plan.html</code>) generates an enquiry, the only "handoff" is that the enquiry rings Adam's phone or arrives as a callback request — there is no separate marketing-to-sales handoff document or meeting required at this scale. The lead log is the handoff record.</p>
+      <p><strong>Feedback loops.</strong> Adam should be able to flag, informally and at the monthly review already established in <code>measurement-plan.html</code>, if a particular channel is producing poor-fit enquiries (e.g. a car type this business doesn't buy) — this feedback should adjust channel targeting in <code>paid-media-plan.html</code> and <code>social-strategy.html</code> directly, not sit unused.</p>
+      <p><strong>Shared reporting.</strong> One dashboard, not two — the same monthly report structure defined in <code>measurement-plan.html</code> serves both "sales" (Adam, checking his own pipeline and capacity) and "marketing" (Maxxim, checking channel performance) purposes, avoiding any duplicate reporting system.</p>
+      <p><strong>SLAs.</strong> Maxxim commits to tagging every marketing-generated enquiry with its true source before it reaches the lead log where possible (e.g. via a dedicated tracked phone number per <code>paid-media-plan.html</code> section 9); Adam commits to the same-business-day response SLA named in section 3, and to logging every enquiry regardless of source — the two commitments that make every other metric in this engagement trustworthy.</p>
+    </section>
+
+    <section>
+      <h2>8. Data quality &amp; governance</h2>
+      <p><strong>Data entry standards.</strong> Required fields on every Enquiry record: name, phone number, car details, source, and status — nothing else is mandatory, deliberately, to keep entry fast enough to survive real use by a busy solo operator. Naming and address formatting standards are informal at this scale (plain, consistent capitalisation is enough); a formal naming-convention document is not justified for a log this size.</p>
+      <p><strong>Deduplication approach.</strong> Match on phone number as the primary key — the one field guaranteed to be captured on every enquiry, since every enquiry starts with a call. Merge duplicate records manually; at this volume (well under 100 enquiries a month even at capacity), an automated dedup tool is not justified.</p>
+      <p><strong>Data enrichment sources.</strong> None recommended at this stage — no third-party enrichment (social profiles, firmographic data) applies to a B2C, phone-first, low-volume business like this one. The only "enrichment" that matters is Adam's own notes from the conversation.</p>
+      <p><strong>Cleanup cadence.</strong> Monthly, folded into the same monthly review already established in <code>measurement-plan.html</code> — check for missing source tags, duplicate records, and any enquiry left in an open status long past a reasonable follow-up window.</p>
+      <p><strong>Privacy compliance.</strong> [Flagged for direct legal-compliance-advisor input, no specific mechanism invented here] Customer data captured in this CRM — name, phone number, address/suburb, and eventually email consent status — is personal information under the Australian Privacy Act. This plan does not state a specific retention period, a specific storage/security standard, or specific data-subject-access-request handling process; those require qualified legal input before being adopted as policy, not a default assumed here. What this plan does recommend: capture only the fields listed in section 2 (no more than needed); store the log somewhere access-controlled, even if that is initially a password-protected spreadsheet rather than a dedicated platform; and treat any request from a customer to see, correct or delete their data as a real request to action promptly, pending confirmed process from legal-compliance-advisor.</p>
+      <p><strong>Role-based access controls.</strong> Today: one person, so access control is moot. Once a second buyer joins, both should have full access to the same single log — there is no case for restricting visibility between the only two people running the entire operation.</p>
+    </section>
+
+    <section>
+      <h2>9. Reporting &amp; dashboards</h2>
+      <p>Every report below folds into the single monthly report already defined in <code>measurement-plan.html</code> — this section maps CRM-specific reports onto that existing structure rather than creating a second reporting system.</p>
+      <table>
+        <thead><tr><th>Report</th><th>Audience</th><th>Update frequency</th><th>Key metrics</th><th>Recommended visualisation</th></tr></thead>
+        <tbody>
+          <tr><td>Pipeline health</td><td>Adam (and second buyer, once onboarded)</td><td>Weekly, informal (Now stage habit-forming, per <code>measurement-plan.html</code>)</td><td>Open enquiries by stage; visits booked this week</td><td>A simple table or list — no chart needed at this volume</td></tr>
+          <tr><td>Conversion rates by stage</td><td>Adam, Maxxim</td><td>Monthly</td><td>Lead-to-visit and visit-to-sale conversion rate</td><td>A simple two-number table; a funnel chart only once enough monthly data points exist to make a trend line meaningful</td></tr>
+          <tr><td>Lead source attribution</td><td>Maxxim (channel reporting), Adam</td><td>Monthly</td><td>Lead volume and share by source</td><td>A simple table; a pie or bar chart once source data is clean enough to be worth visualising</td></tr>
+          <tr><td>Campaign ROI</td><td>Maxxim, Adam (once <code>paid-media-plan.html</code>'s Moderate scenario is live)</td><td>Monthly</td><td>Cost per booked visit and cost per settled sale by channel (<code>paid-media-plan.html</code> section 10)</td><td>A simple table; not applicable at all under the Conservative scenario or during Now-stage instrumentation</td></tr>
+          <tr><td>Customer lifetime value equivalent (referral value)</td><td>Adam, Maxxim</td><td>Quarterly</td><td>Referral rate; referrals traced back to a specific settled customer</td><td>A simple running count, not a formal LTV model — this business's "value" concept is advocacy, not repeat purchase</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Executive dashboard.</strong> Given there is no executive layer beyond Adam himself, the "executive" view is simply the top four Objective 1 metrics from <code>measurement-plan.html</code> (lead volume, source split, conversion rates, Adam-hours per deal) reviewed at the same monthly and quarterly cadence already set there — a separate executive dashboard would be redundant at this organisation size.</p>
+      <p><strong>Sales dashboard.</strong> The pipeline-health view above, checked informally by Adam as often as he wants — this is closer to a personal working list than a formal dashboard, and should stay that simple.</p>
+      <p><strong>Marketing dashboard.</strong> Lead source attribution and campaign ROI (once paid channels are live), owned by Maxxim and shared with Adam at the same monthly review.</p>
+    </section>
+
+    <section>
+      <h2>10. Platform requirements</h2>
+      <p><strong>Must-have features.</strong> Simple contact/enquiry record-keeping; a basic pipeline/stage view; the ability to add custom fields (source, segment, referral) without needing developer support; export to spreadsheet for reporting; and — the one integration that matters — a straightforward connection or manual-export path to whichever ESP <code>edm-plan.html</code> eventually recommends, so a settlement date can trigger the follow-up email.</p>
+      <p><strong>Nice-to-have features.</strong> Built-in call logging or click-to-call from a mobile device (useful given Adam works largely from the road/home visits, not a desk); a mobile app good enough to log an enquiry from the driveway straight after a visit. AI-powered lead scoring and predictive analytics are explicitly not needed — this business's qualification judgement (section 3) is a simple three-question checklist, not a problem that benefits from a predictive model at this data volume.</p>
+      <p><strong>Integration requirements.</strong> ESP (<code>edm-plan.html</code>), once selected; the website/CMS (<code>website-strategy.html</code>), for the callback-request form to write directly into the lead log; no accounting-system or customer-support-platform integration is recommended at this scale — those add complexity with no proven benefit for a one-to-two-person operation.</p>
+      <p><strong>Platform decision, held open deliberately.</strong> This plan does not name a specific CRM product. The realistic choice is between (a) a well-structured spreadsheet with disciplined field conventions, sufficient for the lead-log-and-lifecycle model above at current volumes, and (b) a low-cost, simple CRM tool once Adam confirms budget appetite and the second buyer is in place to share the data-entry load. The decision criterion should be simplicity of daily use over feature completeness — a powerful CRM nobody keeps up to date is worse than a spreadsheet that is actually filled in every single time, which is the single biggest risk this whole plan is designed against.</p>
+      <p><strong>Migration considerations.</strong> Not applicable in the conventional sense — there is no existing CRM to migrate from or historical data to map (<code>sales-process-review.html</code>). The only "migration" is the discipline of starting to log from month 1 and not losing whatever informal notes or memory Adam currently carries about recent deals; a short retrospective capture of the last month or two of settled sales, done once at kickoff, would give the lead log a small amount of real history to start from rather than beginning entirely at zero.</p>
+    </section>
+  </body>
+</html>
