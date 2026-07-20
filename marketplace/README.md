@@ -80,13 +80,26 @@ Trust-first and warm, not flashy: forest green on bone (`--color-forest-*`,
 stat). Type: Bricolage Grotesque display over Figtree body. Shape rule —
 buttons pill, cards 16px radius, inputs 8px. Tokens in `app/globals.css`.
 
-## Deploying
+## Deploying — Cloudflare Workers
 
-Standard Next.js — deploys to Vercel unchanged, or to Cloudflare via
-`@opennextjs/cloudflare` (the repo's Workers services can point their build
-root at `marketplace/`). Set the env vars above in the host, switch
-`NEXT_PUBLIC_SITE_URL`, and put real values in `lib/config.ts` (Google
-reviews) and `components/Header.tsx` (phone number).
+The app ships with `@opennextjs/cloudflare` configured (`wrangler.jsonc`,
+`open-next.config.ts`). Locally: `npm run cf:preview` to test,
+`npm run cf:deploy` to deploy with your own Cloudflare auth.
+
+For the Git-connected `adamhall-marketplace` Workers service, set in the
+Cloudflare dashboard (Settings → Build):
+
+- **Root directory:** `marketplace`
+- **Build command:** `npx opennextjs-cloudflare build`
+- **Deploy command:** `npx opennextjs-cloudflare deploy`
+- **Build variables:** `NEXT_PUBLIC_SUPABASE_URL`,
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL`
+- **Runtime secrets** (Settings → Variables and Secrets):
+  `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`,
+  `ADMIN_NOTIFY_EMAIL`
+
+Before go-live, also put real values in `lib/config.ts` (Google reviews)
+and `components/Header.tsx` (phone number).
 
 ## What v1 deliberately leaves out
 
