@@ -33,8 +33,20 @@
 
       .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(24px, 5vw, 80px); z-index: 350; transition: background .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease); border-bottom: 1px solid transparent; }
       .header.scrolled { background: rgba(250,248,244,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--rule); }
-      .wm-logo { height: 22px; width: auto; display: block; }
-      .header-meta { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); }
+      .wm-logo { height: 22px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter .4s var(--ease); }
+      .header.scrolled .wm-logo { filter: none; }
+      .header-meta { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,244,0.72); transition: color .4s var(--ease); }
+      .header.scrolled .header-meta { color: var(--mid-grey); }
+
+      .hero-video { position: relative; overflow: hidden; background: #0b0b0d; }
+      .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+      .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(100deg, rgba(9,9,12,0.85) 0%, rgba(9,9,12,0.64) 42%, rgba(9,9,12,0.30) 72%, rgba(9,9,12,0.12) 100%); }
+      .hero-content { position: relative; z-index: 2; }
+      .hero-content .lead { color: rgba(250,248,244,0.82); }
+      .hero-video .scroll-cue { color: rgba(250,248,244,0.6); }
+      .hero-video .scroll-cue .dot { border-color: rgba(250,248,244,0.35); }
+      .hero-video .scroll-cue .dot::after { background: rgba(250,248,244,0.6); }
+      @media (prefers-reduced-motion: reduce) { .hero-bg { display: none; } }
 
       .section { position: relative; padding: clamp(90px, 13vh, 170px) clamp(24px, 6vw, 80px); }
       .section.bg-cream { background: var(--cream); }
@@ -106,6 +118,16 @@
       .demo-title .arw { color: var(--signal-blue); }
       .demo-sub { font-size: 12px; color: rgba(250,248,244,0.4); margin-top: 8px; line-height: 1.5; word-break: break-word; }
 
+      .demo-badge { display: inline-block; padding: 6px 14px; border: 1px solid var(--signal-blue); border-radius: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #7d97ff; margin-top: 24px; }
+      .creds { margin-top: 24px; border: 1px solid var(--rule-dark); border-radius: 10px; padding: 22px 26px; background: rgba(250,248,244,0.02); }
+      .creds-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,244,0.45); margin-bottom: 14px; }
+      .creds-line { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 13px; line-height: 1.7; color: rgba(250,248,244,0.55); }
+      .creds-line b { color: rgba(250,248,244,0.85); font-weight: 500; }
+      .creds-line .k { color: rgba(250,248,244,0.4); }
+
+      .btn-accept { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; padding: 16px 30px; background: var(--signal-blue); color: #fff; border-radius: 6px; font-size: 15px; font-weight: 500; text-decoration: none; transition: transform .3s var(--ease), background .3s var(--ease); }
+      .btn-accept:hover { background: #1f47e0; transform: translateY(-2px); }
+
       .closer-logo { height: 24px; filter: brightness(0) invert(1); opacity: .85; }
 
       .reveal { opacity: 0; transform: translateY(46px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
@@ -141,16 +163,20 @@
     </header>
 
     <!-- HERO -->
-    <section class="section bg-cream full">
-      <div class="wrap">
-        <p class="eyebrow reveal">Next Step · Adam Hall Buy My Car</p>
-        <h1 class="h-hero reveal">Launch it.<br />Then run it.</h1>
+    <section class="section hero-video full" id="hero">
+      <video class="hero-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
+      <div class="wrap hero-content">
+        <p class="eyebrow light reveal">Next Step · Adam Hall Buy My Car</p>
+        <h1 class="h-hero light reveal">Launch it.<br />Then run it.</h1>
         <p class="lead mt28 reveal">Finish the website, turn on the channels, and run the marketing month to month. The sequel to 15 July, from Jewell&nbsp;Projects. Nothing here commits you past the launch step.</p>
         <p class="mt28 reveal links">
-          <a class="link" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/" target="_blank" rel="noopener">See the website ↗</a>
-          <a class="link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step" target="_blank" rel="noopener">clent@jewellprojects.com</a>
+          <a class="link light" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/" target="_blank" rel="noopener">See the demo site ↗</a>
+          <a class="link light" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step" target="_blank" rel="noopener">clent@jewellprojects.com</a>
         </p>
-        <p class="note mt20 reveal">Prepared for Adam Hall · 21 July 2026</p>
+        <p class="note light mt20 reveal">Prepared for Adam Hall · 21 July 2026</p>
       </div>
       <div class="scroll-cue"><span class="dot"></span>Scroll</div>
     </section>
@@ -171,6 +197,7 @@
       <div class="wrap">
         <p class="eyebrow light reveal">02 — What you can already click</p>
         <h2 class="h-section light reveal">A working product, not a mock-up.</h2>
+        <p class="reveal"><span class="demo-badge">Demo only · not yet live</span></p>
         <div class="cols-3 mt56 stagger">
           <div>
             <div class="col-label light">The buyer side</div>
@@ -194,8 +221,12 @@
           <a class="demo-card" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/admin" target="_blank" rel="noopener">
             <div class="demo-tag">Admin back office</div>
             <div class="demo-title">Open the admin <span class="arw">↗</span></div>
-            <div class="demo-sub">Login details shared separately</div>
+            <div class="demo-sub">claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/admin</div>
           </a>
+        </div>
+        <div class="creds reveal">
+          <div class="creds-tag">Admin sign-in · demo access</div>
+          <div class="creds-line"><span><span class="k">Login</span> <b>clent@jewellprojects.com</b></span><span><span class="k">Password</span> <b>adam2026</b></span></div>
         </div>
         <p class="note light mt40 reveal">It runs on demo cars and demo settings today. Launch needs your real stock, your real photos, your phone number, a domain, and go-live configuration. The product itself works.</p>
       </div>
@@ -312,14 +343,15 @@
     <!-- 12 COMMERCIAL -->
     <section class="section bg-cream">
       <div class="wrap">
-        <p class="eyebrow reveal">12 — Commercial structure</p>
-        <h2 class="h-section reveal">Two parts: a one-off Launch, then a monthly Run.</h2>
-        <p class="body grey mt40 reveal">A one-off Launch package finishes the website, refreshes the brand and stands up the channels. A monthly Run engagement covers the always-on marketing, reporting and quarterly reviews. Both are quoted with this proposal's acceptance, the same way Stage 2 and Stage 3 were quoted at Gate 1 and Gate 2. The $5,000 from Stage 1 carries as a credit, as agreed.</p>
+        <p class="eyebrow reveal">12 — Commercial</p>
+        <h2 class="h-section reveal">Gate One: $5,000, payable on acceptance.</h2>
+        <p class="body grey mt40 reveal">Gate One covers the discovery, the strategy, the branding refresh, the website with its marketplace, and the online platform setup. One fee, payable on acceptance. The ongoing monthly run comes after launch and is quoted separately.</p>
         <div class="mt56 stagger">
-          <div class="budget-row"><div class="budget-row-label">Launch</div><div class="budget-row-mid">Website go-live, brand refresh, channel setup. On sign-off.</div><div class="budget-row-val">Quoted with this proposal · $5,000 Stage 1 credit applied</div></div>
-          <div class="budget-row"><div class="budget-row-label">Run</div><div class="budget-row-mid">Always-on marketing, reporting, quarterly reviews. After launch is live.</div><div class="budget-row-val">Monthly recurring · quoted with this proposal · reviewed quarterly</div></div>
+          <div class="budget-row"><div class="budget-row-label">Gate One</div><div class="budget-row-mid">Discovery, strategy, branding refresh, website with marketplace, online platform setup.</div><div class="budget-row-val">$5,000 · payable on acceptance</div></div>
+          <div class="budget-row"><div class="budget-row-label">Then — Run</div><div class="budget-row-mid">Always-on marketing, reporting, quarterly reviews. After launch is live.</div><div class="budget-row-val">Monthly recurring · quoted after launch</div></div>
         </div>
-        <p class="note mt28 reveal">No part starts without sign-off.</p>
+        <a class="btn-accept reveal" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step%20Acceptance" target="_blank" rel="noopener">Accept — view the Xero quote ↗</a>
+        <p class="note mt28 reveal">No stage starts without sign-off.</p>
       </div>
     </section>
 
