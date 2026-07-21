@@ -3,7 +3,7 @@ import { Lightning, Star } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug } from "@/lib/cars";
 import { getResponseStat } from "@/lib/stats";
 import { carTitle } from "@/lib/format";
-import { googleReviews } from "@/lib/config";
+import { getContent } from "@/lib/content";
 import { heroImages } from "@/lib/heroes";
 import SellFlow from "@/components/sell/SellFlow";
 import PageHero from "@/components/PageHero";
@@ -20,9 +20,10 @@ interface Props {
 
 export default async function SellPage({ searchParams }: Props) {
   const { trade } = await searchParams;
-  const [stat, tradeCar] = await Promise.all([
+  const [stat, tradeCar, content] = await Promise.all([
     getResponseStat(),
     trade ? fetchCarBySlug(trade) : Promise.resolve(null),
+    getContent(),
   ]);
 
   return (
@@ -30,13 +31,10 @@ export default async function SellPage({ searchParams }: Props) {
       <PageHero
         image={heroImages.sell}
         imageAlt="Keys changing hands over a car bonnet"
-        title="Sell your car without the circus"
+        title={content.sellHero.title}
       >
         <div>
-          <p className="text-stone-200 max-w-[52ch] text-lg">
-            About five minutes on your phone. No listing fees, no tyre-kickers,
-            no strangers at your house.
-          </p>
+          <p className="text-stone-200 max-w-[52ch] text-lg">{content.sellHero.sub}</p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             {stat && (
               <span className="inline-flex items-center gap-1.5 text-white">
@@ -46,7 +44,7 @@ export default async function SellPage({ searchParams }: Props) {
             )}
             <span className="inline-flex items-center gap-1.5 text-stone-300">
               <Star size={16} weight="fill" className="text-amber-accent" />
-              {googleReviews.rating} on Google ({googleReviews.count} reviews)
+              {content.reviews.rating} on Google ({content.reviews.count} reviews)
             </span>
           </div>
         </div>

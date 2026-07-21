@@ -6,16 +6,19 @@ import { useEffect, useState } from "react";
 import { List, X, Phone } from "@phosphor-icons/react";
 import GarageNavBadge from "@/components/garage/GarageNavBadge";
 
-const PHONE = "0400 000 000"; // placeholder until Adam's trading number is confirmed
-const PHONE_HREF = "tel:+61400000000";
-
 const links = [
   { href: "/cars", label: "Cars for sale" },
   { href: "/sell", label: "Sell your car" },
   { href: "/finance", label: "Finance" },
 ];
 
-export default function Header() {
+export default function Header({
+  phone,
+  phoneHref,
+}: {
+  phone: string;
+  phoneHref: string;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -79,7 +82,7 @@ export default function Header() {
             }`}
           />
           <a
-            href={PHONE_HREF}
+            href={phoneHref}
             className={`btn text-sm ml-2 px-6 py-2.5 ${
               transparent
                 ? "bg-white text-forest-800 hover:bg-forest-50"
@@ -87,7 +90,7 @@ export default function Header() {
             }`}
           >
             <Phone size={16} weight="bold" />
-            {PHONE}
+            {phone}
           </a>
         </nav>
 
@@ -113,9 +116,9 @@ export default function Header() {
               {l.label}
             </Link>
           ))}
-          <a href={PHONE_HREF} className="btn-primary mt-2 justify-center">
+          <a href={phoneHref} className="btn-primary mt-2 justify-center">
             <Phone size={16} weight="bold" />
-            Call {PHONE}
+            Call {phone}
           </a>
         </nav>
       )}

@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Footer() {
+export default function Footer({
+  blurb,
+  deal,
+}: {
+  blurb: string;
+  deal: string[];
+}) {
   const pathname = usePathname();
   if (pathname?.startsWith("/admin")) return null;
 
@@ -13,10 +19,7 @@ export default function Footer() {
         <div>
           <p className="font-display font-extrabold text-xl text-white">ADAM HALL</p>
           <p className="text-sm font-semibold text-forest-200 mb-3">BUY MY CAR</p>
-          <p className="text-sm leading-relaxed max-w-[36ch]">
-            Quality used cars, honestly described and fairly priced. Northern
-            NSW and the Tweed–Gold Coast border.
-          </p>
+          <p className="text-sm leading-relaxed max-w-[36ch]">{blurb}</p>
         </div>
         <div>
           <p className="font-semibold text-white mb-3">Get around</p>
@@ -35,10 +38,9 @@ export default function Footer() {
         <div>
           <p className="font-semibold text-white mb-3">The deal with us</p>
           <ul className="space-y-2 text-sm">
-            <li>Every car PPSR checked before listing</li>
-            <li>Condition described straight, faults included</li>
-            <li>Offers made within 1 business day</li>
-            <li>Settlement the same day the paperwork clears</li>
+            {deal.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
           </ul>
         </div>
       </div>

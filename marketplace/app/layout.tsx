@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Barlow, Barlow_Condensed } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getContent } from "@/lib/content";
 import "./globals.css";
 
 // Barlow superfamily: the condensed cut carries highway-signage /
@@ -38,15 +39,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const content = await getContent();
   return (
     <html lang="en-AU" className={`${barlowCondensed.variable} ${barlow.variable}`}>
       <body className="min-h-dvh flex flex-col">
-        <Header />
+        <Header phone={content.phone.display} phoneHref={content.phone.tel} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer blurb={content.footer.blurb} deal={content.footer.deal} />
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { fetchPublicCars } from "@/lib/cars";
+import { getContent } from "@/lib/content";
 import { heroImages } from "@/lib/heroes";
 import CarsBrowser from "@/components/CarsBrowser";
 import WatchlistForm from "@/components/WatchlistForm";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function CarsPage() {
-  const cars = await fetchPublicCars();
+  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const makes = [...new Set(cars.map((c) => c.make))].sort();
 
   return (
@@ -23,13 +24,9 @@ export default async function CarsPage() {
       <PageHero
         image={heroImages.cars}
         imageAlt="The current row of stock on the lot"
-        title="Cars for sale"
+        title={content.carsHero.title}
       >
-        <p className="text-stone-200 max-w-[60ch] text-lg">
-          Around 25 cars pass through here every month, so the good ones
-          don&apos;t hang about. Sold cars stay up for a month so you can see
-          what moves.
-        </p>
+        <p className="text-stone-200 max-w-[60ch] text-lg">{content.carsHero.sub}</p>
       </PageHero>
 
       <div className="max-w-6xl mx-auto px-4 py-10">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
+import { getContent } from "@/lib/content";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
 import CarHero from "@/components/CarHero";
@@ -235,7 +236,7 @@ export default async function CarDetailPage({ params }: Props) {
         )}
       </div>
 
-      <MobileActionBar phoneHref="tel:+61400000000" carId={car.id} sold={sold} />
+      <MobileActionBar phoneHref={(await getContent()).phone.tel} carId={car.id} sold={sold} />
     </>
   );
 }

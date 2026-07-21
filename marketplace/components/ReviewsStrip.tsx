@@ -1,11 +1,12 @@
 import { Star } from "@phosphor-icons/react/dist/ssr";
-import { googleReviews } from "@/lib/config";
+import { getContent } from "@/lib/content";
 
 // Reviews flow right-to-left in a continuous strip. The quote set is
 // repeated so the -50% translate loops seamlessly at any viewport width;
 // hover pauses it and reduced-motion users get a static row.
-export default function ReviewsStrip() {
-  const quotes = [...googleReviews.quotes, ...googleReviews.quotes];
+export default async function ReviewsStrip() {
+  const { reviews } = await getContent();
+  const quotes = [...reviews.quotes, ...reviews.quotes];
 
   const cards = quotes.map((q, i) => (
     <figure
@@ -31,7 +32,7 @@ export default function ReviewsStrip() {
             ))}
           </div>
           <p className="font-semibold">
-            {googleReviews.rating} from {googleReviews.count} Google reviews
+            {reviews.rating} from {reviews.count} Google reviews
           </p>
           <span className="text-xs text-forest-200/80 basis-full sm:basis-auto">
             Sample reviews shown while the live Google feed is connected

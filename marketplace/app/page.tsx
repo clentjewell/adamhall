@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, CaretDown, ShieldCheck, Clock, HandCoins } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
+import { getContent } from "@/lib/content";
 import { heroImages, heroVideo } from "@/lib/heroes";
 import CarCard from "@/components/CarCard";
 import HeroVideo from "@/components/HeroVideo";
@@ -11,7 +12,7 @@ import Marquee from "@/components/motion/Marquee";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
 export default async function HomePage() {
-  const cars = await fetchPublicCars();
+  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const live = cars.filter((c) => c.status === "published");
   const latest = live.slice(0, 4);
   const makes = [...new Set(live.map((c) => c.make))].sort();
@@ -32,26 +33,25 @@ export default async function HomePage() {
           <HeroStagger className="max-w-2xl">
             <HeroItem>
               <h1 className="font-display font-extrabold text-5xl md:text-7xl uppercase tracking-normal leading-[0.95] text-white">
-                Good cars. Straight answers. Money that moves fast.
+                {content.hero.headline}
               </h1>
             </HeroItem>
             <HeroItem>
               <p className="mt-5 text-lg md:text-xl text-stone-200 leading-relaxed max-w-[44ch]">
-                Every car here is one Adam picked, checked and priced himself.
-                What we say about it is what you get.
+                {content.hero.subtext}
               </p>
             </HeroItem>
             <HeroItem>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/cars" className="btn bg-white text-forest-800 hover:bg-forest-50 px-7 py-3.5 text-base">
-                  Browse the cars
+                  {content.hero.ctaPrimary}
                   <ArrowRight size={18} weight="bold" />
                 </Link>
                 <Link
                   href="/sell"
                   className="btn border-2 border-white/70 text-white hover:bg-white/10 px-7 py-3.5 text-base"
                 >
-                  Sell your car
+                  {content.hero.ctaSecondary}
                 </Link>
               </div>
             </HeroItem>
@@ -77,23 +77,11 @@ export default async function HomePage() {
       {/* Why people deal with Adam */}
       <section id="why" className="border-b border-stone-200 bg-white">
         <div className="max-w-6xl mx-auto px-4 py-12 grid gap-8 sm:grid-cols-3">
-          {[
-            {
-              icon: ShieldCheck,
-              title: "Checked before listed",
-              body: "PPSR, service books and an honest once-over on every single car.",
-            },
-            {
-              icon: HandCoins,
-              title: "The price is the price",
-              body: "No add-on games at the desk. The number on the car is the deal.",
-            },
-            {
-              icon: Clock,
-              title: "Settlements that settle",
-              body: "Paperwork done properly and funds moved the same day it clears.",
-            },
-          ].map((item, i) => (
+          {content.why.map((point, i) => ({
+            icon: [ShieldCheck, HandCoins, Clock][i % 3],
+            title: point.title,
+            body: point.body,
+          })).map((item, i) => (
             <Reveal key={item.title} delay={i * 0.08}>
               <div className="flex gap-3.5">
                 <item.icon size={28} className="text-forest-600 shrink-0" weight="duotone" />
@@ -148,19 +136,17 @@ export default async function HomePage() {
             <div className="relative md:flex items-center justify-between gap-8">
               <div>
                 <h2 className="font-display font-bold text-2xl md:text-3xl">
-                  Selling? Adam will look at it today.
+                  {content.sellBand.heading}
                 </h2>
                 <p className="mt-3 text-forest-100 max-w-[52ch] leading-relaxed">
-                  Five minutes on your phone: rego, a few photos, done. Adam
-                  personally reviews every car and comes back with a real number
-                  within one business day.
+                  {content.sellBand.body}
                 </p>
               </div>
               <Link
                 href="/sell"
                 className="btn bg-white text-forest-700 hover:bg-forest-50 px-6 py-3 mt-6 md:mt-0 shrink-0"
               >
-                Start with your rego
+                {content.sellBand.cta}
                 <ArrowRight size={18} weight="bold" />
               </Link>
             </div>
