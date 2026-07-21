@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Next Step: Launch and Run — Adam Hall Buy My Car</title>
+<meta name="description" content="Proposal covering the next step for Adam Hall Buy My Car: finish and launch the website, stand up the online channels, and run the marketing month to month.">
+<meta name="maxxim:client" content="adam-hall">
+<meta name="maxxim:phase" content="admin-proposal">
+<meta name="maxxim:generated" content="2026-07-21">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #16211b;
+    --paper: #f4f5f2;
+    --card: #ffffff;
+    --forest-50: #eef4f0;
+    --forest-100: #d8e6dd;
+    --forest-200: #b0cdbb;
+    --forest-500: #2e6e4e;
+    --forest-600: #1e5c41;
+    --forest-700: #174a34;
+    --forest-800: #123a29;
+    --amber: #c47b0a;
+    --amber-soft: #fdf3e2;
+    --stone-200: #e2e0da;
+    --stone-300: #cac7bd;
+    --font-display: "Barlow Condensed", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--forest-700); }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--forest-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--forest-700);
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Header band */
+  .hero {
+    background: linear-gradient(160deg, var(--forest-800), var(--forest-700) 60%, var(--forest-600));
+    color: var(--paper);
+    padding: 56px 0 44px;
+  }
+  .hero .eyebrow {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest-100);
+    margin: 0 0 14px;
+  }
+  .hero h1 {
+    color: #ffffff;
+    font-size: clamp(32px, 5vw, 46px);
+    margin: 0 0 16px;
+    max-width: 22ch;
+  }
+  .hero .subtitle {
+    font-size: 19px;
+    font-style: italic;
+    color: var(--forest-50);
+    margin: 0 0 22px;
+    max-width: 56ch;
+    line-height: 1.55;
+  }
+  .hero .dateline {
+    font-size: 15px;
+    color: var(--forest-100);
+    margin: 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(244, 245, 242, 0.2);
+    display: inline-block;
+  }
+
+  /* Minimal table of contents */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--stone-200);
+    border-radius: 16px;
+    margin: -28px 0 40px;
+    padding: 18px 22px;
+    box-shadow: 0 6px 20px -12px rgba(23, 74, 52, 0.25);
+  }
+  .toc p {
+    margin: 0 0 10px;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest-600);
+  }
+  .toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  .toc a {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--forest-700);
+    background: var(--forest-50);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .toc a:hover { background: var(--forest-100); }
+
+  main { padding-bottom: 24px; }
+
+  section {
+    margin: 0 0 46px;
+    break-inside: avoid-page;
+  }
+
+  section h2 {
+    font-size: 26px;
+    margin: 0 0 18px;
+    padding-top: 4px;
+  }
+
+  section h3 {
+    font-size: 19px;
+    color: var(--forest-600);
+    margin: 0 0 8px;
+  }
+
+  p { margin: 0 0 16px; }
+  section > p:last-child { margin-bottom: 0; }
+
+  strong { color: var(--forest-800); }
+
+  /* Demo link cards */
+  .demo-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 22px 0;
+  }
+  @media (max-width: 620px) {
+    .demo-links { grid-template-columns: 1fr; }
+  }
+  .demo-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--stone-200);
+    border-radius: 16px;
+    padding: 20px 22px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px -14px rgba(23, 74, 52, 0.35);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .demo-card:hover {
+    border-color: var(--forest-500);
+    transform: translateY(-2px);
+  }
+  .demo-card .label {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest-600);
+    margin-bottom: 8px;
+  }
+  .demo-card .link-text {
+    display: block;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 17px;
+    word-break: break-word;
+  }
+  .demo-card .link-text::after {
+    content: " →";
+    color: var(--forest-500);
+  }
+  .demo-card .note {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    font-style: italic;
+    color: #4b5b52;
+  }
+
+  /* Buyer / seller / admin trio */
+  .trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 0;
+  }
+  @media (max-width: 700px) {
+    .trio { grid-template-columns: 1fr; }
+  }
+  .trio-card {
+    background: var(--card);
+    border: 1px solid var(--stone-200);
+    border-radius: 16px;
+    padding: 20px;
+    break-inside: avoid;
+  }
+  .trio-card h3 {
+    margin: 0 0 10px;
+  }
+  .trio-card p { margin: 0; font-size: 16px; }
+
+  /* Tables */
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--stone-200);
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: 0 8px 20px -16px rgba(23, 74, 52, 0.3);
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+  }
+  thead th {
+    background: var(--forest-700);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+  tbody td {
+    padding: 14px 20px;
+    font-size: 16px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--stone-200);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: var(--forest-50); }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .checklist li {
+    background: var(--card);
+    border: 1px solid var(--stone-200);
+    border-radius: 12px;
+    padding: 14px 18px 14px 46px;
+    position: relative;
+    font-size: 16px;
+  }
+  .checklist li::before {
+    content: "";
+    position: absolute;
+    left: 16px;
+    top: 17px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--forest-500);
+    border-radius: 4px;
+  }
+
+  /* Callout for the naming decision / open call */
+  .callout {
+    background: var(--amber-soft);
+    border: 1px solid #eccf9a;
+    border-left: 4px solid var(--amber);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 18px 0 0;
+    font-size: 16px;
+  }
+  .callout strong { color: var(--forest-800); }
+
+  .commercial-note {
+    font-size: 16px;
+    margin-top: 18px;
+  }
+
+  footer {
+    border-top: 1px solid var(--stone-300);
+    padding: 28px 0 48px;
+    margin-top: 12px;
+  }
+  footer p {
+    margin: 0;
+    font-size: 15px;
+    color: #4b5b52;
+  }
+
+  @media print {
+    body { background: #ffffff; }
+    .hero { background: #ffffff !important; color: var(--ink) !important; padding: 20px 0; }
+    .hero .eyebrow,
+    .hero .subtitle,
+    .hero .dateline { color: var(--forest-700) !important; }
+    .hero h1 { color: var(--forest-700) !important; }
+    .toc { display: none; }
+    .demo-card,
+    .trio-card,
+    .table-scroll,
+    .checklist li,
+    .callout {
+      box-shadow: none !important;
+    }
+    section, table, .demo-card, .trio-card, .checklist li {
+      break-inside: avoid;
+    }
+    a { color: var(--forest-700); text-decoration: underline; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Jewell Projects</p>
+    <h1>Adam Hall Buy My Car — Next Step: Launch and Run</h1>
+    <p class="subtitle">Finish the website, turn on the channels, and run the marketing month to month.</p>
+    <p class="dateline">21 July 2026 · Prepared for Adam Hall</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Section navigation">
+    <p>On this page</p>
+    <ul>
+      <li><a href="#purpose">Purpose</a></li>
+      <li><a href="#where-things-stand">Where things stand</a></li>
+      <li><a href="#what-you-can-already-click">What you can click</a></li>
+      <li><a href="#next-step-at-a-glance">At a glance</a></li>
+      <li><a href="#strategy-and-brand-refresh">Strategy and brand</a></li>
+      <li><a href="#website">Website</a></li>
+      <li><a href="#online-channels">Online channels</a></li>
+      <li><a href="#social">Social</a></li>
+      <li><a href="#search">Search and AI search</a></li>
+      <li><a href="#email">Email</a></li>
+      <li><a href="#paid-ads">Paid ads</a></li>
+      <li><a href="#monthly">Monthly run</a></li>
+      <li><a href="#commercial-structure">Commercial structure</a></li>
+      <li><a href="#what-we-need">What we need</a></li>
+      <li><a href="#next-step">Next step</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <section id="purpose" aria-labelledby="purpose-h">
+      <h2 id="purpose-h">Purpose</h2>
+      <p>This proposal is the sequel to the one from 15 July. That one set out three stages: Discover, Design, Deploy. Since then we have drafted the full strategy and brand direction, and we have built a working website you can click through today. This document covers what comes next: refresh the strategy and brand where they need it, finish and launch the site, stand up your online channels, and run always-on marketing every month. Nothing here commits you past the launch step. You sign off, we start, and the monthly work only begins once the launch is live.</p>
+    </section>
+
+    <section id="where-things-stand" aria-labelledby="wts-h">
+      <h2 id="wts-h">Where things stand</h2>
+      <p>The strategy is drafted and it largely holds. The positioning is sound: you sell relief to people 60 to 75 and older across the Gold Coast, Brisbane and the Northern Rivers who want an honest number and their money in the account, not a negotiation. You attend every visit yourself. That is the whole business, and it is right.</p>
+      <p>The brand direction is set too. We called it a tickle-up, not a rebuild, and that still stands. The palette, type and voice get locked in a brand book refresh once you make one open call, which we come to below.</p>
+      <p>The new thing is the website. We have built a working e-commerce marketplace as a live product, not a slide. You can open it and use it right now.</p>
+
+      <div class="demo-links">
+        <a class="demo-card" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/" target="_blank" rel="noopener noreferrer">
+          <span class="label">Marketplace</span>
+          <span class="link-text">claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev</span>
+        </a>
+        <a class="demo-card" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/admin" target="_blank" rel="noopener noreferrer">
+          <span class="label">Admin</span>
+          <span class="link-text">/admin</span>
+          <span class="note">(login details shared separately)</span>
+        </a>
+      </div>
+
+      <p>It runs on demo cars and demo settings today. Launch needs your real stock, your real photos, your phone number, a domain, and go-live configuration. The product itself works.</p>
+    </section>
+
+    <section id="what-you-can-already-click" aria-labelledby="wycac-h">
+      <h2 id="wycac-h">What you can already click</h2>
+      <div class="trio">
+        <div class="trio-card">
+          <h3>The buyer side</h3>
+          <p>Every car has its own page with a photo gallery, a PPSR badge, its inspection and service history, and your take written in plain words. There is a slot for a walk-around video, and buttons to enquire or book a look. Buyers filter the inventory by what they want, and sold cars stay visible for thirty days before they archive themselves.</p>
+        </div>
+        <div class="trio-card">
+          <h3>The seller side</h3>
+          <p>A four-step form takes a seller from rego to condition to photos to contact, and it saves as they go so nobody loses their place. Once they submit, they get a status page they can check any time with no account and no login. From any car page a seller can start a trade-in in the same flow.</p>
+        </div>
+        <div class="trio-card">
+          <h3>The admin back office</h3>
+          <p>This is where your judgement lives in software. Submissions move through a pipeline from New to Reviewing to Offer made to Accepted, Declined or Settled. A valuation worksheet holds your offer, the expected retail and the recon, and works the margin out for you. You send a templated offer or a kind decline in one click. There is an enquiries inbox, an inventory manager, and a settlement checklist that covers PPSR, the payout letter, ID, rego transfer and funds, with every tick stamped with who did it and when. Nothing about money or paperwork happens without you.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="next-step-at-a-glance" aria-labelledby="nsag-h">
+      <h2 id="nsag-h">The next step at a glance</h2>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">Workstream</th><th scope="col">What happens</th><th scope="col">What you get</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Strategy and brand refresh</td><td>Confirm the positioning, make the naming call, lock the brand book</td><td>A settled brand that looks and sounds like you</td></tr>
+            <tr><td>Website</td><td>Load real stock and photos, wire the domain and phone, go live</td><td>A live marketplace selling your cars</td></tr>
+            <tr><td>Online channels</td><td>Claim and verify Google Business Profile, start the review engine</td><td>Public proof starting to build from zero</td></tr>
+            <tr><td>Social</td><td>Facebook posting plus every car on Facebook Marketplace</td><td>Your stock where local buyers already scroll</td></tr>
+            <tr><td>Search and AI search</td><td>Technical foundation now, content next</td><td>Found on Google and quoted by AI assistants</td></tr>
+            <tr><td>Email</td><td>Consent-only list, settlement follow-up automation</td><td>A referral ask that goes out on its own</td></tr>
+            <tr><td>Paid ads</td><td>Gated until the lead log and call tracking are live</td><td>Spend that starts only when it can be measured</td></tr>
+            <tr><td>Monthly run</td><td>Always-on marketing, reporting, quarterly reviews</td><td>A machine that keeps moving without you steering it</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="strategy-and-brand-refresh" aria-labelledby="sbr-h">
+      <h2 id="sbr-h">Strategy and brand refresh</h2>
+      <p>Most of the thinking is done and it holds, so this is a tidy-up rather than a fresh start. We confirm the positioning against what the last few months have taught us, and we lock the brand book: palette, type and voice.</p>
+      <p>One call is yours to make first. The signed brand direction put a question on the table (CQ11): keep trading under your own name, or build a brand that could one day be sold without you in the room. We recommend a staged path that keeps Adam Hall Buy My Car on the door while building The Adam Hall Standard alongside it, so you get the trust of your name now and something sellable later. That is a decision for you, and the brand book waits on it.</p>
+    </section>
+
+    <section id="website" aria-labelledby="website-h">
+      <h2 id="website-h">Website: finish and launch</h2>
+      <p>The build works end to end. Launch is a short list of real inputs and a go-live.</p>
+      <p>We load your actual stock with real photos, set your phone number so calls come to you, connect a domain, and switch the site from demo settings to live. We check the enquiry and book-a-look forms land in your inbox, confirm the seller status pages work end to end, and walk the admin pipeline once with you so it feels familiar before the first real car goes through it. Then we publish.</p>
+      <p>Money, ID, finance owing, ownership, rego transfer and settlement stay in your hands. The settlement checklist supports you through each step. It does not do any of it for you.</p>
+    </section>
+
+    <section id="online-channels" aria-labelledby="oc-h">
+      <h2 id="oc-h">Online channels: Google Business Profile and the proof engine</h2>
+      <p>Here is the honest part. You have no independent public reviews today. That is the single biggest gap between you and a stranger deciding to trust you, and it is the first thing we fix.</p>
+      <p>We claim and verify your Google Business Profile, set one name, one address and one phone number everywhere they appear, list all three service areas, put you in the car-buying-service category, and add real photos. Then we build the review engine: a systematic, scripted ask that goes to customers after settlement, so public proof starts to accumulate from zero. Rex in Kyogle already says he will only sell his cars to you. The job is to capture that and multiply it.</p>
+    </section>
+
+    <section id="social" aria-labelledby="social-h">
+      <h2 id="social-h">Social, ongoing: Facebook and Facebook Marketplace</h2>
+      <p>Your audience is on Facebook, so Facebook is the platform. We start at two posts a week and build to three or four, across five content pillars led by A Person, Not a Company and Relief, Not Another Task.</p>
+      <p>Facebook Marketplace is new in this proposal, and it fits your buyers well. We syndicate every car in stock to Facebook Marketplace, with each listing linking back to your website. Your cars show up where local people already scroll, and every conversation lands back on your own site where you control it.</p>
+      <p>4CRB stays your anchor, unchanged. A decade on air and more than ten thousand live valuations since 2010 is a reach most dealers would pay anything for, and it keeps doing its job. We systemise the referral ask around all of it: scripted, tracked, and asked every time rather than when you remember.</p>
+    </section>
+
+    <section id="search" aria-labelledby="search-h">
+      <h2 id="search-h">Search and AI search: now and next</h2>
+      <p>You asked in July for the site to be visible to AI chatbots and generative search, not only Google. That splits cleanly into now and next.</p>
+      <p><strong>Now.</strong> Most of the technical foundation ships with the build already: every car page carries Vehicle structured data, per-car social previews and a sitemap. We add LocalBusiness and FAQ structured data, connect Google Search Console, publish an llms.txt file, stand up the Google Business Profile, and set a baseline so any movement is measurable. GEO means getting quoted when someone asks an assistant how to sell their dad's car near Tweed Heads. That comes from structured data plus plain FAQ answers written so an assistant can lift them whole.</p>
+      <p><strong>Next.</strong> Once the foundation is settling, we write content on the two clusters where nobody competes: the Northern Rivers, and estate or health-driven sales such as selling a parent's car. We add review structured data once real reviews exist. Town-level pages for Lismore, Ballina, Kyogle and Pottsville wait until regional traffic proves they are worth building.</p>
+    </section>
+
+    <section id="email" aria-labelledby="email-h">
+      <h2 id="email-h">Email</h2>
+      <p>Email starts from zero and stays consent-only. We only ever email settled customers and people who enquired through the site. We never buy a list.</p>
+      <p>The first automation is the one that earns its keep straight away: a single settlement follow-up and referral ask, sent three to five days after a car settles, written in your voice. On the buyer side, the site can already alert someone when a car they want comes in, and the enquiry, offer and decline emails already send from the admin. A newsletter and longer sequences wait until the list is real enough to be worth the effort.</p>
+    </section>
+
+    <section id="paid-ads" aria-labelledby="ads-h">
+      <h2 id="ads-h">Paid ads: when and how</h2>
+      <p>We keep the July gate on this, because it protects your money. No spend until one full month of lead-log baseline exists and call tracking is live. The phone call is the conversion in your business, so tracking calls is not optional.</p>
+      <p>Once that is in place, we run two channels. Facebook to two audiences only: downsizers 55 and up, and adult children 35 to 55 handling a parent's car, both geo-fenced to your areas. Google on search only, on high-intent terms like "sell my car gold coast" and the low-competition "sell my father's car" cluster. Manual bidding the first month so we see what is really happening before anything scales. We size the budget once you confirm your spend history (CQ18).</p>
+    </section>
+
+    <section id="monthly" aria-labelledby="monthly-h">
+      <h2 id="monthly-h">How it runs month to month</h2>
+      <p>Once launch is live, the work becomes a monthly rhythm through Maxxim, our engine for keeping campaigns and content moving without you managing them day to day. JewellAI keeps your documented operating system current, so new calls and situations fold back in and it does not go stale. You get a report every month, and a face-to-face review every quarter to check progress toward $7M.</p>
+      <p>The approved roadmap already has the dates: first reviews at 30, 60 and 90 days land on 19 August, 18 September and 18 October 2026, with quarterly gates from 18 October 2026.</p>
+    </section>
+
+    <section id="commercial-structure" aria-labelledby="cs-h">
+      <h2 id="cs-h">Commercial structure</h2>
+      <p>The next step comes in two parts. A one-off Launch package finishes the website, refreshes the brand and stands up the channels. A monthly Run engagement covers the always-on marketing, reporting and quarterly reviews. Both are quoted with this proposal's acceptance, the same way Stage 2 and Stage 3 were quoted at Gate 1 and Gate 2. The $5,000 from Stage 1 carries as a credit, as agreed.</p>
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th scope="col">Part</th><th scope="col">What it covers</th><th scope="col">When</th><th scope="col">Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Launch</td><td>Website go-live, brand refresh, channel setup</td><td>On sign-off</td><td>Quoted with this proposal; $5,000 Stage 1 credit applied</td></tr>
+            <tr><td>Run</td><td>Always-on marketing, reporting, quarterly reviews</td><td>After launch is live</td><td>Monthly recurring, quoted with this proposal, reviewed quarterly</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="commercial-note">No part starts without sign-off.</p>
+    </section>
+
+    <section id="what-we-need" aria-labelledby="wwn-h">
+      <h2 id="wwn-h">What we need from you</h2>
+      <ul class="checklist">
+        <li>The naming call (CQ11): your own name, or a sellable brand built alongside it.</li>
+        <li>Your ad spend history (CQ18), so we can size the paid budget honestly.</li>
+        <li>Access to your Google Business Profile, or your go-ahead to claim it.</li>
+        <li>Admin rights on your Facebook page.</li>
+        <li>A decision on the domain you want.</li>
+        <li>The phone number that calls should ring on.</li>
+        <li>Your real stock list with real photos.</li>
+        <li>Your blessing to ask your first settled customers for a review.</li>
+        <li>A yes or no on using named testimonials once customers give consent.</li>
+      </ul>
+    </section>
+
+    <section id="next-step" aria-labelledby="ns-h">
+      <h2 id="ns-h">Next step</h2>
+      <p>Sign this off and we set a launch date, load your first real cars, and go live. The first monthly cycle begins the day the site is public.</p>
+      <p>Contact: Clent Jewell · clent@jewellprojects.com</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Jewell Projects · Clent Jewell · clent@jewellprojects.com</p>
+  </div>
+</footer>
+
+</body>
+</html>

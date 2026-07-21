@@ -24,6 +24,7 @@ Within each phase folder (01–03), documents promote upward: draft material sta
 | n/a | Next Phase Proposal – notes | Final | `00 Admin/08 Proposal + Pricing/2026-07-14__Next-Phase-Proposal__notes.md` |
 | n/a | Next Phase Proposal – deck | Final v01 | `00 Admin/08 Proposal + Pricing/JP_AdamHall_NextPhaseProposal_v01.pptx` |
 | n/a | Engagement Proposal – 3-stage commercial proposal | Review v01 | `00 Admin/08 Proposal + Pricing/JP_AdamHall_EngagementProposal_v01.docx` and `EngagementProposal__AdamHall__Client__v01.md` |
+| PROP2 | Next Step Proposal – Launch and Run (website launch, channels, monthly run) | Review v01 | `00 Admin/08 Proposal + Pricing/NextStepProposal__AdamHall__Client__v01.md` and `NextStepProposal__AdamHall__Client__v01.html` |
 | n/a | Artifact Registry – master tracker of every output | Live | `00 Admin/Artifact-Registry/Artifact-Registry.md` |
 | D06 | Discovery Pack Synthesis | Draft v01 | `01 Discover/02 Working Drafts/D06__Discovery-Pack-Synthesis__AdamHall__Draft__v01.md` and `JP_AdamHall_D06_DiscoveryPackSynthesis_v01.docx` |
 | DS | Design Phase Strategy | Draft v01 | `02 Design/01 Strategy/DS__Design-Phase-Strategy__AdamHall__Draft__v01.md` and `JP_AdamHall_DesignStrategy_v01.docx` |
@@ -35,7 +36,7 @@ Within each phase folder (01–03), documents promote upward: draft material sta
 
 ## Current status
 
-The engagement sits at proposal and sign-off stage. All three 3D phase documents – Discover (D06), Design (DS) and Deploy (DD00) – are Draft v01 and pre-validation, built from the March discovery set and general knowledge of the business rather than Adam's own words. They move to v02 once Adam has answered the 22 CORE questions in the live mapping sessions. The Intelligence Brief is the living source of truth for current state and updates in place as new judgement is captured. KH00 is the front door to all of it.
+The engagement sits at proposal and sign-off stage. A second, next-step proposal (PROP2, 21 July) covers finishing and launching the built marketplace, standing up Google Business Profile and social channels including Facebook Marketplace, SEO/GEO, email and gated paid ads, then the monthly run. All three 3D phase documents – Discover (D06), Design (DS) and Deploy (DD00) – are Draft v01 and pre-validation, built from the March discovery set and general knowledge of the business rather than Adam's own words. They move to v02 once Adam has answered the 22 CORE questions in the live mapping sessions. The Intelligence Brief is the living source of truth for current state and updates in place as new judgement is captured. KH00 is the front door to all of it.
 
 ## Where to start
 
