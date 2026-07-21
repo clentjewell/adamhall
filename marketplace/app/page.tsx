@@ -11,8 +11,6 @@ import ReviewsStrip from "@/components/ReviewsStrip";
 import Marquee from "@/components/motion/Marquee";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
-export const revalidate = 60;
-
 export default async function HomePage() {
   const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const live = cars.filter((c) => c.status === "published");
