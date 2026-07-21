@@ -10,6 +10,9 @@ export interface ReviewQuote {
   text: string;
   author: string;
   suburb: string;
+  /** Optional reviewer photo. Falls back to an initials monogram when absent
+   *  (e.g. sample reviews). Real Google reviewer photos slot in here later. */
+  avatar?: string;
 }
 
 export interface SiteContent {

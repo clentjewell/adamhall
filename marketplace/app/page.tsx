@@ -7,7 +7,7 @@ import { heroImages, heroVideo, homeHeroImage } from "@/lib/heroes";
 import CarCard from "@/components/CarCard";
 import HeroVideo from "@/components/HeroVideo";
 import QuickSearch from "@/components/home/QuickSearch";
-import ReviewsStrip from "@/components/ReviewsStrip";
+import Reviews from "@/components/Reviews";
 import Marquee from "@/components/motion/Marquee";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
@@ -170,7 +170,11 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      <ReviewsStrip />
+      <Reviews
+        rating={content.reviews.rating}
+        count={content.reviews.count}
+        quotes={content.reviews.quotes}
+      />
     </>
   );
 }
