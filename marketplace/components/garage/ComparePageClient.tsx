@@ -36,8 +36,10 @@ interface Row {
 
 export default function ComparePageClient() {
   const [loading, setLoading] = useState(true);
+  const [failed, setFailed] = useState(false);
   const [ids, setIds] = useState<string[]>([]);
   const [cars, setCars] = useState<Car[]>([]);
+  const [nonce, setNonce] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -47,20 +49,28 @@ export default function ComparePageClient() {
       setIds(compareIds);
       if (compareIds.length === 0) {
         setCars([]);
+        setFailed(false);
         setLoading(false);
         return;
       }
       setLoading(true);
-      const supabase = createClient();
-      const { data, error } = await supabase.from("cars").select("*").in("id", compareIds);
-      if (cancelled) return;
-      if (error) {
-        console.error("ComparePageClient:", error.message);
-        setCars([]);
-      } else {
+      setFailed(false);
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.from("cars").select("*").in("id", compareIds);
+        if (cancelled) return;
+        if (error) throw new Error(error.message);
         setCars((data ?? []) as Car[]);
+      } catch (err) {
+        // Never leave the page stuck on the skeleton — surface a retry
+        // instead if the fetch rejects (network, config, etc.).
+        if (cancelled) return;
+        console.error("ComparePageClient:", err);
+        setCars([]);
+        setFailed(true);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      setLoading(false);
     }
 
     load();
@@ -69,7 +79,7 @@ export default function ComparePageClient() {
       cancelled = true;
       unsubscribe();
     };
-  }, []);
+  }, [nonce]);
 
   const orderedCars = ids
     .map((id) => cars.find((c) => c.id === id))
@@ -87,6 +97,28 @@ export default function ComparePageClient() {
               <div className="skeleton h-4 w-1/2" />
             </div>
           ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (failed) {
+    return (
+      <div className="max-w-6xl mx-auto px-4 py-10">
+        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+        <div className="card p-10 text-center">
+          <p className="font-display font-bold text-lg">Couldn&apos;t load these cars</p>
+          <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
+            Something went wrong reaching our cars just now. Check your
+            connection and try again.
+          </p>
+          <button
+            type="button"
+            onClick={() => setNonce((n) => n + 1)}
+            className="btn-primary mt-5 inline-flex"
+          >
+            Try again
+          </button>
         </div>
       </div>
     );
