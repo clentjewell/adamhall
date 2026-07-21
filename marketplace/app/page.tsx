@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowRight, CaretDown, ShieldCheck, Clock, HandCoins } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
-import { heroImages, heroVideo } from "@/lib/heroes";
+import { heroImages, heroVideo, homeHeroImage } from "@/lib/heroes";
 import CarCard from "@/components/CarCard";
 import HeroVideo from "@/components/HeroVideo";
 import QuickSearch from "@/components/home/QuickSearch";
@@ -25,8 +25,8 @@ export default async function HomePage() {
       <section data-header-tone="dark" className="relative min-h-[100dvh] -mt-16 flex items-end">
         <HeroVideo
           src={heroVideo}
-          poster={heroImages.home}
-          posterAlt="The Adam Hall forecourt at dusk"
+          poster={homeHeroImage}
+          posterAlt="Adam shaking hands on a straight car deal in the driveway"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/15" />
         <div className="relative w-full max-w-6xl mx-auto px-4 pb-20 pt-40">

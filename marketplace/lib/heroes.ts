@@ -8,9 +8,11 @@ export const heroImages = {
   sell: `${base}/sell.jpg`,
 };
 
-// Looping blueprint animation behind the home hero; heroImages.home is its
-// poster and reduced-motion/save-data fallback.
-export const heroVideo = `${base}/hero-loop.mp4`;
+// Looping film behind the home hero — Adam closing a straight deal in the
+// driveway, animated from his own brand photography and served as a static
+// asset. homeHeroImage is its poster and reduced-motion / save-data fallback.
+export const heroVideo = "/brand/home-hero.mp4";
+export const homeHeroImage = "/brand/home-hero.jpg";
 
 // Looping film behind the About Adam hero, served as a static asset. The
 // forecourt still (heroImages.home) is its poster and reduced-motion /
