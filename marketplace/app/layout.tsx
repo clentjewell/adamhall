@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Barlow, Barlow_Condensed } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
+// Barlow superfamily: the condensed cut carries highway-signage /
+// motorsport DNA for display type, the regular cut keeps body copy plain
+// and legible. One family, one voice — sturdy, not flashy.
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-barlow-condensed",
   display: "swap",
 });
 
-const figtree = Figtree({
+const barlow = Barlow({
   subsets: ["latin"],
-  variable: "--font-figtree",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -37,7 +42,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-AU" className={`${bricolage.variable} ${figtree.variable}`}>
+    <html lang="en-AU" className={`${barlowCondensed.variable} ${barlow.variable}`}>
       <body className="min-h-dvh flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>

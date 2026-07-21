@@ -7,6 +7,7 @@ import CarCard from "@/components/CarCard";
 import HeroVideo from "@/components/HeroVideo";
 import QuickSearch from "@/components/home/QuickSearch";
 import ReviewsStrip from "@/components/ReviewsStrip";
+import Marquee from "@/components/motion/Marquee";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
 export default async function HomePage() {
@@ -30,7 +31,7 @@ export default async function HomePage() {
         <div className="relative w-full max-w-6xl mx-auto px-4 pb-20 pt-40">
           <HeroStagger className="max-w-2xl">
             <HeroItem>
-              <h1 className="font-display font-extrabold text-4xl md:text-6xl tracking-tight leading-[1.02] text-white">
+              <h1 className="font-display font-extrabold text-5xl md:text-7xl uppercase tracking-normal leading-[0.95] text-white">
                 Good cars. Straight answers. Money that moves fast.
               </h1>
             </HeroItem>
@@ -69,6 +70,9 @@ export default async function HomePage() {
           </a>
         </div>
       </section>
+
+      {/* What's on the lot right now */}
+      <Marquee items={[...new Set(live.map((c) => `${c.make} ${c.model}`))]} />
 
       {/* Why people deal with Adam */}
       <section id="why" className="border-b border-stone-200 bg-white">

@@ -34,7 +34,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-display font-bold text-lg leading-snug text-ink">
+        <h3 className="font-display font-bold text-xl leading-snug text-ink group-hover:text-forest-700 transition-colors">
           {carTitle(car)}
         </h3>
         <p className="mt-1 text-xl font-extrabold text-forest-700">
