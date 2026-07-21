@@ -10,12 +10,14 @@ import {
   House,
   PencilSimpleLine,
   SignOut,
+  Sparkle,
   Tray,
 } from "@phosphor-icons/react";
 import { signOut } from "@/app/actions/admin";
 
 const items = [
   { href: "/admin", label: "Dashboard", icon: House, exact: true },
+  { href: "/admin/adam-ai", label: "Adam AI", icon: Sparkle, exact: false },
   { href: "/admin/submissions", label: "Submissions", icon: Tray, exact: false },
   { href: "/admin/inventory", label: "Inventory", icon: Garage, exact: false },
   { href: "/admin/enquiries", label: "Enquiries", icon: ChatCircleDots, exact: false },
