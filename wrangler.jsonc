@@ -1,0 +1,13 @@
+{
+  // Adam Hall proposal — static web deck served by the `adamhall` Cloudflare Worker.
+  // Config lives at the repo root so the Cloudflare Git integration (deploy_command
+  // `npx wrangler deploy`, root_directory `/`) deploys it automatically on push.
+  // Assets-only Worker (no server code): serves ./site/public from Cloudflare's edge.
+  // https://developers.cloudflare.com/workers/static-assets/
+  "name": "adamhall",
+  "compatibility_date": "2026-07-15",
+  "assets": {
+    "directory": "./site/public",
+    "not_found_handling": "single-page-application"
+  }
+}

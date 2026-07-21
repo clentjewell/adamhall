@@ -1,0 +1,13 @@
+{
+  "name": "adamhall-proposal-deck",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Adam Hall Operating System — proposal web deck. Deployed to the `adamhall` Cloudflare Worker (static assets) via the repo's Git integration.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.110.0"
+  }
+}

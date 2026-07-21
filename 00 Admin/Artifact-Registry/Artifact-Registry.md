@@ -13,6 +13,8 @@ Single inventory of every artefact in this repository. Update this table wheneve
 | DS | Design Phase Strategy | Design | Draft | v01 | `02 Design/01 Strategy/` |
 | DD00 | Deploy Launch Playbook | Deploy | Draft | v01 | `03 Deploy/01 Launch Plan/` |
 | PROP | Engagement Proposal (3-stage) | Admin | Review | v01 | `00 Admin/08 Proposal + Pricing/` |
+| PCOPY | Proposal Copy — Cloudflare Preso (slide-by-slide) | Admin | Draft | v01 | `00 Admin/08 Proposal + Pricing/ProposalCopy__AdamHall__CloudflarePreso__Draft__v01.md` |
+| DECK-WEB | Proposal web deck (live) — Cloudflare Worker `adamhall` (Git-integration auto-deploy), https://adamhall.clent.workers.dev/ | Admin | Live | v01 | `wrangler.jsonc` · `site/public/` |
 | DECK | Next Phase Proposal deck | Admin | Final | v01 | `00 Admin/08 Proposal + Pricing/` |
 | MTG | Business OS Intro — notes + transcript | Admin | Final | — | `00 Admin/02 Meeting Notes/` · `meetings/` |
 | SOP | Orchestration SOP (Jewell OS) | Blueprint | Live | v01 | `05 Blueprint Extraction/ORCHESTRATION-SOP.md` |
