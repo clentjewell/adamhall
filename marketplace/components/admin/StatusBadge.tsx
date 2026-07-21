@@ -19,7 +19,7 @@ const styles: Record<string, string> = {
 export default function StatusBadge({ status }: { status: string }) {
   const label =
     SUBMISSION_STATUS_LABELS[status as SubmissionStatus] ??
-    status.charAt(0).toUpperCase() + status.slice(1);
+    (status.charAt(0).toUpperCase() + status.slice(1)).replaceAll("_", " ");
   return (
     <span
       className={`inline-block text-xs font-bold px-2.5 py-1 rounded-full ${styles[status] ?? "bg-stone-200 text-stone-600"}`}

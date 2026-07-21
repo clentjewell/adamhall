@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { UploadSimple, X } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, Star, UploadSimple, X } from "@phosphor-icons/react";
 import { saveCar, type CarInput } from "@/app/actions/admin";
 import { compressImage } from "@/lib/upload";
 import { createClient } from "@/lib/supabase/client";
@@ -122,7 +122,7 @@ export default function CarForm({ car }: { car: Car | null }) {
             <div key={p.url} className="relative aspect-[3/2] rounded-lg overflow-hidden bg-stone-100 group">
               <Image src={p.url} alt={p.alt ?? `Photo ${i + 1}`} fill sizes="200px" className="object-cover" />
               {i === 0 && (
-                <span className="absolute bottom-1 left-1 bg-ink/70 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
+                <span className="absolute bottom-1 left-1 bg-forest-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
                   HERO
                 </span>
               )}
@@ -134,6 +134,55 @@ export default function CarForm({ car }: { car: Car | null }) {
               >
                 <X size={12} weight="bold" />
               </button>
+              <div className="absolute bottom-1 right-1 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                {i > 0 && (
+                  <button
+                    type="button"
+                    aria-label={`Make photo ${i + 1} the hero`}
+                    title="Make hero"
+                    onClick={() =>
+                      setPhotos((ps) => [ps[i], ...ps.filter((_, j) => j !== i)])
+                    }
+                    className="bg-ink/70 text-white rounded-full p-1"
+                  >
+                    <Star size={12} weight="bold" />
+                  </button>
+                )}
+                {i > 0 && (
+                  <button
+                    type="button"
+                    aria-label={`Move photo ${i + 1} earlier`}
+                    title="Move left"
+                    onClick={() =>
+                      setPhotos((ps) => {
+                        const next = [...ps];
+                        [next[i - 1], next[i]] = [next[i], next[i - 1]];
+                        return next;
+                      })
+                    }
+                    className="bg-ink/70 text-white rounded-full p-1"
+                  >
+                    <ArrowLeft size={12} weight="bold" />
+                  </button>
+                )}
+                {i < photos.length - 1 && (
+                  <button
+                    type="button"
+                    aria-label={`Move photo ${i + 1} later`}
+                    title="Move right"
+                    onClick={() =>
+                      setPhotos((ps) => {
+                        const next = [...ps];
+                        [next[i], next[i + 1]] = [next[i + 1], next[i]];
+                        return next;
+                      })
+                    }
+                    className="bg-ink/70 text-white rounded-full p-1"
+                  >
+                    <ArrowRight size={12} weight="bold" />
+                  </button>
+                )}
+              </div>
             </div>
           ))}
         </div>
