@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   ArrowSquareOut,
   Bank,
+  BookOpen,
   ChartBar,
   ChatCircleDots,
   Garage,
@@ -25,6 +26,7 @@ const items = [
   { href: "/admin/finance", label: "Finance", icon: Bank, exact: false },
   { href: "/admin/content", label: "Site copy", icon: PencilSimpleLine, exact: false },
   { href: "/admin/analytics", label: "Analytics", icon: ChartBar, exact: false },
+  { href: "/admin/guide", label: "Site guide", icon: BookOpen, exact: false },
 ];
 
 export default function AdminNav({ adminName }: { adminName: string }) {
