@@ -11,3 +11,8 @@ export const heroImages = {
 // Looping blueprint animation behind the home hero; heroImages.home is its
 // poster and reduced-motion/save-data fallback.
 export const heroVideo = `${base}/hero-loop.mp4`;
+
+// Looping film behind the About Adam hero, served as a static asset. The
+// forecourt still (heroImages.home) is its poster and reduced-motion /
+// save-data fallback.
+export const aboutHeroVideo = "/brand/about-hero.mp4";

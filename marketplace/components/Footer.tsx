@@ -14,7 +14,7 @@ export default function Footer({
   if (pathname?.startsWith("/admin")) return null;
 
   return (
-    <footer className="bg-ink text-stone-300 mt-16">
+    <footer data-header-tone="dark" className="bg-ink text-stone-300 mt-16">
       <div className="max-w-6xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-3">
         <div>
           <p className="font-display font-extrabold text-xl text-white">ADAM HALL</p>

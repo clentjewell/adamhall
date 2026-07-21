@@ -25,7 +25,7 @@ export default function CarHero({
   const current = photos[Math.min(active, Math.max(photos.length - 1, 0))];
 
   return (
-    <section className="relative h-[52vh] min-h-[360px] md:h-[68vh] bg-ink">
+    <section data-header-tone="dark" className="relative -mt-16 h-[52vh] min-h-[360px] md:h-[68vh] bg-ink">
       {current ? (
         <AnimatePresence initial={false}>
           <motion.div

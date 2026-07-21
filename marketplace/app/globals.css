@@ -25,6 +25,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep in-page anchors clear of the sticky header. */
+  scroll-padding-top: 5rem;
 }
 
 body {

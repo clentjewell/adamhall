@@ -12,7 +12,7 @@ import {
   Phone,
 } from "@phosphor-icons/react/dist/ssr";
 import PageHero from "@/components/PageHero";
-import { heroImages } from "@/lib/heroes";
+import { heroImages, aboutHeroVideo } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -77,6 +77,8 @@ export default async function AboutPage() {
       <PageHero
         image={heroImages.home}
         imageAlt="Adam Hall on the forecourt"
+        video={aboutHeroVideo}
+        tall
         title={content.about.title}
         titleEditPath="about.title"
       >
