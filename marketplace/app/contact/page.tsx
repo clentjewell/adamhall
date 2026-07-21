@@ -8,7 +8,7 @@ import {
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 import PageHero from "@/components/PageHero";
-import { heroImages } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -27,8 +27,9 @@ export default async function ContactPage() {
   return (
     <>
       <PageHero
-        image={heroImages.cars}
-        imageAlt="The yard, ready for visitors"
+        image={pageHeroImages.contact}
+        video={pageHeroVideos.contact}
+        imageAlt="Adam, ready to help"
         title={content.contact.title}
         titleEditPath="contact.title"
       >

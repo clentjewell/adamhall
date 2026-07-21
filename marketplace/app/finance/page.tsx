@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ChatText, HandCoins, PenNib } from "@phosphor-icons/react/dist/ssr";
-import { heroImages } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
 import PageHero from "@/components/PageHero";
 import FinanceCalculator from "@/components/FinanceCalculator";
@@ -21,8 +21,9 @@ export default async function FinancePage() {
   return (
     <>
       <PageHero
-        image={heroImages.cars}
-        imageAlt="Keys resting on a finance paperwork folder"
+        image={pageHeroImages.finance}
+        video={pageHeroVideos.finance}
+        imageAlt="Adam at his desk, ready to talk finance"
         title={content.financePage.title}
         titleEditPath="financePage.title"
       >

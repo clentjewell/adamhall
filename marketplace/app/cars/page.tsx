@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
-import { heroImages } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import CarsBrowser from "@/components/CarsBrowser";
 import WatchlistForm from "@/components/WatchlistForm";
 import PageHero from "@/components/PageHero";
@@ -22,8 +22,9 @@ export default async function CarsPage() {
   return (
     <>
       <PageHero
-        image={heroImages.cars}
-        imageAlt="The current row of stock on the lot"
+        image={pageHeroImages.cars}
+        video={pageHeroVideos.cars}
+        imageAlt="Adam alongside a car on the lot"
         title={content.carsHero.title}
         titleEditPath="carsHero.title"
       >

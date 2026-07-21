@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
-import { heroImages } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -43,8 +43,9 @@ export default async function FaqPage() {
   return (
     <>
       <PageHero
-        image={heroImages.home}
-        imageAlt="Cars lined up on the yard"
+        image={pageHeroImages.faq}
+        video={pageHeroVideos.faq}
+        imageAlt="Adam in the driveway"
         title={content.faq.title}
         titleEditPath="faq.title"
       >

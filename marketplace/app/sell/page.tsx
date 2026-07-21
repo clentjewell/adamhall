@@ -4,7 +4,7 @@ import { fetchCarBySlug } from "@/lib/cars";
 import { getResponseStat } from "@/lib/stats";
 import { carTitle } from "@/lib/format";
 import { getContent } from "@/lib/content";
-import { heroImages } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import SellFlow from "@/components/sell/SellFlow";
 import PageHero from "@/components/PageHero";
 
@@ -29,8 +29,9 @@ export default async function SellPage({ searchParams }: Props) {
   return (
     <>
       <PageHero
-        image={heroImages.sell}
-        imageAlt="Keys changing hands over a car bonnet"
+        image={pageHeroImages.sell}
+        video={pageHeroVideos.sell}
+        imageAlt="Adam checking over a car's engine"
         title={content.sellHero.title}
         titleEditPath="sellHero.title"
       >
