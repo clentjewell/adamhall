@@ -21,7 +21,7 @@ export default async function GuidePage() {
           </p>
         </div>
         <a
-          href="/site-guide.html"
+          href="/site-guide"
           target="_blank"
           rel="noopener noreferrer"
           className="btn-secondary text-sm shrink-0"
@@ -33,7 +33,7 @@ export default async function GuidePage() {
 
       <div className="card overflow-hidden !p-0">
         <iframe
-          src="/site-guide.html"
+          src="/site-guide"
           title="Buy My Car — site guide"
           className="w-full h-[calc(100dvh-11rem)] min-h-[520px] border-0 bg-ink"
         />
