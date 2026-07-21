@@ -144,7 +144,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
   const empty = messages.length === 0;
 
   const historyList = (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full min-w-0">
       <button
         onClick={newChat}
         className="btn-primary justify-center text-sm m-3 mb-2 shrink-0"
@@ -167,8 +167,8 @@ export default function AdamAI({ configured }: { configured: boolean }) {
                 currentId.current === s.id ? "bg-forest-50" : "hover:bg-stone-100"
               }`}
             >
-              <div className="flex items-center gap-1.5">
-                <p className="flex-1 truncate text-sm font-medium text-ink">{s.title}</p>
+              <div className="flex items-center gap-1.5 min-w-0">
+                <p className="flex-1 min-w-0 truncate text-sm font-medium text-ink">{s.title}</p>
                 <span
                   role="button"
                   tabIndex={0}
