@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
 import EditModeBridge from "@/components/EditModeBridge";
+import SiteJsonLd from "@/components/SiteJsonLd";
 import { getContent } from "@/lib/content";
 import "./globals.css";
 
@@ -48,6 +49,7 @@ export default async function RootLayout({
   return (
     <html lang="en-AU" className={`${barlowCondensed.variable} ${barlow.variable}`}>
       <body className="min-h-dvh flex flex-col">
+        <SiteJsonLd />
         <TopLoader />
         <EditModeBridge />
         <Header phone={content.phone.display} phoneHref={content.phone.tel} />
