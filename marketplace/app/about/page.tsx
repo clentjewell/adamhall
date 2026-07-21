@@ -78,7 +78,6 @@ export default async function AboutPage() {
         image={heroImages.home}
         imageAlt="Adam Hall on the forecourt"
         video={aboutHeroVideo}
-        tall
         title={content.about.title}
         titleEditPath="about.title"
       >
