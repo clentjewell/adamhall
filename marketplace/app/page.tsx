@@ -11,6 +11,8 @@ import ReviewsStrip from "@/components/ReviewsStrip";
 import Marquee from "@/components/motion/Marquee";
 import { Reveal, HeroStagger, HeroItem, CardReveal } from "@/components/motion/Reveal";
 
+export const revalidate = 60;
+
 export default async function HomePage() {
   const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const live = cars.filter((c) => c.status === "published");
@@ -32,26 +34,32 @@ export default async function HomePage() {
         <div className="relative w-full max-w-6xl mx-auto px-4 pb-20 pt-40">
           <HeroStagger className="max-w-2xl">
             <HeroItem>
-              <h1 className="font-display font-extrabold text-5xl md:text-7xl uppercase tracking-normal leading-[0.95] text-white">
+              <h1
+                data-edit="hero.headline"
+                className="font-display font-extrabold text-5xl md:text-7xl uppercase tracking-normal leading-[0.95] text-white"
+              >
                 {content.hero.headline}
               </h1>
             </HeroItem>
             <HeroItem>
-              <p className="mt-5 text-lg md:text-xl text-stone-200 leading-relaxed max-w-[44ch]">
+              <p
+                data-edit="hero.subtext"
+                className="mt-5 text-lg md:text-xl text-stone-200 leading-relaxed max-w-[44ch]"
+              >
                 {content.hero.subtext}
               </p>
             </HeroItem>
             <HeroItem>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href="/cars" className="btn bg-white text-forest-800 hover:bg-forest-50 px-7 py-3.5 text-base">
-                  {content.hero.ctaPrimary}
+                  <span data-edit="hero.ctaPrimary">{content.hero.ctaPrimary}</span>
                   <ArrowRight size={18} weight="bold" />
                 </Link>
                 <Link
                   href="/sell"
                   className="btn border-2 border-white/70 text-white hover:bg-white/10 px-7 py-3.5 text-base"
                 >
-                  {content.hero.ctaSecondary}
+                  <span data-edit="hero.ctaSecondary">{content.hero.ctaSecondary}</span>
                 </Link>
               </div>
             </HeroItem>
@@ -86,8 +94,12 @@ export default async function HomePage() {
               <div className="flex gap-3.5">
                 <item.icon size={28} className="text-forest-600 shrink-0" weight="duotone" />
                 <div>
-                  <p className="font-bold">{item.title}</p>
-                  <p className="text-sm text-stone-600 mt-1">{item.body}</p>
+                  <p data-edit={`why.${i}.title`} className="font-bold">
+                    {item.title}
+                  </p>
+                  <p data-edit={`why.${i}.body`} className="text-sm text-stone-600 mt-1">
+                    {item.body}
+                  </p>
                 </div>
               </div>
             </Reveal>
@@ -135,10 +147,16 @@ export default async function HomePage() {
             <div className="absolute inset-0 bg-forest-800/85" />
             <div className="relative md:flex items-center justify-between gap-8">
               <div>
-                <h2 className="font-display font-bold text-2xl md:text-3xl">
+                <h2
+                  data-edit="sellBand.heading"
+                  className="font-display font-bold text-2xl md:text-3xl"
+                >
                   {content.sellBand.heading}
                 </h2>
-                <p className="mt-3 text-forest-100 max-w-[52ch] leading-relaxed">
+                <p
+                  data-edit="sellBand.body"
+                  className="mt-3 text-forest-100 max-w-[52ch] leading-relaxed"
+                >
                   {content.sellBand.body}
                 </p>
               </div>
@@ -146,7 +164,7 @@ export default async function HomePage() {
                 href="/sell"
                 className="btn bg-white text-forest-700 hover:bg-forest-50 px-6 py-3 mt-6 md:mt-0 shrink-0"
               >
-                {content.sellBand.cta}
+                <span data-edit="sellBand.cta">{content.sellBand.cta}</span>
                 <ArrowRight size={18} weight="bold" />
               </Link>
             </div>

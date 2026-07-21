@@ -25,8 +25,11 @@ export default async function CarsPage() {
         image={heroImages.cars}
         imageAlt="The current row of stock on the lot"
         title={content.carsHero.title}
+        titleEditPath="carsHero.title"
       >
-        <p className="text-stone-200 max-w-[60ch] text-lg">{content.carsHero.sub}</p>
+        <p data-edit="carsHero.sub" className="text-stone-200 max-w-[60ch] text-lg">
+          {content.carsHero.sub}
+        </p>
       </PageHero>
 
       <div className="max-w-6xl mx-auto px-4 py-10">

@@ -26,8 +26,15 @@ export default async function ContactPage() {
 
   return (
     <>
-      <PageHero image={heroImages.cars} imageAlt="The yard, ready for visitors" title={content.contact.title}>
-        <p className="text-stone-200 max-w-[56ch] text-lg">{content.contact.sub}</p>
+      <PageHero
+        image={heroImages.cars}
+        imageAlt="The yard, ready for visitors"
+        title={content.contact.title}
+        titleEditPath="contact.title"
+      >
+        <p data-edit="contact.sub" className="text-stone-200 max-w-[56ch] text-lg">
+          {content.contact.sub}
+        </p>
       </PageHero>
 
       <div className="max-w-6xl mx-auto px-4 py-16">
@@ -55,7 +62,7 @@ export default async function ContactPage() {
               <p className="text-sm text-stone-500 mt-1">
                 Best for anything that isn't urgent.
               </p>
-              <p className="mt-3 font-display font-bold text-xl text-forest-700">
+              <p data-edit="contact.email" className="mt-3 font-display font-bold text-xl text-forest-700">
                 {content.contact.email}
               </p>
             </div>
@@ -65,7 +72,10 @@ export default async function ContactPage() {
             <div className="card p-6 h-full">
               <MapPin size={26} weight="fill" className="text-forest-600" />
               <p className="font-bold mt-3">Location</p>
-              <p className="text-sm text-stone-600 mt-1 leading-relaxed whitespace-pre-line">
+              <p
+                data-edit="contact.address"
+                className="text-sm text-stone-600 mt-1 leading-relaxed whitespace-pre-line"
+              >
                 {content.contact.address}
               </p>
               <div className="mt-4 aspect-video card !border-stone-200 bg-stone-100 flex items-center justify-center text-center px-4">
@@ -87,8 +97,15 @@ export default async function ContactPage() {
                 <tbody>
                   {content.contact.hours.map((row, i) => (
                     <tr key={row.days + i} className="border-t border-stone-100 first:border-t-0">
-                      <td className="py-2 text-stone-600">{row.days}</td>
-                      <td className="py-2 text-right font-semibold text-ink">{row.hours}</td>
+                      <td data-edit={`contact.hours.${i}.days`} className="py-2 text-stone-600">
+                        {row.days}
+                      </td>
+                      <td
+                        data-edit={`contact.hours.${i}.hours`}
+                        className="py-2 text-right font-semibold text-ink"
+                      >
+                        {row.hours}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -8,19 +8,27 @@ export default async function ReviewsStrip() {
   const { reviews } = await getContent();
   const quotes = [...reviews.quotes, ...reviews.quotes];
 
-  const cards = quotes.map((q, i) => (
-    <figure
-      key={i}
-      className="w-[340px] md:w-[400px] shrink-0 rounded-2xl bg-forest-700/60 border border-forest-500/30 p-6"
-    >
-      <blockquote className="text-forest-50 leading-relaxed">
-        &ldquo;{q.text}&rdquo;
-      </blockquote>
-      <figcaption className="mt-3 text-sm font-semibold text-forest-200">
-        {q.author}, {q.suburb}
-      </figcaption>
-    </figure>
-  ));
+  const cards = quotes.map((q, i) => {
+    const orig = i % reviews.quotes.length;
+    return (
+      <figure
+        key={i}
+        className="w-[340px] md:w-[400px] shrink-0 rounded-2xl bg-forest-700/60 border border-forest-500/30 p-6"
+      >
+        <blockquote
+          data-edit={`reviews.quotes.${orig}.text`}
+          className="text-forest-50 leading-relaxed"
+        >
+          &ldquo;{q.text}&rdquo;
+        </blockquote>
+        <figcaption className="mt-3 text-sm font-semibold text-forest-200">
+          <span data-edit={`reviews.quotes.${orig}.author`}>{q.author}</span>
+          {", "}
+          <span data-edit={`reviews.quotes.${orig}.suburb`}>{q.suburb}</span>
+        </figcaption>
+      </figure>
+    );
+  });
 
   return (
     <section aria-label="Customer reviews" className="bg-forest-800 text-white overflow-hidden">

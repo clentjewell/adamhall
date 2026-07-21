@@ -32,9 +32,12 @@ export default async function SellPage({ searchParams }: Props) {
         image={heroImages.sell}
         imageAlt="Keys changing hands over a car bonnet"
         title={content.sellHero.title}
+        titleEditPath="sellHero.title"
       >
         <div>
-          <p className="text-stone-200 max-w-[52ch] text-lg">{content.sellHero.sub}</p>
+          <p data-edit="sellHero.sub" className="text-stone-200 max-w-[52ch] text-lg">
+            {content.sellHero.sub}
+          </p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
             {stat && (
               <span className="inline-flex items-center gap-1.5 text-white">

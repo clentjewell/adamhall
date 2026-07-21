@@ -24,8 +24,11 @@ export default async function FinancePage() {
         image={heroImages.cars}
         imageAlt="Keys resting on a finance paperwork folder"
         title={content.financePage.title}
+        titleEditPath="financePage.title"
       >
-        <p className="text-stone-200 max-w-[52ch] text-lg">{content.financePage.sub}</p>
+        <p data-edit="financePage.sub" className="text-stone-200 max-w-[52ch] text-lg">
+          {content.financePage.sub}
+        </p>
       </PageHero>
 
       <div className="max-w-6xl mx-auto px-4 py-12">
@@ -47,8 +50,15 @@ export default async function FinancePage() {
                 <Reveal key={step.title + i} delay={i * 0.08}>
                   <div className="text-center">
                     <Icon size={32} className="text-forest-600 mx-auto" weight="duotone" />
-                    <p className="font-bold mt-3">{step.title}</p>
-                    <p className="text-sm text-stone-600 mt-1 leading-relaxed">{step.body}</p>
+                    <p data-edit={`financePage.steps.${i}.title`} className="font-bold mt-3">
+                      {step.title}
+                    </p>
+                    <p
+                      data-edit={`financePage.steps.${i}.body`}
+                      className="text-sm text-stone-600 mt-1 leading-relaxed"
+                    >
+                      {step.body}
+                    </p>
                   </div>
                 </Reveal>
               );

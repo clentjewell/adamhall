@@ -19,7 +19,9 @@ export default function Footer({
         <div>
           <p className="font-display font-extrabold text-xl text-white">ADAM HALL</p>
           <p className="text-sm font-semibold text-forest-200 mb-3">BUY MY CAR</p>
-          <p className="text-sm leading-relaxed max-w-[36ch]">{blurb}</p>
+          <p data-edit="footer.blurb" className="text-sm leading-relaxed max-w-[36ch]">
+            {blurb}
+          </p>
         </div>
         <div>
           <p className="font-semibold text-white mb-3">Get around</p>
@@ -38,8 +40,10 @@ export default function Footer({
         <div>
           <p className="font-semibold text-white mb-3">The deal with us</p>
           <ul className="space-y-2 text-sm">
-            {deal.map((point) => (
-              <li key={point}>{point}</li>
+            {deal.map((point, i) => (
+              <li key={point} data-edit={`footer.deal.${i}`}>
+                {point}
+              </li>
             ))}
           </ul>
         </div>

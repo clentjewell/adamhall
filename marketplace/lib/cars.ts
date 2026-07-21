@@ -1,10 +1,21 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import type { Car } from "@/lib/types";
+
+// Cookie-less anon client — no request cookies touched, so pages calling
+// these stay cacheable (ISR via `export const revalidate`) instead of
+// being forced dynamic.
+function anonClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    { auth: { persistSession: false } },
+  );
+}
 
 // RLS already limits anon reads to published + recently sold cars; the
 // 30-day sold window is enforced in the policy itself.
 export async function fetchPublicCars(): Promise<Car[]> {
-  const supabase = await createClient();
+  const supabase = anonClient();
   const { data, error } = await supabase
     .from("cars")
     .select("*")
@@ -18,7 +29,7 @@ export async function fetchPublicCars(): Promise<Car[]> {
 }
 
 export async function fetchCarBySlug(slug: string): Promise<Car | null> {
-  const supabase = await createClient();
+  const supabase = anonClient();
   const { data, error } = await supabase
     .from("cars")
     .select("*")

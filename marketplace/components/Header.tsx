@@ -90,7 +90,7 @@ export default function Header({
             }`}
           >
             <Phone size={16} weight="bold" />
-            {phone}
+            <span data-edit="phone.display">{phone}</span>
           </a>
         </nav>
 
@@ -118,7 +118,7 @@ export default function Header({
           ))}
           <a href={phoneHref} className="btn-primary mt-2 justify-center">
             <Phone size={16} weight="bold" />
-            Call {phone}
+            Call <span data-edit="phone.display">{phone}</span>
           </a>
         </nav>
       )}

@@ -22,7 +22,9 @@ export default async function FaqPage() {
   }
   const groups = groupNames.map((name) => ({
     title: name,
-    items: items.filter((item) => item.group === name),
+    items: items
+      .map((item, idx) => ({ ...item, idx }))
+      .filter((item) => item.group === name),
   }));
 
   const jsonLd = {
@@ -40,8 +42,15 @@ export default async function FaqPage() {
 
   return (
     <>
-      <PageHero image={heroImages.home} imageAlt="Cars lined up on the yard" title={content.faq.title}>
-        <p className="text-stone-200 max-w-[56ch] text-lg">{content.faq.sub}</p>
+      <PageHero
+        image={heroImages.home}
+        imageAlt="Cars lined up on the yard"
+        title={content.faq.title}
+        titleEditPath="faq.title"
+      >
+        <p data-edit="faq.sub" className="text-stone-200 max-w-[56ch] text-lg">
+          {content.faq.sub}
+        </p>
       </PageHero>
 
       <div className="max-w-3xl mx-auto px-4 py-16 space-y-14">
@@ -55,12 +64,14 @@ export default async function FaqPage() {
                 {group.items.map((item, i) => (
                   <details key={group.title + i} className="card group">
                     <summary className="font-semibold cursor-pointer p-4 list-none flex items-center justify-between gap-4">
-                      {item.q}
+                      <span data-edit={`faq.items.${item.idx}.q`}>{item.q}</span>
                       <span className="text-forest-600 shrink-0 transition-transform group-open:rotate-45 text-xl leading-none">
                         +
                       </span>
                     </summary>
-                    <p className="p-4 pt-0 text-stone-600 leading-relaxed">{item.a}</p>
+                    <p data-edit={`faq.items.${item.idx}.a`} className="p-4 pt-0 text-stone-600 leading-relaxed">
+                      {item.a}
+                    </p>
                   </details>
                 ))}
               </div>

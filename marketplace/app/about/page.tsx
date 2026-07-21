@@ -74,16 +74,27 @@ export default async function AboutPage() {
 
   return (
     <>
-      <PageHero image={heroImages.home} imageAlt="Adam Hall on the forecourt" title={content.about.title}>
-        <p className="text-stone-200 max-w-[56ch] text-lg">{content.about.sub}</p>
+      <PageHero
+        image={heroImages.home}
+        imageAlt="Adam Hall on the forecourt"
+        title={content.about.title}
+        titleEditPath="about.title"
+      >
+        <p data-edit="about.sub" className="text-stone-200 max-w-[56ch] text-lg">
+          {content.about.sub}
+        </p>
       </PageHero>
 
       {/* How Adam works */}
       {firstSection && (
         <section className="max-w-6xl mx-auto px-4 py-16">
           <Reveal>
-            <h2 className="font-display font-bold text-2xl md:text-3xl">{firstSection.heading}</h2>
-            <p className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">{firstSection.body}</p>
+            <h2 data-edit="about.sections.0.heading" className="font-display font-bold text-2xl md:text-3xl">
+              {firstSection.heading}
+            </h2>
+            <p data-edit="about.sections.0.body" className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">
+              {firstSection.body}
+            </p>
           </Reveal>
         </section>
       )}
@@ -116,8 +127,12 @@ export default async function AboutPage() {
           <Reveal>
             <div className="card p-8 md:p-10 bg-forest-50/60 !border-forest-100 md:flex items-center justify-between gap-8">
               <div>
-                <h2 className="font-display font-bold text-2xl md:text-3xl">{secondSection.heading}</h2>
-                <p className="mt-3 text-stone-600 leading-relaxed max-w-[52ch]">{secondSection.body}</p>
+                <h2 data-edit="about.sections.1.heading" className="font-display font-bold text-2xl md:text-3xl">
+                  {secondSection.heading}
+                </h2>
+                <p data-edit="about.sections.1.body" className="mt-3 text-stone-600 leading-relaxed max-w-[52ch]">
+                  {secondSection.body}
+                </p>
               </div>
               <Link href="/sell" className="btn-primary mt-6 md:mt-0 shrink-0">
                 Sell your car
@@ -131,12 +146,19 @@ export default async function AboutPage() {
       {/* Any additional about sections an admin has added */}
       {restSections.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 pb-16 space-y-10">
-          {restSections.map((section, i) => (
-            <Reveal key={section.heading + i} delay={i * 0.06}>
-              <h2 className="font-display font-bold text-2xl md:text-3xl">{section.heading}</h2>
-              <p className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">{section.body}</p>
-            </Reveal>
-          ))}
+          {restSections.map((section, i) => {
+            const idx = i + 2;
+            return (
+              <Reveal key={section.heading + i} delay={i * 0.06}>
+                <h2 data-edit={`about.sections.${idx}.heading`} className="font-display font-bold text-2xl md:text-3xl">
+                  {section.heading}
+                </h2>
+                <p data-edit={`about.sections.${idx}.body`} className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">
+                  {section.body}
+                </p>
+              </Reveal>
+            );
+          })}
         </section>
       )}
 

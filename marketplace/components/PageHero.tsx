@@ -8,11 +8,13 @@ export default function PageHero({
   image,
   imageAlt,
   title,
+  titleEditPath,
   children,
 }: {
   image: string;
   imageAlt: string;
   title: string;
+  titleEditPath?: string;
   children?: ReactNode;
 }) {
   return (
@@ -29,7 +31,10 @@ export default function PageHero({
       <div className="relative w-full max-w-6xl mx-auto px-4 pb-10 pt-28">
         <HeroStagger>
           <HeroItem>
-            <h1 className="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white">
+            <h1
+              data-edit={titleEditPath}
+              className="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-white"
+            >
               {title}
             </h1>
           </HeroItem>
