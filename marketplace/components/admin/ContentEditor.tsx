@@ -8,8 +8,10 @@ import {
   Clock,
   HandCoins,
   Phone,
+  Plus,
   ShieldCheck,
   Star,
+  Trash,
 } from "@phosphor-icons/react";
 import { saveSiteContent } from "@/app/actions/content";
 import { heroImages } from "@/lib/heroes";
@@ -427,6 +429,460 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
             />
             <p className="helper">Format tel:+61400000000 — used when someone taps Call.</p>
           </div>
+        </div>
+      </section>
+
+      {/* ── About page hero ── */}
+      <section>
+        <SectionLabel where="About page — header" href="/about" />
+        <div className="relative rounded-2xl overflow-hidden">
+          <Image
+            src={heroImages.home}
+            alt=""
+            width={1200}
+            height={380}
+            className="w-full h-[300px] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-ink/20" />
+          <div className="absolute inset-x-0 bottom-0 p-6 text-white space-y-3">
+            <Editable
+              label="About page title"
+              dark
+              value={c.about.title}
+              onChange={(v) => setC({ ...c, about: { ...c.about, title: v } })}
+              className="font-display font-extrabold text-3xl leading-tight"
+            />
+            <Editable
+              label="About page intro"
+              dark
+              multiline
+              value={c.about.sub}
+              onChange={(v) => setC({ ...c, about: { ...c.about, sub: v } })}
+              className="text-stone-200"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── About page sections ── */}
+      <section>
+        <SectionLabel where="About page — sections" href="/about" />
+        <div className="card p-5 space-y-5 bg-white">
+          {c.about.sections.map((section, i) => (
+            <div key={i} className="rounded-xl border border-stone-200 p-4 space-y-2">
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-xs font-bold uppercase tracking-wide text-stone-400">
+                  Section {i + 1}
+                </span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setC({
+                      ...c,
+                      about: { ...c.about, sections: c.about.sections.filter((_, j) => j !== i) },
+                    })
+                  }
+                  disabled={c.about.sections.length <= 1}
+                  className="btn-ghost !px-2 !py-1 text-xs text-red-700 hover:bg-red-50"
+                >
+                  <Trash size={14} weight="bold" />
+                  Remove
+                </button>
+              </div>
+              <Editable
+                label={`Section ${i + 1} heading`}
+                value={section.heading}
+                onChange={(v) =>
+                  setC({
+                    ...c,
+                    about: {
+                      ...c.about,
+                      sections: c.about.sections.map((s, j) => (j === i ? { ...s, heading: v } : s)),
+                    },
+                  })
+                }
+                className="font-bold"
+              />
+              <Editable
+                label={`Section ${i + 1} body`}
+                multiline
+                value={section.body}
+                onChange={(v) =>
+                  setC({
+                    ...c,
+                    about: {
+                      ...c.about,
+                      sections: c.about.sections.map((s, j) => (j === i ? { ...s, body: v } : s)),
+                    },
+                  })
+                }
+                className="text-sm text-stone-600"
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              setC({
+                ...c,
+                about: {
+                  ...c.about,
+                  sections: [...c.about.sections, { heading: "New section", body: "" }],
+                },
+              })
+            }
+            disabled={c.about.sections.length >= 8}
+            className="btn-ghost text-sm"
+          >
+            <Plus size={14} weight="bold" />
+            Add section
+          </button>
+        </div>
+      </section>
+
+      {/* ── Contact page ── */}
+      <section>
+        <SectionLabel where="Contact page" href="/contact" />
+        <div className="card p-5 space-y-5 bg-white">
+          <Editable
+            label="Contact page title"
+            value={c.contact.title}
+            onChange={(v) => setC({ ...c, contact: { ...c.contact, title: v } })}
+            className="font-display font-bold text-xl"
+          />
+          <Editable
+            label="Contact page intro"
+            multiline
+            value={c.contact.sub}
+            onChange={(v) => setC({ ...c, contact: { ...c.contact, sub: v } })}
+            className="text-sm text-stone-600"
+          />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label className="label !mb-1">Email</label>
+              <input
+                className="input"
+                value={c.contact.email}
+                onChange={(e) => setC({ ...c, contact: { ...c.contact, email: e.target.value } })}
+              />
+            </div>
+            <div>
+              <label className="label !mb-1">Address</label>
+              <textarea
+                rows={2}
+                className="input"
+                value={c.contact.address}
+                onChange={(e) => setC({ ...c, contact: { ...c.contact, address: e.target.value } })}
+              />
+              <p className="helper">One line per address part.</p>
+            </div>
+          </div>
+          <div>
+            <p className="label !mb-2">Opening hours</p>
+            <div className="space-y-2">
+              {c.contact.hours.map((row, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <input
+                    aria-label={`Hours row ${i + 1} days`}
+                    value={row.days}
+                    onChange={(e) =>
+                      setC({
+                        ...c,
+                        contact: {
+                          ...c.contact,
+                          hours: c.contact.hours.map((r, j) =>
+                            j === i ? { ...r, days: e.target.value } : r,
+                          ),
+                        },
+                      })
+                    }
+                    className="input flex-1"
+                  />
+                  <input
+                    aria-label={`Hours row ${i + 1} hours`}
+                    value={row.hours}
+                    onChange={(e) =>
+                      setC({
+                        ...c,
+                        contact: {
+                          ...c.contact,
+                          hours: c.contact.hours.map((r, j) =>
+                            j === i ? { ...r, hours: e.target.value } : r,
+                          ),
+                        },
+                      })
+                    }
+                    className="input flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setC({
+                        ...c,
+                        contact: { ...c.contact, hours: c.contact.hours.filter((_, j) => j !== i) },
+                      })
+                    }
+                    disabled={c.contact.hours.length <= 1}
+                    className="btn-ghost !px-2 !py-2 text-red-700 hover:bg-red-50"
+                  >
+                    <Trash size={14} weight="bold" />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={() =>
+                setC({
+                  ...c,
+                  contact: { ...c.contact, hours: [...c.contact.hours, { days: "", hours: "" }] },
+                })
+              }
+              disabled={c.contact.hours.length >= 7}
+              className="btn-ghost text-sm mt-2"
+            >
+              <Plus size={14} weight="bold" />
+              Add row
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ page ── */}
+      <section>
+        <SectionLabel where="FAQ page" href="/faq" />
+        <div className="card p-5 space-y-5 bg-white">
+          <div className="relative rounded-2xl overflow-hidden">
+            <Image
+              src={heroImages.home}
+              alt=""
+              width={1200}
+              height={300}
+              className="w-full h-[160px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-ink/10" />
+            <div className="absolute inset-x-0 bottom-0 p-5 text-white space-y-2">
+              <Editable
+                label="FAQ page title"
+                dark
+                value={c.faq.title}
+                onChange={(v) => setC({ ...c, faq: { ...c.faq, title: v } })}
+                className="font-display font-extrabold text-2xl"
+              />
+              <Editable
+                label="FAQ page intro"
+                dark
+                multiline
+                value={c.faq.sub}
+                onChange={(v) => setC({ ...c, faq: { ...c.faq, sub: v } })}
+                className="text-stone-200 text-sm"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            {c.faq.items.map((item, i) => (
+              <div key={i} className="rounded-xl border border-stone-200 p-4 space-y-2">
+                <div className="flex items-center justify-between gap-3">
+                  <input
+                    aria-label={`FAQ ${i + 1} group`}
+                    value={item.group}
+                    onChange={(e) =>
+                      setC({
+                        ...c,
+                        faq: {
+                          ...c.faq,
+                          items: c.faq.items.map((x, j) =>
+                            j === i ? { ...x, group: e.target.value } : x,
+                          ),
+                        },
+                      })
+                    }
+                    className="bg-transparent rounded-md border border-dashed border-stone-300 focus:border-forest-600 px-2 py-1 text-xs font-bold uppercase tracking-wide text-stone-500 focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setC({ ...c, faq: { ...c.faq, items: c.faq.items.filter((_, j) => j !== i) } })
+                    }
+                    disabled={c.faq.items.length <= 1}
+                    className="btn-ghost !px-2 !py-1 text-xs text-red-700 hover:bg-red-50"
+                  >
+                    <Trash size={14} weight="bold" />
+                    Remove
+                  </button>
+                </div>
+                <Editable
+                  label={`FAQ ${i + 1} question`}
+                  value={item.q}
+                  onChange={(v) =>
+                    setC({
+                      ...c,
+                      faq: { ...c.faq, items: c.faq.items.map((x, j) => (j === i ? { ...x, q: v } : x)) },
+                    })
+                  }
+                  className="font-semibold"
+                />
+                <Editable
+                  label={`FAQ ${i + 1} answer`}
+                  multiline
+                  value={item.a}
+                  onChange={(v) =>
+                    setC({
+                      ...c,
+                      faq: { ...c.faq, items: c.faq.items.map((x, j) => (j === i ? { ...x, a: v } : x)) },
+                    })
+                  }
+                  className="text-sm text-stone-600"
+                />
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() =>
+              setC({
+                ...c,
+                faq: {
+                  ...c.faq,
+                  items: [
+                    ...c.faq.items,
+                    { group: c.faq.items.at(-1)?.group ?? "General", q: "New question", a: "" },
+                  ],
+                },
+              })
+            }
+            disabled={c.faq.items.length >= 30}
+            className="btn-ghost text-sm"
+          >
+            <Plus size={14} weight="bold" />
+            Add question
+          </button>
+          <p className="text-xs text-stone-400">Questions appear grouped by the Group name.</p>
+        </div>
+      </section>
+
+      {/* ── Finance page ── */}
+      <section>
+        <SectionLabel where="Finance page — header" href="/finance" />
+        <div className="relative rounded-2xl overflow-hidden">
+          <Image
+            src={heroImages.cars}
+            alt=""
+            width={1200}
+            height={400}
+            className="w-full h-[200px] object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/40 to-ink/10" />
+          <div className="absolute inset-x-0 bottom-0 p-5 text-white space-y-2">
+            <Editable
+              label="Finance page title"
+              dark
+              value={c.financePage.title}
+              onChange={(v) => setC({ ...c, financePage: { ...c.financePage, title: v } })}
+              className="font-display font-extrabold text-2xl"
+            />
+            <Editable
+              label="Finance page intro"
+              dark
+              multiline
+              value={c.financePage.sub}
+              onChange={(v) => setC({ ...c, financePage: { ...c.financePage, sub: v } })}
+              className="text-stone-200 text-sm"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <SectionLabel where="Finance page — how it works steps" href="/finance" />
+        <div className="card p-5 grid gap-5 sm:grid-cols-3 bg-white">
+          {c.financePage.steps.map((step, i) => (
+            <div key={i} className="space-y-1.5">
+              <Editable
+                label={`Finance step ${i + 1} heading`}
+                value={step.title}
+                onChange={(v) =>
+                  setC({
+                    ...c,
+                    financePage: {
+                      ...c.financePage,
+                      steps: c.financePage.steps.map((s, j) => (j === i ? { ...s, title: v } : s)),
+                    },
+                  })
+                }
+                className="font-bold text-sm"
+              />
+              <Editable
+                label={`Finance step ${i + 1} body`}
+                multiline
+                value={step.body}
+                onChange={(v) =>
+                  setC({
+                    ...c,
+                    financePage: {
+                      ...c.financePage,
+                      steps: c.financePage.steps.map((s, j) => (j === i ? { ...s, body: v } : s)),
+                    },
+                  })
+                }
+                className="text-xs text-stone-600"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Legal pages ── */}
+      <section>
+        <SectionLabel where="Legal pages" href="/legal/privacy" />
+        <p className="text-xs text-stone-400 mb-3">
+          The DRAFT banner and finance disclaimers stay fixed — legal wording can&apos;t be edited
+          away by accident.
+        </p>
+        <div className="space-y-5">
+          {(
+            [
+              { key: "privacy", label: "Privacy Policy", href: "/legal/privacy" },
+              { key: "terms", label: "Terms of Use", href: "/legal/terms" },
+              {
+                key: "financeDisclaimer",
+                label: "Finance Disclaimer",
+                href: "/legal/finance-disclaimer",
+              },
+              {
+                key: "websiteDisclaimer",
+                label: "Website Disclaimer",
+                href: "/legal/website-disclaimer",
+              },
+              { key: "complaints", label: "Complaints", href: "/legal/complaints" },
+            ] as const
+          ).map((doc) => (
+            <div key={doc.key} className="card p-5 bg-white">
+              <div className="flex items-center justify-between gap-3 mb-2">
+                <span className="font-bold text-sm">{doc.label}</span>
+                <a
+                  href={doc.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-forest-700 hover:underline"
+                >
+                  Open page
+                  <ArrowSquareOut size={12} weight="bold" />
+                </a>
+              </div>
+              <textarea
+                aria-label={`${doc.label} text`}
+                rows={12}
+                value={c.legal[doc.key]}
+                onChange={(e) => setC({ ...c, legal: { ...c.legal, [doc.key]: e.target.value } })}
+                className="w-full bg-white rounded-lg border border-stone-300 px-3.5 py-2.5 text-sm font-mono leading-relaxed focus:outline-none focus:ring-2 focus:ring-forest-500 focus:border-forest-500 resize-y"
+              />
+              <p className="helper">
+                Lines starting &quot;## &quot; become headings; blank lines split paragraphs.
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 

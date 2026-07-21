@@ -52,6 +52,67 @@ const contentSchema = z.object({
     count: z.coerce.number().int().min(0).max(100000),
     quotes: z.array(quoteSchema).min(1).max(8),
   }),
+  about: z.object({
+    title: z.string().trim().min(2).max(80),
+    sub: z.string().trim().min(4).max(300),
+    sections: z
+      .array(
+        z.object({
+          heading: z.string().trim().min(2).max(80),
+          body: z.string().trim().min(4).max(1000),
+        }),
+      )
+      .min(1)
+      .max(8),
+  }),
+  contact: z.object({
+    title: z.string().trim().min(2).max(80),
+    sub: z.string().trim().min(4).max(300),
+    email: z.string().trim().min(3).max(120),
+    address: z.string().trim().min(3).max(300),
+    hours: z
+      .array(
+        z.object({
+          days: z.string().trim().min(2).max(40),
+          hours: z.string().trim().min(2).max(40),
+        }),
+      )
+      .min(1)
+      .max(7),
+  }),
+  faq: z.object({
+    title: z.string().trim().min(2).max(80),
+    sub: z.string().trim().min(4).max(300),
+    items: z
+      .array(
+        z.object({
+          group: z.string().trim().min(2).max(40),
+          q: z.string().trim().min(4).max(200),
+          a: z.string().trim().min(4).max(1000),
+        }),
+      )
+      .min(1)
+      .max(30),
+  }),
+  financePage: z.object({
+    title: z.string().trim().min(2).max(80),
+    sub: z.string().trim().min(4).max(300),
+    steps: z
+      .array(
+        z.object({
+          title: z.string().trim().min(2).max(60),
+          body: z.string().trim().min(4).max(300),
+        }),
+      )
+      .length(3),
+  }),
+  legal: z.object({
+    privacy: z.string().trim().min(1).max(20000),
+    terms: z.string().trim().min(1).max(20000),
+    financeDisclaimer: z.string().trim().min(1).max(20000),
+    websiteDisclaimer: z.string().trim().min(1).max(20000),
+    complaints: z.string().trim().min(1).max(20000),
+  }),
 });
 
 export interface ContentActionState {

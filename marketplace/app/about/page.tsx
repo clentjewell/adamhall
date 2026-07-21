@@ -13,6 +13,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import PageHero from "@/components/PageHero";
 import { heroImages } from "@/lib/heroes";
+import { getContent } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -67,29 +68,25 @@ const trustPoints = [
   },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const content = await getContent();
+  const [firstSection, secondSection, ...restSections] = content.about.sections;
+
   return (
     <>
-      <PageHero image={heroImages.home} imageAlt="Adam Hall on the forecourt" title="The bloke behind the cars">
-        <p className="text-stone-200 max-w-[56ch] text-lg">
-          No sales team. No head office. Just one person who buys the cars,
-          checks them and stands behind what he says about them.
-        </p>
+      <PageHero image={heroImages.home} imageAlt="Adam Hall on the forecourt" title={content.about.title}>
+        <p className="text-stone-200 max-w-[56ch] text-lg">{content.about.sub}</p>
       </PageHero>
 
       {/* How Adam works */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <Reveal>
-          <h2 className="font-display font-bold text-2xl md:text-3xl">How Adam works</h2>
-          <p className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">
-            Every car that comes onto this yard has been picked, checked and
-            priced by Adam personally. Not a buyer somewhere else in the
-            business, not an algorithm. If a car isn't worth putting his name
-            on, it doesn't go up for sale. What we say about a car in the
-            listing is what you get when you turn up to look at it.
-          </p>
-        </Reveal>
-      </section>
+      {firstSection && (
+        <section className="max-w-6xl mx-auto px-4 py-16">
+          <Reveal>
+            <h2 className="font-display font-bold text-2xl md:text-3xl">{firstSection.heading}</h2>
+            <p className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">{firstSection.body}</p>
+          </Reveal>
+        </section>
+      )}
 
       {/* Buying process */}
       <section className="border-t border-stone-200 bg-white">
@@ -114,25 +111,34 @@ export default function AboutPage() {
       </section>
 
       {/* Selling process */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <Reveal>
-          <div className="card p-8 md:p-10 bg-forest-50/60 !border-forest-100 md:flex items-center justify-between gap-8">
-            <div>
-              <h2 className="font-display font-bold text-2xl md:text-3xl">Selling a car?</h2>
-              <p className="mt-3 text-stone-600 leading-relaxed max-w-[52ch]">
-                Same rules apply the other way round. Send through the rego
-                and a few photos, Adam looks at it himself and comes back
-                with a real number within one business day. No listing fees,
-                no strangers traipsing through your driveway.
-              </p>
+      {secondSection && (
+        <section className="max-w-6xl mx-auto px-4 py-16">
+          <Reveal>
+            <div className="card p-8 md:p-10 bg-forest-50/60 !border-forest-100 md:flex items-center justify-between gap-8">
+              <div>
+                <h2 className="font-display font-bold text-2xl md:text-3xl">{secondSection.heading}</h2>
+                <p className="mt-3 text-stone-600 leading-relaxed max-w-[52ch]">{secondSection.body}</p>
+              </div>
+              <Link href="/sell" className="btn-primary mt-6 md:mt-0 shrink-0">
+                Sell your car
+                <ArrowRight size={18} weight="bold" />
+              </Link>
             </div>
-            <Link href="/sell" className="btn-primary mt-6 md:mt-0 shrink-0">
-              Sell your car
-              <ArrowRight size={18} weight="bold" />
-            </Link>
-          </div>
-        </Reveal>
-      </section>
+          </Reveal>
+        </section>
+      )}
+
+      {/* Any additional about sections an admin has added */}
+      {restSections.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 pb-16 space-y-10">
+          {restSections.map((section, i) => (
+            <Reveal key={section.heading + i} delay={i * 0.06}>
+              <h2 className="font-display font-bold text-2xl md:text-3xl">{section.heading}</h2>
+              <p className="mt-4 text-stone-600 leading-relaxed max-w-[65ch]">{section.body}</p>
+            </Reveal>
+          ))}
+        </section>
+      )}
 
       {/* Trust strip */}
       <section className="border-t border-stone-200 bg-white">

@@ -9,6 +9,7 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import PageHero from "@/components/PageHero";
 import { heroImages } from "@/lib/heroes";
+import { getContent } from "@/lib/content";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
@@ -19,22 +20,14 @@ export const metadata: Metadata = {
 
 const PHONE_HREF = "tel:+61400000000";
 const PHONE_LABEL = "0400 000 000";
-const EMAIL = "[sales@ email to be confirmed]";
 
-const hours = [
-  { day: "Monday – Friday", time: "8:30am – 5:30pm" },
-  { day: "Saturday", time: "8:30am – 2:00pm" },
-  { day: "Sunday", time: "Closed" },
-];
+export default async function ContactPage() {
+  const content = await getContent();
 
-export default function ContactPage() {
   return (
     <>
-      <PageHero image={heroImages.cars} imageAlt="The yard, ready for visitors" title="Talk to a human">
-        <p className="text-stone-200 max-w-[56ch] text-lg">
-          No call centre, no ticket number. Ring or drop by and you'll get
-          Adam or someone who actually knows the cars.
-        </p>
+      <PageHero image={heroImages.cars} imageAlt="The yard, ready for visitors" title={content.contact.title}>
+        <p className="text-stone-200 max-w-[56ch] text-lg">{content.contact.sub}</p>
       </PageHero>
 
       <div className="max-w-6xl mx-auto px-4 py-16">
@@ -63,7 +56,7 @@ export default function ContactPage() {
                 Best for anything that isn't urgent.
               </p>
               <p className="mt-3 font-display font-bold text-xl text-forest-700">
-                {EMAIL}
+                {content.contact.email}
               </p>
             </div>
           </Reveal>
@@ -72,10 +65,8 @@ export default function ContactPage() {
             <div className="card p-6 h-full">
               <MapPin size={26} weight="fill" className="text-forest-600" />
               <p className="font-bold mt-3">Location</p>
-              <p className="text-sm text-stone-600 mt-1 leading-relaxed">
-                [street address to be confirmed]
-                <br />
-                Northern NSW, on the Tweed–Gold Coast border
+              <p className="text-sm text-stone-600 mt-1 leading-relaxed whitespace-pre-line">
+                {content.contact.address}
               </p>
               <div className="mt-4 aspect-video card !border-stone-200 bg-stone-100 flex items-center justify-center text-center px-4">
                 <p className="text-sm text-stone-400">
@@ -94,10 +85,10 @@ export default function ContactPage() {
               </p>
               <table className="mt-4 w-full text-sm">
                 <tbody>
-                  {hours.map((row) => (
-                    <tr key={row.day} className="border-t border-stone-100 first:border-t-0">
-                      <td className="py-2 text-stone-600">{row.day}</td>
-                      <td className="py-2 text-right font-semibold text-ink">{row.time}</td>
+                  {content.contact.hours.map((row, i) => (
+                    <tr key={row.days + i} className="border-t border-stone-100 first:border-t-0">
+                      <td className="py-2 text-stone-600">{row.days}</td>
+                      <td className="py-2 text-right font-semibold text-ink">{row.hours}</td>
                     </tr>
                   ))}
                 </tbody>
