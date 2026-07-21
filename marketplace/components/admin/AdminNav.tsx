@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
+  ArrowSquareOut,
   Bank,
   ChartBar,
   ChatCircleDots,
@@ -30,6 +31,17 @@ export default function AdminNav({ adminName }: { adminName: string }) {
   const pathname = usePathname();
   return (
     <aside>
+      {/* Homepage logo + back-to-site */}
+      <Link href="/" className="hidden md:flex items-center px-3 mb-3" aria-label="Adam Hall — Buy My Car home">
+        <img src="/brand/logo.png" alt="Adam Hall — Buy My Car" className="h-8 w-auto" />
+      </Link>
+      <Link
+        href="/"
+        className="flex items-center gap-2.5 px-3 py-2.5 mb-3 rounded-lg text-sm font-semibold text-forest-700 bg-forest-50 hover:bg-forest-100 transition-colors"
+      >
+        <ArrowSquareOut size={18} weight="bold" />
+        View site
+      </Link>
       <p className="text-xs font-semibold text-stone-500 mb-2 px-3">
         Signed in as {adminName}
       </p>

@@ -17,8 +17,12 @@ export default function Footer({
     <footer data-header-tone="dark" className="bg-ink text-stone-300 mt-16">
       <div className="max-w-6xl mx-auto px-4 py-12 grid gap-10 md:grid-cols-3">
         <div>
-          <p className="font-display font-extrabold text-xl text-white">ADAM HALL</p>
-          <p className="text-sm font-semibold text-forest-200 mb-3">BUY MY CAR</p>
+          {/* Homepage logo (inverted to white on the dark footer) */}
+          <img
+            src="/brand/logo.png"
+            alt="Adam Hall — Buy My Car"
+            className="h-10 w-auto mb-4 [filter:invert(1)_brightness(1.06)]"
+          />
           <p data-edit="footer.blurb" className="text-sm leading-relaxed max-w-[36ch]">
             {blurb}
           </p>

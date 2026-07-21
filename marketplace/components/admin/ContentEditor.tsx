@@ -377,7 +377,11 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
         <SectionLabel where="Every page — footer" href="/" />
         <div className="rounded-2xl bg-ink p-6 text-stone-300 grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
-            <p className="font-display font-extrabold text-white">ADAM HALL</p>
+            <img
+              src="/brand/logo.png"
+              alt="Adam Hall — Buy My Car"
+              className="h-8 w-auto [filter:invert(1)_brightness(1.06)]"
+            />
             <Editable
               label="Footer blurb"
               dark
