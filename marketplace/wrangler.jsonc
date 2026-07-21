@@ -10,6 +10,13 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Incremental cache for ISR pages (60s revalidate on /, /cars, etc.)
+  "kv_namespaces": [
+    {
+      "binding": "NEXT_INC_CACHE_KV",
+      "id": "19a263af0e494a9abf373aa26b270d1b"
+    }
+  ],
   "observability": {
     "enabled": true
   }
