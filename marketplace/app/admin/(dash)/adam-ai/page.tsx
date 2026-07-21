@@ -7,10 +7,7 @@ export default async function AdamAIPage() {
   await requireAdmin();
   const configured = !!process.env.ANTHROPIC_API_KEY;
 
-  return (
-    <div>
-      <h1 className="font-display font-bold text-2xl mb-4">Adam AI</h1>
-      <AdamAI configured={configured} />
-    </div>
-  );
+  // The AdamAI card carries its own branded header, so no page-level title
+  // here — a second "Adam AI" heading just stacked on top of it.
+  return <AdamAI configured={configured} />;
 }

@@ -188,7 +188,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
   );
 
   return (
-    <div className="card flex h-[calc(100dvh-190px)] min-h-[460px] overflow-hidden">
+    <div className="card relative flex h-[calc(100dvh-190px)] min-h-[460px] overflow-hidden">
       {/* Recent-chats rail (desktop) */}
       <aside className="hidden md:flex w-60 shrink-0 border-r border-stone-200 bg-stone-50/60">
         {historyList}
