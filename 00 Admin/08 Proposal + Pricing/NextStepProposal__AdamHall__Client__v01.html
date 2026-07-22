@@ -104,6 +104,20 @@
       .budget-row-mid { font-weight: 400; color: var(--mid-grey); line-height: 1.55; font-size: 15px; }
       .budget-row-val { font-weight: 500; color: var(--signal-blue); text-align: right; line-height: 1.5; font-size: 14px; }
 
+      .value-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-grey); margin-top: 56px; margin-bottom: 22px; }
+      .value-row { display: grid; grid-template-columns: 210px 1fr 150px 130px; gap: clamp(16px, 2.4vw, 28px); align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+      .value-row:first-child { border-top: 1px solid var(--rule); }
+      .value-header { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid-grey); padding-bottom: 14px; }
+      .value-item { font-weight: 600; font-size: 15px; letter-spacing: -0.005em; }
+      .value-desc { font-weight: 400; color: var(--mid-grey); line-height: 1.55; font-size: 14px; }
+      .value-rack { color: var(--mid-grey); text-decoration: line-through; font-size: 14px; }
+      .value-included { color: var(--signal-blue); font-weight: 500; font-size: 14px; }
+      .value-total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px 32px; padding-top: 26px; margin-top: 6px; border-top: 1px solid var(--black); }
+      .value-total-block { display: flex; align-items: baseline; gap: 12px; }
+      .value-total-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+      .value-total-rack { font-size: clamp(19px, 2.2vw, 24px); font-weight: 500; color: var(--mid-grey); text-decoration: line-through; }
+      .value-total-gate { font-size: clamp(19px, 2.2vw, 24px); font-weight: 600; color: var(--signal-blue); }
+
       .need-item { display: flex; gap: 20px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); font-size: clamp(15px, 1.5vw, 18px); font-weight: 400; line-height: 1.5; }
       .need-item:first-child { border-top: 1px solid var(--rule); }
       .need-item .idx { flex-shrink: 0; font-size: 14px; letter-spacing: 0.05em; }
@@ -155,6 +169,11 @@
         .step-row { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
         .step-what, .step-get { font-size: 14px; }
         .budget-row { grid-template-columns: 1fr; gap: 6px; } .budget-row-val { text-align: left; }
+        .value-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
+        .value-header { display: none; }
+        .value-item, .value-desc, .value-rack, .value-included { font-size: 13px; }
+        .value-total { flex-direction: column; align-items: flex-start; gap: 14px; }
+        .value-total-rack, .value-total-gate { font-size: 19px; }
         .header-meta { display: none; }
       }
     </style>
@@ -366,12 +385,26 @@
     <section class="section bg-cream">
       <div class="wrap">
         <p class="eyebrow reveal">12 — Commercial</p>
-        <h2 class="h-section reveal">Gate One: $5,000 + admin &amp; GST, payable on acceptance.</h2>
+        <h2 class="h-section reveal">Gate One: $4,995 + admin &amp; GST, payable on acceptance.</h2>
         <p class="body grey mt40 reveal">Gate One covers the discovery, the strategy, the branding refresh, the website with its marketplace, and the online platform setup. One fee, payable on acceptance. The ongoing monthly run comes after launch and is quoted separately.</p>
         <div class="mt56 stagger">
-          <div class="budget-row"><div class="budget-row-label">Gate One</div><div class="budget-row-mid">Discovery, strategy, branding refresh, website with marketplace, online platform setup.</div><div class="budget-row-val">$5,000 + admin &amp; GST · payable on acceptance</div></div>
+          <div class="budget-row"><div class="budget-row-label">Gate One</div><div class="budget-row-mid">Discovery, strategy, branding refresh, website with marketplace, online platform setup.</div><div class="budget-row-val">$4,995 + admin &amp; GST · payable on acceptance</div></div>
           <div class="budget-row"><div class="budget-row-label">Then — Run</div><div class="budget-row-mid">Always-on marketing, reporting, quarterly reviews. After launch is live.</div><div class="budget-row-val">Monthly recurring · quoted after launch</div></div>
         </div>
+        <p class="value-eyebrow reveal">What's inside Gate One — and what it would cost at full rack</p>
+        <div class="stagger">
+          <div class="value-row value-header"><div></div><div>What you get</div><div>Agency full-rack</div><div>Gate One</div></div>
+          <div class="value-row"><div class="value-item">Discovery &amp; strategy</div><div class="value-desc">Deep-dive sessions, positioning confirmed, the roadmap locked.</div><div class="value-rack">$4,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Branding refresh</div><div class="value-desc">Brand book locked: palette, type, voice — in your voice.</div><div class="value-rack">$5,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Website + marketplace</div><div class="value-desc">A transactional marketplace designed, built and launched.</div><div class="value-rack">$9,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Online platform setup</div><div class="value-desc">Google Business Profile, socials, analytics and the review engine wired.</div><div class="value-rack">$2,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">One team, no handoffs</div><div class="value-desc">Strategy to shipped by the people who built the platform.</div><div class="value-rack">Retainer extra</div><div class="value-included">Included</div></div>
+        </div>
+        <div class="value-total reveal">
+          <div class="value-total-block"><span class="value-total-label">Full-rack value</span><span class="value-total-rack">$22,000+</span></div>
+          <div class="value-total-block"><span class="value-total-label">Gate One</span><span class="value-total-gate">$4,995 + admin &amp; GST</span></div>
+        </div>
+        <p class="note mt28 reveal">The gap isn't a discount. The platform is already built and we already know the business from Stage One — you're paying to finish and launch, not to start from scratch.</p>
         <a class="btn-accept reveal" href="https://in.xero.com/el77HA73LmEtvhRf8nc7nVzkjZeQGxqLMvfuWUkv" target="_blank" rel="noopener">Accept — view the Xero quote ↗</a>
         <p class="note mt28 reveal">No stage starts without sign-off.</p>
       </div>
