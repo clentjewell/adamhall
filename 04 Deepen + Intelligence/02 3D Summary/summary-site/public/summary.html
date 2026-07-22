@@ -316,6 +316,8 @@ body {
 html.viewing .content { display: none; }
 html.viewing #viewer { display: flex; }
 html.viewing .progress-bar { display: none; }
+html.viewing .sidebar .nav,
+html.viewing .sidebar .navtoggle { display: none; }
 .viewer-bar { display: flex; align-items: center; gap: 12px; flex-shrink: 0;
   padding: 11px 14px; border-bottom: 1px solid var(--rule); background: var(--cream); }
 .viewer-back { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
@@ -582,8 +584,8 @@ html.viewing .progress-bar { display: none; }
     <!-- ── 07 ACCESS AND LINKS ── -->
     <article class="page" id="access">
       <div class="page-head"><span class="page-chip">Access</span><span class="page-count">07 / 10</span></div>
-      <h2 class="h-section reveal">Five links. One password.</h2>
-      <p class="body mt28 reveal">The full pack and this summary sit behind one gate, and the password is <strong>bmc2026</strong>. The pack opens right here in the same tab; the four live sites below open in a new tab.</p>
+      <h2 class="h-section reveal">Four links. One password.</h2>
+      <p class="body mt28 reveal">Each one opens right here inside the summary, with the sidebar kept in place. No new tabs. The password is <strong>bmc2026</strong>, and every view has an &ldquo;Open in new tab&rdquo; option if you want a full window.</p>
       <div class="mt40 stagger">
         <a class="linkrow" data-view href="/">
           <span class="lr-k">Adam Hall Strategy</span>
@@ -600,12 +602,7 @@ html.viewing .progress-bar { display: none; }
           <span class="lr-v">Launch the built site, turn on the channels, then run the marketing month to month.</span>
           <span class="lr-go">&rarr;</span>
         </a>
-        <a class="linkrow" data-view href="https://adamhall-buymycar.clent.workers.dev">
-          <span class="lr-k">Buy My Car site prototype</span>
-          <span class="lr-v">The seller-facing site draft.</span>
-          <span class="lr-go">&rarr;</span>
-        </a>
-        <a class="linkrow" data-view href="https://adamhall-marketplace.clent.workers.dev">
+        <a class="linkrow" data-view href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/">
           <span class="lr-k">Marketplace app prototype</span>
           <span class="lr-v">The working buyer-side marketplace draft.</span>
           <span class="lr-go">&rarr;</span>
@@ -933,6 +930,8 @@ html.viewing .progress-bar { display: none; }
     });
   });
   if(vback){ vback.addEventListener('click', closeView); }
+  var brand = document.querySelector('.sidebar .brand');
+  if(brand){ brand.addEventListener('click', closeView); }
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeView(); } });
   // Any summary section link returns to the summary first.
   links.forEach(function(a){
