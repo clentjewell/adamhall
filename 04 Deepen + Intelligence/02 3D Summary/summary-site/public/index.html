@@ -11,8 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#171C3D;--muted:#4A5565;--line:#e7e9f1;--accent:#FD8457;
-  --bg:#ffffff;--card:#ffffff;--side:#f6f7fb;--radius:5px;
+  --ink:#003a30;--muted:#5c6a66;--line:#dedede;--accent:#004438;
+  --bg:#ffffff;--card:#ffffff;--side:#f3f2ec;--radius:5px;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --head:'Inter Tight',var(--sans);
   --brand:'Poppins',var(--sans);
@@ -27,7 +27,7 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .sidebar{position:sticky;top:16px;align-self:flex-start;flex:0 0 224px;width:224px;
   max-height:calc(100vh - 32px);overflow-y:auto;margin:16px 0 16px 16px;
   background:#fff;border:1px solid var(--line);border-radius:12px;
-  box-shadow:0 2px 16px rgba(23,28,61,.07);padding:15px 11px;}
+  box-shadow:0 2px 16px rgba(0,58,48,.07);padding:15px 11px;}
 .brand{display:block;margin:2px 8px 14px;}
 .brand img{height:25px;width:auto;display:block;}
 .nav-wrap{border:0;}
@@ -39,14 +39,14 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   font-size:12.5px;line-height:1.3;padding:4px 8px;border-radius:6px;
   border-left:2px solid transparent;}
 .nav-link .nav-num{font-variant-numeric:tabular-nums;font-size:10.5px;color:#9aa3b2;min-width:14px;}
-.nav-link:hover{color:var(--ink);background:#f1f3f8;}
-.nav-link.active{color:var(--ink);background:#fff6f1;border-left-color:var(--accent);font-weight:600;}
+.nav-link:hover{color:var(--ink);background:#f0efe8;}
+.nav-link.active{color:var(--ink);background:#f5f1e6;border-left-color:var(--accent);font-weight:600;}
 .nav-link.active .nav-num{color:var(--accent);}
 /* Phase headers are links to the navy section dividers. */
 .nav-link.nav-divider{font-family:var(--brand);text-transform:uppercase;letter-spacing:.1em;
   font-size:9.5px;font-weight:600;color:var(--accent);margin:14px 0 3px;padding:5px 8px;}
 .nav-link.nav-divider .nav-num{color:var(--accent);opacity:.55;}
-.nav-link.nav-divider:hover{background:#fff6f1;color:#c0532b;}
+.nav-link.nav-divider:hover{background:#f5f1e6;color:#003a30;}
 .nav-link.nav-divider.active{background:var(--accent);color:#fff;border-left-color:var(--accent);}
 .nav-link.nav-divider.active .nav-num{color:#fff;opacity:1;}
 
@@ -55,10 +55,10 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 
 /* Landing: full-page video hero */
 .hero{position:relative;display:flex;align-items:center;min-height:100vh;overflow:hidden;
-  margin:0 -44px 26px;color:#fff;background:#171C3D;}
+  margin:0 -44px 26px;color:#fff;background:#003a30;}
 .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .hero-overlay{position:absolute;inset:0;z-index:1;
-  background:linear-gradient(135deg,rgba(23,28,61,.84) 0%,rgba(23,28,61,.36) 55%,rgba(23,28,61,.66) 100%);}
+  background:linear-gradient(135deg,rgba(0,58,48,.84) 0%,rgba(0,58,48,.36) 55%,rgba(0,58,48,.66) 100%);}
 .hero-inner{position:relative;z-index:2;width:100%;max-width:960px;margin:0 auto;padding:0 50px;}
 .hero .kicker{font-family:var(--brand);text-transform:uppercase;letter-spacing:.16em;
   font-size:12.5px;color:var(--accent);margin:0 0 12px;font-weight:600;}
@@ -66,10 +66,10 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   font-weight:700;letter-spacing:-.015em;}
 .hero .lead{font-size:18.5px;max-width:620px;margin:0 0 22px;color:#eaecf4;}
 .hero .meta{display:flex;flex-wrap:wrap;gap:9px;}
-.hero .pill{background:rgba(255,255,255,.12);border:1px solid rgba(253,132,87,.55);
+.hero .pill{background:rgba(255,255,255,.12);border:1px solid rgba(0,68,56,.55);
   border-radius:999px;padding:6px 14px;font-size:12.5px;}
 .hero .pill-link{color:inherit;text-decoration:none;cursor:pointer;}
-.hero .pill-featured{background:var(--accent);border-color:var(--accent);color:#171C3D;font-weight:600;}
+.hero .pill-featured{background:var(--accent);border-color:var(--accent);color:#003a30;font-weight:600;}
 .hero .pill-featured:hover{background:#fff;border-color:#fff;}
 .hero-play{display:inline-flex;align-items:center;gap:10px;margin-top:20px;cursor:pointer;
   background:var(--accent);color:#fff;border:0;border-radius:3px;padding:11px 18px;
@@ -81,12 +81,12 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .hero-play[hidden]{display:none;}
 @media (prefers-reduced-motion: reduce){
   .hero-video{display:none;}
-  .hero{background:#171C3D;}
+  .hero{background:#003a30;}
 }
 /* Landing: sizzle reel showcase band, directly under the hero */
 .reel{position:relative;color:#fff;padding:64px 50px 70px;
-  background:#171C3D radial-gradient(120% 130% at 82% 0%,#233266,#171C3D 62%);
-  border-top:1px solid rgba(253,132,87,.4);}
+  background:#003a30 radial-gradient(120% 130% at 82% 0%,#233266,#003a30 62%);
+  border-top:1px solid rgba(0,68,56,.4);}
 .reel-inner{max-width:960px;margin:0 auto;}
 .reel-eyebrow{font-family:var(--brand);text-transform:uppercase;letter-spacing:.16em;
   font-size:12px;font-weight:600;color:var(--accent);margin:0 0 10px;}
@@ -99,12 +99,12 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   opacity:.82;transition:opacity .3s,transform .5s cubic-bezier(.2,.7,.2,1);}
 .reel-facade:hover .reel-thumb,.reel-facade:focus-visible .reel-thumb{opacity:.96;transform:scale(1.03);}
 .reel-facade::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,rgba(23,28,61,.05),rgba(23,28,61,.5));}
+  background:linear-gradient(180deg,rgba(0,58,48,.05),rgba(0,58,48,.5));}
 .reel-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;
   width:78px;height:78px;border-radius:50%;background:var(--accent);
   box-shadow:0 12px 34px rgba(0,0,0,.4);transition:transform .18s,background .18s;}
 .reel-play::before{content:"";position:absolute;top:50%;left:54%;transform:translate(-50%,-50%);
-  border-style:solid;border-width:14px 0 14px 22px;border-color:transparent transparent transparent #171C3D;}
+  border-style:solid;border-width:14px 0 14px 22px;border-color:transparent transparent transparent #003a30;}
 .reel-facade:hover .reel-play,.reel-facade:focus-visible .reel-play{transform:translate(-50%,-50%) scale(1.08);background:#fff;}
 .reel-cue{position:absolute;left:20px;bottom:16px;z-index:2;
   font-family:var(--brand);font-weight:600;font-size:13px;letter-spacing:.04em;
@@ -117,7 +117,7 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   .reel-play{width:62px;height:62px;}
 }
 @media print{ .reel{display:none;} }
-.callout{max-width:980px;background:#fff6f1;border:1px solid #f8d2bf;border-radius:var(--radius);
+.callout{max-width:980px;background:#f5f1e6;border:1px solid #f8d2bf;border-radius:var(--radius);
   padding:16px 20px;margin:0 auto 8px;font-size:14.5px;color:#8a4b2c;}
 .callout strong{color:#7a3f22;}
 .overview{max-width:980px;margin:0 auto;}
@@ -127,7 +127,7 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .ov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
 .ov-card{display:block;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   padding:16px 18px;text-decoration:none;color:var(--ink);transition:border-color .12s,box-shadow .12s;}
-.ov-card:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(253,132,87,.14);}
+.ov-card:hover{border-color:var(--accent);box-shadow:0 2px 14px rgba(0,68,56,.14);}
 .ov-card .n{display:block;font-family:var(--brand);font-size:12px;color:var(--muted);font-weight:600;}
 .ov-card .t{display:block;font-family:var(--head);font-size:16px;font-weight:600;margin-top:2px;}
 
@@ -142,9 +142,9 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .exec-offers{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 26px;}
 .exec-offer{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
   padding:20px;transition:border-color .15s,box-shadow .15s,transform .18s cubic-bezier(.2,.7,.2,1);}
-.exec-offer:hover{border-color:var(--accent);box-shadow:0 6px 22px rgba(253,132,87,.13);transform:translateY(-3px);}
+.exec-offer:hover{border-color:var(--accent);box-shadow:0 6px 22px rgba(0,68,56,.13);transform:translateY(-3px);}
 .exec-tag{display:inline-block;font-family:var(--brand);font-size:10.5px;font-weight:600;
-  text-transform:uppercase;letter-spacing:.08em;color:#c0532b;background:#fdece3;
+  text-transform:uppercase;letter-spacing:.08em;color:#003a30;background:#f2dab2;
   padding:4px 10px;border-radius:999px;margin:0 0 12px;}
 .exec-offer h3{font-family:var(--head);font-size:19px;font-weight:700;color:var(--ink);margin:0 0 2px;}
 .exec-via{font-family:var(--brand);font-size:12.5px;font-weight:600;color:var(--accent);margin:0 0 10px;}
@@ -154,20 +154,20 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   font-size:11px;font-weight:600;color:var(--accent);margin:0 0 16px;}
 .exec-proof-list{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin:0;padding:0;}
 .exec-proof-list li{display:flex;flex-direction:column;gap:3px;
-  border-left:2px solid rgba(253,132,87,.5);padding-left:12px;}
+  border-left:2px solid rgba(0,68,56,.5);padding-left:12px;}
 .exec-proof-list strong{font-family:var(--head);font-size:18px;font-weight:700;color:#fff;line-height:1.1;}
 .exec-proof-list span{font-size:12px;color:#b9bed1;line-height:1.35;}
 .exec-plan{margin:0;}
 .exec-phases{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0 0;}
-.exec-phase{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;background:#fafbfd;}
+.exec-phase{border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;background:#fafaf6;}
 .exec-phase-gate{font-family:var(--brand);font-size:11px;font-weight:600;text-transform:uppercase;
   letter-spacing:.08em;color:var(--accent);}
 .exec-phase h4{font-family:var(--head);font-size:18px;font-weight:700;color:var(--ink);margin:4px 0 6px;}
-.bb-cta{display:block;background:linear-gradient(120deg,#171C3D 0%,#20264f 100%);
-  border:1px solid #171C3D;border-radius:var(--radius);padding:22px 26px;margin:0 0 26px;
+.bb-cta{display:block;background:linear-gradient(120deg,#003a30 0%,#00584a 100%);
+  border:1px solid #003a30;border-radius:var(--radius);padding:22px 26px;margin:0 0 26px;
   transition:transform .18s,box-shadow .18s;}
 .bb-cta,.bb-cta *{text-decoration:none;}
-.bb-cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(23,28,61,.28);}
+.bb-cta:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,58,48,.28);}
 .bb-cta-eyebrow{display:block;font-family:var(--brand);font-size:10.5px;font-weight:600;
   letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
 .bb-cta-h{display:block;font-family:var(--head);font-size:22px;font-weight:700;color:#fff;
@@ -177,7 +177,7 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .exec-phase p{font-size:13.5px;line-height:1.5;color:var(--muted);margin:0;}
 .exec-phase-cta{display:block;text-decoration:none;background:var(--ink);border-color:var(--ink);
   transition:transform .15s ease,box-shadow .15s ease;}
-.exec-phase-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(23,28,61,.25);}
+.exec-phase-cta:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,58,48,.25);}
 .exec-phase-cta .exec-phase-gate{color:var(--accent);}
 .exec-phase-cta h4{color:#fff;display:flex;align-items:center;gap:6px;}
 .exec-phase-cta h4 .arrow{color:var(--accent);font-weight:400;}
@@ -199,39 +199,39 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
 .hero .hero-partner{margin-top:24px;display:inline-flex;align-items:center;gap:9px;
   font-family:var(--brand);font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8);}
 .hero .hero-partner img{height:12px;width:auto;filter:brightness(0) invert(1);opacity:.9;}
-.overview .ov-phase h2{border-top:2px solid #2D5BFF;padding-top:15px;margin-top:34px;}
-/* Harbour Navy phase dividers (Adam Hall Buy My Car palette: #1E4A5F / #163846 navy, #B8863E brass) */
+.overview .ov-phase h2{border-top:2px solid #004438;padding-top:15px;margin-top:34px;}
+/* Harbour Navy phase dividers (Adam Hall Buy My Car palette: #004438 / #003a30 navy, #f2dab2 brass) */
 .doc.divider{max-width:none;margin:0 -44px;padding:0;border-radius:0;position:relative;overflow:hidden;
-  background:radial-gradient(130% 145% at 82% -12%,#1E4A5F 0%,#163846 56%,#102933 100%);color:#FBF9F5;}
+  background:radial-gradient(130% 145% at 82% -12%,#004438 0%,#003a30 56%,#00251f 100%);color:#f8f7f3;}
 html.js .doc.divider.is-active{display:flex;flex-direction:column;justify-content:center;min-height:100vh;}
 .divider .divider-num{position:absolute;right:clamp(10px,4vw,60px);top:50%;transform:translateY(-54%);
   font-family:var(--head);font-weight:700;line-height:1;font-size:clamp(200px,34vw,460px);letter-spacing:-.04em;
-  color:transparent;-webkit-text-stroke:1.5px rgba(231,238,240,.10);pointer-events:none;user-select:none;}
+  color:transparent;-webkit-text-stroke:1.5px rgba(248,247,243,.10);pointer-events:none;user-select:none;}
 .divider .divider-inner{position:relative;max-width:1000px;padding:0 clamp(26px,7vw,90px);}
 .divider .divider-top{display:flex;align-items:center;gap:16px;margin-bottom:38px;}
 .divider .divider-logo{height:36px;width:auto;display:block;filter:invert(1);}
 .divider .divider-eyebrow{font-family:var(--brand);text-transform:uppercase;letter-spacing:.22em;
-  font-size:clamp(11px,1.1vw,13px);font-weight:600;color:#B8863E;display:block;margin-bottom:20px;}
+  font-size:clamp(11px,1.1vw,13px);font-weight:600;color:#f2dab2;display:block;margin-bottom:20px;}
 .divider .divider-title{font-family:var(--head);font-size:clamp(56px,10vw,140px);line-height:.94;
-  letter-spacing:-.035em;font-weight:700;margin:0;color:#FBF9F5;}
-.divider .divider-title .divider-dot{color:#B8863E;}
-.divider .divider-blurb{font-size:clamp(17px,2vw,24px);color:rgba(231,238,240,.82);max-width:42ch;margin:24px 0 0;line-height:1.5;}
+  letter-spacing:-.035em;font-weight:700;margin:0;color:#f8f7f3;}
+.divider .divider-title .divider-dot{color:#f2dab2;}
+.divider .divider-blurb{font-size:clamp(17px,2vw,24px);color:rgba(248,247,243,.82);max-width:42ch;margin:24px 0 0;line-height:1.5;}
 .divider .divider-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;}
-.divider .divider-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(184,134,62,.5);
-  background:rgba(184,134,62,.12);color:#E7EEF0;border-radius:999px;padding:8px 16px;
+.divider .divider-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(242,218,178,.5);
+  background:rgba(242,218,178,.12);color:#E7EEF0;border-radius:999px;padding:8px 16px;
   font-family:var(--brand);font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
-.divider .divider-chip b{color:#B8863E;font-weight:700;}
+.divider .divider-chip b{color:#f2dab2;font-weight:700;}
 .divider .divider-mark{font-family:var(--brand);text-transform:uppercase;letter-spacing:.16em;
-  font-size:10.5px;color:rgba(231,238,240,.5);display:flex;align-items:center;gap:12px;margin-top:46px;}
-.divider .divider-mark::before{content:"";width:28px;height:2px;background:#B8863E;flex-shrink:0;}
+  font-size:10.5px;color:rgba(248,247,243,.5);display:flex;align-items:center;gap:12px;margin-top:46px;}
+.divider .divider-mark::before{content:"";width:28px;height:2px;background:#f2dab2;flex-shrink:0;}
 .divider .doc-nav{position:absolute;left:clamp(26px,7vw,90px);right:clamp(26px,7vw,90px);bottom:34px;
-  margin:0;border-top:1px solid rgba(251,249,245,.16);padding-top:16px;}
-.divider .doc-nav-btn{color:rgba(231,238,240,.8);background:rgba(251,249,245,.05);border-color:rgba(251,249,245,.18);}
-.divider .doc-nav-btn:hover{border-color:#B8863E;box-shadow:none;}
-.divider .doc-nav-btn strong{color:#FBF9F5;}
-.divider .doc-nav-btn:hover{color:#B8863E;}
-.divider .doc-nav-btn:hover strong{color:#B8863E;}
-.divider .doc-nav-btn span{color:rgba(231,238,240,.45);}
+  margin:0;border-top:1px solid rgba(248,247,243,.16);padding-top:16px;}
+.divider .doc-nav-btn{color:rgba(248,247,243,.8);background:rgba(248,247,243,.05);border-color:rgba(248,247,243,.18);}
+.divider .doc-nav-btn:hover{border-color:#f2dab2;box-shadow:none;}
+.divider .doc-nav-btn strong{color:#f8f7f3;}
+.divider .doc-nav-btn:hover{color:#f2dab2;}
+.divider .doc-nav-btn:hover strong{color:#f2dab2;}
+.divider .doc-nav-btn span{color:rgba(248,247,243,.45);}
 @media(max-width:900px){.doc.divider{margin:0 -18px;}
   .divider .doc-nav{left:22px;right:22px;}
   .divider .divider-num{font-size:56vw;top:auto;bottom:-6vw;transform:none;-webkit-text-stroke-width:1px;}
@@ -242,51 +242,51 @@ html.js .doc.divider.is-active{display:flex;flex-direction:column;justify-conten
 html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezier(.2,.7,.2,1) both;}
 
 /* End sign-off slide (black, one-at-a-time page, Jewell + Maxxim) */
-.doc.end-slide{max-width:none;margin:0 -44px;padding:0;background:#0E171F;color:#FAF8F4;
+.doc.end-slide{max-width:none;margin:0 -44px;padding:0;background:#00251f;color:#f8f7f3;
   min-height:100vh;display:flex;flex-direction:column;justify-content:center;border-radius:0;}
 .end-slide .end-in{max-width:1080px;margin:0 auto;width:100%;padding:clamp(70px,10vh,120px) 50px;font-family:var(--brand);}
 .end-slide .end-eyebrow{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;
-  color:rgba(250,248,244,.5);margin:0 0 26px;}
+  color:rgba(248,247,243,.5);margin:0 0 26px;}
 .end-slide .end-h{font-family:var(--brand);font-size:clamp(32px,5vw,62px);font-weight:600;letter-spacing:-.025em;
-  line-height:1.04;color:#FAF8F4;margin:0;max-width:18ch;}
+  line-height:1.04;color:#f8f7f3;margin:0;max-width:18ch;}
 .end-slide .end-cols{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,5vw,68px);margin:30px 0 0;align-items:start;}
-.end-slide .end-col .ec-n{font-family:var(--brand);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#2D5BFF;}
-.end-slide .end-col .ec-h{font-family:var(--brand);font-size:clamp(18px,1.9vw,25px);font-weight:600;color:#FAF8F4;margin:8px 0 12px;letter-spacing:-.01em;line-height:1.1;}
-.end-slide .end-col .ec-p{font-family:var(--brand);font-size:clamp(14px,1.15vw,16px);line-height:1.6;color:rgba(250,248,244,.74);max-width:34ch;}
+.end-slide .end-col .ec-n{font-family:var(--brand);font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#004438;}
+.end-slide .end-col .ec-h{font-family:var(--brand);font-size:clamp(18px,1.9vw,25px);font-weight:600;color:#f8f7f3;margin:8px 0 12px;letter-spacing:-.01em;line-height:1.1;}
+.end-slide .end-col .ec-p{font-family:var(--brand);font-size:clamp(14px,1.15vw,16px);line-height:1.6;color:rgba(248,247,243,.74);max-width:34ch;}
 .end-slide .end-col .end-list{margin-top:0;}
 @media(max-width:760px){.end-slide .end-cols{grid-template-columns:1fr;gap:24px;}}
 .end-slide .end-sub{font-family:var(--brand);font-size:clamp(16px,1.6vw,20px);line-height:1.6;
-  color:rgba(250,248,244,.72);max-width:52ch;margin:24px 0 0;font-weight:400;}
+  color:rgba(248,247,243,.72);max-width:52ch;margin:24px 0 0;font-weight:400;}
 .end-slide .end-list{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:11px;max-width:46ch;}
 .end-slide .end-list li{position:relative;padding-left:21px;font-family:var(--brand);
-  font-size:clamp(15px,1.3vw,17px);line-height:1.5;color:rgba(250,248,244,.82);}
+  font-size:clamp(15px,1.3vw,17px);line-height:1.5;color:rgba(248,247,243,.82);}
 .end-slide .end-list li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;
-  border-radius:50%;background:#2D5BFF;}
+  border-radius:50%;background:#004438;}
 .end-slide .end-marks{display:flex;flex-wrap:wrap;gap:26px;align-items:center;margin:44px 0 0;
-  font-family:var(--brand);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(250,248,244,.55);}
+  font-family:var(--brand);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(248,247,243,.55);}
 .end-slide .end-mark{display:inline-flex;align-items:center;gap:9px;}
 .end-slide .end-jewell img{height:15px;width:auto;filter:brightness(0) invert(1);opacity:.92;}
-.end-slide .end-nav{border-top:1px solid rgba(250,248,244,.14);margin-top:50px;}
-.end-slide .end-nav .doc-nav-btn{background:rgba(250,248,244,.04);border-color:rgba(250,248,244,.16);}
-.end-slide .end-nav .doc-nav-btn:hover{border-color:#2D5BFF;box-shadow:none;transform:translateY(-2px);}
-.end-slide .end-nav .doc-nav-btn span{color:rgba(250,248,244,.5);}
-.end-slide .end-nav .doc-nav-btn strong{color:#FAF8F4;}
+.end-slide .end-nav{border-top:1px solid rgba(248,247,243,.14);margin-top:50px;}
+.end-slide .end-nav .doc-nav-btn{background:rgba(248,247,243,.04);border-color:rgba(248,247,243,.16);}
+.end-slide .end-nav .doc-nav-btn:hover{border-color:#004438;box-shadow:none;transform:translateY(-2px);}
+.end-slide .end-nav .doc-nav-btn span{color:rgba(248,247,243,.5);}
+.end-slide .end-nav .doc-nav-btn strong{color:#f8f7f3;}
 /* Maxxim 'powered by' badge: 'Powered by' label + the [icon] Maxxim lockup */
 .maxxim-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--brand);}
 .maxxim-badge .mb-k{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#9a958d;font-weight:500;}
 .maxxim-badge .mb-logo{display:inline-flex;align-items:center;gap:6px;}
 .maxxim-badge .mb-logo img{width:16px;height:16px;border-radius:4px;display:block;}
 .maxxim-badge .mb-n{font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--ink);text-transform:none;}
-.maxxim-badge.on-dark .mb-k{color:rgba(250,248,244,.55);}
-.maxxim-badge.on-dark .mb-n{color:#FAF8F4;}
+.maxxim-badge.on-dark .mb-k{color:rgba(248,247,243,.55);}
+.maxxim-badge.on-dark .mb-n{color:#f8f7f3;}
 /* Welcome 'Next' control + bookend (Welcome/End) nav links */
 .landing-next{max-width:864px;margin:6px auto 0;}
-.nav-edge .nav-num{color:#2D5BFF;}
+.nav-edge .nav-num{color:#004438;}
 .nav-edge>span:last-child{font-weight:600;}
 @media(max-width:900px){.doc.end-slide{margin:0 -18px;}.end-slide .end-in{padding:0 22px;}}
 
 /* Jewell cover page (Assurant cover system: cream, Poppins, signal blue) */
-.jcover{background:#FAF8F4;color:#111;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+.jcover{background:#f8f7f3;color:#111;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
   margin:0 -44px;padding:clamp(90px,13vh,150px) 50px;font-family:var(--brand);position:relative;}
 .jcover-in{max-width:1080px;margin:0 auto;width:100%;}
 .jcover-top{display:flex;align-items:center;gap:15px;margin-bottom:54px;}
@@ -296,7 +296,7 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
   text-transform:uppercase;color:#666;margin:0 0 26px;}
 .jcover-h{font-family:var(--brand);font-size:clamp(40px,8vw,104px);font-weight:600;letter-spacing:-.03em;
   line-height:1.02;color:#111;margin:0;max-width:15ch;}
-.jcover-h .blue{color:#2D5BFF;}
+.jcover-h .blue{color:#004438;}
 .jcover-sub{font-size:clamp(16px,1.55vw,19px);line-height:1.7;color:#666;max-width:60ch;margin-top:28px;font-weight:400;}
 .jcover-cue{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);display:flex;flex-direction:column;
   align-items:center;gap:8px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#666;}
@@ -309,7 +309,7 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
 .jcover-foot .je-spacer{flex:1;}
 
 /* The 3D Process, step by step (Jewell-styled, animated) */
-.method{background:#FAF8F4;color:#111;margin:0 -44px;padding:78px 50px;border-top:1px solid #D4D2D0;
+.method{background:#f8f7f3;color:#111;margin:0 -44px;padding:78px 50px;border-top:1px solid #D4D2D0;
   border-bottom:1px solid #D4D2D0;font-family:var(--brand);}
 .method-in{max-width:1080px;margin:0 auto;}
 .method-h{font-family:var(--brand);font-size:clamp(25px,3.1vw,40px);font-weight:600;letter-spacing:-.012em;
@@ -322,21 +322,21 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
 .method-lockup .ml-mx-n{font-family:var(--brand);font-size:16px;font-weight:600;color:#111;letter-spacing:-.01em;}
 .msteps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
 .mline{position:absolute;top:19px;left:8%;right:8%;height:2px;background:#E4E1DC;overflow:hidden;border-radius:2px;}
-.mline-fill{display:block;height:100%;width:0;background:#2D5BFF;transition:width 1.5s cubic-bezier(.16,1,.3,1) .25s;}
+.mline-fill{display:block;height:100%;width:0;background:#004438;transition:width 1.5s cubic-bezier(.16,1,.3,1) .25s;}
 .method.run .mline-fill{width:100%;}
 .mstep{position:relative;opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s cubic-bezier(.16,1,.3,1);}
 .method.run .mstep{opacity:1;transform:none;}
 .method.run .mstep[data-i="2"]{transition-delay:.32s;} .method.run .mstep[data-i="3"]{transition-delay:.62s;}
 .mdot{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;
-  background:#111;color:#FAF8F4;font-weight:600;font-size:12.5px;position:relative;z-index:2;}
-.method.run .mdot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #2D5BFF;opacity:0;animation:mpulse 2.6s ease-out infinite;}
+  background:#111;color:#f8f7f3;font-weight:600;font-size:12.5px;position:relative;z-index:2;}
+.method.run .mdot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #004438;opacity:0;animation:mpulse 2.6s ease-out infinite;}
 .method.run .mstep[data-i="2"] .mdot::after{animation-delay:.5s;} .method.run .mstep[data-i="3"] .mdot::after{animation-delay:1s;}
 @keyframes mpulse{0%{transform:scale(.85);opacity:.55}100%{transform:scale(1.6);opacity:0}}
-.mc{margin-top:17px;} .mgate{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#2D5BFF;}
+.mc{margin-top:17px;} .mgate{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#004438;}
 .mc h3{font-family:var(--brand);font-size:21px;font-weight:600;color:#111;margin:5px 0 8px;}
 .mc p{font-size:13px;line-height:1.55;color:#555;font-weight:400;}
 .method-loop{margin-top:34px;font-size:12px;color:#8a857d;letter-spacing:.02em;display:flex;align-items:center;gap:9px;}
-.method-loop::before{content:"";width:18px;height:2px;background:#2D5BFF;border-radius:2px;}
+.method-loop::before{content:"";width:18px;height:2px;background:#004438;border-radius:2px;}
 @media (prefers-reduced-motion: reduce){.mstep{opacity:1!important;transform:none!important;transition:none}.mline-fill{transition:none}.method.run .mdot::after{animation:none}.jcover-foot .scroll{animation:none}}
 @media(max-width:900px){.jcover{margin:0 -18px;padding:96px 22px;}.jcover-foot{left:22px;right:22px;}.jcover-cue{bottom:42px;}
   .method{margin:0 -18px;padding:54px 22px;}.msteps{grid-template-columns:1fr;gap:28px;}.mline{display:none;}}
@@ -344,7 +344,7 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
 /* Document article */
 .doc{max-width:864px;margin:30px auto;scroll-margin-top:18px;}
 .doc-head{display:flex;align-items:center;gap:12px;margin:8px 0 16px;}
-.doc-chip{background:#fdece3;color:#c0532b;font-family:var(--brand);font-size:11.5px;font-weight:600;
+.doc-chip{background:#f2dab2;color:#003a30;font-family:var(--brand);font-size:11.5px;font-weight:600;
   letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;}
 .doc-count{color:var(--muted);font-family:var(--brand);font-size:12px;letter-spacing:.05em;
   text-transform:uppercase;}
@@ -355,7 +355,7 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
 .doc h5{font-size:15px;margin:1em 0 .3em;color:var(--muted);}
 .doc p,.doc li{color:#2a3346;}
 .doc strong{color:var(--ink);}
-.doc a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(253,132,87,.5);}
+.doc a{color:var(--ink);text-decoration:underline;text-decoration-color:rgba(0,68,56,.5);}
 .doc a:hover{color:var(--accent);}
 .doc code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em;
   background:#f0f2f7;color:#3a4658;padding:2px 6px;border-radius:4px;}
@@ -364,18 +364,18 @@ html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezi
 .doc li::marker{color:var(--accent);}
 .doc ul,.doc ol{padding-left:1.3em;}
 .doc blockquote{margin:1.2em 0;padding:12px 18px;border-left:3px solid var(--accent);
-  background:#fff6f1;color:#6b4a35;border-radius:0 var(--radius) var(--radius) 0;}
+  background:#f5f1e6;color:#6b4a35;border-radius:0 var(--radius) var(--radius) 0;}
 .doc hr{border:0;border-top:1px solid var(--line);margin:2em 0;}
 table{border-collapse:collapse;width:100%;margin:18px 0;font-size:14px;}
 th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;}
 th{background:#f3f5f9;font-weight:600;color:var(--ink);}
-tbody tr:nth-child(even){background:#fafbfd;}
+tbody tr:nth-child(even){background:#fafaf6;}
 .doc-nav{display:flex;gap:14px;margin:42px 0 0;border-top:1px solid var(--line);padding-top:22px;}
 .doc-nav .spacer{flex:1;}
 .doc-nav-btn{flex:1;display:flex;flex-direction:column;gap:3px;text-decoration:none;
   border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;background:#fff;
   transition:border-color .12s,box-shadow .12s;}
-.doc-nav-btn:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(253,132,87,.12);}
+.doc-nav-btn:hover{border-color:var(--accent);box-shadow:0 2px 12px rgba(0,68,56,.12);}
 .doc-nav-btn.next{text-align:right;align-items:flex-end;}
 .doc-nav-btn span{font-family:var(--brand);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
   color:var(--accent);font-weight:600;}
@@ -452,6 +452,22 @@ html.js.viewing .landing{display:none;}
   .doc th,.doc td{padding:8px 10px;}
   .doc pre{overflow-x:auto;}
 }.jcover-top .wordmark{font-family:var(--brand);font-weight:600;font-size:19px;letter-spacing:-.015em;color:#111;line-height:1;}
+
+/* Buy My Car palette: warm accents on deep-green surfaces */
+.hero .kicker{color:#ffbc7d;}
+.hero .pill{border-color:rgba(255,188,125,.55);}
+.hero .pill-featured{background:#ffbc7d;border-color:#ffbc7d;color:#2c2c2c;}
+.hero-play{background:#ffbc7d;color:#2c2c2c;}
+.exec-proof .exec-proof-label{color:#f2dab2;}
+.exec-proof-list li{border-left-color:rgba(255,188,125,.6);}
+.bb-cta-eyebrow{color:#f2dab2;}
+.bb-cta-h .arrow{color:#ffbc7d;}
+.end-slide .end-col .ec-n{color:#f2dab2;}
+.end-slide .end-nav .doc-nav-btn:hover{border-color:#f2dab2;}
+.end-slide .end-list li::before{background:#ffbc7d;}
+.divider .divider-chip b{color:#ffbc7d;}
+.divider .divider-title .divider-dot{color:#ffbc7d;}
+.divider .divider-mark::before{background:#ffbc7d;}
 </style>
 </head>
 <body>
@@ -655,14 +671,14 @@ html.js.viewing .landing{display:none;}
     /* ================= SCOPED TOKENS + RESET ================= */
     .btc-sop *{box-sizing:border-box}
     .btc-sop{
-      --sop-ink:#171C3D;
-      --sop-accent:#FD8457;
-      --sop-accent-strong:#FF5A1E;
+      --sop-ink:#003a30;
+      --sop-accent:#004438;
+      --sop-accent-strong:#003a30;
       --sop-paper:#FBF7F2;
-      --sop-mist:#F1F3F8;
-      --sop-line:#e7e9f1;
-      --sop-line-soft:#eef0f6;
-      --sop-muted:#4A5565;
+      --sop-mist:#f0efe8;
+      --sop-line:#dedede;
+      --sop-line-soft:#edece4;
+      --sop-muted:#5c6a66;
       --sop-white:#ffffff;
       --sop-font-display:'Inter Tight','Inter',system-ui,sans-serif;
       --sop-font-label:'Poppins',system-ui,sans-serif;
@@ -735,7 +751,7 @@ html.js.viewing .landing{display:none;}
       background:var(--sop-white);
       border:1px solid var(--sop-line);
       border-radius:var(--sop-radius);
-      box-shadow:0 1px 2px rgba(23,28,61,.04),0 12px 32px -18px rgba(23,28,61,.18);
+      box-shadow:0 1px 2px rgba(0,58,48,.04),0 12px 32px -18px rgba(0,58,48,.18);
       width:100%;max-width:1720px;margin-inline:auto;
       padding:clamp(18px,2.4vw,34px);
       container-type:inline-size;
@@ -985,6 +1001,13 @@ html.js.viewing .landing{display:none;}
       .btc-sop .sop-cols.c4{grid-template-columns:repeat(4,1fr) !important}
       .btc-sop .sop-band-cols{grid-template-columns:repeat(3,1fr) !important}
     }
+  
+    .btc-sop .sop-core-banner b{color:#f2dab2}
+    .btc-sop .sop-cell.is-dark{border-top-color:#f2dab2}
+    .btc-sop .sop-cell.is-dark .sop-k{color:#f2dab2}
+    .btc-sop .sop-k.is-light{color:#f2dab2}
+    .btc-sop .sop-bullets.is-light li::before{background:#f2dab2}
+    .btc-sop .sop-cell.is-dark .sop-gate-n{color:#f2dab2}
   </style>
 
   <!-- ================= PACK BAR ================= -->
@@ -4757,14 +4780,14 @@ html.js.viewing .landing{display:none;}
         <tbody>
           <tr>
             <td>Harbour Navy (primary)</td>
-            <td>#1E4A5F</td>
+            <td>#004438</td>
             <td>C68 M22 Y0 K63</td>
             <td>~PMS 5477 C (unconfirmed)</td>
             <td>Primary brand colour &mdash; headlines, the logo&rsquo;s dominant colour, primary buttons/CTAs, vehicle signage, letterhead. Calm and grounded rather than corporate-cold or dealership-loud.</td>
           </tr>
           <tr>
             <td>Harbour Navy &mdash; Deep (accent strong)</td>
-            <td>#163846</td>
+            <td>#003a30</td>
             <td>C69 M20 Y0 K73</td>
             <td>~PMS 5478 C (unconfirmed)</td>
             <td>Hover/pressed states, dark backgrounds for the reversed/inverse logo plate, footer bands.</td>
@@ -4778,7 +4801,7 @@ html.js.viewing .landing{display:none;}
           </tr>
           <tr>
             <td>Brass Trust (secondary/warm accent)</td>
-            <td>#B8863E</td>
+            <td>#f2dab2</td>
             <td>C0 M27 Y66 K28</td>
             <td>~PMS 7568 C (unconfirmed)</td>
             <td>Warmth accent &mdash; testimonial pull-quotes, the radio/4CRB credibility moment, secondary buttons, small human touches. Used sparingly against the navy so it reads as warm heritage, not &ldquo;sale&rdquo; yellow.</td>
@@ -4806,7 +4829,7 @@ html.js.viewing .landing{display:none;}
           </tr>
           <tr>
             <td>Paper (page background)</td>
-            <td>#FBF9F5</td>
+            <td>#f8f7f3</td>
             <td>C0 M1 Y2 K2</td>
             <td>&mdash; (build from CMYK)</td>
             <td>Primary page/document background &mdash; a warm off-white, not a clinical stark white, consistent with the imagery direction below.</td>
@@ -5175,9 +5198,9 @@ html.js.viewing .landing{display:none;}
       <h3>5. Colour direction</h3>
       <p><strong>Provisional &mdash; not yet settled.</strong> No hex values are locked in until Brand Identity confirms them; the Studio should treat the following as its starting palette, carried directly from <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>:</p>
       <ul>
-        <li><strong>Harbour Navy</strong> #1E4A5F &mdash; primary; calm, grounded, trustworthy.</li>
-        <li><strong>Harbour Navy Deep</strong> #163846 &mdash; for the inverse/reversed plate on dark backgrounds.</li>
-        <li><strong>Brass Trust</strong> #B8863E &mdash; secondary warmth accent, used sparingly.</li>
+        <li><strong>Harbour Navy</strong> #004438 &mdash; primary; calm, grounded, trustworthy.</li>
+        <li><strong>Harbour Navy Deep</strong> #003a30 &mdash; for the inverse/reversed plate on dark backgrounds.</li>
+        <li><strong>Brass Trust</strong> #f2dab2 &mdash; secondary warmth accent, used sparingly.</li>
       </ul>
       <p><strong>Psychological direction.</strong> Calm, grounded and trustworthy &mdash; closer to a respected local tradesperson or financial adviser than a car dealership. Explicitly avoid the loud reds, yellows and &ldquo;sale!&rdquo; urgency colours the used-car category defaults to (visible on CarBuyers&rsquo; and We Buy Cars&rsquo; sites, per <a class="xref" href="#competitor-analysis"><code><a class="xref" href="#competitor-analysis"><code>competitor-analysis.html</code></a></code></a>) &mdash; those colours signal exactly the price-led, high-pressure category this brand exists to sit apart from.</p>
     </section>
@@ -5227,8 +5250,8 @@ html.js.viewing .landing{display:none;}
     <section>
       <h3>10. Studio starting prompts</h3>
       <ul>
-        <li>&ldquo;A warm, minimal combination mark for an Australian home-visit car-buying service: a simple abstracted doorway or handshake symbol beside a confident, friendly wordmark &lsquo;Adam Hall Buy My Car&rsquo;, set in a warm serif typeface. Deep muted navy-teal (#1E4A5F) and warm brass (#B8863E) on a warm off-white background. Calm, trustworthy and grounded &mdash; like a respected local adviser, not a car dealership. No car silhouettes, no chrome, no gradients; must reproduce as a flat single colour.&rdquo;</li>
-        <li>&ldquo;A simple analogue radio-dial or soundwave-arc symbol, reduced to two or three clean strokes, paired with the wordmark &lsquo;Adam Hall Buy My Car&rsquo; in a warm serif typeface &mdash; referencing a trusted community radio voice rather than an automotive icon. Same deep navy (#1E4A5F) and brass (#B8863E) palette, flat colour reproduction, legible down to favicon size.&rdquo;</li>
+        <li>&ldquo;A warm, minimal combination mark for an Australian home-visit car-buying service: a simple abstracted doorway or handshake symbol beside a confident, friendly wordmark &lsquo;Adam Hall Buy My Car&rsquo;, set in a warm serif typeface. Deep muted navy-teal (#004438) and warm brass (#f2dab2) on a warm off-white background. Calm, trustworthy and grounded &mdash; like a respected local adviser, not a car dealership. No car silhouettes, no chrome, no gradients; must reproduce as a flat single colour.&rdquo;</li>
+        <li>&ldquo;A simple analogue radio-dial or soundwave-arc symbol, reduced to two or three clean strokes, paired with the wordmark &lsquo;Adam Hall Buy My Car&rsquo; in a warm serif typeface &mdash; referencing a trusted community radio voice rather than an automotive icon. Same deep navy (#004438) and brass (#f2dab2) palette, flat colour reproduction, legible down to favicon size.&rdquo;</li>
         <li>&ldquo;A confident, simple monogram or seal mark built from the initials &lsquo;AH&rsquo;, designed so it can also stand alone later as a certification-style mark for &lsquo;The Adam Hall Standard&rsquo;. Warm navy and brass palette, flat single colour, geometric but not cold or corporate, legible at 32px, with a clear reversed/inverse version on a dark navy ground.&rdquo;</li>
       </ul>
     </section>
@@ -7232,7 +7255,7 @@ html.js.viewing .landing{display:none;}
         <li><strong>Archetype and personality.</strong> The Caregiver, primary; The Everyman, secondary &mdash; warm, protective and grounded. Never corporate, never a hard sell.</li>
         <li><strong>Positioning.</strong> The trust-and-ease-maximising, fully personal way to sell a car &mdash; occupying the one corner of the category no named competitor (CarBuyers, We Buy Cars, carsales Instant Offer) credibly claims. Full statement in <a class="xref" href="#positioning"><code><a class="xref" href="#positioning"><code>positioning.html</code></a></code></a>.</li>
         <li><strong>Tone of voice.</strong> Plain, everyday language; quietly confident, never boastful; warm and unhurried; direct enough to say "no" when a car isn't a fit. Full guide in <a class="xref" href="#copy-deck"><code><a class="xref" href="#copy-deck"><code>copy-deck.html</code></a></code></a>, section 6.</li>
-        <li><strong>Colour, in one line.</strong> Harbour Navy (<code>#1E4A5F</code>) and Brass Trust (<code>#B8863E</code>) on a warm off-white (<code>#FBF9F5</code>) &mdash; deliberately apart from the category's default red/yellow/orange "sale" urgency colours. Full palette and usage rules in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>.</li>
+        <li><strong>Colour, in one line.</strong> Harbour Navy (<code>#004438</code>) and Brass Trust (<code>#f2dab2</code>) on a warm off-white (<code>#f8f7f3</code>) &mdash; deliberately apart from the category's default red/yellow/orange "sale" urgency colours. Full palette and usage rules in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>.</li>
         <li><strong>Typography, in one line.</strong> Lora for headlines and any personal-voice copy; PT Sans for body copy, forms and captions &mdash; both chosen for legibility at larger sizes for a 60&ndash;75+ audience. Full type scale in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>.</li>
         <li><strong>Existing identity elements to respect.</strong> None are settled yet &mdash; there is no existing logo, no confirmed print material and no locked colour or type system. Every deliverable in this brief is provisional until <a class="xref" href="#logo-brief"><code><a class="xref" href="#logo-brief"><code>logo-brief.html</code></a></code></a> is signed off and Brand Identity reissues <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a> as canonical. Nothing here should be treated as a design decision that has already been made.</li>
       </ul>
@@ -7301,7 +7324,7 @@ html.js.viewing .landing{display:none;}
 
     <section>
       <h3>6. Creative direction</h3>
-      <p><strong>Colour palette.</strong> Provisional, from <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>. Harbour Navy <code>#1E4A5F</code> (primary &mdash; headlines, primary CTA/phone-number treatment, vehicle signage base); Harbour Navy Deep <code>#163846</code> (reversed/inverse plates, dark grounds); Brass Trust <code>#B8863E</code> (warmth accent, used sparingly for testimonial pull-quotes and the radio-credibility line &mdash; never as a dominant colour); Paper <code>#FBF9F5</code> and Paper 2 <code>#F2ECDF</code> (backgrounds); Ink <code>#23292D</code> (body text). Full CMYK/PMS approximations and usage rules in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a> &mdash; <strong>none of these are confirmed swatch-book picks; confirm against a physical swatch book before any print run.</strong></p>
+      <p><strong>Colour palette.</strong> Provisional, from <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>. Harbour Navy <code>#004438</code> (primary &mdash; headlines, primary CTA/phone-number treatment, vehicle signage base); Harbour Navy Deep <code>#003a30</code> (reversed/inverse plates, dark grounds); Brass Trust <code>#f2dab2</code> (warmth accent, used sparingly for testimonial pull-quotes and the radio-credibility line &mdash; never as a dominant colour); Paper <code>#f8f7f3</code> and Paper 2 <code>#F2ECDF</code> (backgrounds); Ink <code>#23292D</code> (body text). Full CMYK/PMS approximations and usage rules in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a> &mdash; <strong>none of these are confirmed swatch-book picks; confirm against a physical swatch book before any print run.</strong></p>
       <p><strong>Typography guidance.</strong> Lora (serif) for headlines, pull-quotes and the wordmark treatment; PT Sans (humanist sans) for body copy, contact details and captions. No weight lighter than regular (400) anywhere &mdash; thin/light weights are explicitly against the brand's readability rule for this audience. On print collateral aimed at the 60&ndash;75+ audience specifically (the large-print leaflet, business card, referral card), err toward the larger end of any size range rather than the smaller.</p>
       <p><strong>Imagery style.</strong> Real, candid, people-and-place-focused &mdash; Adam himself, real customers (with consent), real driveways and homes across the three regions. Never stock photography of anonymous salespeople or showroom cars. Full imagery brief and shot list live in <a class="xref" href="#photo-video-brief"><code><a class="xref" href="#photo-video-brief"><code>photo-video-brief.html</code></a></code></a>; this brief's collateral should draw directly from that shoot's output rather than sourcing separate imagery.</p>
       <p><strong>Iconography.</strong> Deferred for V1, per <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a> &mdash; no broader icon system is briefed here. Where a small supporting mark is needed (e.g. a phone icon beside the number), keep it a simple, flat, single-colour glyph with no automotive cliché (no steering wheels, keys or car silhouettes, per <a class="xref" href="#logo-brief"><code><a class="xref" href="#logo-brief"><code>logo-brief.html</code></a></code></a>'s constraints).</p>
@@ -7549,7 +7572,7 @@ html.js.viewing .landing{display:none;}
     <section>
       <h3>2. Creative direction</h3>
       <p><strong>Overall visual style and mood.</strong> Warm, candid, unhurried, local, honest, dignified, personal &mdash; the exact keyword set specified in <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>. Never glossy, corporate, showroom, urgent or salesy. The reference emotional register throughout is "a letter from someone you trust," not a commercial car-buying advertisement.</p>
-      <p><strong>Colour palette direction.</strong> Nothing in the shoot itself should be colour-graded or styled to specific brand hex values &mdash; that would look artificial for real photography &mdash; but wardrobe, prop and location choices should avoid clashing with the brand palette (Harbour Navy <code>#1E4A5F</code>, Brass Trust <code>#B8863E</code>, warm off-white tones) and should specifically avoid saturated reds, yellows or "sale"-adjacent colours in clothing or signage that appears in frame, consistent with <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>'s "what to avoid" note.</p>
+      <p><strong>Colour palette direction.</strong> Nothing in the shoot itself should be colour-graded or styled to specific brand hex values &mdash; that would look artificial for real photography &mdash; but wardrobe, prop and location choices should avoid clashing with the brand palette (Harbour Navy <code>#004438</code>, Brass Trust <code>#f2dab2</code>, warm off-white tones) and should specifically avoid saturated reds, yellows or "sale"-adjacent colours in clothing or signage that appears in frame, consistent with <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a>'s "what to avoid" note.</p>
       <p><strong>Lighting direction.</strong> Natural light throughout, wherever possible &mdash; overcast or soft morning/late-afternoon daylight for exterior driveway and doorstep shots; window light for interior moments. No harsh studio lighting, no on-camera flash that would flatten the warmth of a real home setting. For the radio-studio shots, work with the station's existing practical lighting rather than bringing in a full studio rig &mdash; the goal is a genuine behind-the-scenes feel, not a polished commercial set.</p>
       <p><strong>Reference images or videos.</strong> No specific photographer, director or campaign was named by the client as a style reference. The qualitative territory instead comes directly from <a class="xref" href="#brand-guidelines"><code><a class="xref" href="#brand-guidelines"><code>brand-guidelines.html</code></a></code></a> and <a class="xref" href="#logo-brief"><code><a class="xref" href="#logo-brief"><code>logo-brief.html</code></a></code></a>: think of the restrained, dignified photography style of a respected local financial adviser's or family law firm's "meet the team" page, or the warm, unposed documentary style used by community radio stations to profile a long-running local segment &mdash; never a car-dealership or classifieds-site photography style.</p>
       <p><strong>What to avoid.</strong> Studio backdrops; stock "happy customer with keys" poses; showroom or forecourt settings; staged handshake-over-a-desk photography; anything that looks like a car-dealership advertisement; forced or performative smiling; any imagery that could read as celebratory or triumphant in the estate/health-crisis context (see section 2's sensitivity note below and the full sensitivity guidance in section 5).</p>

@@ -166,20 +166,20 @@ function loginPage(next, showError) {
   *{box-sizing:border-box}
   body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;color:#FAF8F4;
     font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(1200px 700px at 20% 0%,rgba(45,91,255,.28),transparent 60%),
-      linear-gradient(150deg,#0E171F 0%,#111827 55%,#0E171F 100%)}
+    background:radial-gradient(1200px 700px at 20% 0%,rgba(242,218,178,.22),transparent 60%),
+      linear-gradient(150deg,#00251f 0%,#003a30 55%,#00251f 100%)}
   .card{width:100%;max-width:392px;text-align:center}
   .logo{height:56px;margin:0 0 22px;filter:invert(1)}
   h1{font-weight:600;margin:0 0 6px;font-size:28px;letter-spacing:-0.02em}
   p.sub{opacity:.8;margin:0 0 22px;font-weight:300}
-  p.err{background:rgba(45,91,255,.18);border:1px solid rgba(45,91,255,.55);
+  p.err{background:rgba(255,188,125,.2);border:1px solid rgba(255,188,125,.55);
     border-radius:5px;padding:10px 12px;margin:0 0 14px;font-size:14.5px}
   form{display:flex;flex-direction:column;gap:12px}
   input{padding:13px 14px;border-radius:6px;border:1px solid rgba(250,248,244,.3);
     background:rgba(250,248,244,.1);color:#FAF8F4;font-size:16px;font-family:inherit}
   input::placeholder{color:rgba(250,248,244,.55)}
-  input:focus{outline:none;border-color:#2D5BFF;background:rgba(250,248,244,.16)}
-  button{padding:13px 14px;border-radius:6px;border:0;background:#2D5BFF;color:#fff;
+  input:focus{outline:none;border-color:#f2dab2;background:rgba(250,248,244,.16)}
+  button{padding:13px 14px;border-radius:6px;border:0;background:#ffbc7d;color:#2c2c2c;
     font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:rgba(0,0,0,.25) 0px 10px 20px 0px}
   button:hover{opacity:.93}
   .foot{opacity:.55;font-size:11px;margin-top:22px;text-transform:uppercase;letter-spacing:.14em}
