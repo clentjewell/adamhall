@@ -34,11 +34,6 @@ export default {
     }
 
     if (await hasValidSession(request, expected)) {
-      if (url.pathname === "/summary" || url.pathname === "/summary/") {
-        const headers = new Headers({ Location: "/" });
-        applySecurityHeaders(headers);
-        return new Response(null, { status: 302, headers });
-      }
       const asset = await env.ASSETS.fetch(request);
       const ct = asset.headers.get("Content-Type") || "";
       if (!ct.includes("text/html")) {
