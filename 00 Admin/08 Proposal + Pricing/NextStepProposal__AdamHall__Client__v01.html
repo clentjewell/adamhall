@@ -92,6 +92,10 @@
       .nn { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); margin-top: 52px; }
       .nn-card { border: 1px solid var(--rule); border-radius: 8px; padding: clamp(24px, 3vw, 36px); }
       .nn-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--signal-blue); margin-bottom: 18px; }
+      .phase-h { font-size: clamp(17px, 1.8vw, 22px); font-weight: 600; letter-spacing: -0.01em; margin: 64px 0 4px; }
+      .phase-h.first { margin-top: 48px; }
+      .phase-note { font-size: 14px; color: var(--mid-grey); margin-bottom: 8px; }
+      .grp-tag { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); margin: 30px 0 2px; }
       .nn-card .body { font-size: 15px; }
 
       .budget-row { display: grid; grid-template-columns: 130px 1fr 220px; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
@@ -236,16 +240,34 @@
     <section class="section bg-cream">
       <div class="wrap">
         <p class="eyebrow reveal">03 — The next step at a glance</p>
-        <h2 class="h-section reveal">Eight workstreams. One launch, then a monthly run.</h2>
-        <div class="mt56 stagger">
+        <h2 class="h-section reveal">Two phases. Launch and run, then automate.</h2>
+
+        <p class="phase-h first reveal">Phase 1 — Launch, then a monthly run</p>
+
+        <p class="grp-tag reveal">Now · Strategy &amp; platform set-up</p>
+        <div class="stagger">
           <div class="step-row"><div class="step-k">Strategy &amp; brand</div><div class="step-what">Confirm the positioning, make the naming call, lock the brand book.</div><div class="step-get">A settled brand that looks and sounds like you.</div></div>
           <div class="step-row"><div class="step-k">Website</div><div class="step-what">Load real stock and photos, wire the domain and phone, go live.</div><div class="step-get">A live marketplace selling your cars.</div></div>
           <div class="step-row"><div class="step-k">Online channels</div><div class="step-what">Claim and verify Google Business Profile, start the review engine.</div><div class="step-get">Public proof starting to build from zero.</div></div>
           <div class="step-row"><div class="step-k">Social</div><div class="step-what">Facebook posting, plus every car on Facebook Marketplace.</div><div class="step-get">Your stock where local buyers already scroll.</div></div>
           <div class="step-row"><div class="step-k">Search &amp; AI search</div><div class="step-what">Technical foundation now, content next.</div><div class="step-get">Found on Google and quoted by AI assistants.</div></div>
+        </div>
+
+        <p class="grp-tag reveal">Next · Monthly on-going</p>
+        <div class="stagger">
+          <div class="step-row"><div class="step-k">Online channels</div><div class="step-what">Google Business Profile, curated like a social channel.</div><div class="step-get">Public proof starting to build from zero.</div></div>
+          <div class="step-row"><div class="step-k">Social</div><div class="step-what">Facebook posting, plus every car on Facebook Marketplace.</div><div class="step-get">Your stock where local buyers already scroll.</div></div>
+          <div class="step-row"><div class="step-k">Search &amp; AI search</div><div class="step-what">Technical foundation now, content next.</div><div class="step-get">Found on Google and quoted by AI assistants.</div></div>
           <div class="step-row"><div class="step-k">Email</div><div class="step-what">Consent-only list, settlement follow-up automation.</div><div class="step-get">A referral ask that goes out on its own.</div></div>
           <div class="step-row"><div class="step-k">Paid ads</div><div class="step-what">Gated until the lead log and call tracking are live.</div><div class="step-get">Spend that starts only when it can be measured.</div></div>
+          <div class="step-row"><div class="step-k">Hosting &amp; maintenance</div><div class="step-what">Premium hosting and bank-vault-level security.</div><div class="step-get">Always on, always safe — nothing for you to manage.</div></div>
           <div class="step-row"><div class="step-k">Monthly run</div><div class="step-what">Always-on marketing, reporting, quarterly reviews.</div><div class="step-get">A machine that keeps moving without you steering it.</div></div>
+        </div>
+
+        <p class="phase-h reveal">Phase 2 — Operations automation with AI</p>
+        <p class="phase-note reveal">Layered on once the platform is live and the data is flowing.</p>
+        <div class="stagger">
+          <div class="step-row"><div class="step-k">Automate the workflow</div><div class="step-what">Put AI to work across the pipeline so the routine steps run themselves.</div><div class="step-get">To be scoped &amp; quoted.</div></div>
         </div>
       </div>
     </section>
