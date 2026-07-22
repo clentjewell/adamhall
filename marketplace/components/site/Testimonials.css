@@ -1,0 +1,117 @@
+/* scoped port of Testimonials.css */
+.ah-site .stars {
+  display: inline-flex;
+  gap: 3px;
+  color: var(--c-purple);
+  line-height: 0;
+}
+.ah-site .stars--purple {
+  color: var(--c-purple);
+}
+.ah-site .tgrid__title {
+  text-align: center;
+  font-size: var(--fs-h2); 
+  margin-bottom: 3rem;
+}
+.ah-site .tgrid__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem 3rem;
+}
+.ah-site .tgrid__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+.ah-site .tgrid__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--c-tan); 
+}
+.ah-site .tgrid__rating .stars svg {
+  width: 15px;
+  height: 15px;
+}
+.ah-site .tgrid__item p {
+  color: var(--c-white);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  margin: 0;
+}
+.ah-site .tlist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.ah-site .tlist__item p {
+  margin: 0.3rem 0 0;
+  color: var(--c-black);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+.ah-site .tlist__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+.ah-site .tlist__name {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  color: var(--c-purple);
+}
+.ah-site .fquote {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ah-site .fquote blockquote {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.6vw, 3.25rem);
+  line-height: 1.25;
+  color: var(--c-white);
+}
+.ah-site .fquote figcaption {
+  font-family: var(--font-heading);
+  color: var(--c-tan); 
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 4.5rem;
+}
+.ah-site .fquote figcaption strong {
+  font-weight: 700;
+}
+.ah-site .fquote figcaption span {
+  opacity: 0.85;
+}
+@media (max-width: 900px) {
+.ah-site .tgrid__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+.ah-site .tgrid__list {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

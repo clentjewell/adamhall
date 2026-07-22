@@ -87,14 +87,14 @@ export default async function SiteJsonLd() {
     "@id": `${siteUrl}/#dealer`,
     name: "Adam Hall Buy My Car",
     description:
-      "Hand-picked used cars in Northern NSW with transparent pricing, honest condition reports and fast settlements.",
+      "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers with transparent pricing, honest condition reports and fast settlements.",
     url: siteUrl,
-    logo: `${siteUrl}/brand/logo.png`,
+    logo: `${siteUrl}/assets/logos/logo-black.svg`,
     image: `${siteUrl}/brand/home-hero.jpg`,
     ...(telephone ? { telephone } : {}),
     ...(email ? { email } : {}),
     priceRange: "$$",
-    areaServed: "Northern NSW, Tweed–Gold Coast",
+    areaServed: "Gold Coast, Brisbane & Northern Rivers",
     address: {
       "@type": "PostalAddress",
       ...(street ? { streetAddress: street } : {}),

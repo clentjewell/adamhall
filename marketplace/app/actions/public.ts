@@ -67,6 +67,42 @@ export async function submitEnquiry(
   return { ok: true };
 }
 
+// General website contact enquiry (the ported /contact-us page). The existing
+// submitEnquiry is car-specific (requires a car_id + phone), so a general
+// name/email/message enquiry gets its own action. It routes to Adam via the
+// shared notifier (which logs in dev when RESEND_API_KEY is unset).
+const contactSchema = z.object({
+  name: z.string().trim().min(2, "This field is required"),
+  email: z.string().trim().email("Please enter a valid email address"),
+  message: z.string().trim().max(4000).optional(),
+});
+
+export async function submitContactMessage(input: {
+  name: string;
+  email: string;
+  message?: string;
+}): Promise<ActionState> {
+  const parsed = contactSchema.safeParse(input);
+  if (!parsed.success) {
+    return { ok: false, error: parsed.error.issues[0].message };
+  }
+  const { name, email, message } = parsed.data;
+  const escape = (s: string) =>
+    s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+  try {
+    await notifier.sendEmail({
+      to: adminEmail || email,
+      subject: `New website enquiry from ${name}`,
+      html: `<p><strong>${escape(name)}</strong> (${escape(email)}) sent a message via the contact page:</p><p>${escape(message || "(no message)")}</p>`,
+    });
+  } catch (err) {
+    console.error("submitContactMessage:", err);
+    return { ok: false, error: "Something went wrong sending your message." };
+  }
+  return { ok: true };
+}
+
 const watchlistSchema = z.object({
   email: z.string().trim().email("That email doesn't look right"),
   make: z.string().trim().min(2, "Which make are you after?"),

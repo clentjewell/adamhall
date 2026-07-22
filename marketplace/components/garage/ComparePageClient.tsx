@@ -175,7 +175,7 @@ export default function ComparePageClient() {
     { label: "Colour", render: (car) => car.colour ?? "—" },
     { label: "Service history", render: (car) => SERVICE_HISTORY_LABELS[car.service_history] },
     { label: "PPSR", render: (car) => (car.ppsr_clear ? "Clear ✓" : "Check required") },
-    { label: "Location", render: () => "Northern NSW" },
+    { label: "Location", render: () => "Gold Coast & Northern Rivers" },
   ];
 
   return (

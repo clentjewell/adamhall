@@ -1,0 +1,40 @@
+/* scoped port of pages/NotFound.css */
+.ah-site .nf {
+  min-height: 60vh;
+}
+.ah-site .nf__band {
+  height: calc(var(--header-h-mobile) + 40px);
+}
+@media (min-width: 1025px) {
+.ah-site .nf__band {
+    height: calc(var(--header-h) + 40px);
+  }
+}
+
+.ah-site .nf__inner {
+  text-align: center;
+}
+.ah-site .nf__code {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(4rem, 12vw, 8rem);
+  line-height: 1;
+  color: var(--c-purple);
+  margin: 0;
+}
+.ah-site .nf h1 {
+  font-size: var(--fs-h3);
+  margin-bottom: 1rem;
+}
+.ah-site .nf__text {
+  max-width: 30rem;
+  margin: 0 auto 2rem;
+  color: var(--c-black);
+  font-size: 1.1rem;
+}
+.ah-site .nf__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}

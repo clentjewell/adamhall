@@ -1,0 +1,115 @@
+/* scoped port of pages/About.css */
+.ah-site .about-bio__title {
+  font-size: var(--fs-h3);
+  margin-bottom: 1.5rem;
+}
+.ah-site .about-bio p {
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--c-black);
+}
+.ah-site .about-bio__list {
+  list-style: disc;
+  padding-left: 1.4rem;
+  margin: 0 0 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--c-black);
+  font-size: var(--fs-body);
+}
+.ah-site .about-bio__from {
+  font-weight: 600;
+  color: var(--c-black);
+  margin-bottom: 0.4rem;
+}
+.ah-site .about-bio__quote {
+  margin: 0;
+  border-left: 4px solid var(--c-purple);
+  padding-left: 1.2rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-style: italic;
+  color: var(--c-black);
+}
+.ah-site .about-simplify__title {
+  text-align: center;
+  font-size: var(--fs-h4);
+  max-width: 34rem;
+  margin: 0 auto 3rem;
+}
+.ah-site .about-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+.ah-site .about-card__n {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--c-purple-dark);
+  letter-spacing: 0.1em;
+}
+.ah-site .about-card h5 {
+  font-size: 1.35rem;
+  margin: 0.6rem 0 0.7rem;
+}
+.ah-site .about-card p {
+  color: var(--c-black);
+  font-size: var(--fs-body);
+}
+.ah-site .about-numbers__title {
+  font-size: var(--fs-h3);
+  margin-bottom: 2.5rem;
+  color: var(--c-white);
+}
+.ah-site .about-values {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+.ah-site .about-values__media img {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+  aspect-ratio: 5 / 4;
+}
+.ah-site .about-values__content h3 {
+  font-size: var(--fs-h3);
+  margin-bottom: 1.8rem;
+}
+.ah-site .about-values__list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+.ah-site .about-values__list dt {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--c-black);
+  margin-bottom: 0.25rem;
+}
+.ah-site .about-values__list dd {
+  margin: 0;
+  color: var(--c-black);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+@media (max-width: 900px) {
+.ah-site .about-cards {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+.ah-site .about-values {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+.ah-site .about-values__media {
+    order: -1;
+  }
+}

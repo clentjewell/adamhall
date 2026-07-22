@@ -1,0 +1,68 @@
+/* scoped port of FaqSection.css */
+.ah-site .faq__title {
+  text-align: center;
+  font-size: var(--fs-h4);
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  margin-bottom: 2.5rem;
+  color: var(--c-black);
+}
+.ah-site .faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.ah-site .faq__item {
+  background: var(--c-white);
+  border-radius: 5px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+.ah-site .faq__item.is-open {
+  box-shadow: var(--shadow);
+}
+.ah-site .faq__q {
+  margin: 0;
+}
+.ah-site .faq__q button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  
+  padding: 25px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  line-height: 1;
+  color: var(--c-black);
+}
+.ah-site .faq__chevron {
+  flex-shrink: 0;
+  color: var(--c-green);
+  transition: transform var(--transition);
+}
+.ah-site .faq__item.is-open .faq__chevron {
+  transform: rotate(180deg);
+}
+.ah-site .faq__panel {
+  padding: 0 25px 25px;
+}
+.ah-site .faq__panel p {
+  color: var(--c-black);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+@media (max-width: 767px) {
+.ah-site .faq__q button {
+    padding: 18px;
+  }
+.ah-site .faq__panel {
+    padding: 0 18px 18px;
+  }
+}

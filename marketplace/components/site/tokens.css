@@ -1,0 +1,61 @@
+/* ============================================================
+   Design tokens — extracted from the reference site
+   (Elementor global kit + Kava theme)
+   ============================================================ */
+:root {
+  /* Brand colours */
+  --c-green: #004438;        /* primary brand dark green (secondary in kit) */
+  --c-green-deep: #003a30;   /* slightly deeper green for hovers/gradients */
+  --c-black: #000000;
+  --c-dark: #2c2c2c;
+  --c-cream: #f8f7f3;        /* page background */
+  --c-tan: #f2dab2;          /* warm accent */
+  --c-purple: #c29fd8;       /* accent / CTA */
+  --c-purple-dark: #b184cd;
+  --c-peach: #ffbc7d;
+  --c-white: #ffffff;
+  --c-text: #7a7a7a;         /* body grey */
+  --c-text-dark: #2c2c2c;
+  --c-border: #dedede;
+
+  /* Typography */
+  --font-heading: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-accent: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, sans-serif;
+
+  --fw-heading: 600;
+  --fw-sub: 400;
+  --fw-body: 400;
+  --fw-accent: 500;
+
+  /* Fluid type scale — desktop targets measured from the live site:
+     h1 62px, h2 56px, h3 48px, h4 36px, intro-h2 40px, body 24px */
+  --fs-hero: clamp(2.5rem, 5.2vw, 3.875rem);      /* ~40 -> 62px */
+  --fs-h2: clamp(2.1rem, 4vw, 3.5rem);             /* ~34 -> 56px */
+  --fs-h3: clamp(1.8rem, 3.4vw, 3rem);             /* ~29 -> 48px */
+  --fs-h4: clamp(1.5rem, 2.5vw, 2.25rem);          /* ~24 -> 36px */
+  --fs-h5: clamp(1.15rem, 1.6vw, 1.375rem);        /* ~18 -> 22px */
+  --fs-label: 0.875rem;                            /* 14px uppercase label */
+  --fs-body: clamp(1.25rem, 1.7vw, 1.5rem);        /* ~20 -> 24px */
+  --fs-small: 1rem;
+
+  /* Layout */
+  --container: 1140px;
+  --container-wide: 1200px;
+  --container-narrow: 960px;
+  --gutter: 20px;
+  --section-py: clamp(3rem, 7vw, 6.5rem);
+
+  /* Radius / shadow / transitions */
+  --radius-sm: 8px;
+  --radius: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --transition: 0.25s ease;
+
+  /* Header (logo 200x90 + stacked nav/phone rows, measured from live) */
+  --header-h: 150px;
+  --header-h-mobile: 84px;
+}

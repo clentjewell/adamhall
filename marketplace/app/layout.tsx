@@ -4,7 +4,6 @@ import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
 import EditModeBridge from "@/components/EditModeBridge";
 import SiteJsonLd from "@/components/SiteJsonLd";
-import { getContent } from "@/lib/content";
 import "./globals.css";
 
 // Brand type comes from the client's Adobe Typekit kit (Neue Haas Grotesk
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Adam Hall — Buy My Car",
   },
   description:
-    "Hand-picked used cars in Northern NSW. Transparent pricing, honest condition reports and fast settlements. Selling? Adam personally reviews every car within 1 business day.",
+    "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Transparent pricing, honest condition reports and fast settlements. Selling? Adam personally reviews every car within 1 business day.",
   openGraph: {
     siteName: "Adam Hall — Buy My Car",
     type: "website",
@@ -28,10 +27,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const content = await getContent();
   return (
     <html lang="en-AU">
       <head>
@@ -42,9 +40,9 @@ export default async function RootLayout({
         <SiteJsonLd />
         <TopLoader />
         <EditModeBridge />
-        <Header phone={content.phone.display} phoneHref={content.phone.tel} />
+        <Header />
         <main className="flex-1">{children}</main>
-        <Footer blurb={content.footer.blurb} deal={content.footer.deal} />
+        <Footer />
       </body>
     </html>
   );
