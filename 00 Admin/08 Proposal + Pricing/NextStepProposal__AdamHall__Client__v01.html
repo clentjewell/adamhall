@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Next Step: Launch and Run — Adam Hall Buy My Car · Jewell Projects</title>
+    <meta name="description" content="Finish the website, turn on the channels, and run the marketing month to month. The next-step proposal from Jewell Projects for Adam Hall Buy My Car." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FAF8F4" />
+    <meta name="maxxim:client" content="adam-hall" />
+    <meta name="maxxim:phase" content="admin-proposal" />
+    <meta name="maxxim:generated" content="2026-07-21" />
+    <link rel="icon" href="/jewell-logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --cream: #FAF8F4;
+        --black: #111111;
+        --calm-grey: #EDEBEA;
+        --signal-blue: #2D5BFF;
+        --mid-grey: #666666;
+        --rule: #D4D2D0;
+        --rule-dark: rgba(250,248,244,0.14);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--cream); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+      .progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--signal-blue); z-index: 400; }
+
+      .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(24px, 5vw, 80px); z-index: 350; transition: background .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease); border-bottom: 1px solid transparent; }
+      .header.scrolled { background: rgba(250,248,244,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--rule); }
+      .wm-logo { height: 22px; width: auto; display: block; filter: brightness(0) invert(1); transition: filter .4s var(--ease); }
+      .header.scrolled .wm-logo { filter: none; }
+      .header-meta { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,244,0.72); transition: color .4s var(--ease); }
+      .header.scrolled .header-meta { color: var(--mid-grey); }
+
+      .hero-video { position: relative; overflow: hidden; background: #0b0b0d; }
+      .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+      .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(100deg, rgba(9,9,12,0.85) 0%, rgba(9,9,12,0.64) 42%, rgba(9,9,12,0.30) 72%, rgba(9,9,12,0.12) 100%); }
+      .hero-content { position: relative; z-index: 2; }
+      .hero-content .lead { color: rgba(250,248,244,0.82); }
+      .hero-video .scroll-cue { color: rgba(250,248,244,0.6); }
+      .hero-video .scroll-cue .dot { border-color: rgba(250,248,244,0.35); }
+      .hero-video .scroll-cue .dot::after { background: rgba(250,248,244,0.6); }
+      @media (prefers-reduced-motion: reduce) { .hero-bg { display: none; } }
+
+      .section { position: relative; padding: clamp(90px, 13vh, 170px) clamp(24px, 6vw, 80px); }
+      .section.bg-cream { background: var(--cream); }
+      .section.bg-conf { background: #0C0C0C; }
+      .wrap { max-width: 1080px; margin: 0 auto; width: 100%; }
+      .full { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+      .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 28px; }
+      .eyebrow.light { color: rgba(250,248,244,0.45); }
+      .h-hero { font-size: clamp(48px, 8vw, 104px); font-weight: 600; line-height: 1.02; letter-spacing: -0.03em; }
+      .h-section { font-size: clamp(30px, 4.4vw, 60px); font-weight: 600; line-height: 1.06; letter-spacing: -0.025em; max-width: 940px; }
+      .h-closer { font-size: clamp(58px, 11vw, 150px); font-weight: 600; letter-spacing: -0.04em; line-height: 0.94; }
+      .light { color: var(--cream); }
+      .lead { font-size: clamp(16px, 1.5vw, 19px); font-weight: 400; line-height: 1.7; color: var(--mid-grey); max-width: 760px; }
+      .body { font-size: clamp(15px, 1.25vw, 17px); font-weight: 400; line-height: 1.75; max-width: 780px; }
+      .body.grey { color: var(--mid-grey); }
+      .body.light { color: rgba(250,248,244,0.78); }
+      .note { font-size: 13px; line-height: 1.65; color: var(--mid-grey); }
+      .note.light { color: rgba(250,248,244,0.4); }
+      .mt12 { margin-top: 12px; } .mt20 { margin-top: 20px; } .mt28 { margin-top: 28px; } .mt40 { margin-top: 40px; } .mt56 { margin-top: 56px; }
+
+      .rule { height: 1px; background: var(--rule); width: 100%; }
+      .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+      .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 56px); align-items: start; }
+      .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 44px); align-items: start; }
+      .col-label { font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.35; }
+      .col-label.light { color: var(--cream); }
+      .col-body { font-size: 15px; font-weight: 400; line-height: 1.7; color: var(--mid-grey); }
+      .col-body.light { color: rgba(250,248,244,0.6); }
+
+      .idx { color: var(--signal-blue); font-weight: 600; }
+      .stat-num { font-size: clamp(34px, 4.4vw, 56px); font-weight: 600; color: var(--signal-blue); letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+
+      .step-row { display: grid; grid-template-columns: 200px 1fr 1fr; gap: clamp(20px, 4vw, 48px); align-items: baseline; padding: 26px 0; border-bottom: 1px solid var(--rule); }
+      .step-row:first-child { border-top: 1px solid var(--rule); }
+      .step-k { font-size: clamp(16px, 1.6vw, 19px); font-weight: 600; letter-spacing: -0.01em; }
+      .step-what { font-size: 15px; font-weight: 400; color: var(--mid-grey); line-height: 1.6; }
+      .step-get { font-size: 15px; font-weight: 500; color: var(--black); line-height: 1.6; }
+
+      .callout { border-left: 2px solid var(--signal-blue); padding: 6px 0 6px 26px; margin-top: 40px; font-size: clamp(18px, 2vw, 24px); font-weight: 400; line-height: 1.45; letter-spacing: -0.01em; max-width: 840px; }
+      .callout.light { color: var(--cream); }
+
+      .nn { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); margin-top: 52px; }
+      .nn-card { border: 1px solid var(--rule); border-radius: 8px; padding: clamp(24px, 3vw, 36px); }
+      .nn-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--signal-blue); margin-bottom: 18px; }
+      .phase-h { font-size: clamp(17px, 1.8vw, 22px); font-weight: 600; letter-spacing: -0.01em; margin: 64px 0 4px; }
+      .phase-h.first { margin-top: 48px; }
+      .phase-note { font-size: 14px; color: var(--mid-grey); margin-bottom: 8px; }
+      .grp-tag { display: block; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); margin: 30px 0 2px; }
+      .nn-card .body { font-size: 15px; }
+
+      .budget-row { display: grid; grid-template-columns: 130px 1fr 220px; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
+      .budget-row:first-child { border-top: 1px solid var(--rule); }
+      .budget-row-label { font-weight: 600; }
+      .budget-row-mid { font-weight: 400; color: var(--mid-grey); line-height: 1.55; font-size: 15px; }
+      .budget-row-val { font-weight: 500; color: var(--signal-blue); text-align: right; line-height: 1.5; font-size: 14px; }
+
+      .value-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-grey); margin-top: 56px; margin-bottom: 22px; }
+      .value-row { display: grid; grid-template-columns: 210px 1fr 150px 130px; gap: clamp(16px, 2.4vw, 28px); align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+      .value-row:first-child { border-top: 1px solid var(--rule); }
+      .value-header { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid-grey); padding-bottom: 14px; }
+      .value-item { font-weight: 600; font-size: 15px; letter-spacing: -0.005em; }
+      .value-desc { font-weight: 400; color: var(--mid-grey); line-height: 1.55; font-size: 14px; }
+      .value-rack { color: var(--mid-grey); text-decoration: line-through; font-size: 14px; }
+      .value-included { color: var(--signal-blue); font-weight: 500; font-size: 14px; }
+      .value-total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px 32px; padding-top: 26px; margin-top: 6px; border-top: 1px solid var(--black); }
+      .value-total-block { display: flex; align-items: baseline; gap: 12px; }
+      .value-total-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+      .value-total-rack { font-size: clamp(19px, 2.2vw, 24px); font-weight: 500; color: var(--mid-grey); text-decoration: line-through; }
+      .value-total-gate { font-size: clamp(19px, 2.2vw, 24px); font-weight: 600; color: var(--signal-blue); }
+
+      .need-item { display: flex; gap: 20px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--rule); font-size: clamp(15px, 1.5vw, 18px); font-weight: 400; line-height: 1.5; }
+      .need-item:first-child { border-top: 1px solid var(--rule); }
+      .need-item .idx { flex-shrink: 0; font-size: 14px; letter-spacing: 0.05em; }
+
+      .link { color: var(--signal-blue); text-decoration: none; font-weight: 500; }
+      .link:hover { text-decoration: underline; }
+      .link.light { color: #7d97ff; }
+      .links { display: flex; flex-wrap: wrap; gap: 28px; }
+      a:focus-visible, .link:focus-visible { outline: 2px solid var(--signal-blue); outline-offset: 3px; border-radius: 2px; }
+
+      .demo { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 48px; }
+      .demo-card { display: block; text-decoration: none; border: 1px solid var(--rule-dark); border-radius: 10px; padding: 26px 28px; transition: border-color .3s var(--ease), transform .3s var(--ease), background .3s var(--ease); background: rgba(250,248,244,0.02); }
+      .demo-card:hover { border-color: var(--signal-blue); transform: translateY(-3px); background: rgba(45,91,255,0.06); }
+      .demo-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,244,0.45); margin-bottom: 12px; }
+      .demo-title { font-size: 19px; font-weight: 500; color: var(--cream); letter-spacing: -0.01em; }
+      .demo-title .arw { color: var(--signal-blue); }
+      .demo-sub { font-size: 12px; color: rgba(250,248,244,0.4); margin-top: 8px; line-height: 1.5; word-break: break-word; }
+
+      .demo-badge { display: inline-block; padding: 6px 14px; border: 1px solid var(--signal-blue); border-radius: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: #7d97ff; margin-top: 24px; }
+      .creds { margin-top: 24px; border: 1px solid var(--rule-dark); border-radius: 10px; padding: 22px 26px; background: rgba(250,248,244,0.02); }
+      .creds-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,244,0.45); margin-bottom: 14px; }
+      .creds-line { display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 13px; line-height: 1.7; color: rgba(250,248,244,0.55); }
+      .creds-line b { color: rgba(250,248,244,0.85); font-weight: 500; }
+      .creds-line .k { color: rgba(250,248,244,0.4); }
+
+      .btn-accept { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; padding: 16px 30px; background: var(--signal-blue); color: #fff; border-radius: 6px; font-size: 15px; font-weight: 500; text-decoration: none; transition: transform .3s var(--ease), background .3s var(--ease); }
+      .btn-accept:hover { background: #1f47e0; transform: translateY(-2px); }
+
+      .closer-logo { height: 24px; filter: brightness(0) invert(1); opacity: .85; }
+
+      .reveal { opacity: 0; transform: translateY(46px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+      .reveal.in { opacity: 1; transform: none; }
+      .stagger > * { opacity: 0; transform: translateY(34px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+      .stagger.in > * { opacity: 1; transform: none; }
+      .stagger.in > *:nth-child(1){ transition-delay: .04s; } .stagger.in > *:nth-child(2){ transition-delay: .12s; }
+      .stagger.in > *:nth-child(3){ transition-delay: .20s; } .stagger.in > *:nth-child(4){ transition-delay: .28s; }
+      .stagger.in > *:nth-child(5){ transition-delay: .36s; } .stagger.in > *:nth-child(6){ transition-delay: .44s; }
+      .stagger.in > *:nth-child(7){ transition-delay: .52s; } .stagger.in > *:nth-child(8){ transition-delay: .60s; }
+
+      .scroll-cue { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); }
+      .scroll-cue .dot { width: 22px; height: 36px; border: 1.5px solid var(--rule); border-radius: 12px; position: relative; }
+      .scroll-cue .dot::after { content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 3px; height: 7px; border-radius: 2px; background: var(--mid-grey); animation: cue 1.8s var(--ease) infinite; }
+      @keyframes cue { 0% { opacity: 0; top: 6px; } 30% { opacity: 1; } 60% { opacity: 1; } 100% { opacity: 0; top: 18px; } }
+
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; } .scroll-cue .dot::after { animation: none; } }
+      @media (max-width: 900px) { .cols-4 { grid-template-columns: 1fr 1fr; gap: 32px; } }
+      @media (max-width: 760px) {
+        .cols-2, .cols-3, .cols-4, .nn, .demo { grid-template-columns: 1fr; gap: 24px; }
+        .step-row { grid-template-columns: 1fr; gap: 6px; padding: 22px 0; }
+        .step-what, .step-get { font-size: 14px; }
+        .budget-row { grid-template-columns: 1fr; gap: 6px; } .budget-row-val { text-align: left; }
+        .value-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
+        .value-header { display: none; }
+        .value-item, .value-desc, .value-rack, .value-included { font-size: 13px; }
+        .value-total { flex-direction: column; align-items: flex-start; gap: 14px; }
+        .value-total-rack, .value-total-gate { font-size: 19px; }
+        .header-meta { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="prog"></div>
+    <header class="header" id="header">
+      <a class="wm" href="https://jewellprojects.com" target="_blank" rel="noopener"><img class="wm-logo" src="/jewell-logo.svg" alt="Jewell Projects" /></a>
+      <span class="header-meta">Adam Hall · Next Step</span>
+    </header>
+
+    <!-- HERO -->
+    <section class="section hero-video full" id="hero">
+      <video class="hero-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
+      <div class="wrap hero-content">
+        <p class="eyebrow light reveal">Next Step · Adam Hall Buy My Car</p>
+        <h1 class="h-hero light reveal">Launch it.<br />Then run it.</h1>
+        <p class="lead mt28 reveal">Finish the website, turn on the channels, and run the marketing month to month. The sequel to 15 July, from Jewell&nbsp;Projects. Nothing here commits you past the launch step.</p>
+        <p class="mt28 reveal links">
+          <a class="link light" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/" target="_blank" rel="noopener">See the demo site ↗</a>
+          <a class="link light" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step" target="_blank" rel="noopener">clent@jewellprojects.com</a>
+        </p>
+        <p class="note light mt20 reveal">Prepared for Adam Hall · 21 July 2026</p>
+      </div>
+      <div class="scroll-cue"><span class="dot"></span>Scroll</div>
+    </section>
+
+    <!-- 01 WHERE THINGS STAND -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">01 — Where things stand</p>
+        <h2 class="h-section reveal">The thinking is done. The website is built. Now we launch.</h2>
+        <p class="body grey mt40 reveal">The strategy is drafted and it largely holds. You sell relief to people 60 to 75 and older across the Gold Coast, Brisbane and the Northern Rivers who want an honest number and their money in the account, not a negotiation. You attend every visit yourself. That is the whole business, and it is right.</p>
+        <p class="body grey mt20 reveal">The brand direction is set too. We called it a tickle-up, not a rebuild, and that still stands. The palette, type and voice get locked in a brand book refresh once you make one open call, which we come to below.</p>
+        <div class="callout reveal">The new thing is the website. We have built a working marketplace as a live product, not a slide. You can open it and use it right now.</div>
+      </div>
+    </section>
+
+    <!-- 02 WHAT YOU CAN ALREADY CLICK -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">02 — What you can already click</p>
+        <h2 class="h-section light reveal">A working product, not a mock-up.</h2>
+        <p class="reveal"><span class="demo-badge">Demo only · not yet live</span></p>
+        <div class="cols-3 mt56 stagger">
+          <div>
+            <div class="col-label light">The buyer side</div>
+            <div class="col-body light">Every car has its own page with a photo gallery, a PPSR badge, its inspection and service history, and your take written in plain words. A slot for a walk-around video. Buttons to enquire or book a look. Sold cars stay visible for thirty days, then archive themselves.</div>
+          </div>
+          <div>
+            <div class="col-label light">The seller side</div>
+            <div class="col-body light">A four-step form takes a seller from rego to condition to photos to contact, and saves as they go. Once they submit, they get a status page they can check any time with no account and no login. From any car page a seller can start a trade-in in the same flow.</div>
+          </div>
+          <div>
+            <div class="col-label light">The admin back office</div>
+            <div class="col-body light">Your judgement in software. Submissions move New to Reviewing to Offer made to Accepted, Declined or Settled. A valuation worksheet works the margin for you. One-click offer and kind decline emails. A settlement checklist for PPSR, payout letter, ID, rego and funds, every tick stamped with who and when.</div>
+          </div>
+        </div>
+        <div class="demo stagger">
+          <a class="demo-card" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/" target="_blank" rel="noopener">
+            <div class="demo-tag">Buyer + seller site</div>
+            <div class="demo-title">Open the marketplace <span class="arw">↗</span></div>
+            <div class="demo-sub">claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev</div>
+          </a>
+          <a class="demo-card" href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/admin" target="_blank" rel="noopener">
+            <div class="demo-tag">Admin back office</div>
+            <div class="demo-title">Open the admin <span class="arw">↗</span></div>
+            <div class="demo-sub">claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/admin</div>
+          </a>
+        </div>
+        <div class="creds reveal">
+          <div class="creds-tag">Admin sign-in · demo access</div>
+          <div class="creds-line"><span><span class="k">Login</span> <b>clent@jewellprojects.com</b></span><span><span class="k">Password</span> <b>adam2026</b></span></div>
+        </div>
+        <p class="note light mt40 reveal">It runs on demo cars and demo settings today. Launch needs your real stock, your real photos, your phone number, a domain, and go-live configuration. The product itself works.</p>
+      </div>
+    </section>
+
+    <!-- 03 THE NEXT STEP AT A GLANCE -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">03 — The next step at a glance</p>
+        <h2 class="h-section reveal">Two phases. Launch and run, then automate.</h2>
+
+        <p class="phase-h first reveal">Phase 1 — Launch, then a monthly run</p>
+
+        <p class="grp-tag reveal">Now · Strategy &amp; platform set-up</p>
+        <div class="stagger">
+          <div class="step-row"><div class="step-k">Strategy &amp; brand</div><div class="step-what">Confirm the positioning, make the naming call, lock the brand book.</div><div class="step-get">A settled brand that looks and sounds like you.</div></div>
+          <div class="step-row"><div class="step-k">Website</div><div class="step-what">Load real stock and photos, wire the domain and phone, go live.</div><div class="step-get">A live marketplace selling your cars.</div></div>
+          <div class="step-row"><div class="step-k">Online channels</div><div class="step-what">Claim and verify Google Business Profile, start the review engine.</div><div class="step-get">Public proof starting to build from zero.</div></div>
+          <div class="step-row"><div class="step-k">Social</div><div class="step-what">Facebook posting, plus every car on Facebook Marketplace.</div><div class="step-get">Your stock where local buyers already scroll.</div></div>
+          <div class="step-row"><div class="step-k">Search &amp; AI search</div><div class="step-what">Technical foundation now, content next.</div><div class="step-get">Found on Google and quoted by AI assistants.</div></div>
+        </div>
+
+        <p class="grp-tag reveal">Next · Monthly on-going</p>
+        <div class="stagger">
+          <div class="step-row"><div class="step-k">Online channels</div><div class="step-what">Google Business Profile, curated like a social channel.</div><div class="step-get">Public proof starting to build from zero.</div></div>
+          <div class="step-row"><div class="step-k">Social</div><div class="step-what">Facebook posting, plus every car on Facebook Marketplace.</div><div class="step-get">Your stock where local buyers already scroll.</div></div>
+          <div class="step-row"><div class="step-k">Search &amp; AI search</div><div class="step-what">Technical foundation now, content next.</div><div class="step-get">Found on Google and quoted by AI assistants.</div></div>
+          <div class="step-row"><div class="step-k">Email</div><div class="step-what">Consent-only list, settlement follow-up automation.</div><div class="step-get">A referral ask that goes out on its own.</div></div>
+          <div class="step-row"><div class="step-k">Paid ads</div><div class="step-what">Gated until the lead log and call tracking are live.</div><div class="step-get">Spend that starts only when it can be measured.</div></div>
+          <div class="step-row"><div class="step-k">Hosting &amp; maintenance</div><div class="step-what">Premium hosting and bank-vault-level security.</div><div class="step-get">Always on, always safe — nothing for you to manage.</div></div>
+          <div class="step-row"><div class="step-k">Monthly run</div><div class="step-what">Always-on marketing, reporting, quarterly reviews.</div><div class="step-get">A machine that keeps moving without you steering it.</div></div>
+        </div>
+
+        <p class="phase-h reveal">Phase 2 — Operations automation with AI</p>
+        <p class="phase-note reveal">Layered on once the platform is live and the data is flowing.</p>
+        <div class="stagger">
+          <div class="step-row"><div class="step-k">Automate the workflow</div><div class="step-what">Put AI to work across the pipeline so the routine steps run themselves.</div><div class="step-get">To be scoped &amp; quoted.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 STRATEGY AND BRAND -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">04 — Strategy and brand refresh</p>
+        <h2 class="h-section reveal">A tidy-up, not a fresh start. One call is yours.</h2>
+        <p class="body grey mt40 reveal">Most of the thinking is done and it holds. We confirm the positioning against what the last few months have taught us, and we lock the brand book: palette, type and voice.</p>
+        <p class="body grey mt20 reveal">One call is yours to make first. The signed brand direction put a question on the table (CQ11): keep trading under your own name, or build a brand that could one day be sold without you in the room. We recommend a staged path that keeps Adam Hall Buy My Car on the door while building The Adam Hall Standard alongside it, so you get the trust of your name now and something sellable later. That is a decision for you, and the brand book waits on it.</p>
+      </div>
+    </section>
+
+    <!-- 05 WEBSITE -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">05 — Website: finish and launch</p>
+        <h2 class="h-section reveal">The build works end to end. Launch is a short list.</h2>
+        <p class="body grey mt40 reveal">We load your actual stock with real photos, set your phone number so calls come to you, connect a domain, and switch the site from demo settings to live. We check the enquiry and book-a-look forms land in your inbox, confirm the seller status pages work end to end, and walk the admin pipeline once with you so it feels familiar before the first real car goes through it. Then we publish.</p>
+        <div class="callout reveal">Money, ID, finance owing, ownership, rego transfer and settlement stay in your hands. The settlement checklist supports you through each step. It does not do any of it for you.</div>
+      </div>
+    </section>
+
+    <!-- 06 ONLINE CHANNELS -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">06 — Online channels: the proof engine</p>
+        <h2 class="h-section light reveal">You have no independent reviews today. That is the first thing we fix.</h2>
+        <p class="body light mt28 reveal">That is the single biggest gap between you and a stranger deciding to trust you. We claim and verify your Google Business Profile, set one name, one address and one phone number everywhere they appear, list all three service areas, put you in the car-buying-service category, and add real photos.</p>
+        <p class="body light mt20 reveal">Then we build the review engine: a systematic, scripted ask that goes to customers after settlement, so public proof starts to accumulate from zero. Rex in Kyogle already says he will only sell his cars to you. The job is to capture that and multiply it.</p>
+      </div>
+    </section>
+
+    <!-- 07 SOCIAL -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">07 — Social, ongoing</p>
+        <h2 class="h-section reveal">Facebook posting, plus every car on Marketplace.</h2>
+        <p class="body grey mt40 reveal">Your audience is on Facebook, so Facebook is the platform. We start at two posts a week and build to three or four, across five content pillars led by A Person, Not a Company and Relief, Not Another Task.</p>
+        <p class="body grey mt20 reveal">Facebook Marketplace is new in this proposal, and it fits your buyers well. We syndicate every car in stock to Facebook Marketplace, with each listing linking back to your website. Your cars show up where local people already scroll, and every conversation lands back on your own site where you control it.</p>
+        <p class="body grey mt20 reveal">4CRB stays your anchor, unchanged. A decade on air and more than ten thousand live valuations since 2010 is a reach most dealers would pay anything for, and it keeps doing its job. We systemise the referral ask around all of it: scripted, tracked, and asked every time rather than when you remember.</p>
+      </div>
+    </section>
+
+    <!-- 08 SEARCH AND AI SEARCH -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">08 — Search and AI search</p>
+        <h2 class="h-section reveal">Found on Google. Quoted by the assistant.</h2>
+        <p class="body grey mt40 reveal">You asked in July for the site to be visible to AI chatbots and generative search, not only Google. That splits cleanly into now and next.</p>
+        <div class="nn stagger">
+          <div class="nn-card">
+            <span class="nn-tag">Now</span>
+            <p class="body grey">Most of the technical foundation ships with the build already: every car page carries Vehicle structured data, per-car social previews and a sitemap. We add LocalBusiness and FAQ structured data, connect Google Search Console, publish an llms.txt file, stand up the Google Business Profile, and set a baseline so any movement is measurable. GEO means getting quoted when someone asks an assistant how to sell their dad's car near Tweed Heads. That comes from structured data plus plain FAQ answers written so an assistant can lift them whole.</p>
+          </div>
+          <div class="nn-card">
+            <span class="nn-tag">Next</span>
+            <p class="body grey">Once the foundation is settling, we write content on the two clusters where nobody competes: the Northern Rivers, and estate or health-driven sales such as selling a parent's car. We add review structured data once real reviews exist. Town-level pages for Lismore, Ballina, Kyogle and Pottsville wait until regional traffic proves they are worth building.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 EMAIL -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">09 — Email</p>
+        <h2 class="h-section reveal">Consent only. The first email earns its keep straight away.</h2>
+        <p class="body grey mt40 reveal">Email starts from zero and stays consent-only. We only ever email settled customers and people who enquired through the site. We never buy a list.</p>
+        <p class="body grey mt20 reveal">The first automation is a single settlement follow-up and referral ask, sent three to five days after a car settles, written in your voice. On the buyer side, the site can already alert someone when a car they want comes in, and the enquiry, offer and decline emails already send from the admin. A newsletter and longer sequences wait until the list is real enough to be worth the effort.</p>
+      </div>
+    </section>
+
+    <!-- 10 PAID ADS -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">10 — Paid ads: when and how</p>
+        <h2 class="h-section light reveal">No spend until we can measure it.</h2>
+        <p class="body light mt28 reveal">We keep the July gate on this, because it protects your money. No spend until one full month of lead-log baseline exists and call tracking is live. The phone call is the conversion in your business, so tracking calls is not optional.</p>
+        <p class="body light mt20 reveal">Once that is in place, we run two channels. Facebook to two audiences only: downsizers 55 and up, and adult children 35 to 55 handling a parent's car, both geo-fenced to your areas. Google on search only, on high-intent terms like "sell my car gold coast" and the low-competition "sell my father's car" cluster. Manual bidding the first month so we see what is really happening before anything scales. We size the budget once you confirm your spend history (CQ18).</p>
+      </div>
+    </section>
+
+    <!-- 11 HOW IT RUNS -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">11 — How it runs month to month</p>
+        <h2 class="h-section reveal">A monthly rhythm that keeps moving without you steering it.</h2>
+        <p class="body grey mt40 reveal">Once launch is live, the work becomes a monthly rhythm through Maxxim, our engine for keeping campaigns and content moving without you managing them day to day. JewellAI keeps your documented operating system current, so new calls and situations fold back in and it does not go stale. You get a report every month, and a face-to-face review every quarter to check progress toward $7M.</p>
+        <p class="body grey mt20 reveal">The approved roadmap already has the dates: first reviews at 30, 60 and 90 days land on 19 August, 18 September and 18 October 2026, with quarterly gates from 18 October 2026.</p>
+      </div>
+    </section>
+
+    <!-- 12 COMMERCIAL -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">12 — Commercial</p>
+        <h2 class="h-section reveal">Gate One: $4,995 + admin &amp; GST, payable on acceptance.</h2>
+        <p class="body grey mt40 reveal">Gate One covers the discovery, the strategy, the branding refresh, the website with its marketplace, and the online platform setup. One fee, payable on acceptance. The ongoing monthly run comes after launch and is quoted separately.</p>
+        <div class="mt56 stagger">
+          <div class="budget-row"><div class="budget-row-label">Gate One</div><div class="budget-row-mid">Discovery, strategy, branding refresh, website with marketplace, online platform setup.</div><div class="budget-row-val">$4,995 + admin &amp; GST · payable on acceptance</div></div>
+          <div class="budget-row"><div class="budget-row-label">Then — Run</div><div class="budget-row-mid">Always-on marketing, reporting, quarterly reviews. After launch is live.</div><div class="budget-row-val">Monthly recurring · quoted after launch</div></div>
+        </div>
+        <p class="value-eyebrow reveal">What's inside Gate One — and what it would cost at full rack</p>
+        <div class="stagger">
+          <div class="value-row value-header"><div></div><div>What you get</div><div>Agency full-rack</div><div>Gate One</div></div>
+          <div class="value-row"><div class="value-item">Discovery &amp; strategy</div><div class="value-desc">Deep-dive sessions, positioning confirmed, the roadmap locked.</div><div class="value-rack">$4,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Branding refresh</div><div class="value-desc">Brand book locked: palette, type, voice — in your voice.</div><div class="value-rack">$5,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Website + marketplace</div><div class="value-desc">A transactional marketplace designed, built and launched.</div><div class="value-rack">$9,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">Online platform setup</div><div class="value-desc">Google Business Profile, socials, analytics and the review engine wired.</div><div class="value-rack">$2,500+</div><div class="value-included">Included</div></div>
+          <div class="value-row"><div class="value-item">One team, no handoffs</div><div class="value-desc">Strategy to shipped by the people who built the platform.</div><div class="value-rack">Retainer extra</div><div class="value-included">Included</div></div>
+        </div>
+        <div class="value-total reveal">
+          <div class="value-total-block"><span class="value-total-label">Full-rack value</span><span class="value-total-rack">$22,000+</span></div>
+          <div class="value-total-block"><span class="value-total-label">Gate One</span><span class="value-total-gate">$4,995 + admin &amp; GST</span></div>
+        </div>
+        <p class="note mt28 reveal">The gap isn't a discount. The platform is already built and we already know the business from Stage One — you're paying to finish and launch, not to start from scratch.</p>
+        <a class="btn-accept reveal" href="https://in.xero.com/el77HA73LmEtvhRf8nc7nVzkjZeQGxqLMvfuWUkv" target="_blank" rel="noopener">Accept — view the Xero quote ↗</a>
+        <p class="note mt28 reveal">No stage starts without sign-off.</p>
+      </div>
+    </section>
+
+    <!-- 13 WHAT WE NEED -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">13 — What we need from you</p>
+        <h2 class="h-section reveal">Nine things, and we are away.</h2>
+        <div class="mt56 stagger">
+          <div class="need-item"><span class="idx">01</span>The naming call (CQ11): your own name, or a sellable brand built alongside it.</div>
+          <div class="need-item"><span class="idx">02</span>Your ad spend history (CQ18), so we can size the paid budget honestly.</div>
+          <div class="need-item"><span class="idx">03</span>Access to your Google Business Profile, or your go-ahead to claim it.</div>
+          <div class="need-item"><span class="idx">04</span>Admin rights on your Facebook page.</div>
+          <div class="need-item"><span class="idx">05</span>A decision on the domain you want.</div>
+          <div class="need-item"><span class="idx">06</span>The phone number that calls should ring on.</div>
+          <div class="need-item"><span class="idx">07</span>Your real stock list with real photos.</div>
+          <div class="need-item"><span class="idx">08</span>Your blessing to ask your first settled customers for a review.</div>
+          <div class="need-item"><span class="idx">09</span>A yes or no on using named testimonials once customers give consent.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSER -->
+    <section class="section bg-conf full">
+      <div class="wrap">
+        <p class="eyebrow light reveal">Next step</p>
+        <h2 class="h-closer light reveal">Sign it off.<br />Go live.</h2>
+        <p class="body light mt40 reveal">Sign this off and we set a launch date, load your first real cars, and go live. The first monthly cycle begins the day the site is public.</p>
+        <p class="mt40 reveal links">
+          <a class="link light" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step%20Sign%20off" target="_blank" rel="noopener">Talk to Jewell ↗</a>
+          <a class="link light" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Next%20Step" target="_blank" rel="noopener">clent@jewellprojects.com</a>
+        </p>
+        <div class="mt56 reveal"><img class="closer-logo" src="/jewell-logo.svg" alt="Jewell Projects" /></div>
+        <p class="note light mt20 reveal">Jewell Projects · Clent Jewell · Prepared for Adam Hall · 21 July 2026</p>
+      </div>
+    </section>
+
+    <script>
+      const prog = document.getElementById('prog');
+      const header = document.getElementById('header');
+      const root = document.documentElement;
+      function onScroll() {
+        const max = root.scrollHeight - root.clientHeight;
+        prog.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+        header.classList.toggle('scrolled', root.scrollTop > 40);
+      }
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.18 });
+      document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

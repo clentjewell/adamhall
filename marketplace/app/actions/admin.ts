@@ -325,10 +325,27 @@ export async function saveCar(input: CarInput): Promise<AdminActionState & { id?
   };
 
   if (d.id) {
+    // Price moves are business-significant — capture them in the audit
+    // trail so repricing history is never a mystery.
+    const { data: existing } = await admin.supabase
+      .from("cars")
+      .select("price, slug")
+      .eq("id", d.id)
+      .maybeSingle();
+
     const { error } = await admin.supabase.from("cars").update(row).eq("id", d.id);
     if (error) return { ok: false, error: error.message };
+
+    if (existing && Number(existing.price) !== d.price) {
+      await logEvent(
+        admin.supabase, "car", d.id, null, "price_updated", admin.name,
+        `${formatPrice(Number(existing.price))} → ${formatPrice(d.price)}`,
+      );
+    }
+
     revalidatePath("/admin/inventory");
     revalidatePath("/cars");
+    if (existing?.slug) revalidatePath(`/cars/${existing.slug}`);
     return { ok: true, id: d.id };
   }
 
@@ -352,6 +369,46 @@ export async function saveCar(input: CarInput): Promise<AdminActionState & { id?
   await logEvent(admin.supabase, "car", created.id, null, "draft", admin.name, "Listing created");
   revalidatePath("/admin/inventory");
   return { ok: true, id: created.id, slug: created.slug };
+}
+
+// One-click "list another one like it": copies everything except photos
+// stay shared URLs, and the copy always starts as a draft.
+export async function duplicateCar(
+  carId: string,
+): Promise<AdminActionState & { id?: string }> {
+  const admin = await requireAdmin();
+  const { data: car } = await admin.supabase
+    .from("cars")
+    .select("*")
+    .eq("id", carId)
+    .maybeSingle();
+  if (!car) return { ok: false, error: "Car not found." };
+
+  const result = await saveCar({
+    make: car.make,
+    model: car.model,
+    badge: car.badge ?? undefined,
+    year: car.year,
+    price: Number(car.price),
+    odometer_km: car.odometer_km,
+    body_type: car.body_type,
+    transmission: car.transmission,
+    fuel: car.fuel,
+    drivetrain: car.drivetrain ?? undefined,
+    colour: car.colour ?? undefined,
+    seats: car.seats ?? undefined,
+    description: car.description ?? undefined,
+    adams_take: car.adams_take ?? undefined,
+    video_url: car.video_url ?? "",
+    ppsr_clear: false, // every car gets its own PPSR check — never inherited
+    service_history: "unknown",
+    inspection_summary: undefined,
+    photos: car.photos ?? [],
+  });
+  if (!result.ok) return result;
+
+  revalidatePath("/admin/inventory");
+  return { ok: true, id: result.id };
 }
 
 export async function setCarStatus(
