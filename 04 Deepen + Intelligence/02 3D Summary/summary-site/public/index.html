@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Adam Hall · Buy My Car · 3D Process Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:       #FAF8F4;
+  --black:       #111111;
+  --calm-grey:   #EDEBEA;
+  --signal-blue: #2D5BFF;
+  --mid-grey:    #666666;
+  --rule:        #D4D2D0;
+  --rule-dark:   rgba(250,248,244,0.14);
+  --maxxim:      #0E171F;
+  --accent:      #FD8457;
+  --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--cream);
+  color: var(--black);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px; line-height: 1.6;
+}
+
+/* ── SCROLL PROGRESS ── */
+.progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--signal-blue); z-index: 400; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; align-items: flex-start; max-width: 1320px; margin: 0 auto; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: sticky; top: 18px; align-self: flex-start;
+  flex: 0 0 250px; width: 250px;
+  max-height: calc(100vh - 36px); overflow-y: auto;
+  margin: 18px 0 18px 18px; padding: 22px 16px;
+  background: #fff; border: 1px solid var(--rule); border-radius: 14px;
+  box-shadow: 0 2px 20px rgba(17,17,17,0.05);
+}
+.brand { display: flex; align-items: center; gap: 9px; margin: 4px 8px 6px; text-decoration: none; }
+.brand img { height: 20px; width: auto; display: block; }
+.brand .bx { color: #c4c1bc; font-size: 13px; font-weight: 300; }
+.brand .bbtc { height: 17px; width: auto; display: block; }
+.brand .bname { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; color: var(--black); }
+.brand-sub { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid-grey); margin: 0 8px 16px; }
+.navtoggle { display: none; }
+.nav { display: flex; flex-direction: column; gap: 1px; }
+.nav-link {
+  display: flex; gap: 10px; align-items: baseline; text-decoration: none; color: var(--mid-grey);
+  font-size: 13.5px; line-height: 1.3; padding: 8px 10px; border-radius: 7px;
+  border-left: 2px solid transparent;
+}
+.nav-link .nav-num { font-variant-numeric: tabular-nums; font-size: 11px; color: #b3ada4; min-width: 16px; }
+.nav-link:hover { color: var(--black); background: #f2f0ec; }
+.nav-link.active { color: var(--black); background: rgba(45,91,255,0.07); border-left-color: var(--signal-blue); font-weight: 600; }
+.nav-link.active .nav-num { color: var(--signal-blue); }
+.nav-link.nav-edge { color: var(--black); font-weight: 600; }
+.nav-sep { height: 1px; background: var(--rule); margin: 12px 8px; }
+
+/* ── CONTENT ── */
+.content { flex: 1 1 auto; min-width: 0; padding: 34px clamp(28px, 5vw, 70px) 80px; max-width: 1060px; }
+
+/* ── SECTIONS (one continuous scroll, end to end) ── */
+.welcome, .page { scroll-margin-top: 24px; }
+.page { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 52px; }
+
+.page-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
+.page-chip { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--signal-blue); }
+.page-count { font-size: 11px; letter-spacing: 0.06em; color: var(--mid-grey); }
+
+/* ── TYPE ── */
+.eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 22px; }
+.eyebrow.light { color: rgba(250,248,244,0.5); }
+.eyebrow.blue { color: var(--signal-blue); }
+
+.h-hero { font-size: clamp(40px, 6vw, 76px); font-weight: 600; line-height: 1.03; letter-spacing: -0.03em; }
+.h-section { font-size: clamp(28px, 4vw, 50px); font-weight: 600; line-height: 1.07; letter-spacing: -0.025em; max-width: 18ch; }
+.h-section.light { color: var(--cream); }
+.light { color: var(--cream); }
+
+.lead { font-size: clamp(16px, 1.5vw, 19px); font-weight: 400; line-height: 1.7; color: var(--mid-grey); max-width: 660px; }
+.body { font-size: clamp(15px, 1.2vw, 17px); font-weight: 400; line-height: 1.75; max-width: 720px; }
+.body.light { color: rgba(250,248,244,0.8); }
+.body.grey { color: var(--mid-grey); }
+.note { font-size: 13px; line-height: 1.65; color: var(--mid-grey); }
+.note.light { color: rgba(250,248,244,0.45); }
+
+.mt12 { margin-top: 12px; } .mt20 { margin-top: 20px; } .mt28 { margin-top: 28px; } .mt40 { margin-top: 40px; } .mt56 { margin-top: 56px; }
+
+.rule { height: 1px; background: var(--rule); width: 100%; }
+.rule.dark { background: var(--rule-dark); }
+
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; }
+.col-label { font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.35; }
+.col-label.light { color: var(--cream); }
+.col-body { font-size: 15px; font-weight: 400; line-height: 1.7; color: var(--mid-grey); }
+.col-body.dim { color: rgba(250,248,244,0.62); }
+
+/* ── ROW LIST ── */
+.row { display: flex; gap: clamp(20px, 4vw, 48px); padding: 22px 0; border-bottom: 1px solid var(--rule); }
+.row:first-child { border-top: 1px solid var(--rule); }
+.row-k { font-size: 17px; font-weight: 600; min-width: 250px; flex-shrink: 0; line-height: 1.4; }
+.row-v { font-size: 15px; font-weight: 400; color: var(--mid-grey); line-height: 1.65; }
+
+/* ── NUMBERED GAP ITEMS ── */
+.gap-item { padding: 26px 0; border-bottom: 1px solid var(--rule); font-size: clamp(18px, 2vw, 26px); font-weight: 400; line-height: 1.4; letter-spacing: -0.01em; }
+.gap-item:first-child { border-top: 1px solid var(--rule); }
+.gap-item .idx { color: var(--signal-blue); font-weight: 600; margin-right: 18px; }
+.gap-item .sub { display: block; font-size: 15px; color: var(--mid-grey); margin-top: 10px; max-width: 680px; }
+
+/* ── STATUS PILLS ── */
+.pill { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; white-space: nowrap; }
+.pill.done { color: var(--signal-blue); border: 1px solid rgba(45,91,255,0.35); background: rgba(45,91,255,0.06); }
+.pill .dot { width: 7px; height: 7px; border-radius: 999px; background: currentColor; }
+
+/* ── 3D PROCESS DIAGRAM (movement) ── */
+.method { background: var(--cream); color: var(--black); padding: 8px 0 6px; }
+.method-lockup { display: flex; align-items: center; gap: 14px; margin: 6px 0 44px; }
+.method-lockup .ml-jewell { height: 18px; width: auto; display: block; }
+.method-lockup .ml-x { color: #c4c1bc; font-size: 15px; font-weight: 300; }
+.method-lockup .ml-maxxim { height: 18px; width: auto; display: block; }
+.msteps { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.mline { position: absolute; top: 19px; left: 7%; right: 7%; height: 2px; background: #E4E1DC; overflow: hidden; border-radius: 2px; }
+.mline-fill { display: block; height: 100%; width: 0; background: var(--signal-blue); transition: width 1.5s cubic-bezier(.16,1,.3,1) .25s; }
+.method.run .mline-fill { width: 100%; }
+.mstep { position: relative; opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1); }
+.method.run .mstep { opacity: 1; transform: none; }
+.method.run .mstep[data-i="2"] { transition-delay: .32s; }
+.method.run .mstep[data-i="3"] { transition-delay: .62s; }
+.mdot { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--black); color: var(--cream); font-weight: 600; font-size: 12.5px; position: relative; z-index: 2; }
+.method.run .mdot::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--signal-blue); opacity: 0; animation: mpulse 2.6s ease-out infinite; }
+.method.run .mstep[data-i="2"] .mdot::after { animation-delay: .5s; }
+.method.run .mstep[data-i="3"] .mdot::after { animation-delay: 1s; }
+@keyframes mpulse { 0% { transform: scale(.85); opacity: .55; } 100% { transform: scale(1.6); opacity: 0; } }
+.mc { margin-top: 18px; }
+.mgate { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--signal-blue); }
+.mc h3 { font-size: 22px; font-weight: 600; color: var(--black); margin: 5px 0 8px; }
+.mc p { font-size: 13.5px; line-height: 1.55; color: #555; font-weight: 400; }
+.method-loop { margin-top: 36px; font-size: 12.5px; color: #8a857d; letter-spacing: 0.02em; display: flex; align-items: center; gap: 9px; }
+.method-loop::before { content: ""; width: 18px; height: 2px; background: var(--signal-blue); border-radius: 2px; flex-shrink: 0; }
+
+/* ── LINK ROWS ── */
+.linkrow { display: flex; align-items: center; gap: clamp(16px, 3vw, 40px); padding: 24px 4px; border-bottom: 1px solid var(--rule); text-decoration: none; color: var(--black); transition: padding-left 0.3s var(--ease); }
+.linkrow:first-child { border-top: 1px solid var(--rule); }
+.linkrow:hover { padding-left: 14px; }
+.linkrow .lr-k { font-size: clamp(17px, 2vw, 22px); font-weight: 600; flex: 1 1 auto; line-height: 1.35; }
+.linkrow .lr-v { font-size: 14px; color: var(--mid-grey); flex: 1 1 300px; line-height: 1.6; }
+.linkrow .lr-go { font-size: 20px; color: var(--signal-blue); flex-shrink: 0; }
+.pw-chip { display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.06em; color: var(--mid-grey); border: 1px solid var(--rule); border-radius: 4px; padding: 3px 8px; margin-left: 10px; vertical-align: middle; white-space: nowrap; }
+.newtab { font-size: 10px; color: #b3ada4; margin-left: 8px; vertical-align: middle; }
+
+/* ── DARK PANEL ── */
+.darkwrap { background: var(--maxxim); color: var(--cream); border-radius: 16px; padding: clamp(28px, 4vw, 52px); }
+.darkwrap .h-section { color: var(--cream); }
+.maxxim-admin-link { color: var(--signal-blue); text-decoration: none; word-break: break-word; }
+
+/* ── CONSOLE MOCK ── */
+.console { border-radius: 10px; overflow: hidden; border: 1px solid rgba(250,248,244,0.12); background: #0A1016; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+.console-bar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: #11202B; border-bottom: 1px solid rgba(250,248,244,0.08); }
+.console-bar .tl { width: 11px; height: 11px; border-radius: 999px; background: rgba(250,248,244,0.22); }
+.console-bar .url { margin-left: 14px; font-size: 11.5px; color: rgba(250,248,244,0.5); letter-spacing: 0.02em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.console-body { display: grid; grid-template-columns: 188px 1fr; min-height: 290px; }
+.console-side { background: #0C161D; border-right: 1px solid rgba(250,248,244,0.07); padding: 18px 16px; }
+.console-side .brandrow { display: flex; align-items: center; gap: 9px; margin-bottom: 22px; }
+.console-side .brandrow img { width: 22px; height: 22px; border-radius: 5px; }
+.console-side .brandrow span { color: var(--cream); font-size: 13px; font-weight: 600; }
+.console-side .navitem { font-size: 12.5px; color: rgba(250,248,244,0.5); padding: 8px 10px; border-radius: 6px; }
+.console-side .navitem.active { color: var(--cream); background: rgba(45,91,255,0.16); border-left: 2px solid var(--signal-blue); }
+.console-main { padding: 22px 24px; }
+.console-main .cm-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,248,244,0.4); }
+.console-main .cm-title { color: var(--cream); font-size: 19px; font-weight: 600; margin-top: 8px; }
+.console-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.console-stat { border: 1px solid rgba(250,248,244,0.1); border-radius: 7px; padding: 12px; }
+.console-stat .n { color: var(--signal-blue); font-size: 22px; font-weight: 600; }
+.console-stat .l { color: rgba(250,248,244,0.5); font-size: 11px; margin-top: 4px; line-height: 1.4; }
+
+/* ── COLS-3 ── */
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 3vw, 38px); align-items: start; }
+
+/* ── MAXXIM CONSOLE (light, matches the live portal) ── */
+.mxc { background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid rgba(17,17,17,0.10); box-shadow: 0 24px 60px rgba(0,0,0,0.4); color: #111; }
+.mxc-top { display: flex; align-items: center; gap: 22px; padding: 13px 20px; border-bottom: 1px solid #ececec; }
+.mxc-logo { font-weight: 700; letter-spacing: 0.06em; font-size: 15px; color: #111; }
+.mxc-nav { display: flex; gap: 18px; font-size: 13px; color: #555; }
+.mxc-nav .on { color: #111; font-weight: 600; }
+.mxc-top-right { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: #444; }
+.mxc-signout { border: 1px solid #cfcfcf; border-radius: 999px; padding: 5px 12px; color: #111; font-weight: 500; }
+.mxc-crumb { display: flex; align-items: center; gap: 8px; padding: 9px 20px; border-bottom: 1px solid #f1f1f1; font-size: 12px; color: #9a9a9a; }
+.mxc-crumb b { color: #111; }
+.mxc-body { display: grid; grid-template-columns: 196px 1fr; }
+.mxc-side { padding: 16px 13px; border-right: 1px solid #f1f1f1; display: flex; flex-direction: column; gap: 2px; }
+.mxc-item { display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: 8px; color: #555; font-size: 13px; }
+.mxc-item.on { background: #111; color: #fff; font-weight: 600; }
+.mxc-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+.mxc-main { padding: 20px 22px; }
+.mxc-h { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.mxc-h h4 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+.mxc-help { font-size: 11px; color: #8a8a8a; border: 1px solid #e6e6e6; border-radius: 999px; padding: 3px 10px; }
+.mxc-actions { margin-left: auto; display: flex; gap: 8px; }
+.mxc-btn { font-size: 11.5px; border: 1px solid #dcdcdc; border-radius: 7px; padding: 6px 11px; color: #333; white-space: nowrap; }
+.mxc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.mxc-card { border: 1px solid #ececec; border-radius: 10px; padding: 15px 16px; }
+.mxc-card .ic { width: 22px; height: 22px; color: #111; margin-bottom: 12px; }
+.mxc-card h5 { font-size: 14.5px; font-weight: 700; margin-bottom: 5px; }
+.mxc-card p { font-size: 11.5px; line-height: 1.45; color: #7c7c7c; }
+.mxc-card .stat { font-size: 11.5px; font-weight: 600; color: #2D5BFF; margin-top: 9px; }
+.mxc-card .stat.grey { color: #a0a0a0; }
+
+/* ── MAXO CHAT ── */
+.maxo { display: flex; flex-direction: column; gap: 12px; }
+.maxo .msg { display: flex; gap: 12px; align-items: flex-start; }
+.maxo .avatar { width: 32px; height: 32px; border-radius: 7px; flex-shrink: 0; }
+.maxo .avatar.you { background: rgba(250,248,244,0.12); display: flex; align-items: center; justify-content: center; color: rgba(250,248,244,0.6); font-size: 12px; font-weight: 600; }
+.maxo .bubble { background: rgba(250,248,244,0.06); border: 1px solid rgba(250,248,244,0.1); border-radius: 10px; padding: 13px 16px; font-size: 14px; line-height: 1.6; color: rgba(250,248,244,0.85); }
+.maxo .bubble.q { background: rgba(45,91,255,0.14); border-color: rgba(45,91,255,0.3); color: var(--cream); }
+.maxo .bubble .src { display: block; margin-top: 8px; font-size: 11px; color: rgba(250,248,244,0.4); }
+
+/* ── CALLOUT ── */
+.callout { border-left: 2px solid var(--signal-blue); padding: 6px 0 6px 22px; }
+
+/* ── OVERVIEW (welcome) ── */
+.ov-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.ov-card { display: flex; gap: 14px; align-items: baseline; text-decoration: none; color: var(--black); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; transition: border-color .2s, transform .2s var(--ease); }
+.ov-card:hover { border-color: var(--signal-blue); transform: translateY(-2px); }
+.ov-card .n { font-size: 12px; font-weight: 600; color: var(--signal-blue); font-variant-numeric: tabular-nums; }
+.ov-card .t { font-size: 15px; font-weight: 500; line-height: 1.35; }
+
+/* ── PAGE NAV (prev/next) ── */
+.page-nav { display: none; }
+.page-nav.dark { border-color: var(--rule-dark); }
+.pn-btn { flex: 1; display: flex; flex-direction: column; gap: 3px; text-decoration: none; border: 1px solid var(--rule); border-radius: 9px; padding: 14px 18px; transition: border-color .15s, transform .18s var(--ease); }
+.pn-btn:hover { border-color: var(--signal-blue); transform: translateY(-2px); }
+.pn-btn.next { text-align: right; align-items: flex-end; }
+.pn-btn span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid-grey); }
+.pn-btn strong { font-size: 15px; font-weight: 600; color: var(--black); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.stagger > * { opacity: 0; transform: translateY(24px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.stagger.in > * { opacity: 1; transform: none; }
+.stagger.in > *:nth-child(1){ transition-delay: .04s; } .stagger.in > *:nth-child(2){ transition-delay: .12s; }
+.stagger.in > *:nth-child(3){ transition-delay: .20s; } .stagger.in > *:nth-child(4){ transition-delay: .28s; }
+.stagger.in > *:nth-child(5){ transition-delay: .36s; } .stagger.in > *:nth-child(6){ transition-delay: .44s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .mstep { opacity: 1 !important; transform: none !important; transition: none; }
+  .mline-fill { transition: none; } .method.run .mdot::after { animation: none; }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .layout { flex-direction: column; }
+  .sidebar { position: static; width: auto; max-height: none; flex-basis: auto; margin: 14px 14px 0; }
+  .navtoggle { display: block; width: 100%; text-align: left; background: none; border: 0; font: inherit; cursor: pointer; padding: 6px 8px; color: var(--mid-grey); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav.collapsed { display: none; }
+  .content { padding: 26px 22px 70px; max-width: none; }
+  .cols-2 { grid-template-columns: 1fr; gap: 26px; }
+  .row { flex-direction: column; gap: 8px; } .row-k { min-width: 0; }
+  .linkrow { flex-wrap: wrap; gap: 10px; } .linkrow .lr-v { flex-basis: 100%; }
+  .msteps { grid-template-columns: 1fr; gap: 26px; } .mline { display: none; }
+  .console-body { grid-template-columns: 1fr; } .console-side { display: none; }
+  .ov-grid { grid-template-columns: 1fr; }
+  .cols-3 { grid-template-columns: 1fr; }
+  .mxc-body { grid-template-columns: 1fr; } .mxc-side { display: none; }
+  .mxc-grid { grid-template-columns: 1fr 1fr; }
+  .mxc-nav, .mxc-top-right, .mxc-actions { display: none; }
+
+  .page { margin-top: 40px; padding-top: 40px; }
+}
+
+@media (max-width: 560px) {
+  body { font-size: 15px; }
+  .content { padding: 22px 18px 64px; }
+  .sidebar { margin: 12px 12px 0; padding: 16px 12px; }
+  .page-head { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 24px; }
+  .h-hero { font-size: clamp(34px, 11vw, 52px); }
+  .h-section { font-size: clamp(25px, 8vw, 36px); }
+  .lead, .body { max-width: none; }
+  .mt40 { margin-top: 30px; } .mt56 { margin-top: 38px; }
+  .darkwrap { padding: 22px 18px; border-radius: 12px; }
+  .mxc-grid { grid-template-columns: 1fr; }
+  .mxc-main { padding: 16px 16px; }
+  .mxc-crumb { flex-wrap: wrap; row-gap: 4px; }
+  .row { padding: 18px 0; } .row-k { font-size: 16px; }
+  .linkrow { padding: 20px 2px; } .linkrow:hover { padding-left: 2px; }
+  .linkrow .lr-k { font-size: 18px; }
+  .gap-item { font-size: 19px; }
+  .mdot { width: 36px; height: 36px; }
+  .pn-btn { padding: 12px 15px; }
+  .newtab { display: block; margin-left: 0; margin-top: 4px; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="prog"></div>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR NAV ── -->
+  <aside class="sidebar">
+    <a class="brand" href="#top">
+      <img src="assets/jewell-logo.svg" alt="Jewell">
+      <span class="bx">&times;</span>
+      <span class="bname">Adam Hall</span>
+    </a>
+    <p class="brand-sub">Adam Hall Buy My Car &middot; 3D Process</p>
+    <button class="navtoggle" id="navtoggle" type="button" aria-expanded="true">Contents</button>
+    <nav class="nav" id="nav">
+      <a class="nav-link nav-edge" href="#top"><span class="nav-num">&middot;</span><span>Welcome</span></a>
+      <div class="nav-sep"></div>
+      <a class="nav-link" href="#note"><span class="nav-num">01</span><span>A note up front</span></a>
+      <a class="nav-link" href="#whatsinside"><span class="nav-num">02</span><span>What this is</span></a>
+      <a class="nav-link" href="#process"><span class="nav-num">03</span><span>The 3D Process</span></a>
+      <a class="nav-link" href="#onapage"><span class="nav-num">04</span><span>The 3D Process, on a page</span></a>
+      <a class="nav-link" href="#delivered"><span class="nav-num">05</span><span>What's in the set</span></a>
+      <a class="nav-link" href="#notdone"><span class="nav-num">06</span><span>What I have not built</span></a>
+      <a class="nav-link" href="#access"><span class="nav-num">07</span><span>Access and links</span></a>
+      <a class="nav-link" href="#maxxim"><span class="nav-num">08</span><span>The operating system</span></a>
+      <a class="nav-link" href="#maxo"><span class="nav-num">09</span><span>Ask it anything</span></a>
+      <a class="nav-link" href="#next"><span class="nav-num">10</span><span>Next steps</span></a>
+    </nav>
+  </aside>
+
+  <!-- ── CONTENT ── -->
+  <main class="content">
+
+    <!-- ── WELCOME / LANDING ── -->
+    <section class="welcome" id="top">
+      <div class="eyebrow reveal">Jewell Projects &middot; Adam Hall Buy My Car &middot; Prepared for Adam Hall</div>
+      <h1 class="h-hero reveal" style="transition-delay:.06s">Your 3D Process.<br>Drafted in full.</h1>
+      <p class="lead mt28 reveal" style="transition-delay:.14s">The complete Discover, Design and Deploy draft set for Buy My Car, built from the 15 July session. Sixty-two working documents, a draft launch playbook and a marketplace prototype. Pre-validation, and ready to walk through.</p>
+      <div class="rule mt40 reveal"></div>
+      <p class="eyebrow mt40 reveal" style="margin-bottom:18px;">Inside this summary</p>
+      <div class="ov-grid stagger">
+        <a class="ov-card" href="#note"><span class="n">01</span><span class="t">A note up front</span></a>
+        <a class="ov-card" href="#whatsinside"><span class="n">02</span><span class="t">What this is</span></a>
+        <a class="ov-card" href="#process"><span class="n">03</span><span class="t">The 3D Process</span></a>
+        <a class="ov-card" href="#onapage"><span class="n">04</span><span class="t">The 3D Process, on a page</span></a>
+        <a class="ov-card" href="#delivered"><span class="n">05</span><span class="t">What's in the set</span></a>
+        <a class="ov-card" href="#notdone"><span class="n">06</span><span class="t">What I have not built</span></a>
+        <a class="ov-card" href="#access"><span class="n">07</span><span class="t">Access and links</span></a>
+        <a class="ov-card" href="#maxxim"><span class="n">08</span><span class="t">The operating system</span></a>
+        <a class="ov-card" href="#maxo"><span class="n">09</span><span class="t">Ask it anything</span></a>
+      </div>
+    </section>
+
+    <!-- ── 01 A NOTE UP FRONT ── -->
+    <article class="page" id="note">
+      <div class="page-head"><span class="page-chip">A note up front</span><span class="page-count">01 / 10</span></div>
+      <h2 class="h-section reveal">Built fast, held honest.</h2>
+      <div class="rule mt40 reveal"></div>
+      <p class="body mt40 reveal">Adam, we sat down on 15 July and agreed the scope. What follows is the draft set I have built since. It moves from audience and positioning through brand, business and marketing strategy, into a first launch plan.</p>
+      <p class="body mt20 reveal">A note on status. These are working drafts. They are AI-assisted, incomplete in places, and shared for your review, not as finished artefacts. Read them as a starting point I want your eyes on, not a job signed off.</p>
+      <p class="body mt20 reveal">You asked whether this would be brutally honest rather than flattering. That is the standard the set is held to. Nothing marked Draft is asserted as fact, and every number in it needs your validation before it stands. Where the work is thin or unproven, the page says so.</p>
+      <p class="note mt28 reveal">Yours, Clent.</p>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#top"><span>Previous</span><strong>Welcome</strong></a>
+        <a class="pn-btn next" href="#whatsinside"><span>Next</span><strong>What this is</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 02 WHAT THIS IS ── -->
+    <article class="page" id="whatsinside">
+      <div class="page-head"><span class="page-chip">What you are looking at</span><span class="page-count">02 / 10</span></div>
+      <h2 class="h-section reveal">Everything from Discover to Deploy, in one place.</h2>
+      <div class="cols-2 mt40 stagger">
+        <div>
+          <div class="col-label">A full operating system on paper, not a deck.</div>
+          <div class="col-body">Sixty-two working documents that move from audience and positioning, through brand, business and marketing strategy, into a draft launch playbook. Each one is standalone and editable, gathered behind one private link.</div>
+        </div>
+        <div>
+          <div class="col-label">Scaffolding, built to be updated.</div>
+          <div class="col-body">The structure is the lasting asset. As your answers and decisions land, the set updates around them without starting over.</div>
+        </div>
+      </div>
+      <div class="callout mt56 reveal">
+        <p class="body" style="margin:0;">Everything here is a living snapshot. It is Draft v01, pre-validation. The 22 CORE questions are the validation pass: as they close, the drafts promote to v02.</p>
+      </div>
+      <p class="note mt28 reveal">Answer the CORE questions, and the set is refreshed to match.</p>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#note"><span>Previous</span><strong>A note up front</strong></a>
+        <a class="pn-btn next" href="#process"><span>Next</span><strong>The 3D Process</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 03 THE 3D PROCESS ── -->
+    <article class="page" id="process">
+      <div class="page-head"><span class="page-chip">The method behind the work</span><span class="page-count">03 / 10</span></div>
+      <h2 class="h-section reveal">The 3D Process.</h2>
+      <p class="body mt28 reveal">Three disciplined phases, three decision gates. The 3D Process is the Jewell Projects method for building a brand and its go-to-market on evidence rather than opinion. Each phase ends at a gate, a point to review, align and approve before the next one starts. The work compounds in one direction instead of looping.</p>
+
+      <div class="method mt56" id="method">
+        <div class="method-lockup">
+          <img class="ml-jewell" src="assets/jewell-logo.svg" alt="Jewell">
+          <span class="ml-x">&middot;</span>
+          <span style="font-size:15px;font-weight:600;letter-spacing:-0.01em;">3D Process</span>
+        </div>
+        <div class="msteps">
+          <div class="mline"><span class="mline-fill"></span></div>
+          <div class="mstep" data-i="1"><span class="mdot">01</span><div class="mc"><span class="mgate">Checkpoint 1 &middot; Gate 1</span><h3>Discover</h3><p>Find the opportunity. Audience teardown, competitor analysis, the offer, and the market truth, reviewed at Gate 1.</p></div></div>
+          <div class="mstep" data-i="2"><span class="mdot">02</span><div class="mc"><span class="mgate">Checkpoint 2 &middot; Gate 2</span><h3>Design</h3><p>Design the system. Brand, customer, business and marketing strategy, messaging and the website, locked at Gate 2.</p></div></div>
+          <div class="mstep" data-i="3"><span class="mdot">03</span><div class="mc"><span class="mgate">Checkpoint 3 &middot; Gate 3</span><h3>Deploy</h3><p>Take it to market. The launch playbook, channels, CRM and measurement, approved at Gate 3.</p></div></div>
+        </div>
+        <p class="method-loop">Then Deepen: what is deployed feeds back into discovery, an ongoing loop that compounds.</p>
+      </div>
+
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#whatsinside"><span>Previous</span><strong>What this is</strong></a>
+        <a class="pn-btn next" href="#onapage"><span>Next</span><strong>The 3D Process, on a page</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 04 ON A PAGE ── -->
+    <article class="page" id="onapage">
+      <div class="page-head"><span class="page-chip">The whole engagement on one page</span><span class="page-count">04 / 10</span></div>
+      <h2 class="h-section reveal">The 3D Process, on a page.</h2>
+      <p class="body mt28 reveal">Sixty-two documents is the right depth to build from. It is not what gets read on a Tuesday. So here is the whole engagement in six lines, the belief, the position, the numbers, the constraint, the plan, the decision.</p>
+      <div class="mt40 stagger">
+        <div class="row">
+          <div class="row-k">The belief</div>
+          <div class="row-v">A trust-conversion business wearing a car-buying shell. The product being sold is Adam, not the car.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The position</div>
+          <div class="row-v">The only named, personally accountable buyer for sellers 60 to 75+ across the Gold Coast, Brisbane and Northern Rivers. Every competitor is a company, a branch or a panel.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The numbers</div>
+          <div class="row-v">About $5M a year, around 25 cars a month, roughly $4,200 average retail gross. More than 10,000 live on-air valuations on 4CRB since 2010, and zero paid marketing. All to be validated with you.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The constraint</div>
+          <div class="row-v">Demand and trust already work. The business lives in one person's head, and nothing is measured.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The plan</div>
+          <div class="row-v">Build capacity before buying demand. Run it inside, then put the name up, then scale the buying.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">The decision</div>
+          <div class="row-v">Close the 22 CORE questions. The answers promote the set from hypothesis to fact.</div>
+        </div>
+      </div>
+      <div class="callout mt56 reveal">
+        <p class="body" style="margin:0;"><strong>CORE</strong> &mdash; Customers, Offering, Rivals, Expression &mdash; is the shape of the business. The 22 killer questions hang off it: ten for Discover, six for Design, six for Deploy. Every one is still open.</p>
+      </div>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#process"><span>Previous</span><strong>The 3D Process</strong></a>
+        <a class="pn-btn next" href="#delivered"><span>Next</span><strong>What's in the set</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 05 WHAT'S IN THE SET ── -->
+    <article class="page" id="delivered">
+      <div class="page-head"><span class="page-chip">Drafted &middot; in full</span><span class="page-count">05 / 10</span></div>
+      <h2 class="h-section reveal">Three phases, drafted end to end.</h2>
+      <div class="mt40 stagger">
+        <div class="row">
+          <div class="row-k">Discover <span class="pill done" style="margin-left:8px;"><span class="dot"></span>20 docs &middot; Draft v01</span></div>
+          <div class="row-v">Audience, competitors, the funnel, the offer, the priority problems and the next moves. The market truth the rest is built on.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Design <span class="pill done" style="margin-left:8px;"><span class="dot"></span>42 docs &middot; Draft v01</span></div>
+          <div class="row-v">Brand and positioning, the business plan, in-market activation, the copy workbook, website strategy and brief, and the channel plans.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Deploy <span class="pill done" style="margin-left:8px;"><span class="dot"></span>Draft v01</span></div>
+          <div class="row-v">The DD00 Launch Playbook. A three-phase sequence with exit tests, and an automation triage that never automates a trust moment.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Marketplace prototype <span class="pill done" style="margin-left:8px;"><span class="dot"></span>Prototype</span></div>
+          <div class="row-v">The working Buy My Car marketplace app, Next.js and Supabase, built for AI visibility. The production build is scoped separately.</div>
+        </div>
+        <div class="row">
+          <div class="row-k">Intelligence layer <span class="pill done" style="margin-left:8px;"><span class="dot"></span>Live</span></div>
+          <div class="row-v">The KH00 index, the Intelligence Brief and the artifact registry. The layer that keeps everything current.</div>
+        </div>
+      </div>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#onapage"><span>Previous</span><strong>The 3D Process, on a page</strong></a>
+        <a class="pn-btn next" href="#notdone"><span>Next</span><strong>What I have not built</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 06 WHAT I HAVE NOT BUILT ── -->
+    <article class="page" id="notdone">
+      <div class="page-head"><span class="page-chip">In the interest of being straight with you</span><span class="page-count">06 / 10</span></div>
+      <h2 class="h-section reveal">What I have not built.</h2>
+      <div class="mt40 stagger">
+        <div class="gap-item"><span class="idx">01</span>The production website build.<span class="sub">A prototype exists. The production marketplace build is scoped and priced separately.</span></div>
+        <div class="gap-item"><span class="idx">02</span>The vehicle inspection tool.<span class="sub">Agreed scope, modelled on the Jewell Tyres field tool. Not started.</span></div>
+        <div class="gap-item"><span class="idx">03</span>The AI operating-system portal.<span class="sub">The ask-it-anything brain is scope item six, and it is not built yet. Sections 08 and 09 show where it lands.</span></div>
+        <div class="gap-item"><span class="idx">04</span>The answers.<span class="sub">None of the 22 CORE questions has been answered. Until that session happens, every number and claim in the set is a hypothesis.</span></div>
+      </div>
+      <p class="note mt28 reveal">The first three are deliberate stage boundaries. The fourth is the next move.</p>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#delivered"><span>Previous</span><strong>What's in the set</strong></a>
+        <a class="pn-btn next" href="#access"><span>Next</span><strong>Access and links</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 07 ACCESS AND LINKS ── -->
+    <article class="page" id="access">
+      <div class="page-head"><span class="page-chip">Access</span><span class="page-count">07 / 10</span></div>
+      <h2 class="h-section reveal">Four links. All live.</h2>
+      <p class="body mt28 reveal">All four open without a password. This summary is the one page behind a gate, and the password there is <strong>bmc2026</strong>. Each link opens in a new tab.</p>
+      <div class="mt40 stagger">
+        <a class="linkrow" href="https://adamhall.clent.workers.dev" target="_blank" rel="noopener noreferrer">
+          <span class="lr-k">The Operating System proposal<span class="newtab">opens in new tab &#8599;</span></span>
+          <span class="lr-v">The original engagement proposal: what gets built, and why.</span>
+          <span class="lr-go">&rarr;</span>
+        </a>
+        <a class="linkrow" href="https://adamhall-proposal.clent.workers.dev" target="_blank" rel="noopener noreferrer">
+          <span class="lr-k">Next Step: Launch and Run<span class="newtab">opens in new tab &#8599;</span></span>
+          <span class="lr-v">Finish the website, turn on the channels, and run the marketing month to month.</span>
+          <span class="lr-go">&rarr;</span>
+        </a>
+        <a class="linkrow" href="https://adamhall-buymycar.clent.workers.dev" target="_blank" rel="noopener noreferrer">
+          <span class="lr-k">Buy My Car site prototype<span class="newtab">opens in new tab &#8599;</span></span>
+          <span class="lr-v">The seller-facing site draft.</span>
+          <span class="lr-go">&rarr;</span>
+        </a>
+        <a class="linkrow" href="https://adamhall-marketplace.clent.workers.dev" target="_blank" rel="noopener noreferrer">
+          <span class="lr-k">Marketplace app prototype<span class="newtab">opens in new tab &#8599;</span></span>
+          <span class="lr-v">The working buyer-side marketplace draft.</span>
+          <span class="lr-go">&rarr;</span>
+        </a>
+      </div>
+      <p class="note mt28 reveal">Open them in any browser. This summary is the only page that asks for bmc2026.</p>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#notdone"><span>Previous</span><strong>What I have not built</strong></a>
+        <a class="pn-btn next" href="#maxxim"><span>Next</span><strong>The operating system</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 08 THE OPERATING SYSTEM ── -->
+    <article class="page" id="maxxim">
+      <div class="page-head"><span class="page-chip">Your agency in a box</span><span class="page-count">08 / 10</span></div>
+      <h2 class="h-section reveal">The operating system.</h2>
+      <p class="body mt28 reveal" style="max-width:680px;">Scope item six from the 15 July conversation. One workspace holding the brand, the assets, the full 3D Process and a brain you can ask anything. JewellAI keeps it current, and Maxxim runs the always-on marketing once Deploy opens. It is not built yet. It is here so you can see where it lands.</p>
+
+      <div class="darkwrap mt40 reveal">
+        <p class="eyebrow light" style="margin-bottom:20px;">Your Adam Hall workspace</p>
+        <!-- Illustrative representation of the Maxxim console for the Adam Hall
+             workspace. To swap in an actual screenshot, replace this .mxc block
+             with an image of the live console. -->
+        <div class="mxc">
+          <div class="mxc-top">
+            <span class="mxc-logo">MAXXIM</span>
+            <nav class="mxc-nav"><span>Dashboard</span><span class="on">Clients</span><span>Partners</span><span>Plugin</span><span>Help</span></nav>
+            <div class="mxc-top-right"><span>Clent Jewell</span><span class="mxc-signout">Sign out</span></div>
+          </div>
+          <div class="mxc-crumb">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v9h14v-9"/></svg>
+            <span>Clients</span><span>&rsaquo;</span><span>Adam Hall</span><span>&rsaquo;</span><b>Overview</b>
+          </div>
+          <div class="mxc-body">
+            <div class="mxc-side">
+              <div class="mxc-item on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Overview</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3"/><path d="M12 5a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3"/><path d="M9 8a3 3 0 0 1-3 3 3 3 0 0 0 0 4"/><path d="M15 8a3 3 0 0 0 3 3 3 3 0 0 1 0 4"/></svg>Brain</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l2 2 3-3"/><path d="M3 14l2 2 3-3"/><line x1="11" y1="6" x2="21" y2="6"/><line x1="11" y1="14" x2="21" y2="14"/></svg>3D Process</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9 12 9-12-4-6H7z"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Brand Assets</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7z"/><path d="M18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9z"/></svg>Design Studio</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>Website</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l9 5V5L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 8a4 4 0 0 1 0 8"/></svg>Social Studio</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Files</div>
+              <div class="mxc-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2"/></svg>Details</div>
+            </div>
+            <div class="mxc-main">
+              <div class="mxc-h">
+                <h4>Overview</h4><span class="mxc-help">Help</span>
+                <div class="mxc-actions"><span class="mxc-btn">View as client</span><span class="mxc-btn">Edit details</span></div>
+              </div>
+              <div class="mxc-grid">
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3"/><path d="M12 5a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3"/><path d="M9 8a3 3 0 0 1-3 3 3 3 0 0 0 0 4"/><path d="M15 8a3 3 0 0 0 3 3 3 3 0 0 1 0 4"/></svg>
+                  <h5>Brain</h5><p>Ask anything about this client, grounded in every document.</p>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l2 2 3-3"/><path d="M3 14l2 2 3-3"/><line x1="11" y1="6" x2="21" y2="6"/><line x1="11" y1="14" x2="21" y2="14"/></svg>
+                  <h5>3D Process</h5><p>Track drafts across Discover, Design and Deploy.</p><div class="stat">62 drafted</div>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9 12 9-12-4-6H7z"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                  <h5>Brand Assets</h5><p>Logo variants and the brand identity.</p><div class="stat grey">Draft</div>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7z"/><path d="M18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9z"/></svg>
+                  <h5>Design Studio</h5><p>Generate and refine brand visuals.</p>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg>
+                  <h5>Website</h5><p>Deploys, domains and the live site.</p><div class="stat grey">Prototype</div>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l9 5V5L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 8a4 4 0 0 1 0 8"/></svg>
+                  <h5>Social Studio</h5><p>Draft, approve and schedule social posts.</p>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  <h5>Files</h5><p>Every document and asset, in one place.</p><div class="stat">70+ files</div>
+                </div>
+                <div class="mxc-card">
+                  <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8"/><circle cx="9" cy="8" r="2"/><line x1="4" y1="16" x2="20" y2="16"/><circle cx="15" cy="16" r="2"/></svg>
+                  <h5>Details</h5><p>Contact, partners, usage and cost.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note light" style="margin-top:14px;">Illustrative. What the Adam Hall workspace becomes when the portal is switched on.</p>
+      </div>
+
+      <div class="cols-3 mt40 stagger">
+        <div>
+          <div class="col-label">An agency in a box</div>
+          <div class="col-body">Strategy, brand, content, website and social, plus the studios to produce them, in one workspace.</div>
+        </div>
+        <div>
+          <div class="col-label">An Intelligence Hub that self-learns</div>
+          <div class="col-body">Every document and decision feeds it. The more it is used, the sharper its guidance.</div>
+        </div>
+        <div>
+          <div class="col-label">Your client portal</div>
+          <div class="col-body">All your assets, your brand and your full 3D Process, live and in one place. Built when you say go.</div>
+        </div>
+      </div>
+
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#access"><span>Previous</span><strong>Access and links</strong></a>
+        <a class="pn-btn next" href="#maxo"><span>Next</span><strong>Ask it anything</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 09 ASK IT ANYTHING ── -->
+    <article class="page" id="maxo">
+      <div class="page-head"><span class="page-chip">The brain</span><span class="page-count">09 / 10</span></div>
+      <h2 class="h-section reveal">Ask it anything.</h2>
+      <p class="body mt28 reveal" style="max-width:660px;">The portal includes a brain grounded in your own set, not generic advice. Ask it a question and it answers from the Adam Hall documents, in your own words and numbers once they are validated.</p>
+      <div class="darkwrap mt40 reveal">
+        <div class="cols-2" style="gap:clamp(32px,4vw,56px); align-items:start;">
+          <div>
+            <p class="body light" style="margin:0;">Because it reads from the Adam Hall set, it answers in specifics, not slogans. As the CORE questions close and the numbers firm up, it gets sharper.</p>
+            <div class="rule dark mt28"></div>
+            <p class="note light mt20" style="margin:0;">One source of truth. Sales, marketing and channel guidance, in Adam Hall's own voice.</p>
+          </div>
+          <div>
+            <div class="maxo">
+              <div class="msg" style="flex-direction:row-reverse;">
+                <div class="avatar you">AH</div>
+                <div class="bubble q">What should the referral ask sound like?</div>
+              </div>
+              <div class="msg">
+                <img class="avatar" src="assets/maxxim-icon.webp" alt="The brain">
+                <div class="bubble">Today it happens on its own, which means it is left to luck. The plan drafts the ask in your own words once CQ16 is answered, and puts it at the moment the money lands.
+                  <span class="src">Sourced from Partnership / Referral Plan, CQ16</span>
+                </div>
+              </div>
+              <div class="msg" style="flex-direction:row-reverse;">
+                <div class="avatar you">AH</div>
+                <div class="bubble q">What has to happen before any of this goes live?</div>
+              </div>
+              <div class="msg">
+                <img class="avatar" src="assets/maxxim-icon.webp" alt="The brain">
+                <div class="bubble">Three things: the CORE session, a basic lead log so the funnel is measured, and Stage 1 sign-off. Nothing launches on unvalidated numbers.
+                  <span class="src">Sourced from Recommended Next Moves, Launch Playbook</span>
+                </div>
+              </div>
+            </div>
+            <p class="note light" style="margin-top:12px; text-align:center;">Illustrative. The brain is scope item six, and it is not built yet.</p>
+          </div>
+        </div>
+      </div>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#maxxim"><span>Previous</span><strong>The operating system</strong></a>
+        <a class="pn-btn next" href="#next"><span>Next</span><strong>Next steps</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 10 NEXT STEPS ── -->
+    <article class="page" id="next">
+      <div class="page-head"><span class="page-chip">Next steps</span><span class="page-count">10 / 10</span></div>
+      <h2 class="h-section reveal">Three easy ways to take this forward.</h2>
+      <div class="mt40 stagger">
+        <div class="row"><div class="row-k">The CORE session</div><div class="row-v">A working session on the 22 questions. I run it, and the set updates to v02 within three days of the answers landing.</div></div>
+        <div class="row"><div class="row-k">A walkthrough</div><div class="row-v">I take you through the full set at whatever pace suits. An hour is plenty to see the shape of it.</div></div>
+        <div class="row"><div class="row-k">Stage 1 sign-off</div><div class="row-v">The proposal is with you. Signing starts Discover formally, and the fee is credited in full if you proceed to the next stage.</div></div>
+      </div>
+      <p class="note mt28 reveal">No pressure attached to any of it.</p>
+
+      <div class="rule mt56 reveal"></div>
+      <h2 class="h-hero mt40 reveal" style="font-size:clamp(48px,9vw,110px);">Trust.</h2>
+      <p class="body grey mt28 reveal">Clent Jewell &nbsp;&middot;&nbsp; <a href="mailto:clent@jewellprojects.com" style="color:var(--signal-blue); text-decoration:none;">clent@jewellprojects.com</a></p>
+
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#maxo"><span>Previous</span><strong>Ask it anything</strong></a>
+        <a class="pn-btn next" href="#top"><span>Next</span><strong>Back to Welcome</strong></a>
+      </nav>
+    </article>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  var de = document.documentElement;
+  de.classList.add('js');
+
+  var links = [].slice.call(document.querySelectorAll('.nav-link'));
+  var sections = [].slice.call(document.querySelectorAll('.welcome, .page'));
+
+  function setActive(id){
+    links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href').slice(1) === id); });
+  }
+  // Scroll-spy: one continuous scroll, end to end. Highlight the section the
+  // reader is currently on (the last one whose top has passed the upper third).
+  function spy(){
+    var line = window.innerHeight * 0.35;
+    var current = sections.length ? (sections[0].id || 'top') : 'top';
+    for(var i = 0; i < sections.length; i++){
+      if(sections[i].getBoundingClientRect().top <= line){ current = sections[i].id || 'top'; }
+    }
+    setActive(current);
+  }
+
+  // Scroll progress across the whole document, plus the scroll-spy.
+  var prog = document.getElementById('prog');
+  function onScroll(){
+    var h = de; var max = h.scrollHeight - h.clientHeight;
+    prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    spy();
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // Mobile contents toggle.
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('navtoggle');
+  var mq = window.matchMedia('(max-width:900px)');
+  function syncNav(){ if(mq.matches){ nav.classList.add('collapsed'); toggle.setAttribute('aria-expanded','false'); } else { nav.classList.remove('collapsed'); toggle.setAttribute('aria-expanded','true'); } }
+  syncNav();
+  if(mq.addEventListener){ mq.addEventListener('change', syncNav); }
+  if(toggle){ toggle.addEventListener('click', function(){ nav.classList.toggle('collapsed'); toggle.setAttribute('aria-expanded', nav.classList.contains('collapsed') ? 'false' : 'true'); }); }
+  links.forEach(function(a){ a.addEventListener('click', function(){ if(mq.matches){ nav.classList.add('collapsed'); toggle.setAttribute('aria-expanded','false'); } }); });
+
+  // Reveal-on-view (fires when a page becomes visible and scrolls into view).
+  var reveals = [].slice.call(document.querySelectorAll('.reveal, .stagger'));
+  if('IntersectionObserver' in window && reveals.length){
+    var ro = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+    reveals.forEach(function(el){ ro.observe(el); });
+  } else { reveals.forEach(function(el){ el.classList.add('in'); }); }
+
+  // 3D Process diagram: run the line + dots + steps when its page is shown.
+  var method = document.getElementById('method');
+  if(method){
+    if('IntersectionObserver' in window){
+      var mo = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ method.classList.add('run'); } });
+      }, { threshold: 0.25 });
+      mo.observe(method);
+    } else { method.classList.add('run'); }
+  }
+})();
+</script>
+</body>
+</html>
