@@ -38,12 +38,12 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 1.8rem;
+  gap: 1.4rem;
 }
 .ah-site .site-header__nav ul {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   list-style: none;
 }
 .ah-site .site-header__nav a {
@@ -149,7 +149,7 @@
   align-self: flex-start;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .ah-site .site-header__right {
     display: none;
   }

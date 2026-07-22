@@ -7,8 +7,14 @@ import { nav, site } from "@/lib/site-data/site";
 import Button from "@/components/site/Button";
 import "@/components/site/site.css";
 
-// Reference nav + a "Cars for Sale" link into the marketplace inventory.
-const headerNav = [...nav, { label: "Cars for Sale", to: "/cars" }];
+// Reference nav + the marketplace's buying-side pages so every public page
+// is reachable from the top of the site, not just the footer.
+const headerNav = [
+  ...nav,
+  { label: "Cars for Sale", to: "/cars" },
+  { label: "Finance", to: "/finance" },
+  { label: "FAQ", to: "/faq" },
+];
 
 /**
  * Public site header — the ported reference header (cream, black logo,

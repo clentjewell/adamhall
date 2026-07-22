@@ -57,26 +57,33 @@ export default function Footer() {
           </div>
 
           <div className="site-footer__col">
-            <h6>Links</h6>
+            <h6>Get around</h6>
             <ul>
               {nav.map((item) => (
                 <li key={item.to}>
                   <Link href={item.to}>{item.label}</Link>
                 </li>
               ))}
-              <li>
-                <Link href="/cars">Cars for Sale</Link>
-              </li>
             </ul>
           </div>
 
           <div className="site-footer__col">
-            <h6>Social</h6>
+            <h6>Buying a car</h6>
             <ul>
               <li>
-                <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
-                  LinkedIn
-                </a>
+                <Link href="/cars">Cars for Sale</Link>
+              </li>
+              <li>
+                <Link href="/finance">Finance</Link>
+              </li>
+              <li>
+                <Link href="/compare">Compare cars</Link>
+              </li>
+              <li>
+                <Link href="/saved">Saved cars</Link>
+              </li>
+              <li>
+                <Link href="/faq">FAQ</Link>
               </li>
             </ul>
           </div>
@@ -91,8 +98,13 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/buy-my-car">
-                  <span aria-hidden="true">☺</span> Buy My Car
+                  <span aria-hidden="true">☺</span> Value my car
                 </Link>
+              </li>
+              <li>
+                <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
+                  LinkedIn
+                </a>
               </li>
               <li>
                 <Link href="/admin">Dealer login</Link>
