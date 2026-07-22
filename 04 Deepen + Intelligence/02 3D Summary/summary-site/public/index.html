@@ -200,26 +200,44 @@ body{margin:0;color:var(--ink);background:var(--bg);font-family:var(--sans);font
   font-family:var(--brand);font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8);}
 .hero .hero-partner img{height:12px;width:auto;filter:brightness(0) invert(1);opacity:.9;}
 .overview .ov-phase h2{border-top:2px solid #2D5BFF;padding-top:15px;margin-top:34px;}
-/* Navy section divider (one-at-a-time page announcing the phase ahead) */
-.doc.divider{max-width:none;margin:0 -44px;padding:0;border-radius:0;position:relative;
-  background:radial-gradient(120% 130% at 82% 0%,#1d3168,#171C3D 60%);color:#fff;}
+/* Harbour Navy phase dividers (Adam Hall Buy My Car palette: #1E4A5F / #163846 navy, #B8863E brass) */
+.doc.divider{max-width:none;margin:0 -44px;padding:0;border-radius:0;position:relative;overflow:hidden;
+  background:radial-gradient(130% 145% at 82% -12%,#1E4A5F 0%,#163846 56%,#102933 100%);color:#FBF9F5;}
 html.js .doc.divider.is-active{display:flex;flex-direction:column;justify-content:center;min-height:100vh;}
-.divider .divider-inner{max-width:1000px;padding:0 clamp(26px,7vw,90px);}
+.divider .divider-num{position:absolute;right:clamp(10px,4vw,60px);top:50%;transform:translateY(-54%);
+  font-family:var(--head);font-weight:700;line-height:1;font-size:clamp(200px,34vw,460px);letter-spacing:-.04em;
+  color:transparent;-webkit-text-stroke:1.5px rgba(231,238,240,.10);pointer-events:none;user-select:none;}
+.divider .divider-inner{position:relative;max-width:1000px;padding:0 clamp(26px,7vw,90px);}
+.divider .divider-top{display:flex;align-items:center;gap:16px;margin-bottom:38px;}
+.divider .divider-logo{height:36px;width:auto;display:block;filter:invert(1);}
 .divider .divider-eyebrow{font-family:var(--brand);text-transform:uppercase;letter-spacing:.22em;
-  font-size:clamp(11px,1.1vw,13px);font-weight:600;color:var(--accent);display:block;margin-bottom:20px;}
+  font-size:clamp(11px,1.1vw,13px);font-weight:600;color:#B8863E;display:block;margin-bottom:20px;}
 .divider .divider-title{font-family:var(--head);font-size:clamp(56px,10vw,140px);line-height:.94;
-  letter-spacing:-.035em;font-weight:700;margin:0;color:#fff;}
-.divider .divider-blurb{font-size:clamp(17px,2vw,24px);color:#c2cdec;max-width:42ch;margin:24px 0 0;line-height:1.5;}
+  letter-spacing:-.035em;font-weight:700;margin:0;color:#FBF9F5;}
+.divider .divider-title .divider-dot{color:#B8863E;}
+.divider .divider-blurb{font-size:clamp(17px,2vw,24px);color:rgba(231,238,240,.82);max-width:42ch;margin:24px 0 0;line-height:1.5;}
+.divider .divider-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;}
+.divider .divider-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(184,134,62,.5);
+  background:rgba(184,134,62,.12);color:#E7EEF0;border-radius:999px;padding:8px 16px;
+  font-family:var(--brand);font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
+.divider .divider-chip b{color:#B8863E;font-weight:700;}
 .divider .divider-mark{font-family:var(--brand);text-transform:uppercase;letter-spacing:.16em;
-  font-size:10.5px;color:#8090b6;display:block;margin-top:44px;}
+  font-size:10.5px;color:rgba(231,238,240,.5);display:flex;align-items:center;gap:12px;margin-top:46px;}
+.divider .divider-mark::before{content:"";width:28px;height:2px;background:#B8863E;flex-shrink:0;}
 .divider .doc-nav{position:absolute;left:clamp(26px,7vw,90px);right:clamp(26px,7vw,90px);bottom:34px;
-  margin:0;border-top:1px solid rgba(255,255,255,.16);padding-top:16px;}
-.divider .doc-nav-btn{color:#c2cdec;}
-.divider .doc-nav-btn strong{color:#fff;}
-.divider .doc-nav-btn:hover{color:#fff;}
-.divider .doc-nav-btn span{color:#8090b6;}
+  margin:0;border-top:1px solid rgba(251,249,245,.16);padding-top:16px;}
+.divider .doc-nav-btn{color:rgba(231,238,240,.8);background:rgba(251,249,245,.05);border-color:rgba(251,249,245,.18);}
+.divider .doc-nav-btn:hover{border-color:#B8863E;box-shadow:none;}
+.divider .doc-nav-btn strong{color:#FBF9F5;}
+.divider .doc-nav-btn:hover{color:#B8863E;}
+.divider .doc-nav-btn:hover strong{color:#B8863E;}
+.divider .doc-nav-btn span{color:rgba(231,238,240,.45);}
 @media(max-width:900px){.doc.divider{margin:0 -18px;}
-  .divider .doc-nav{left:22px;right:22px;}}
+  .divider .doc-nav{left:22px;right:22px;}
+  .divider .divider-num{font-size:56vw;top:auto;bottom:-6vw;transform:none;-webkit-text-stroke-width:1px;}
+  .divider .divider-logo{height:30px;}}
+.divider .backtop{display:none;}
+@media print{.divider .divider-num{display:none;}}
 @keyframes div-rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
 html.js .doc.divider.is-active .divider-inner{animation:div-rise .55s cubic-bezier(.2,.7,.2,1) both;}
 
@@ -1600,10 +1618,19 @@ html.js.viewing .landing{display:none;}
     </div>
 
     <article class="doc divider discover" id="divider-discover">
+      <span class="divider-num" aria-hidden="true">01</span>
       <div class="divider-inner">
-        <span class="divider-eyebrow">Checkpoint 1 &middot; Gate 1</span>
-        <h1 class="divider-title">Discover</h1>
+        <div class="divider-top">
+          <img class="divider-logo" src="/assets/ah-buymycar-logo.png" alt="Adam Hall Buy My Car">
+        </div>
+        <span class="divider-eyebrow">Phase 01 &middot; Checkpoint 1 &middot; Gate 1</span>
+        <h1 class="divider-title">Discover<span class="divider-dot">.</span></h1>
         <p class="divider-blurb">Find the truth: how Adam actually runs it, the real buyer, and the real decision rules.</p>
+        <div class="divider-meta">
+          <span class="divider-chip"><b>20</b> documents</span>
+          <span class="divider-chip">Docs 01&ndash;20</span>
+          <span class="divider-chip">Gate 1 &middot; pending validation</span>
+        </div>
         <span class="divider-mark">Adam Hall Buy My Car &middot; 3D Process</span>
       </div>
     
@@ -3554,10 +3581,19 @@ html.js.viewing .landing{display:none;}
     </article>
     
 <article class="doc divider design" id="divider-design">
+      <span class="divider-num" aria-hidden="true">02</span>
       <div class="divider-inner">
-        <span class="divider-eyebrow">Checkpoint 2 &middot; Gate 2</span>
-        <h1 class="divider-title">Design</h1>
+        <div class="divider-top">
+          <img class="divider-logo" src="/assets/ah-buymycar-logo.png" alt="Adam Hall Buy My Car">
+        </div>
+        <span class="divider-eyebrow">Phase 02 &middot; Checkpoint 2 &middot; Gate 2</span>
+        <h1 class="divider-title">Design<span class="divider-dot">.</span></h1>
         <p class="divider-blurb">Turn the judgement into the operating system, the brand, and the sales architecture that carry it.</p>
+        <div class="divider-meta">
+          <span class="divider-chip"><b>42</b> documents</span>
+          <span class="divider-chip">Docs 21&ndash;62</span>
+          <span class="divider-chip">Gate 2 &middot; drafted, not locked</span>
+        </div>
         <span class="divider-mark">Adam Hall Buy My Car &middot; 3D Process</span>
       </div>
     
@@ -8431,10 +8467,19 @@ html.js.viewing .landing{display:none;}
     </article>
     
 <article class="doc divider deploy" id="divider-deploy">
+      <span class="divider-num" aria-hidden="true">03</span>
       <div class="divider-inner">
-        <span class="divider-eyebrow">Checkpoint 3 &middot; Gate 3</span>
-        <h1 class="divider-title">Deploy</h1>
+        <div class="divider-top">
+          <img class="divider-logo" src="/assets/ah-buymycar-logo.png" alt="Adam Hall Buy My Car">
+        </div>
+        <span class="divider-eyebrow">Phase 03 &middot; Checkpoint 3 &middot; Gate 3</span>
+        <h1 class="divider-title">Deploy<span class="divider-dot">.</span></h1>
         <p class="divider-blurb">Take it to market: run the system, launch the name, and scale the buying.</p>
+        <div class="divider-meta">
+          <span class="divider-chip"><b>1</b> playbook</span>
+          <span class="divider-chip">Doc 63</span>
+          <span class="divider-chip">Gate 3 &middot; hypothesis</span>
+        </div>
         <span class="divider-mark">Adam Hall Buy My Car &middot; 3D Process</span>
       </div>
     
