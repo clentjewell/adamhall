@@ -4,7 +4,7 @@
 const COOKIE_NAME = "amh_session";
 const SESSION_TTL = 60 * 60 * 24 * 7; // 7 days
 const LOGIN_PATH = "/__auth";
-const LOGO = "/assets/jewell-logo.svg";
+const LOGO = "/assets/ah-buymycar-logo.png";
 
 const SECURITY_HEADERS = {
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
@@ -169,7 +169,7 @@ function loginPage(next, showError) {
     background:radial-gradient(1200px 700px at 20% 0%,rgba(45,91,255,.28),transparent 60%),
       linear-gradient(150deg,#0E171F 0%,#111827 55%,#0E171F 100%)}
   .card{width:100%;max-width:392px;text-align:center}
-  .logo{height:26px;margin:0 0 22px;filter:brightness(0) invert(1)}
+  .logo{height:56px;margin:0 0 22px;filter:invert(1)}
   h1{font-weight:600;margin:0 0 6px;font-size:28px;letter-spacing:-0.02em}
   p.sub{opacity:.8;margin:0 0 22px;font-weight:300}
   p.err{background:rgba(45,91,255,.18);border:1px solid rgba(45,91,255,.55);
@@ -187,15 +187,14 @@ function loginPage(next, showError) {
 </head>
 <body>
   <main class="card">
-    <img class="logo" src="${LOGO}" alt="Jewell Projects">
-    <h1>Adam Hall &middot; Buy My Car</h1>
-    <p class="sub">This summary is private. Enter the password to continue.</p>
+    <img class="logo" src="${LOGO}" alt="Adam Hall Buy My Car">
+    <p class="sub">This pack is private. Enter the password to continue.</p>
     ${error}
     <form method="POST" action="${LOGIN_PATH}">
       <input type="hidden" name="next" value="${escapeAttr(next)}">
       <input type="password" name="password" placeholder="Password" autofocus
              autocomplete="current-password" aria-label="Password" required>
-      <button type="submit">View the summary</button>
+      <button type="submit">View the pack</button>
     </form>
     <p class="foot">Jewell Projects &middot; 3D Process</p>
   </main>
