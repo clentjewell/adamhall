@@ -318,6 +318,23 @@ html.viewing #viewer { display: flex; }
 html.viewing .progress-bar { display: none; }
 html.viewing .sidebar .nav,
 html.viewing .sidebar .navtoggle { display: none; }
+/* Viewing: drop the sidebar card (no white box), let the viewer fill the width and resize */
+html.viewing .layout { max-width: none; }
+html.viewing .sidebar { background: transparent; border: 0; box-shadow: none; }
+html.viewing #viewer { position: fixed; top: 0; right: 0; bottom: 0; left: auto;
+  width: var(--viewer-w, 74vw); height: 100vh; margin: 0; border: 0;
+  border-left: 1px solid var(--rule); border-radius: 0;
+  box-shadow: -10px 0 34px rgba(17,17,17,0.08); }
+.viewer-split { display: none; }
+html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 12px; margin-left: -6px; cursor: col-resize; z-index: 6; touch-action: none; }
+.viewer-split::after { content: ""; position: absolute; left: 5px; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 46px; border-radius: 3px; background: var(--rule); transition: background .15s, height .15s; }
+.viewer-split:hover::after, .viewer-split.dragging::after { background: var(--signal-blue); height: 72px; }
+@media (max-width: 900px) {
+  html.viewing #viewer { width: 100vw; left: 0; border-left: 0; }
+  html.viewing .viewer-split { display: none; }
+}
 .viewer-bar { display: flex; align-items: center; gap: 12px; flex-shrink: 0;
   padding: 11px 14px; border-bottom: 1px solid var(--rule); background: var(--cream); }
 .viewer-back { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
@@ -801,6 +818,7 @@ html.viewing .sidebar .navtoggle { display: none; }
   </main>
 
   <section id="viewer" aria-label="Linked content">
+    <div class="viewer-split" id="viewer-split" title="Drag to resize" aria-hidden="true"></div>
     <div class="viewer-bar">
       <button type="button" class="viewer-back" id="viewer-back"><span class="arw">&larr;</span> Back to summary</button>
       <span class="viewer-title" id="viewer-title"></span>
@@ -920,7 +938,36 @@ html.viewing .sidebar .navtoggle { display: none; }
     hideFallback();
     de.classList.remove('viewing');
     vframe.src = 'about:blank';
+    if(viewer){ viewer.style.width = ''; }
     window.scrollTo(0, lastScroll);
+  }
+  // Drag the left edge of the viewer to resize the embedded page.
+  var vsplit = document.getElementById('viewer-split');
+  if(vsplit && viewer){
+    var dragging = false;
+    function applyW(clientX){
+      var w = window.innerWidth - clientX;
+      var min = 480, max = window.innerWidth - 80;
+      if(w < min){ w = min; } if(w > max){ w = max; }
+      viewer.style.width = w + 'px';
+    }
+    function onMove(e){ if(dragging){ applyW(e.clientX); e.preventDefault(); } }
+    function endDrag(){
+      if(!dragging) return;
+      dragging = false; vsplit.classList.remove('dragging');
+      document.body.style.userSelect = '';
+      if(vframe){ vframe.style.pointerEvents = ''; }
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', endDrag);
+    }
+    vsplit.addEventListener('pointerdown', function(e){
+      dragging = true; vsplit.classList.add('dragging');
+      document.body.style.userSelect = 'none';
+      if(vframe){ vframe.style.pointerEvents = 'none'; } // let moves reach the parent while over the iframe
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', endDrag);
+      e.preventDefault();
+    });
   }
   [].slice.call(document.querySelectorAll('[data-view]')).forEach(function(a){
     a.addEventListener('click', function(e){
