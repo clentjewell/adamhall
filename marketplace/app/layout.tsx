@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Barlow, Barlow_Condensed } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
@@ -8,22 +7,9 @@ import SiteJsonLd from "@/components/SiteJsonLd";
 import { getContent } from "@/lib/content";
 import "./globals.css";
 
-// Barlow superfamily: the condensed cut carries highway-signage /
-// motorsport DNA for display type, the regular cut keeps body copy plain
-// and legible. One family, one voice — sturdy, not flashy.
-const barlowCondensed = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-barlow-condensed",
-  display: "swap",
-});
-
-const barlow = Barlow({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-barlow",
-  display: "swap",
-});
+// Brand type comes from the client's Adobe Typekit kit (Neue Haas Grotesk
+// Display for headings, Mr Eaves Modern for body) — same kit the reference
+// adamhallbuymycar.com.au site loads. Fallback stacks live in globals.css.
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -47,7 +33,11 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const content = await getContent();
   return (
-    <html lang="en-AU" className={`${barlowCondensed.variable} ${barlow.variable}`}>
+    <html lang="en-AU">
+      <head>
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://use.typekit.net/knr6tgk.css" />
+      </head>
       <body className="min-h-dvh flex flex-col">
         <SiteJsonLd />
         <TopLoader />

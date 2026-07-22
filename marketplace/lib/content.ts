@@ -61,7 +61,7 @@ export interface SiteContent {
 }
 
 export const CONTENT_DEFAULTS: SiteContent = {
-  phone: { display: "0400 000 000", tel: "tel:+61400000000" },
+  phone: { display: "0404 290 617", tel: "tel:0404290617" },
   hero: {
     headline: "Good cars. Straight answers. Money that moves fast.",
     subtext:
@@ -129,7 +129,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
     title: "Talk to a human",
     sub: "No call centre, no ticket number. Ring or drop by and you'll get Adam or someone who actually knows the cars.",
     email: "[sales@ email to be confirmed]",
-    address: "[street address to be confirmed]\nNorthern NSW, on the Tweed–Gold Coast border",
+    address: "[street address to be confirmed]\nServing the Gold Coast, Brisbane & Northern Rivers",
     hours: [
       { days: "Monday – Friday", hours: "8:30am – 5:30pm" },
       { days: "Saturday", hours: "8:30am – 2:00pm" },
