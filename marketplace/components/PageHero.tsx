@@ -45,7 +45,7 @@ export default function PageHero({
           <HeroItem>
             <h1
               data-edit={titleEditPath}
-              className="font-display font-extrabold text-4xl md:text-6xl tracking-tight text-white leading-[1.02]"
+              className="font-display font-extrabold text-4xl md:text-6xl tracking-tight text-white leading-tight"
             >
               {title}
             </h1>

@@ -28,7 +28,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
           </div>
         )}
         {sold && (
-          <span className="absolute top-3 left-3 bg-amber-accent text-white text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
+          <span className="absolute top-3 left-3 bg-amber-accent text-ink text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
             SOLD
           </span>
         )}

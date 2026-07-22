@@ -35,7 +35,7 @@ export default function AdminNav({ adminName }: { adminName: string }) {
     <aside>
       {/* Homepage logo + back-to-site */}
       <Link href="/" className="hidden md:flex items-center px-3 mb-3" aria-label="Adam Hall — Buy My Car home">
-        <img src="/brand/logo.png" alt="Adam Hall — Buy My Car" className="h-8 w-auto" />
+        <img src="/assets/logos/logo-black.svg" alt="Adam Hall — Buy My Car" className="h-8 w-auto" />
       </Link>
       <Link
         href="/"

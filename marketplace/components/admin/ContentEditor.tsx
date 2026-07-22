@@ -378,9 +378,9 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
         <div className="rounded-2xl bg-ink p-6 text-stone-300 grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
             <img
-              src="/brand/logo.png"
+              src="/assets/logos/logo-white.svg"
               alt="Adam Hall — Buy My Car"
-              className="h-8 w-auto [filter:invert(1)_brightness(1.06)]"
+              className="h-8 w-auto"
             />
             <Editable
               label="Footer blurb"
@@ -431,7 +431,7 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
               value={c.phone.tel}
               onChange={(e) => setC({ ...c, phone: { ...c.phone, tel: e.target.value } })}
             />
-            <p className="helper">Format tel:+61400000000 — used when someone taps Call.</p>
+            <p className="helper">Format tel:0404290617 — used when someone taps Call.</p>
           </div>
         </div>
       </section>

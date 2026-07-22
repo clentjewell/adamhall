@@ -149,7 +149,7 @@ export default function FinanceEnquiryForm({
 
       {state.error && <p className="error-text">{state.error}</p>}
 
-      <button type="submit" disabled={pending} className="btn-primary w-full mt-5">
+      <button type="submit" disabled={pending} className="btn-cta w-full mt-5">
         {pending ? "Sending…" : "Get finance sorted"}
       </button>
     </form>

@@ -654,7 +654,7 @@ export default function SellFlow({
             <ArrowRight size={16} weight="bold" />
           </button>
         ) : (
-          <button type="button" className="btn-primary" onClick={submit} disabled={submitting}>
+          <button type="button" className="btn-cta" onClick={submit} disabled={submitting}>
             {submitting ? "Sending to Adam…" : "Send it to Adam"}
           </button>
         )}

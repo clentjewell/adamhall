@@ -57,7 +57,7 @@ export default function CarHero({
         <div className="max-w-6xl mx-auto px-4 pb-5 flex flex-wrap items-end justify-between gap-4">
           <div>
             {sold && (
-              <span className="inline-block bg-amber-accent text-white text-xs font-bold tracking-wide px-3 py-1.5 rounded-full mb-3">
+              <span className="inline-block bg-amber-accent text-ink text-xs font-bold tracking-wide px-3 py-1.5 rounded-full mb-3">
                 SOLD
               </span>
             )}

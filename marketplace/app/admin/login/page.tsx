@@ -18,8 +18,8 @@ export default async function AdminLoginPage({ searchParams }: Props) {
     <div className="min-h-[70vh] flex items-center justify-center px-4">
       <div className="card p-8 w-full max-w-sm">
         {/* Homepage logo */}
-        <img src="/brand/logo.png" alt="Adam Hall — Buy My Car" className="h-10 w-auto mb-2" />
-        <p className="text-sm font-semibold text-forest-600 mb-6">DEALER CONSOLE</p>
+        <img src="/assets/logos/logo-black.svg" alt="Adam Hall — Buy My Car" className="h-10 w-auto mb-2" />
+        <p className="text-sm font-semibold text-forest-600 mb-6">Dealer console</p>
         {denied && (
           <p className="error-text mb-4" role="alert">
             That account isn&apos;t on the admin list. Talk to Adam if it should be.

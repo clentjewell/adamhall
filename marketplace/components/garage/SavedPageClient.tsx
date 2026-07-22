@@ -97,7 +97,7 @@ export default function SavedPageClient() {
           <p className="font-display font-bold text-lg">
             Nothing saved yet. Tap the heart on any car.
           </p>
-          <Link href="/cars" className="btn-primary mt-5 inline-flex">
+          <Link href="/cars" className="btn-cta mt-5 inline-flex">
             Browse cars
           </Link>
         </div>

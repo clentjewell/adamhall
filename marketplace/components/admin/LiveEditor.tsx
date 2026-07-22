@@ -142,7 +142,7 @@ export default function LiveEditor({ initial }: { initial: SiteContent }) {
 
           <div className="ml-auto flex items-center gap-2">
             {unsaved > 0 && (
-              <span className="text-xs font-bold text-amber-accent bg-amber-soft px-2.5 py-1 rounded-full">
+              <span className="text-xs font-bold text-[#8a5a1e] bg-amber-soft px-2.5 py-1 rounded-full">
                 {unsaved} unsaved change{unsaved === 1 ? "" : "s"}
               </span>
             )}
