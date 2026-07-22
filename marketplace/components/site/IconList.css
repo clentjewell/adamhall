@@ -1,0 +1,26 @@
+/* scoped port of IconList.css */
+.ah-site .icon-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.ah-site .icon-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: var(--fs-body); 
+  line-height: 1.4;
+  color: var(--c-black);
+}
+.ah-site .icon-list svg {
+  flex-shrink: 0;
+  margin-top: 0.2em;
+  color: var(--c-purple-dark);
+}
+.ah-site .icon-list--light li {
+  color: var(--c-white);
+}
+.ah-site .icon-list--light svg {
+  color: var(--c-purple);
+}

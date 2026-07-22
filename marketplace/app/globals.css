@@ -1,30 +1,40 @@
 @import "tailwindcss";
 
 /*
-  Adam Hall design tokens.
+  Adam Hall design tokens — aligned to the adamhallbuymycar.com.au brand
+  (Elementor kit: deep green #004438, cream, tan, purple CTA; Typekit
+  Neue Haas Grotesk Display headings + Mr Eaves Modern body).
   Shape rule (locked): buttons = pill, cards = rounded-2xl, inputs = rounded-lg.
-  One accent (forest green) everywhere; amber reserved for status/highlight only.
+  The forest-* scale keeps its semantic names so every existing page
+  re-skins from here; values now derive from the brand green.
 */
 @theme {
-  --color-ink: #16211b;
-  --color-paper: #f4f5f2;
+  --color-ink: #1c1c1c;
+  --color-paper: #f8f7f3;
   --color-card: #ffffff;
-  --color-forest-50: #eef4f0;
-  --color-forest-100: #d8e6dd;
-  --color-forest-200: #b0cdbb;
-  --color-forest-500: #2e6e4e;
-  --color-forest-600: #1e5c41;
-  --color-forest-700: #174a34;
-  --color-forest-800: #123a29;
-  --color-amber-accent: #c47b0a;
-  --color-amber-soft: #fdf3e2;
+  --color-forest-50: #edf3f1;
+  --color-forest-100: #d6e3df;
+  --color-forest-200: #b3ccc6;
+  --color-forest-500: #0a5a4a;
+  --color-forest-600: #004438;
+  --color-forest-700: #003a30;
+  --color-forest-800: #00332b;
+  --color-amber-accent: #d99a4e;
+  --color-amber-soft: #f9f0e0;
+  --color-cream: #f8f7f3;
+  --color-tan: #f2dab2;
+  --color-brand-purple: #c29fd8;
+  --color-brand-purple-dark: #b184cd;
+  --color-peach: #ffbc7d;
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Keep in-page anchors clear of the sticky header. */
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -52,6 +62,10 @@ body {
 @utility btn-secondary {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none border-2 border-forest-600 text-forest-700 hover:bg-forest-50 px-6 py-3;
 }
+/* Brand conversion CTA — the reference site's purple pill */
+@utility btn-cta {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none bg-brand-purple text-white hover:bg-brand-purple-dark px-6 py-3;
+}
 @utility btn-ghost {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none text-forest-700 hover:bg-forest-50 px-4 py-2;
 }
@@ -75,4 +89,57 @@ body {
 
 @utility skeleton {
   @apply animate-pulse bg-stone-200 rounded-lg;
+}
+
+/* Focus visibility: one consistent ring everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+}
+
+/* CTA micro-interaction: trailing icon nudges on hover */
+.btn-primary svg:last-child,
+.btn-secondary svg:last-child,
+.btn-ghost svg:last-child {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover svg:last-child,
+.btn-secondary:hover svg:last-child,
+.btn-ghost:hover svg:last-child {
+  transform: translateX(3px);
+}
+
+/* Makes marquee — pauses on hover, static under reduced motion */
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-x 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Edit mode (admin iframe only): outline editable fields and pause the
+   marquee so text doesn't scroll away mid-edit. */
+.edit-mode [data-edit] {
+  outline: 1.5px dashed rgba(30, 92, 65, 0.55);
+  outline-offset: 2px;
+  cursor: text;
+  min-width: 1ch;
+}
+.edit-mode [data-edit]:hover,
+.edit-mode [data-edit]:focus {
+  outline-color: var(--color-forest-500);
+  background: rgba(30, 92, 65, 0.06);
+}
+.edit-mode .marquee-track {
+  animation-play-state: paused;
 }

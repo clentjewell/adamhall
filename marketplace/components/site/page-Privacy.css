@@ -1,0 +1,30 @@
+/* scoped port of pages/Privacy.css */
+.ah-site .privacy-hero {
+  padding-block: calc(var(--header-h-mobile) + 1.5rem) clamp(2.5rem, 6vw, 4.5rem);
+}
+@media (min-width: 1025px) {
+.ah-site .privacy-hero {
+    padding-top: calc(var(--header-h) + 1.5rem);
+  }
+}
+
+.ah-site .privacy-hero h1 {
+  font-size: var(--fs-hero);
+  color: var(--c-white);
+  margin: 0;
+}
+.ah-site .privacy-body h2 {
+  font-size: 1.5rem;
+  margin-top: 2.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--c-black);
+}
+.ah-site .privacy-body h2:first-child {
+  margin-top: 0;
+}
+.ah-site .privacy-body p {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--c-black);
+  margin-bottom: 1.1rem;
+}

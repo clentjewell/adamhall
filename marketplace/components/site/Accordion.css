@@ -1,0 +1,44 @@
+/* scoped port of Accordion.css */
+.ah-site .accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.ah-site .accordion__item {
+  border-bottom: 1px solid var(--c-border);
+}
+.ah-site .accordion__q {
+  margin: 0;
+}
+.ah-site .accordion__q button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 1.15rem 0.25rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  color: var(--c-black);
+}
+.ah-site .accordion__chevron {
+  flex-shrink: 0;
+  color: var(--c-purple-dark);
+  transition: transform var(--transition);
+}
+.ah-site .accordion__item.is-open .accordion__chevron {
+  transform: rotate(180deg);
+}
+.ah-site .accordion__panel {
+  padding: 0 0.25rem 1.2rem;
+}
+.ah-site .accordion__panel p {
+  color: var(--c-black);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  margin: 0;
+}

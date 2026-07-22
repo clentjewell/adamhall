@@ -10,7 +10,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
   return (
     <Link
       href={`/cars/${car.slug}`}
-      className="card overflow-hidden group hover:border-forest-200 hover:shadow-lg hover:shadow-stone-200/60 transition-all"
+      className="card overflow-hidden group hover:border-forest-200 hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-1 transition-all duration-300"
     >
       <div className="relative aspect-[3/2] bg-stone-200 overflow-hidden">
         {photo ? (
@@ -28,13 +28,13 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
           </div>
         )}
         {sold && (
-          <span className="absolute top-3 left-3 bg-amber-accent text-white text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
+          <span className="absolute top-3 left-3 bg-amber-accent text-ink text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
             SOLD
           </span>
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-display font-bold text-lg leading-snug text-ink">
+        <h3 className="font-display font-bold text-xl leading-snug text-ink group-hover:text-forest-700 transition-colors">
           {carTitle(car)}
         </h3>
         <p className="mt-1 text-xl font-extrabold text-forest-700">

@@ -1,6 +1,9 @@
 import { defineCloudflareConfig } from "@opennextjs/cloudflare";
+import kvIncrementalCache from "@opennextjs/cloudflare/overrides/incremental-cache/kv-incremental-cache";
 
-// Default config: static assets served from the Worker's asset binding,
-// dynamic routes rendered in the Worker. Add an R2 incremental cache here
-// if/when ISR volume justifies it.
-export default defineCloudflareConfig();
+// ISR pages (home, /cars, content pages) revalidate through KV
+// (binding NEXT_INC_CACHE_KV in wrangler.jsonc). Static assets serve
+// from the Worker's asset binding; dynamic routes render in the Worker.
+export default defineCloudflareConfig({
+  incrementalCache: kvIncrementalCache,
+});

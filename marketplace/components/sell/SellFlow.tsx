@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -92,6 +93,7 @@ export default function SellFlow({
   const [submitting, setSubmitting] = useState(false);
   const [doneToken, setDoneToken] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const reduce = useReducedMotion();
 
   // Save-and-resume: the draft lives in localStorage until submitted.
   useEffect(() => {
@@ -314,6 +316,13 @@ export default function SellFlow({
         ))}
       </ol>
 
+      {/* Step change slides forward slightly — orientation, not spectacle */}
+      <motion.div
+        key={step}
+        initial={reduce ? false : { opacity: 0, x: 16 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      >
       {step === 0 && (
         <section className="space-y-5">
           <h2 className="font-display font-bold text-2xl">
@@ -622,6 +631,8 @@ export default function SellFlow({
         </section>
       )}
 
+      </motion.div>
+
       {error && (
         <p className="error-text mt-5" role="alert">
           {error}
@@ -643,7 +654,7 @@ export default function SellFlow({
             <ArrowRight size={16} weight="bold" />
           </button>
         ) : (
-          <button type="button" className="btn-primary" onClick={submit} disabled={submitting}>
+          <button type="button" className="btn-cta" onClick={submit} disabled={submitting}>
             {submitting ? "Sending to Adam…" : "Send it to Adam"}
           </button>
         )}

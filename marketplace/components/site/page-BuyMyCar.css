@@ -1,0 +1,114 @@
+/* scoped port of pages/BuyMyCar.css */
+.ah-site .bmc {
+  min-height: 100vh;
+  background: var(--c-cream);
+  display: flex;
+  flex-direction: column;
+}
+.ah-site .bmc__top {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 40px 0 47px;
+  gap: 1rem;
+}
+.ah-site .bmc__logo img {
+  width: 220px;
+  height: auto;
+}
+.ah-site .bmc__featured {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.ah-site .bmc__featured span {
+  font-family: var(--font-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.7rem;
+  color: var(--c-black);
+}
+.ah-site .bmc__featured img {
+  height: 42px;
+  width: auto;
+  
+  filter: brightness(0) saturate(100%);
+}
+.ah-site .bmc__body {
+  
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 560px);
+  gap: clamp(2rem, 7vw, 100px);
+  align-items: start;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+}
+.ah-site .bmc__title {
+  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  color: var(--c-black);
+  margin-bottom: 1.2rem;
+}
+.ah-site .bmc__lead {
+  font-size: var(--fs-body);
+  color: var(--c-black);
+  margin-bottom: 1.8rem;
+  max-width: 32rem;
+}
+.ah-site .bmc__rule {
+  border: 0;
+  border-top: 1px solid var(--c-border);
+  margin: 2rem 0;
+  max-width: 30rem;
+}
+.ah-site .bmc__phone {
+  margin-top: 1.6rem;
+  color: var(--c-black);
+}
+.ah-site .bmc__phone a {
+  color: var(--c-green);
+  font-weight: 600;
+  text-decoration: underline;
+}
+.ah-site .bmc__form {
+  position: sticky;
+  top: 2rem;
+}
+.ah-site .bmc__foot {
+  
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  justify-content: center;
+  padding-block: 2rem;
+  font-size: 1rem;
+  color: var(--c-text);
+}
+.ah-site .bmc__foot p {
+  margin: 0;
+  white-space: nowrap;
+}
+.ah-site .bmc__foot a:hover {
+  color: var(--c-green);
+}
+@media (max-width: 900px) {
+.ah-site .bmc__body {
+    grid-template-columns: 1fr;
+  }
+.ah-site .bmc__form {
+    position: static;
+    order: -1;
+  }
+.ah-site .bmc__title {
+    text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+.ah-site .bmc__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

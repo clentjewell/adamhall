@@ -89,7 +89,7 @@ export default function EnquiryForm({ carId, carName }: { carId: string; carName
 
       {state.error && <p className="error-text">{state.error}</p>}
 
-      <button type="submit" disabled={pending} className="btn-primary w-full mt-5">
+      <button type="submit" disabled={pending} className="btn-cta w-full mt-5">
         {pending
           ? "Sending…"
           : kind === "book_look"

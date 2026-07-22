@@ -1,0 +1,277 @@
+/* ============================================================
+   Scoped base styles for the ported reference site.
+   Everything is namespaced under `.ah-site` so it never touches
+   the rest of the marketplace (which uses Tailwind + its own .btn).
+   Ported from the reference src/styles/global.css.
+   ============================================================ */
+
+.ah-site {
+  font-family: var(--font-body);
+  font-weight: var(--fw-body);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--c-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* The public header is now a real 64px in-flow bar (not an absolute
+     overlay), so ported hero paddings no longer need to "clear" it.
+     Collapse these vars to a small comfortable offset. */
+  --header-h: 0.5rem;
+  --header-h-mobile: 0.25rem;
+}
+
+.ah-site h1,
+.ah-site h2,
+.ah-site h3,
+.ah-site h4,
+.ah-site h5,
+.ah-site h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--fw-heading);
+  color: var(--c-black);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+.ah-site p {
+  margin: 0 0 1.1em;
+}
+.ah-site p:last-child {
+  margin-bottom: 0;
+}
+
+.ah-site a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition), opacity var(--transition);
+}
+
+.ah-site img,
+.ah-site svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ah-site ul,
+.ah-site ol {
+  margin: 0;
+  padding: 0;
+}
+
+.ah-site button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ah-site .visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Layout helpers */
+.ah-site .container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.ah-site .container--wide {
+  max-width: var(--container-wide);
+}
+.ah-site .container--narrow {
+  max-width: var(--container-narrow);
+}
+
+.ah-site .section {
+  padding-block: var(--section-py);
+}
+
+/* Backgrounds */
+.ah-site.bg-green,
+.ah-site .bg-green {
+  background-color: var(--c-green);
+  color: var(--c-white);
+}
+.ah-site.bg-green h1,
+.ah-site.bg-green h2,
+.ah-site.bg-green h3,
+.ah-site.bg-green h4,
+.ah-site.bg-green h5,
+.ah-site.bg-green h6,
+.ah-site .bg-green h1,
+.ah-site .bg-green h2,
+.ah-site .bg-green h3,
+.ah-site .bg-green h4,
+.ah-site .bg-green h5,
+.ah-site .bg-green h6 {
+  color: var(--c-white);
+}
+.ah-site.bg-cream,
+.ah-site .bg-cream {
+  background-color: var(--c-cream);
+}
+.ah-site.bg-purple,
+.ah-site .bg-purple {
+  background-color: var(--c-purple);
+}
+.ah-site.bg-black,
+.ah-site .bg-black {
+  background-color: var(--c-black);
+  color: var(--c-white);
+}
+
+/* Small uppercase eyebrow label */
+.ah-site .eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--c-purple);
+  margin-bottom: 0.6rem;
+  display: inline-block;
+}
+.ah-site .eyebrow--muted {
+  color: var(--c-text);
+}
+
+/* Heading with a hand-drawn wavy underline under highlighted word */
+.ah-site .wavy {
+  position: relative;
+  display: inline-block;
+}
+.ah-site .wavy::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.28em;
+  height: 0.35em;
+  background: url("/assets/decor/wavy-line-short.svg") center / contain no-repeat;
+}
+.ah-site .wavy--white::after {
+  background-image: url("/assets/decor/wavy-line-short-thick-white.svg");
+}
+
+/* ---------------------------------------------------------------
+   Entrance animations (scroll-triggered). Gated behind `html.js`
+   so content is fully visible without JS. useReveal adds `js`.
+   --------------------------------------------------------------- */
+html.js .ah-site .reveal,
+html.js .ah-site .reveal-left,
+html.js .ah-site .reveal-right,
+html.js .ah-site .reveal-zoom {
+  opacity: 0;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+html.js .ah-site .reveal {
+  transform: translateY(48px);
+}
+html.js .ah-site .reveal-left {
+  transform: translateX(-64px);
+}
+html.js .ah-site .reveal-right {
+  transform: translateX(64px);
+}
+html.js .ah-site .reveal-zoom {
+  transform: scale(0.9);
+}
+html.js .ah-site .reveal.is-visible,
+html.js .ah-site .reveal-left.is-visible,
+html.js .ah-site .reveal-right.is-visible,
+html.js .ah-site .reveal-zoom.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger children of grids/lists that reveal as a group */
+html.js .ah-site .tgrid__item:nth-child(3n + 2) {
+  transition-delay: 0.12s;
+}
+html.js .ah-site .tgrid__item:nth-child(3n) {
+  transition-delay: 0.24s;
+}
+html.js .ah-site .trustbar__item {
+  transition-delay: calc(var(--stagger, 0) * 0.08s);
+}
+html.js .ah-site .tlist__item:nth-child(even),
+html.js .ah-site .about-card:nth-child(2),
+html.js .ah-site .hiw-promise__card:nth-child(even) {
+  transition-delay: 0.12s;
+}
+html.js .ah-site .about-card:nth-child(3) {
+  transition-delay: 0.24s;
+}
+html.js .ah-site .ap.reveal {
+  transition-duration: 0.7s;
+}
+
+/* Hero content entrance on page load */
+@keyframes ah-hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ah-hero-media-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+html.js .ah-site .hero__content > * {
+  animation: ah-hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+html.js .ah-site .hero__content > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+html.js .ah-site .hero__content > *:nth-child(3) {
+  animation-delay: 0.24s;
+}
+html.js .ah-site .hero__content > *:nth-child(4) {
+  animation-delay: 0.36s;
+}
+html.js .ah-site .hero__media {
+  animation: ah-hero-media-in 1.1s ease both;
+}
+html.js .ah-site .ghero__inner > * {
+  animation: ah-hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+html.js .ah-site .ghero__inner > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+html.js .ah-site .ghero__inner > *:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-site .reveal,
+  .ah-site .reveal-left,
+  .ah-site .reveal-right,
+  .ah-site .reveal-zoom {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  html.js .ah-site .hero__content > *,
+  html.js .ah-site .hero__media,
+  html.js .ah-site .ghero__inner > * {
+    animation: none;
+  }
+}

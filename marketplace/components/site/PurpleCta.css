@@ -1,0 +1,94 @@
+/* scoped port of PurpleCta.css */
+.ah-site .pcta {
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+}
+.ah-site .pcta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2.6rem;
+}
+.ah-site .pcta__title {
+  color: var(--c-white);
+  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  line-height: 1.35;
+  margin: 0;
+}
+.ah-site .pcta__line {
+  display: block;
+}
+.ah-site .pcta__line + .pcta__line {
+  margin-top: 0.45em;
+}
+.ah-site .pcta__pill {
+  display: inline-block;
+  border: 3px solid var(--c-white);
+  border-radius: var(--radius-pill);
+  color: var(--c-green);
+  padding: 0 0.5em 0.06em;
+  line-height: 1.25;
+  vertical-align: baseline;
+}
+.ah-site .pcta__feet {
+  position: relative;
+  display: inline-block;
+  color: var(--c-tan);
+}
+.ah-site .pcta__feet::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.22em;
+  height: 0.24em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8' preserveAspectRatio='none'%3E%3Cpath d='M0 4 Q 7.5 0.5, 15 4 T 30 4 T 45 4 T 60 4' stroke='%23F2DAB2' stroke-width='2.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+    left center / 60px 100% repeat-x;
+}
+.ah-site .pcta__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+}
+.ah-site .pcta__action .btn {
+  padding: 15px 30px 16px; 
+}
+.ah-site .pcta__start {
+  position: relative;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--c-white);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1;
+  border: 3px solid var(--c-white);
+  border-right: none;
+  padding: 0.55em 0.25em 0.55em 0.8em;
+  margin-right: 26px; 
+}
+.ah-site .pcta__start::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  width: 47px;
+  height: 47px;
+  transform: translateY(-50%) rotate(45deg);
+  border-top: 3px solid var(--c-white);
+  border-right: 3px solid var(--c-white);
+}
+@media (max-width: 480px) {
+.ah-site .pcta__pill {
+    border-width: 2px;
+  }
+.ah-site .pcta__start {
+    border-width: 2px;
+  }
+.ah-site .pcta__start::after {
+    border-top-width: 2px;
+    border-right-width: 2px;
+  }
+}

@@ -79,7 +79,7 @@ export default async function SubmissionsPage({ searchParams }: Props) {
                 </p>
               </div>
               {s.trade_target_car_id && (
-                <span className="text-xs font-bold text-amber-accent bg-amber-soft px-2.5 py-1 rounded-full">
+                <span className="text-xs font-bold text-[#8a5a1e] bg-amber-soft px-2.5 py-1 rounded-full">
                   TRADE-IN
                 </span>
               )}
