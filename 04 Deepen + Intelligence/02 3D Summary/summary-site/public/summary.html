@@ -363,6 +363,23 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
   #viewer { position: static; height: calc(100vh - 90px); margin: 14px; }
   .viewer-title { display: none; }
 }
+
+/* ── START HERE band + guided walkthrough ── */
+.starthere { border-bottom: 1px solid var(--rule); padding: 4px 0 40px; margin-bottom: 8px; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat { border: 1px solid var(--rule); border-radius: 12px; padding: 18px 16px; background: #fff; }
+.stat-n { display: block; font-size: clamp(26px, 3vw, 38px); font-weight: 600; color: var(--signal-blue); letter-spacing: -0.02em; line-height: 1; }
+.stat-l { display: block; font-size: 12.5px; color: var(--mid-grey); margin-top: 8px; line-height: 1.35; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; text-decoration: none;
+  padding: 13px 20px; border-radius: 10px; border: 1px solid var(--rule); color: var(--black); background: #fff;
+  transition: border-color .15s, transform .18s var(--ease), opacity .15s; }
+.cta:hover { border-color: var(--signal-blue); transform: translateY(-2px); }
+.cta-primary { background: var(--signal-blue); border-color: var(--signal-blue); color: #fff; }
+.cta-primary:hover { opacity: .93; }
+.cta-ghost { border-color: transparent; color: var(--signal-blue); padding-left: 6px; padding-right: 6px; }
+.page-nav { display: flex; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); }
+@media (max-width: 640px) { .stat-row { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -382,6 +399,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
     <button class="navtoggle" id="navtoggle" type="button" aria-expanded="true">Contents</button>
     <nav class="nav" id="nav">
       <a class="nav-link nav-edge" href="#top"><span class="nav-num">&middot;</span><span>Welcome</span></a>
+      <a class="nav-link nav-edge" href="#starthere"><span class="nav-num">&#9733;</span><span>Start here</span></a>
       <div class="nav-sep"></div>
       <a class="nav-link" href="#note"><span class="nav-num">01</span><span>A note up front</span></a>
       <a class="nav-link" href="#whatsinside"><span class="nav-num">02</span><span>What this is</span></a>
@@ -409,6 +427,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
       <div class="rule mt40 reveal"></div>
       <p class="eyebrow mt40 reveal" style="margin-bottom:18px;">Inside this summary</p>
       <div class="ov-grid stagger">
+        <a class="ov-card" href="#starthere"><span class="n">&#9733;</span><span class="t">Start here &middot; the 60-second version</span></a>
         <a class="ov-card" href="#note"><span class="n">01</span><span class="t">A note up front</span></a>
         <a class="ov-card" href="#whatsinside"><span class="n">02</span><span class="t">What this is</span></a>
         <a class="ov-card" href="#process"><span class="n">03</span><span class="t">The 3D Process</span></a>
@@ -418,6 +437,31 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
         <a class="ov-card" href="#access"><span class="n">07</span><span class="t">Access and links</span></a>
         <a class="ov-card" href="#maxxim"><span class="n">08</span><span class="t">The operating system</span></a>
         <a class="ov-card" href="#maxo"><span class="n">09</span><span class="t">Ask it anything</span></a>
+      </div>
+    </section>
+
+    <!-- ── START HERE (the 60-second version) ── -->
+    <section class="starthere" id="starthere">
+      <span class="eyebrow blue reveal">Start here &middot; if you read nothing else</span>
+      <h2 class="h-section reveal">A trust business wearing a car-buying shell. The product being sold is you.</h2>
+      <p class="lead mt20 reveal">Demand and trust already work. The next step turns what lives in your head into a business that runs, buys more cars, and gives you your time back &mdash; on the road to $7M.</p>
+
+      <div class="stat-row mt40 stagger">
+        <div class="stat"><span class="stat-n">~$5M</span><span class="stat-l">a year, today</span></div>
+        <div class="stat"><span class="stat-n">~25</span><span class="stat-l">cars a month</span></div>
+        <div class="stat"><span class="stat-n">~$4,200</span><span class="stat-l">average retail gross</span></div>
+        <div class="stat"><span class="stat-n">$0</span><span class="stat-l">paid marketing, so far</span></div>
+      </div>
+      <p class="note mt20 reveal">Your numbers, as told &mdash; all to confirm together.</p>
+
+      <div class="callout mt40 reveal">
+        <p class="body" style="margin:0;"><strong>The one next step:</strong> launch the built site, turn on the channels, and run it month to month. Gate One is $4,995 + admin &amp; GST. <a data-view href="https://adamhall-nextstep-proposal.clent.workers.dev/" style="color:var(--signal-blue);font-weight:600;text-decoration:none;">See the plan &#8599;</a></p>
+      </div>
+
+      <div class="cta-row mt40 stagger">
+        <a class="cta cta-primary" data-view href="https://claude-install-skills-zip-fkibw7-adamhall-marketplace.clent.workers.dev/">See the live marketplace &#8599;</a>
+        <a class="cta" data-view href="/" data-title="The full 3D Process pack">Walk through the pack</a>
+        <a class="cta cta-ghost" href="#note">Start the walkthrough &#8595;</a>
       </div>
     </section>
 
