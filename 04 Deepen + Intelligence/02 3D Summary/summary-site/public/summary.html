@@ -230,6 +230,62 @@ body {
 /* ── CALLOUT ── */
 .callout { border-left: 2px solid var(--signal-blue); padding: 6px 0 6px 22px; }
 
+/* ── BRAND IDENTITY (merged) ── */
+.bi-lilac { --bi-lilac: #c29fd8; }
+.bi-plates { display: grid; gap: 14px; margin-top: 26px; }
+.bi-plates.two { grid-template-columns: repeat(2, 1fr); }
+.bi-plates.three { grid-template-columns: repeat(3, 1fr); }
+.bi-plates.four { grid-template-columns: repeat(4, 1fr); }
+.bi-plate { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: #fff; }
+.bi-stage { min-height: 168px; display: flex; align-items: center; justify-content: center; padding: 26px 24px; }
+.bi-stage img { max-height: 96px; width: auto; }
+.bi-stage.tall { min-height: 210px; } .bi-stage.tall img { max-height: 150px; }
+.bi-paper { background: var(--cream); }
+.bi-white { background: #fff; }
+.bi-green { background: var(--signal-blue); }
+.bi-ink { background: var(--maxxim); }
+.bi-lil { background: #c29fd8; }
+.bi-cap { border-top: 1px solid var(--rule); padding: 11px 15px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.bi-cap .bc-t { font-size: 12.5px; font-weight: 600; color: var(--black); }
+.bi-cap .bc-s { font-size: 11px; color: var(--mid-grey); text-align: right; }
+/* colour swatches */
+.bi-sw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 26px; }
+.bi-sw { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: #fff; }
+.bi-sw .chip { height: 118px; }
+.bi-sw .sbody { padding: 13px 15px; }
+.bi-sw .sname { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; }
+.bi-sw .srow { display: flex; justify-content: space-between; font-size: 12px; color: var(--mid-grey); padding: 3px 0; border-top: 1px dashed var(--rule); }
+.bi-sw .srow:first-of-type { border-top: 0; }
+.bi-sw .srow b { color: var(--black); font-weight: 600; font-variant-numeric: tabular-nums; }
+/* type specimen */
+.bi-type { border: 1px solid var(--rule); border-radius: 12px; background: #fff; overflow: hidden; margin-top: 26px; }
+.bi-trow { padding: 20px 24px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; }
+.bi-trow:first-child { border-top: 0; }
+.bi-trow .tl { font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid-grey); flex: 0 0 130px; }
+.bi-trow .ts { color: var(--black); }
+.bi-s-disp { font-size: clamp(26px,3.4vw,38px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.04; }
+.bi-s-head { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.bi-s-body { font-size: 16px; font-weight: 400; line-height: 1.7; color: #333; max-width: 62ch; }
+/* applications */
+.bi-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 26px; }
+.bi-app { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: #fff; }
+.bi-app .shot { background: var(--cream); line-height: 0; }
+.bi-app .shot.pad { padding: 16px; display: flex; align-items: center; justify-content: center; min-height: 150px; }
+.bi-app .shot img { display: block; width: 100%; height: auto; }
+.bi-app .shot.pad img { max-width: 100%; max-height: 150px; width: auto; }
+.bi-app .acap { padding: 12px 15px; border-top: 1px solid var(--rule); }
+.bi-app .acap h5 { font-size: 14px; font-weight: 600; }
+.bi-app .acap p { font-size: 12px; color: var(--mid-grey); line-height: 1.5; margin-top: 3px; }
+.bi-kws { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.bi-kw { font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 999px; }
+.bi-kw.y { background: rgba(0,68,56,0.07); color: var(--signal-blue); border: 1px solid rgba(0,68,56,0.28); }
+.bi-kw.n { background: rgba(17,17,17,0.03); color: #9a9a9a; border: 1px solid var(--rule); text-decoration: line-through; }
+@media (max-width: 720px) {
+  .bi-plates.two, .bi-plates.three, .bi-plates.four, .bi-apps { grid-template-columns: 1fr 1fr; }
+  .bi-sw-grid { grid-template-columns: 1fr 1fr; }
+  .bi-trow .tl { flex-basis: 100%; }
+}
+
 /* ── OVERVIEW (welcome) ── */
 .ov-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 .ov-card { display: flex; gap: 14px; align-items: baseline; text-decoration: none; color: var(--black); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; transition: border-color .2s, transform .2s var(--ease); }
@@ -405,11 +461,12 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
       <a class="nav-link" href="#process"><span class="nav-num">03</span><span>The 3D Process</span></a>
       <a class="nav-link" href="#onapage"><span class="nav-num">04</span><span>The 3D Process, on a page</span></a>
       <a class="nav-link" href="#delivered"><span class="nav-num">05</span><span>What's in the set</span></a>
-      <a class="nav-link" href="#notdone"><span class="nav-num">06</span><span>What I have not built</span></a>
-      <a class="nav-link" href="#access"><span class="nav-num">07</span><span>Access and links</span></a>
-      <a class="nav-link" href="#maxxim"><span class="nav-num">08</span><span>The operating system</span></a>
-      <a class="nav-link" href="#maxo"><span class="nav-num">09</span><span>Ask it anything</span></a>
-      <a class="nav-link" href="#next"><span class="nav-num">10</span><span>Next steps</span></a>
+      <a class="nav-link" href="#brand"><span class="nav-num">06</span><span>Brand identity</span></a>
+      <a class="nav-link" href="#notdone"><span class="nav-num">07</span><span>What I have not built</span></a>
+      <a class="nav-link" href="#access"><span class="nav-num">08</span><span>Access and links</span></a>
+      <a class="nav-link" href="#maxxim"><span class="nav-num">09</span><span>The operating system</span></a>
+      <a class="nav-link" href="#maxo"><span class="nav-num">10</span><span>Ask it anything</span></a>
+      <a class="nav-link" href="#next"><span class="nav-num">11</span><span>Next steps</span></a>
       <div class="nav-sep"></div>
       <a class="nav-link nav-edge" href="/" data-view data-title="The full 3D Process pack"><span class="nav-num">&rarr;</span><span>Open the full pack</span></a>
     </nav>
@@ -466,7 +523,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 01 A NOTE UP FRONT ── -->
     <article class="page" id="note">
-      <div class="page-head"><span class="page-chip">A note up front</span><span class="page-count">01 / 10</span></div>
+      <div class="page-head"><span class="page-chip">A note up front</span><span class="page-count">01 / 11</span></div>
       <h2 class="h-section reveal">Built fast, held honest.</h2>
       <div class="rule mt40 reveal"></div>
       <p class="body mt40 reveal">Adam, we sat down on 15 July and agreed the scope. What follows is the draft set I have built since. It moves from audience and positioning through brand, business and marketing strategy, into a first launch plan.</p>
@@ -481,7 +538,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 02 WHAT THIS IS ── -->
     <article class="page" id="whatsinside">
-      <div class="page-head"><span class="page-chip">What you are looking at</span><span class="page-count">02 / 10</span></div>
+      <div class="page-head"><span class="page-chip">What you are looking at</span><span class="page-count">02 / 11</span></div>
       <h2 class="h-section reveal">Everything from Discover to Deploy, in one place.</h2>
       <div class="cols-2 mt40 stagger">
         <div>
@@ -505,7 +562,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 03 THE 3D PROCESS ── -->
     <article class="page" id="process">
-      <div class="page-head"><span class="page-chip">The method behind the work</span><span class="page-count">03 / 10</span></div>
+      <div class="page-head"><span class="page-chip">The method behind the work</span><span class="page-count">03 / 11</span></div>
       <h2 class="h-section reveal">The 3D Process.</h2>
       <p class="body mt28 reveal">Three disciplined phases, three decision gates. The 3D Process is the Jewell Projects method for building a brand and its go-to-market on evidence rather than opinion. Each phase ends at a gate, a point to review, align and approve before the next one starts. The work compounds in one direction instead of looping.</p>
 
@@ -532,7 +589,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 04 ON A PAGE ── -->
     <article class="page" id="onapage">
-      <div class="page-head"><span class="page-chip">The whole engagement on one page</span><span class="page-count">04 / 10</span></div>
+      <div class="page-head"><span class="page-chip">The whole engagement on one page</span><span class="page-count">04 / 11</span></div>
       <h2 class="h-section reveal">The 3D Process, on a page.</h2>
       <p class="body mt28 reveal">Sixty-two documents is the right depth to build from. It is not what gets read on a Tuesday. So here is the whole engagement in six lines, the belief, the position, the numbers, the constraint, the plan, the decision.</p>
       <div class="mt40 stagger">
@@ -594,7 +651,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 05 WHAT'S IN THE SET ── -->
     <article class="page" id="delivered">
-      <div class="page-head"><span class="page-chip">Drafted &middot; in full</span><span class="page-count">05 / 10</span></div>
+      <div class="page-head"><span class="page-chip">Drafted &middot; in full</span><span class="page-count">05 / 11</span></div>
       <h2 class="h-section reveal">Three phases, drafted end to end.</h2>
       <div class="mt40 stagger">
         <div class="row">
@@ -616,13 +673,86 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
       </div>
       <nav class="page-nav">
         <a class="pn-btn prev" href="#onapage"><span>Previous</span><strong>The 3D Process, on a page</strong></a>
+        <a class="pn-btn next" href="#brand"><span>Next</span><strong>Brand identity</strong></a>
+      </nav>
+    </article>
+
+    <!-- ── 06 BRAND IDENTITY ── -->
+    <article class="page" id="brand">
+      <div class="page-head"><span class="page-chip">The identity</span><span class="page-count">06 / 11</span></div>
+      <h2 class="h-section reveal">The brand, in one place.</h2>
+      <p class="lead mt20 reveal">The whole identity springs from one idea: selling a car to Adam should feel like a friendly chat, not a negotiation. The logo is a <strong>speech bubble</strong>, the voice is warm and plain-spoken, and the promise is a <strong>hassle-free guarantee</strong> &mdash; grounded in green, lifted with lilac.</p>
+
+      <p class="eyebrow blue mt40">The logo, on any ground</p>
+      <div class="bi-plates three stagger">
+        <div class="bi-plate"><div class="bi-stage bi-paper"><img src="assets/ah-buymycar-logo.png" alt="Primary logo on paper"></div><div class="bi-cap"><span class="bc-t">On paper</span><span class="bc-s">#f8f7f3</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-green"><img src="assets/ah-buymycar-logo.png" alt="Primary logo on green"></div><div class="bi-cap"><span class="bc-t">On green</span><span class="bc-s">#004438</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-lil"><img src="assets/ah-buymycar-logo.png" alt="Primary logo on lilac"></div><div class="bi-cap"><span class="bc-t">On lilac</span><span class="bc-s">#c29fd8</span></div></div>
+      </div>
+      <div class="bi-plates two mt40 stagger">
+        <div class="bi-plate"><div class="bi-stage tall bi-paper"><img src="assets/brand-wordmark.png" alt="Adam Hall BUY my CAR wordmark" style="max-height:118px"></div><div class="bi-cap"><span class="bc-t">Wordmark</span><span class="bc-s">No container</span></div></div>
+        <div class="bi-plate"><div class="bi-stage tall bi-ink"><img src="assets/brand-logo-reversed.png" alt="Reversed logo on dark" style="max-height:130px"></div><div class="bi-cap"><span class="bc-t">Reversed</span><span class="bc-s">On dark grounds</span></div></div>
+      </div>
+
+      <p class="eyebrow blue mt40">The family</p>
+      <div class="bi-plates four stagger">
+        <div class="bi-plate"><div class="bi-stage bi-paper">
+          <svg width="120" height="96" viewBox="0 0 180 150" role="img" aria-label="Speech-bubble symbol icon">
+            <path d="M56 8h96a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H92L60 118V92h-4a22 22 0 0 1-22-22V30A22 22 0 0 1 56 8Z" fill="#111"/>
+            <circle cx="78" cy="50" r="10" fill="#fff"/><circle cx="110" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+            <circle cx="142" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/><circle cx="30" cy="124" r="14" fill="#111"/>
+          </svg></div><div class="bi-cap"><span class="bc-t">Symbol icon</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-paper"><img src="assets/brand-signature.png" alt="Adam Hall signature" style="max-height:74px"></div><div class="bi-cap"><span class="bc-t">Signature</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-paper"><img src="assets/brand-badge.png" alt="Hassle-free guarantee badge" style="max-height:112px"></div><div class="bi-cap"><span class="bc-t">Guarantee badge</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-paper"><img src="assets/brand-value.png" alt="Value my Car sub-brand" style="max-height:74px"></div><div class="bi-cap"><span class="bc-t">Sub-brand</span></div></div>
+      </div>
+      <div class="bi-plates two mt40 stagger">
+        <div class="bi-plate"><div class="bi-stage bi-lil"><img src="assets/brand-hello-welcome.png" alt="hello / welcome voice elements" style="max-height:70px"></div><div class="bi-cap"><span class="bc-t">Voice elements</span><span class="bc-s">&ldquo;hello / welcome&rdquo;</span></div></div>
+        <div class="bi-plate"><div class="bi-stage bi-paper" style="flex-direction:column;gap:14px;"><img src="assets/ah-buymycar-logo.png" alt="Logo" style="max-height:66px"><span class="bi-s-head"><u>Hassle-free</u> car buying, let&rsquo;s <u>chat</u>&hellip;</span></div><div class="bi-cap"><span class="bc-t">Tagline lockup</span><span class="bc-s">Mark + promise</span></div></div>
+      </div>
+
+      <p class="eyebrow blue mt40">Colour</p>
+      <div class="bi-sw-grid stagger">
+        <div class="bi-sw"><div class="chip" style="background:#000000;"></div><div class="sbody"><p class="sname">Black</p><div class="srow"><span>HEX</span><b>#000000</b></div><div class="srow"><span>Role</span><b>Ink &middot; logo</b></div></div></div>
+        <div class="bi-sw"><div class="chip" style="background:#004438;"></div><div class="sbody"><p class="sname">Green</p><div class="srow"><span>PMS</span><b>3308 C</b></div><div class="srow"><span>HEX</span><b>#004438</b></div></div></div>
+        <div class="bi-sw"><div class="chip" style="background:#ffffff;border-bottom:1px solid var(--rule);"></div><div class="sbody"><p class="sname">White</p><div class="srow"><span>PMS</span><b>&mdash;</b></div><div class="srow"><span>HEX</span><b>#ffffff</b></div></div></div>
+        <div class="bi-sw"><div class="chip" style="background:#c29fd8;"></div><div class="sbody"><p class="sname">Lilac</p><div class="srow"><span>PMS</span><b>2567 C</b></div><div class="srow"><span>HEX</span><b>#c29fd8</b></div></div></div>
+      </div>
+
+      <p class="eyebrow blue mt40">Typography</p>
+      <div class="bi-type reveal">
+        <div class="bi-trow"><span class="tl">Display</span><span class="ts bi-s-disp">Let&rsquo;s chat about your car</span></div>
+        <div class="bi-trow"><span class="tl">Section head</span><span class="ts bi-s-head">Hassle-free, start to finish</span></div>
+        <div class="bi-trow"><span class="tl">Body</span><span class="ts bi-s-body">Adam comes to you, values your car, and makes a fair offer &mdash; no lots, no pressure, no games. A simple conversation from first hello to handshake.</span></div>
+      </div>
+
+      <p class="eyebrow blue mt40">The identity in practice</p>
+      <div class="bi-apps stagger">
+        <div class="bi-app"><div class="shot"><img src="assets/brand-webhero.png" alt="Website hero"></div><div class="acap"><h5>Website hero</h5><p>Green ground, reversed logo, lilac framing, phone-first CTA.</p></div></div>
+        <div class="bi-app"><div class="shot pad"><img src="assets/brand-emailsig.png" alt="Email signature"></div><div class="acap"><h5>Email signature</h5><p>A compact, consistent sign-off on every reply.</p></div></div>
+        <div class="bi-app"><div class="shot pad" style="background:#e9e4dd;"><img src="assets/brand-businesscard.png" alt="Business cards"></div><div class="acap"><h5>Business card</h5><p>Lilac face to open the chat, green reverse with the details.</p></div></div>
+      </div>
+
+      <p class="eyebrow blue mt40">Imagery</p>
+      <div class="bi-plates two stagger">
+        <div class="bi-plate"><div class="shot" style="line-height:0;"><img src="assets/brand-imagery-1.png" alt="Older man at his front door" style="width:100%;height:200px;object-fit:cover;display:block;"></div><div class="bi-cap"><span class="bc-t">At home, at the door</span></div></div>
+        <div class="bi-plate"><div class="shot" style="line-height:0;"><img src="assets/brand-imagery-2.png" alt="Older couple on their porch" style="width:100%;height:200px;object-fit:cover;display:block;"></div><div class="bi-cap"><span class="bc-t">Warm, candid, together</span></div></div>
+      </div>
+      <div class="bi-kws reveal">
+        <span class="bi-kw y">warm</span><span class="bi-kw y">candid</span><span class="bi-kw y">unhurried</span><span class="bi-kw y">local</span><span class="bi-kw y">personal</span>
+        <span class="bi-kw n">glossy</span><span class="bi-kw n">corporate</span><span class="bi-kw n">showroom</span><span class="bi-kw n">salesy</span>
+      </div>
+
+      <p class="note mt28 reveal">Version One identity by bizxdesign (2022), presented here in full &mdash; the mark, the palette, the type and the applications that carry the hassle-free promise.</p>
+      <nav class="page-nav">
+        <a class="pn-btn prev" href="#delivered"><span>Previous</span><strong>What's in the set</strong></a>
         <a class="pn-btn next" href="#notdone"><span>Next</span><strong>What I have not built</strong></a>
       </nav>
     </article>
 
-    <!-- ── 06 WHAT I HAVE NOT BUILT ── -->
+    <!-- ── 07 WHAT I HAVE NOT BUILT ── -->
     <article class="page" id="notdone">
-      <div class="page-head"><span class="page-chip">In the interest of being straight with you</span><span class="page-count">06 / 10</span></div>
+      <div class="page-head"><span class="page-chip">In the interest of being straight with you</span><span class="page-count">07 / 11</span></div>
       <h2 class="h-section reveal">What I have not built.</h2>
       <div class="mt40 stagger">
         <div class="gap-item"><span class="idx">01</span>The production website build.<span class="sub">A prototype exists. The production marketplace build is scoped and priced separately.</span></div>
@@ -632,14 +762,14 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
       </div>
       <p class="note mt28 reveal">The first three are deliberate stage boundaries. The fourth is the next move.</p>
       <nav class="page-nav">
-        <a class="pn-btn prev" href="#delivered"><span>Previous</span><strong>What's in the set</strong></a>
+        <a class="pn-btn prev" href="#brand"><span>Previous</span><strong>Brand identity</strong></a>
         <a class="pn-btn next" href="#access"><span>Next</span><strong>Access and links</strong></a>
       </nav>
     </article>
 
     <!-- ── 07 ACCESS AND LINKS ── -->
     <article class="page" id="access">
-      <div class="page-head"><span class="page-chip">Access</span><span class="page-count">07 / 10</span></div>
+      <div class="page-head"><span class="page-chip">Access</span><span class="page-count">08 / 11</span></div>
       <h2 class="h-section reveal">Four links. One password.</h2>
       <p class="body mt28 reveal">Each one opens right here inside the summary, with the sidebar kept in place. No new tabs. The password is <strong>bmc2026</strong>, and every view has an &ldquo;Open in new tab&rdquo; option if you want a full window.</p>
       <div class="mt40 stagger">
@@ -673,7 +803,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 08 THE OPERATING SYSTEM ── -->
     <article class="page" id="maxxim">
-      <div class="page-head"><span class="page-chip">Your agency in a box</span><span class="page-count">08 / 10</span></div>
+      <div class="page-head"><span class="page-chip">Your agency in a box</span><span class="page-count">09 / 11</span></div>
       <h2 class="h-section reveal">The operating system.</h2>
       <p class="body mt28 reveal" style="max-width:680px;">Scope item six from the 15 July conversation. One workspace holding the brand, the assets, the full 3D Process and a brain you can ask anything. JewellAI keeps it current, and Maxxim runs the always-on marketing once Deploy opens. It is not built yet. It is here so you can see where it lands.</p>
 
@@ -772,7 +902,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 09 ASK IT ANYTHING ── -->
     <article class="page" id="maxo">
-      <div class="page-head"><span class="page-chip">The brain</span><span class="page-count">09 / 10</span></div>
+      <div class="page-head"><span class="page-chip">The brain</span><span class="page-count">10 / 11</span></div>
       <h2 class="h-section reveal">Ask it anything.</h2>
       <p class="body mt28 reveal" style="max-width:660px;">The portal includes a brain grounded in your own set, not generic advice. Ask it a question and it answers from the Adam Hall documents, in your own words and numbers once they are validated.</p>
       <div class="darkwrap mt40 reveal">
@@ -817,7 +947,7 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 
     <!-- ── 10 NEXT STEPS ── -->
     <article class="page" id="next">
-      <div class="page-head"><span class="page-chip">Next steps</span><span class="page-count">10 / 10</span></div>
+      <div class="page-head"><span class="page-chip">Next steps</span><span class="page-count">11 / 11</span></div>
       <h2 class="h-section reveal">Two phases. Launch and run, then automate.</h2>
       <p class="body mt28 reveal">The thinking is done and the website is built. The next step is a short launch, then a monthly run that keeps moving without you steering it. AI automation is layered on once the platform is live and the data is flowing.</p>
 
