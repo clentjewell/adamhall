@@ -101,3 +101,5 @@ The 15 July intro and 24 July platform demo kicked off the new **3D Buy My Car o
 - Send Adam's current text-to-George listing screenshots to Ronnie (Clent)
 
 Sequence agreed: strategy/brand → website refresh → online channels → socials → search/AI search → paid (paid last).
+
+**Commercial framing (Now / Next / Later):** the Asana phases map to the commercial scope — **Now** = Gate One / Discover ($4,995, invoiced 24 Jul); **Next** = the post-launch monthly run (Design + Deploy: CMO oversight + Liz embedded + Maxxim, retainer set at the 30/60/90 review); **Later** = paid media, Sue gatekeeper, ops automation, internal instant-offer view (scoped on trigger). Carve out the **white-label dealer platform** as a separate strategic deal (licence / revenue-share / equity), not a task in the delivery board.
