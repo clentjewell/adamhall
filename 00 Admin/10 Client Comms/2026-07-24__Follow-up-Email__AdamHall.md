@@ -2,9 +2,9 @@
 
 **To:** Adam Hall
 **From:** Clent Jewell · clent@jewellprojects.com
-**Subject:** Buy My Car — today's session, and getting Gate One moving
+**Subject:** Buy My Car — today's session, and where we go from here
 
-**Goes out with:** the $4,995 Gate One invoice + the Now / Next / Later scope. Warm, no cold monthly figure.
+**Links:** session summary (presentation) + Gate One invoice. No quote — monthly is set later, at the 30/60/90 review.
 
 ---
 
@@ -15,18 +15,17 @@ Good session today. You saw the whole thing working: the marketplace with your c
 Here is the summary of everything we walked through, one link:
 **Session summary:** https://adamhall-summary.clent.workers.dev/summary
 
-Two things to move us forward.
-
-**1. Gate One — getting you launched.** This is the $4,995 stage that gets the foundation live: we validate the 22 CORE questions, refresh the strategy and brand, launch the marketplace and dealer console, and wire up your Google Business Profile and channels. To be straight with you, that's a $20,000-plus build at full rack, delivered inside Gate One. Paying it locks in your first session this week.
+**The invoice to get started.** Gate One is $4,995. It gets the foundation live: we validate the 22 CORE questions, refresh the strategy and brand, launch the marketplace and dealer console, and wire up your Google Business Profile and channels. To be straight with you, that's a $20,000-plus build at full rack, delivered inside Gate One. Paying it locks in your first session this week.
 **Invoice:** [Xero invoice link]
 
-**2. The full picture — Now, Next, Later.** So you can see where this goes, I've put the whole scope on one page: Gate One now, the ongoing monthly run that starts once you're launched, and the bigger pieces (paid ads, a phone gatekeeper, automation) that we scope only when the numbers say it's time. The monthly number we set together off your launch results at the 30/60/90 review, not before.
-**Scope & quote:** [Xero quote link]
+**How it runs from here:**
 
-When you have a spare hour, two things from me:
+1. **You pay Gate One and we book session one this week.** That's the commitment that starts the clock.
+2. **We validate the 22 CORE questions together.** This is where we get what's in your head onto paper: how you value a car in thirty seconds, when you say yes and when you walk, how you handle the money and the paperwork. Mark them up at your own pace beforehand, in your words.
+3. **We launch the foundation.** Strategy and brand refresh, the marketplace and dealer console live, Google Business Profile and your channels set up. Liz starts running the day-to-day behind the scenes.
+4. **We review at 30, 60 and 90 days.** Once you can see the launch working and the numbers behind it, we set the ongoing monthly run together off real results. No big figure sprung on you cold.
 
-- The 22 CORE questions. Mark them up at your own pace, in your words. Where you'd say "I just know," that's exactly the bit we want to slow down on.
-- A few practical calls from today's checklist: the domain name, your Google Business Profile, admin access to the Facebook page, a real stock list with photos, and your blessing to ask happy customers for a Google review.
+A few practical calls I need from you when you get a spare minute: the domain name, admin access to the Facebook page, a real stock list with photos, and your blessing to ask happy customers for a Google review.
 
 Anything touching money, ID, finance owing, ownership or rego transfer, I'll always confirm with you directly before we build on it.
 
