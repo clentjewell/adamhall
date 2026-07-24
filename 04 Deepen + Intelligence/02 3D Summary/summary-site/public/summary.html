@@ -74,7 +74,7 @@ body {
 
 /* ── SECTIONS (one continuous scroll, end to end) ── */
 .welcome, .page { scroll-margin-top: 24px; }
-.page { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 52px; }
+.page { margin-top: 56px; padding-top: 0; }
 
 .page-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 30px; }
 .page-chip { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--signal-blue); }
@@ -280,7 +280,7 @@ body {
   .mxc-grid { grid-template-columns: 1fr 1fr; }
   .mxc-nav, .mxc-top-right, .mxc-actions { display: none; }
 
-  .page { margin-top: 40px; padding-top: 40px; }
+  .page { margin-top: 40px; padding-top: 0; }
 }
 
 @media (max-width: 560px) {
@@ -378,7 +378,6 @@ html.viewing .viewer-split { display: block; position: absolute; left: 0; top: 0
 .cta-primary { background: var(--signal-blue); border-color: var(--signal-blue); color: #fff; }
 .cta-primary:hover { opacity: .93; }
 .cta-ghost { border-color: transparent; color: var(--signal-blue); padding-left: 6px; padding-right: 6px; }
-.page-nav { display: flex; gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--rule); }
 @media (max-width: 640px) { .stat-row { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
