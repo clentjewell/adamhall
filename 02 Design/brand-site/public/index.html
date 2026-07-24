@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Adam Hall Buy My Car — Brand Identity V1</title>
+<meta name="description" content="Brand identity guidelines for Adam Hall Buy My Car — logo suite, colour, typography, imagery and applications.">
+<link rel="icon" href="/assets/logo-primary.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c211f;--muted:#5c6a66;--line:#e4e1dc;
+  --green:#004438;--green-deep:#003a30;--green-ink:#00251f;
+  --lilac:#c29fd8;--lilac-soft:#ece1f4;--black:#000000;
+  --paper:#f8f7f3;--card:#ffffff;--radius:6px;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --head:'Inter Tight',var(--sans);
+  --brand:'Poppins',var(--sans);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans);font-size:17px;line-height:1.65;}
+img{max-width:100%;}
+.layout{display:flex;align-items:flex-start;}
+
+/* ---------- Sidebar ---------- */
+.sidebar{position:sticky;top:16px;align-self:flex-start;flex:0 0 236px;width:236px;
+  max-height:calc(100vh - 32px);overflow-y:auto;margin:16px 0 16px 16px;
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  box-shadow:0 2px 16px rgba(0,68,56,.07);padding:16px 12px;}
+.brand{display:block;margin:2px 8px 6px;}
+.brand img{height:34px;width:auto;display:block;}
+.brand .brand-sub{font-family:var(--brand);font-size:9.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin:9px 2px 0;}
+.nav{display:flex;flex-direction:column;gap:1px;margin-top:12px;}
+.nav-phase{font-family:var(--brand);text-transform:uppercase;letter-spacing:.1em;font-size:9.5px;
+  font-weight:600;color:var(--green);margin:14px 7px 4px;}
+.nav-link{display:flex;gap:8px;align-items:baseline;text-decoration:none;color:var(--muted);
+  font-size:12.5px;line-height:1.3;padding:5px 8px;border-radius:6px;border-left:2px solid transparent;}
+.nav-link .nav-num{font-variant-numeric:tabular-nums;font-size:10.5px;color:#9aa3a0;min-width:16px;}
+.nav-link:hover{color:var(--ink);background:#f0efe8;}
+.nav-link.active{color:var(--ink);background:var(--lilac-soft);border-left-color:var(--green);font-weight:600;}
+.nav-link.active .nav-num{color:var(--green);}
+.jewell-mark{margin:16px 7px 2px;padding-top:13px;border-top:1px solid var(--line);
+  font-family:var(--brand);font-size:8.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:#9aa3a0;display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
+.jewell-mark img{height:13px;width:auto;display:block;opacity:.85;}
+
+/* ---------- Content ---------- */
+.content{flex:1 1 auto;min-width:0;padding:0 44px 90px;}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;margin:16px -44px 0;padding:96px 50px 92px;color:#fff;overflow:hidden;
+  background:radial-gradient(125% 135% at 84% -10%,#005a49 0%,var(--green-deep) 55%,var(--green-ink) 100%);}
+.hero::after{content:"";position:absolute;right:-90px;bottom:-140px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,rgba(194,159,216,.42),transparent 62%);pointer-events:none;}
+.hero-inner{position:relative;z-index:2;max-width:1000px;margin:0 auto;}
+.hero .kicker{font-family:var(--brand);text-transform:uppercase;letter-spacing:.2em;
+  font-size:12px;color:var(--lilac);margin:0 0 18px;font-weight:600;}
+.hero-logo{height:74px;width:auto;filter:invert(1);margin:0 0 30px;display:block;}
+.hero h1{font-family:var(--head);font-size:clamp(44px,6vw,72px);line-height:1.02;margin:0 0 18px;
+  font-weight:700;letter-spacing:-.02em;}
+.hero .lead{font-size:19px;max-width:600px;margin:0 0 30px;color:rgba(248,247,243,.86);}
+.hero .meta{display:flex;flex-wrap:wrap;gap:9px;}
+.hero .pill{background:rgba(248,247,243,.1);border:1px solid rgba(194,159,216,.4);
+  border-radius:999px;padding:7px 15px;font-family:var(--brand);font-size:12px;font-weight:500;
+  letter-spacing:.04em;color:rgba(248,247,243,.92);}
+.hero .pill b{color:var(--lilac);font-weight:600;}
+
+/* ---------- Sections ---------- */
+.section{max-width:1000px;margin:0 auto;padding:56px 0 8px;scroll-margin-top:20px;}
+.section+.section{border-top:1px solid var(--line);}
+.eyebrow{font-family:var(--brand);text-transform:uppercase;letter-spacing:.16em;font-size:11.5px;
+  font-weight:600;color:var(--green);margin:0 0 10px;display:flex;align-items:center;gap:10px;}
+.eyebrow .num{color:var(--lilac);}
+.section h2{font-family:var(--head);font-size:32px;line-height:1.1;letter-spacing:-.015em;
+  font-weight:700;color:var(--ink);margin:0 0 14px;}
+.section .intro{font-size:17.5px;line-height:1.6;color:#3a433f;max-width:70ch;margin:0 0 26px;}
+.section .intro strong{color:var(--ink);}
+
+/* Plate = framed presentation swatch for a mark */
+.plates{display:grid;gap:16px;}
+.plates.two{grid-template-columns:repeat(2,1fr);}
+.plates.three{grid-template-columns:repeat(3,1fr);}
+.plate{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card);}
+.plate-stage{min-height:230px;display:flex;align-items:center;justify-content:center;padding:40px 32px;}
+.plate-stage img{max-height:150px;width:auto;}
+.plate-stage.tall{min-height:300px;}
+.plate-stage.tall img{max-height:230px;}
+.stage-white{background:#fff;}
+.stage-paper{background:var(--paper);}
+.stage-green{background:var(--green);}
+.stage-green-deep{background:var(--green-ink);}
+.stage-lilac{background:var(--lilac);}
+.stage-black{background:var(--black);}
+.stage-photo{background:#3a2f2a center/cover no-repeat;}
+.plate-cap{border-top:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;
+  align-items:baseline;gap:12px;font-family:var(--brand);}
+.plate-cap .pc-t{font-size:12.5px;font-weight:600;color:var(--ink);letter-spacing:.01em;}
+.plate-cap .pc-s{font-size:11px;color:var(--muted);text-align:right;}
+
+/* Callout / rule box */
+.rulebox{background:var(--lilac-soft);border:1px solid #dcc9ec;border-radius:var(--radius);
+  padding:18px 22px;margin:24px 0 0;font-size:15px;line-height:1.55;color:#4a3a58;max-width:80ch;}
+.rulebox strong{color:#3a2b48;}
+.rulebox.green{background:#e7efec;border-color:#cfe0d9;color:#2f423b;}
+.rulebox.green strong{color:var(--green-deep);}
+
+/* Colour swatches */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.sw{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;}
+.sw-chip{height:150px;}
+.sw-body{padding:14px 16px;}
+.sw-name{font-family:var(--head);font-size:17px;font-weight:700;color:var(--ink);margin:0 0 8px;letter-spacing:-.01em;}
+.sw-row{display:flex;justify-content:space-between;font-family:var(--brand);font-size:12px;
+  color:var(--muted);padding:3px 0;border-top:1px dashed var(--line);}
+.sw-row b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
+.sw-row:first-of-type{border-top:0;}
+
+/* Type specimen */
+.type-spec{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;}
+.type-row{padding:22px 26px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;
+  align-items:baseline;gap:8px 22px;}
+.type-row:first-child{border-top:0;}
+.type-row .tr-label{font-family:var(--brand);font-size:11px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--muted);flex:0 0 150px;}
+.type-row .tr-sample{color:var(--ink);}
+.s-display{font-family:var(--head);font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1;}
+.s-h2{font-family:var(--head);font-size:28px;font-weight:600;letter-spacing:-.01em;}
+.s-body{font-family:var(--sans);font-size:18px;font-weight:400;}
+.s-ui{font-family:var(--brand);font-size:16px;font-weight:500;letter-spacing:.01em;}
+
+/* Imagery */
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.img-grid figure{margin:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;}
+.img-grid img{display:block;width:100%;height:230px;object-fit:cover;}
+.img-grid figcaption{padding:12px 16px;font-family:var(--brand);font-size:12.5px;color:var(--muted);}
+.keywords{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+.kw{font-family:var(--brand);font-size:12px;font-weight:500;padding:6px 13px;border-radius:999px;}
+.kw.yes{background:#e7efec;color:var(--green-deep);border:1px solid #cfe0d9;}
+.kw.no{background:#f6eef0;color:#9a5a5a;border:1px solid #ecd8dc;text-decoration:line-through;text-decoration-color:#c99;}
+
+/* In-practice application shots */
+.apps{display:grid;gap:22px;}
+.app{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;}
+.app-shot{background:var(--paper);padding:0;line-height:0;}
+.app-shot img{display:block;width:100%;height:auto;}
+.app-shot.pad{padding:26px;}
+.app-body{padding:16px 20px;border-top:1px solid var(--line);}
+.app-body h3{font-family:var(--head);font-size:18px;font-weight:700;margin:0 0 4px;color:var(--ink);}
+.app-body p{margin:0;font-size:14.5px;color:var(--muted);line-height:1.55;}
+
+/* Footer */
+.foot{max-width:none;margin:70px -44px 0;padding:56px 50px;background:var(--green-ink);color:#f8f7f3;}
+.foot-in{max-width:1000px;margin:0 auto;}
+.foot-eyebrow{font-family:var(--brand);font-size:11px;font-weight:500;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(248,247,243,.5);margin:0 0 16px;}
+.foot h3{font-family:var(--head);font-size:26px;font-weight:700;margin:0 0 10px;letter-spacing:-.015em;}
+.foot p{font-size:15px;color:rgba(248,247,243,.75);max-width:60ch;margin:0 0 30px;line-height:1.6;}
+.foot-marks{display:flex;flex-wrap:wrap;gap:26px;align-items:center;
+  font-family:var(--brand);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(248,247,243,.55);}
+.foot-mark{display:inline-flex;align-items:center;gap:9px;}
+.foot-mark img{height:15px;width:auto;}
+.foot-mark img.jw{filter:brightness(0) invert(1);opacity:.9;}
+.foot-mark .mx-icon{width:17px;height:17px;border-radius:4px;}
+.foot-mark b{color:#f8f7f3;font-weight:600;font-size:13px;letter-spacing:-.01em;text-transform:none;}
+
+@media (max-width:960px){
+  .layout{display:block;}
+  .sidebar{position:static;width:auto;max-height:none;margin:16px;flex:none;}
+  .nav{flex-flow:row wrap;}
+  .nav-phase{width:100%;}
+  .content{padding:0 20px 60px;}
+  .hero{margin:16px -20px 0;padding:70px 24px 64px;}
+  .foot{margin:56px -20px 0;padding:44px 24px;}
+  .plates.two,.plates.three,.swatches,.dodont,.img-grid{grid-template-columns:1fr;}
+  .swatches{grid-template-columns:1fr 1fr;}
+  .type-row .tr-label{flex-basis:100%;}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- ---------- Sidebar ---------- -->
+  <aside class="sidebar">
+    <a class="brand" href="#top">
+      <img src="/assets/logo-primary.png" alt="Adam Hall Buy My Car">
+      <div class="brand-sub">Brand Identity · V1</div>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <div class="nav-phase">The mark</div>
+      <a class="nav-link" href="#overview"><span class="nav-num">01</span><span>Overview</span></a>
+      <a class="nav-link" href="#logo"><span class="nav-num">02</span><span>Primary logo</span></a>
+      <a class="nav-link" href="#backgrounds"><span class="nav-num">03</span><span>Backgrounds</span></a>
+      <a class="nav-link" href="#monochrome"><span class="nav-num">04</span><span>Monochrome</span></a>
+      <a class="nav-link" href="#tagline"><span class="nav-num">05</span><span>Tagline lockup</span></a>
+      <a class="nav-link" href="#wordmark"><span class="nav-num">06</span><span>Wordmark</span></a>
+      <a class="nav-link" href="#symbol"><span class="nav-num">07</span><span>Symbol &amp; icon</span></a>
+      <a class="nav-link" href="#signature"><span class="nav-num">08</span><span>Signature &amp; badge</span></a>
+      <a class="nav-link" href="#sub"><span class="nav-num">09</span><span>Sub-branding</span></a>
+      <a class="nav-link" href="#suite"><span class="nav-num">10</span><span>Brand suite</span></a>
+      <div class="nav-phase">The system</div>
+      <a class="nav-link" href="#colour"><span class="nav-num">11</span><span>Colour palette</span></a>
+      <a class="nav-link" href="#type"><span class="nav-num">12</span><span>Typography</span></a>
+      <a class="nav-link" href="#imagery"><span class="nav-num">13</span><span>Imagery style</span></a>
+      <a class="nav-link" href="#practice"><span class="nav-num">14</span><span>In practice</span></a>
+    </nav>
+    <div class="jewell-mark">
+      <span>Curated by</span>
+      <img src="/assets/jewell-logo.svg" alt="Jewell Projects">
+    </div>
+  </aside>
+
+  <!-- ---------- Content ---------- -->
+  <main class="content" id="top">
+
+    <!-- Hero -->
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="kicker">Adam Hall · Buy My Car</p>
+        <img class="hero-logo" src="/assets/logo-primary.png" alt="Adam Hall Buy My Car logo">
+        <h1>Brand Identity</h1>
+        <p class="lead">The complete Version&nbsp;One identity — logo suite, colour, type, imagery and
+          the applications that carry the hassle-free promise into the world.</p>
+        <div class="meta">
+          <span class="pill">Version <b>1</b></span>
+          <span class="pill">Released <b>23 May 2022</b></span>
+          <span class="pill">Strategy-Led Design</span>
+          <span class="pill">Hall Group Qld</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 01 Overview -->
+    <section class="section" id="overview">
+      <p class="eyebrow"><span class="num">01</span> Overview</p>
+      <h2>A conversation, not a car yard</h2>
+      <p class="intro">The whole identity springs from one idea: buying a car from Adam should feel like a
+        friendly chat, not a negotiation. The logo is a <strong>speech bubble</strong>; the voice is warm and
+        plain-spoken; the promise is a <strong>hassle-free guarantee</strong>. Everything below keeps that
+        conversational, trustworthy tone — grounded green, a soft lilac lift, and a wordmark that literally
+        reads <em>“Buy&nbsp;my&nbsp;Car.”</em></p>
+      <div class="plates three">
+        <div class="plate">
+          <div class="plate-stage stage-paper"><img src="/assets/logo-primary.png" alt="Primary logo"></div>
+          <div class="plate-cap"><span class="pc-t">The mark</span><span class="pc-s">Speech-bubble lockup</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-green"><img src="/assets/hello-welcome.png" alt="hello / welcome graphic elements"></div>
+          <div class="plate-cap"><span class="pc-t">The voice</span><span class="pc-s">“hello / welcome”</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-lilac"><img src="/assets/badge.png" alt="Hassle-free guarantee badge" style="max-height:170px"></div>
+          <div class="plate-cap"><span class="pc-t">The promise</span><span class="pc-s">Hassle-free guarantee</span></div>
+        </div>
+      </div>
+      <div class="rulebox green"><strong>Tagline.</strong> “Hassle-free car buying, let’s chat…” — the invitation
+        that sits under the mark and sets the tone for every touchpoint.</div>
+    </section>
+
+    <!-- 02 Primary logo -->
+    <section class="section" id="logo">
+      <p class="eyebrow"><span class="num">02</span> Primary logo</p>
+      <h2>The primary logo</h2>
+      <p class="intro">The signature lockup: the <strong>“Adam Hall”</strong> name above a bold
+        <strong>BUY&nbsp;<em>my</em>&nbsp;CAR</strong> wordmark, set inside a rounded speech bubble with its
+        dropped dot “tail”. This is the default mark — reach for it first, and give it room to breathe.</p>
+      <div class="plates two">
+        <div class="plate">
+          <div class="plate-stage stage-paper tall"><img src="/assets/logo-primary.png" alt="Primary logo on paper"></div>
+          <div class="plate-cap"><span class="pc-t">Primary — on light</span><span class="pc-s">Paper / white grounds</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-green-deep tall"><img src="/assets/logo-reversed.png" alt="Reversed logo on dark" style="max-height:180px"></div>
+          <div class="plate-cap"><span class="pc-t">Reversed — on dark</span><span class="pc-s">Outline / knockout</span></div>
+        </div>
+      </div>
+      <div class="rulebox"><strong>Clear space &amp; tail.</strong> Keep clear space around the bubble equal to the
+        height of the “Adam Hall” line, and never separate the dropped dot from the bubble — the tail is part of
+        the mark.</div>
+    </section>
+
+    <!-- 03 Backgrounds -->
+    <section class="section" id="backgrounds">
+      <p class="eyebrow"><span class="num">03</span> Backgrounds</p>
+      <h2>Logo on backgrounds</h2>
+      <p class="intro">Because the bubble carries its own dark fill, the primary logo sits confidently on every
+        brand colour and on photography. Keep the bubble on calm areas of an image so the wordmark stays legible.</p>
+      <div class="plates three">
+        <div class="plate">
+          <div class="plate-stage stage-green"><img src="/assets/logo-primary.png" alt="Logo on green"></div>
+          <div class="plate-cap"><span class="pc-t">On Green</span><span class="pc-s">#004438</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-lilac"><img src="/assets/logo-primary.png" alt="Logo on lilac"></div>
+          <div class="plate-cap"><span class="pc-t">On Lilac</span><span class="pc-s">#c29fd8</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-white"><img src="/assets/logo-primary.png" alt="Logo on white"></div>
+          <div class="plate-cap"><span class="pc-t">On White</span><span class="pc-s">#ffffff</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Monochrome -->
+    <section class="section" id="monochrome">
+      <p class="eyebrow"><span class="num">04</span> Monochrome</p>
+      <h2>Monochrome logo</h2>
+      <p class="intro">For single-colour print, embossing, stamps and low-ink situations, the mark reduces to a
+        clean outline (reversed) or a solid one-colour fill. No gradients, no effects — just the shape.</p>
+      <div class="plates two">
+        <div class="plate">
+          <div class="plate-stage stage-green-deep tall"><img src="/assets/logo-reversed.png" alt="Outline monochrome logo" style="max-height:180px"></div>
+          <div class="plate-cap"><span class="pc-t">Outline / reversed</span><span class="pc-s">White line on dark</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-paper tall"><img src="/assets/logo-primary.png" alt="Solid monochrome logo"></div>
+          <div class="plate-cap"><span class="pc-t">Solid fill</span><span class="pc-s">Single colour on light</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Tagline lockup -->
+    <section class="section" id="tagline">
+      <p class="eyebrow"><span class="num">05</span> Tagline lockup</p>
+      <h2>Tagline lockup</h2>
+      <p class="intro">Where there’s room to make the promise explicit, lock the tagline directly beneath the mark.
+        Keep the type calm and the underline light — it’s an invitation, not a shout.</p>
+      <div class="plate">
+        <div class="plate-stage stage-paper tall" style="flex-direction:column;gap:26px;">
+          <img src="/assets/logo-primary.png" alt="Logo" style="max-height:120px">
+          <div style="font-family:var(--head);font-size:26px;font-weight:600;color:var(--ink);letter-spacing:-.01em;">
+            <u>Hassle-free</u> car buying, let’s <u>chat</u>…
+          </div>
+        </div>
+        <div class="plate-cap"><span class="pc-t">Vertical tagline lockup</span><span class="pc-s">Mark + promise</span></div>
+      </div>
+    </section>
+
+    <!-- 06 Wordmark -->
+    <section class="section" id="wordmark">
+      <p class="eyebrow"><span class="num">06</span> Wordmark</p>
+      <h2>Wordmark</h2>
+      <p class="intro">When the bubble would be too heavy — a footer, a watermark, a tight horizontal space — the
+        wordmark stands alone: <strong>BUY&nbsp;<em>my</em>&nbsp;CAR</strong> with the “Adam&nbsp;Hall” signature line,
+        no container.</p>
+      <div class="plate">
+        <div class="plate-stage stage-white tall">
+          <img src="/assets/wordmark.png" alt="Adam Hall BUY my CAR wordmark" style="max-height:130px;">
+        </div>
+        <div class="plate-cap"><span class="pc-t">Free-standing wordmark</span><span class="pc-s">No bubble container</span></div>
+      </div>
+    </section>
+
+    <!-- 07 Symbol -->
+    <section class="section" id="symbol">
+      <p class="eyebrow"><span class="num">07</span> Symbol &amp; icon</p>
+      <h2>Symbol / icon</h2>
+      <p class="intro">The bubble distils to a stand-alone <strong>speech-bubble icon</strong> with three dots and
+        the signature tail — the piece that survives at avatar, app-icon and favicon sizes.</p>
+      <div class="plates two">
+        <div class="plate">
+          <div class="plate-stage stage-paper">
+            <!-- Rebuilt icon in SVG for crispness at any size -->
+            <svg width="180" height="150" viewBox="0 0 180 150" role="img" aria-label="Speech-bubble symbol icon">
+              <path d="M56 8h96a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H92L60 118V92h-4a22 22 0 0 1-22-22V30A22 22 0 0 1 56 8Z" fill="#000"/>
+              <circle cx="78" cy="50" r="10" fill="#fff"/>
+              <circle cx="110" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+              <circle cx="142" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+              <circle cx="30" cy="124" r="14" fill="#000"/>
+            </svg>
+          </div>
+          <div class="plate-cap"><span class="pc-t">Symbol — on light</span><span class="pc-s">Solid black</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-lilac">
+            <svg width="180" height="150" viewBox="0 0 180 150" role="img" aria-label="Speech-bubble symbol icon on lilac">
+              <path d="M56 8h96a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H92L60 118V92h-4a22 22 0 0 1-22-22V30A22 22 0 0 1 56 8Z" fill="#000"/>
+              <circle cx="78" cy="50" r="10" fill="#fff"/>
+              <circle cx="110" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+              <circle cx="142" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+              <circle cx="30" cy="124" r="14" fill="#000"/>
+            </svg>
+          </div>
+          <div class="plate-cap"><span class="pc-t">Symbol — on colour</span><span class="pc-s">Avatar / app icon</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 Signature & badge -->
+    <section class="section" id="signature">
+      <p class="eyebrow"><span class="num">08</span> Signature &amp; badge</p>
+      <h2>Signature &amp; guarantee badge</h2>
+      <p class="intro">Two personal marks back the brand’s human promise: Adam’s <strong>handwritten signature</strong>
+        for a personal sign-off, and the <strong>A·H Hassle-Free Guarantee</strong> badge as a stamp of trust on
+        offers, cards and vehicles.</p>
+      <div class="plates two">
+        <div class="plate">
+          <div class="plate-stage stage-paper"><img src="/assets/signature.png" alt="Adam Hall signature" style="max-height:120px"></div>
+          <div class="plate-cap"><span class="pc-t">Signature</span><span class="pc-s">Personal sign-off</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-paper"><img src="/assets/badge.png" alt="Hassle-free guarantee badge" style="max-height:190px"></div>
+          <div class="plate-cap"><span class="pc-t">Guarantee badge</span><span class="pc-s">A·H · Hassle-Free Guarantee</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 Sub-branding -->
+    <section class="section" id="sub">
+      <p class="eyebrow"><span class="num">09</span> Sub-branding</p>
+      <h2>Sub-branding</h2>
+      <p class="intro">The lockup flexes to name related services while staying unmistakably one family: swap the
+        first word, keep the <em>my</em> script, the bubble and the tail. <strong>BUY&nbsp;my&nbsp;CAR</strong> is the
+        parent; <strong>VALUE&nbsp;my&nbsp;CAR</strong> is the first extension.</p>
+      <div class="plates two">
+        <div class="plate">
+          <div class="plate-stage stage-paper"><img src="/assets/logo-primary.png" alt="Buy my Car"></div>
+          <div class="plate-cap"><span class="pc-t">Buy my Car</span><span class="pc-s">Parent brand</span></div>
+        </div>
+        <div class="plate">
+          <div class="plate-stage stage-paper"><img src="/assets/value-mycar.png" alt="Value my Car sub-brand" style="max-height:120px"></div>
+          <div class="plate-cap"><span class="pc-t">Value my Car</span><span class="pc-s">Service extension</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 Brand suite -->
+    <section class="section" id="suite">
+      <p class="eyebrow"><span class="num">10</span> Brand suite</p>
+      <h2>The full brand suite</h2>
+      <p class="intro">Seen together, the family reads as one system — logo, wordmark, sub-brand, signature, badge,
+        icon and the “hello / welcome” elements all sharing the same rounded, conversational language.</p>
+      <div class="plates three">
+        <div class="plate"><div class="plate-stage stage-paper"><img src="/assets/logo-primary.png" alt="Primary logo"></div>
+          <div class="plate-cap"><span class="pc-t">Primary logo</span></div></div>
+        <div class="plate"><div class="plate-stage stage-paper"><img src="/assets/value-mycar.png" alt="Value my Car" style="max-height:96px"></div>
+          <div class="plate-cap"><span class="pc-t">Sub-brand</span></div></div>
+        <div class="plate"><div class="plate-stage stage-paper">
+          <svg width="150" height="120" viewBox="0 0 180 150" aria-label="Symbol icon">
+            <path d="M56 8h96a22 22 0 0 1 22 22v40a22 22 0 0 1-22 22H92L60 118V92h-4a22 22 0 0 1-22-22V30A22 22 0 0 1 56 8Z" fill="#000"/>
+            <circle cx="78" cy="50" r="10" fill="#fff"/><circle cx="110" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+            <circle cx="142" cy="50" r="10" fill="none" stroke="#fff" stroke-width="5"/><circle cx="30" cy="124" r="14" fill="#000"/>
+          </svg></div>
+          <div class="plate-cap"><span class="pc-t">Symbol icon</span></div></div>
+        <div class="plate"><div class="plate-stage stage-paper"><img src="/assets/signature.png" alt="Signature" style="max-height:80px"></div>
+          <div class="plate-cap"><span class="pc-t">Signature</span></div></div>
+        <div class="plate"><div class="plate-stage stage-paper"><img src="/assets/badge.png" alt="Guarantee badge" style="max-height:130px"></div>
+          <div class="plate-cap"><span class="pc-t">Guarantee badge</span></div></div>
+        <div class="plate"><div class="plate-stage stage-paper"><img src="/assets/hello-welcome.png" alt="hello / welcome" style="filter:invert(1)"></div>
+          <div class="plate-cap"><span class="pc-t">Voice elements</span></div></div>
+      </div>
+    </section>
+
+    <!-- 11 Colour -->
+    <section class="section" id="colour">
+      <p class="eyebrow"><span class="num">11</span> Colour palette</p>
+      <h2>Colour palette</h2>
+      <p class="intro">A tight, confident four: a deep <strong>green</strong> for grounding and trust, a soft
+        <strong>lilac</strong> for warmth and approachability, and <strong>black</strong>/<strong>white</strong> to
+        hold it all together. Green leads; lilac lifts; black and white do the work.</p>
+      <div class="swatches">
+        <div class="sw">
+          <div class="sw-chip" style="background:#000000;"></div>
+          <div class="sw-body"><p class="sw-name">Black</p>
+            <div class="sw-row"><span>HEX</span><b>#000000</b></div>
+            <div class="sw-row"><span>Role</span><b>Ink · logo</b></div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="sw-chip" style="background:#004438;"></div>
+          <div class="sw-body"><p class="sw-name">Green</p>
+            <div class="sw-row"><span>PMS</span><b>3308 C</b></div>
+            <div class="sw-row"><span>HEX</span><b>#004438</b></div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="sw-chip" style="background:#ffffff;border-bottom:1px solid var(--line);"></div>
+          <div class="sw-body"><p class="sw-name">White</p>
+            <div class="sw-row"><span>PMS</span><b>—</b></div>
+            <div class="sw-row"><span>HEX</span><b>#ffffff</b></div>
+          </div>
+        </div>
+        <div class="sw">
+          <div class="sw-chip" style="background:#c29fd8;"></div>
+          <div class="sw-body"><p class="sw-name">Lilac</p>
+            <div class="sw-row"><span>PMS</span><b>2567 C</b></div>
+            <div class="sw-row"><span>HEX</span><b>#c29fd8</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="rulebox"><strong>Balance.</strong> Lead with green and white for calm, trustworthy layouts; use
+        lilac as the accent that makes the brand feel human — highlights, buttons, quote cards — never as the whole
+        canvas for dense copy.</div>
+    </section>
+
+    <!-- 12 Typography -->
+    <section class="section" id="type">
+      <p class="eyebrow"><span class="num">12</span> Typography</p>
+      <h2>Typography</h2>
+      <p class="intro">The identity pairs a <strong>bold geometric sans</strong> for the wordmark and headlines with
+        a <strong>casual brush script</strong> for accents (the <em>my</em>, “hello”, “welcome”) and Adam’s
+        <strong>handwritten signature</strong> for the personal touch. The specimen below sets headings and UI in the
+        web-safe equivalents used across the applications.</p>
+      <div class="type-spec">
+        <div class="type-row">
+          <span class="tr-label">Display / Headline</span>
+          <span class="tr-sample s-display">Let’s chat about your car</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label">Section head</span>
+          <span class="tr-sample s-h2">Hassle-free, start to finish</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label">Body</span>
+          <span class="tr-sample s-body">Adam comes to you, values your car, and makes a fair offer — no lots,
+            no pressure, no games. A simple conversation from first hello to handshake.</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label">UI / Buttons</span>
+          <span class="tr-sample s-ui">CHAT WITH ADAM&nbsp;&nbsp;·&nbsp;&nbsp;HOW IT WORKS&nbsp;&nbsp;·&nbsp;&nbsp;0400 000 000</span>
+        </div>
+        <div class="type-row">
+          <span class="tr-label">Script accent</span>
+          <span class="tr-sample" style="font-size:26px;color:var(--green);"><img src="/assets/hello-welcome.png" alt="hello welcome" style="height:38px;width:auto;vertical-align:middle;"></span>
+        </div>
+      </div>
+      <div class="rulebox green"><strong>Rule of thumb.</strong> One script moment per layout. The brush script and
+        signature are seasoning — used sparingly they feel personal; overused they read as busy.</div>
+    </section>
+
+    <!-- 13 Imagery -->
+    <section class="section" id="imagery">
+      <p class="eyebrow"><span class="num">13</span> Imagery style</p>
+      <h2>Imagery style</h2>
+      <p class="intro">Real, warm, human. Photography shows genuine people — especially older sellers at their own
+        homes — in candid, unhurried moments. People first, the car second; a relationship, not a transaction.</p>
+      <div class="img-grid">
+        <figure>
+          <img src="/assets/imagery-1.png" alt="Older man smiling at his front door">
+          <figcaption>At home, at the door — the customer, relaxed and welcomed.</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/imagery-2.png" alt="Older couple laughing together on their porch">
+          <figcaption>Warm, candid, together — trust and ease over gloss.</figcaption>
+        </figure>
+      </div>
+      <div class="keywords">
+        <span class="kw yes">warm</span>
+        <span class="kw yes">candid</span>
+        <span class="kw yes">unhurried</span>
+        <span class="kw yes">local</span>
+        <span class="kw yes">honest</span>
+        <span class="kw yes">personal</span>
+        <span class="kw no">glossy</span>
+        <span class="kw no">corporate</span>
+        <span class="kw no">showroom</span>
+        <span class="kw no">salesy</span>
+      </div>
+    </section>
+
+    <!-- 14 In practice -->
+    <section class="section" id="practice">
+      <p class="eyebrow"><span class="num">14</span> In practice</p>
+      <h2>The identity in practice</h2>
+      <p class="intro">How the pieces come together across the touchpoints that matter — the website, the email
+        sign-off, and the card that changes hands at the door.</p>
+      <div class="apps">
+        <div class="app">
+          <div class="app-shot"><img src="/assets/example-webhero.png" alt="Example website hero"></div>
+          <div class="app-body"><h3>Website hero</h3><p>Green ground, reversed logo, lilac framing and a photo of
+            Adam — with the phone number and “Chat with Adam” as the primary calls to action.</p></div>
+        </div>
+        <div class="app">
+          <div class="app-shot pad"><img src="/assets/example-emailsig.png" alt="Example email signature"></div>
+          <div class="app-body"><h3>Email signature</h3><p>The logo, name and role, phone and web — a compact,
+            consistent sign-off that carries the brand into every reply.</p></div>
+        </div>
+        <div class="app">
+          <div class="app-shot pad" style="background:#e9e4dd;"><img src="/assets/example-businesscard.png" alt="Example business cards" style="max-width:520px;margin:0 auto;"></div>
+          <div class="app-body"><h3>Business card</h3><p>A lilac face that opens the conversation (“hello · welcome
+            · your car’s value”) and a green reverse with Adam’s details — the mark leading both.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="foot">
+      <div class="foot-in">
+        <p class="foot-eyebrow">Adam Hall · Buy My Car — Brand Identity V1</p>
+        <h3>One mark, one voice, one promise.</h3>
+        <p>Keep the bubble intact, lead with green, lift with lilac, and let the wordmark do the talking. Used
+          consistently, this identity makes selling a car feel like exactly what it should be — hassle-free.</p>
+        <div class="foot-marks">
+          <span class="foot-mark"><img class="jw" src="/assets/jewell-logo.svg" alt="Jewell Projects"></span>
+          <span class="foot-mark"><img class="mx-icon" src="/assets/maxxim-icon.webp" alt=""> <b>Maxxim</b></span>
+          <span class="foot-mark">Original identity · bizxdesign · 2022</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+// Scrollspy: highlight the active section in the sidebar.
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var map = {};
+  links.forEach(function(l){ var id=l.getAttribute('href').slice(1); map[id]=l; });
+  var sections = Object.keys(map).map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  if(!('IntersectionObserver' in window) || !sections.length) return;
+  var current = null;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        if(current) current.classList.remove('active');
+        var l = map[e.target.id];
+        if(l){ l.classList.add('active'); current = l; }
+      }
+    });
+  }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+  sections.forEach(function(s){ io.observe(s); });
+})();
+</script>
+</body>
+</html>
