@@ -2,44 +2,40 @@
 
 **To:** Adam Hall
 **From:** Clent Jewell · clent@jewellprojects.com
-**Subject:** Buy My Car — today's session, and where we go from here
+**Subject:** Great session today
 
-**Links:** session summary (presentation) · Killer Questions (#process) · Gate One invoice. No monthly quote — that's set later, at the 30/60/90 review.
+**Links:** session summary · Killer Questions (#process) · Gate One invoice. Casual tone, monthly left for the 30/60/90 review.
 
 ---
 
-Hi Adam,
+Hey Adam,
 
-Good session today. You saw the whole thing working: the marketplace with your cars front and centre, the dealer console Liz will run behind the scenes, Adam AI writing listings in your voice, and the value-my-car tool that captures a seller and routes them straight to you rather than spitting out a price. That last part matters, because your best deals still come from you reading the person.
+Really enjoyed today. Good to finally show you the whole thing running: the marketplace, the dealer console Liz runs in the background, Adam AI writing listings in your voice, and the value-my-car tool that sends the seller straight to you instead of spitting out a price. That bit's the whole point, because your best deals come from you reading the person.
 
-Here is the summary of everything we walked through, one link:
-**Session summary:** https://adamhall-summary.clent.workers.dev/summary
+Here's the summary of everything we went through:
+https://adamhall-summary.clent.workers.dev/summary
 
-**The invoice to get started.** Gate One is $4,995. It gets the foundation live: we validate the 22 CORE questions, refresh the strategy and brand, and launch the marketplace and dealer console. To be straight with you, that's a $20,000-plus build at full rack, delivered inside Gate One. Paying it locks in your first session this week.
+To get moving I've sent through the Gate One invoice, $4,995. Once that's sorted I'll lock in our first session this week.
 **Invoice:** [Xero invoice link]
 
-**First thing I need from you.** In the summary there's a "Discover on a Page" section with a short set of Killer Questions. Have a go at answering them in your own words before our first session. That's the fastest way to get what's in your head onto paper.
-**Answer the Killer Questions:** https://adamhall-summary.clent.workers.dev/summary#process
+One thing to do before we sit down: have a crack at the Killer Questions in the "Discover on a Page" section. Just answer them in your own words, don't overthink it. Quickest way to get what's in your head onto paper.
+https://adamhall-summary.clent.workers.dev/summary#process
 
-**How it runs from here:**
+Rough shape of how it goes from here:
 
-1. **You pay Gate One and we book session one this week.** That's the commitment that starts the clock.
-2. **We validate the 22 CORE questions together.** How you value a car in thirty seconds, when you say yes and when you walk, how you handle the money and the paperwork. Your answers to the Killer Questions give us the head start.
-3. **We launch the foundation.** Strategy and brand refresh, the marketplace and dealer console live. Liz starts running the day-to-day behind the scenes.
-4. **Next phase, getting you found.** We set up your Google Business Profile and channels (socials, search and AI-search) so you show up where buyers and sellers are already looking.
-5. **We review at 30, 60 and 90 days.** Once you can see the launch working and the numbers behind it, we set the ongoing monthly run together off real results. No big figure sprung on you cold.
+- First session this week, then we work through the 22 questions together.
+- We get the foundation live: strategy and brand tidy-up, the marketplace and dealer console up and running, Liz taking the day-to-day.
+- Next phase we get you found: Google Business Profile, socials and search sorted.
+- We check in at 30, 60 and 90 days and sort the monthly side once you can see it working. No big number sprung on you.
 
-**Your customer reviews.** Your reputation is the whole business, so we want real reviews and testimonials from your clients built straight into the site. That's what turns a first-time visitor into a caller. When you get a minute, give me the OK to start asking your happy customers for a Google review and a short line we can use, and point me to any you've already collected so we can fold them in.
+Couple of things when you get a sec:
 
-A few other practical calls when you have a spare minute: the domain name, admin access to the Facebook page, and a real stock list with photos.
+- Your reviews. Your name is the whole business, so I want real reviews and testimonials from your customers built into the site. Give me the nod to start asking your happy ones for a Google review, and send me any you've already got.
+- The domain, admin access to the Facebook page, and a stock list with photos.
 
-Anything touching money, ID, finance owing, ownership or rego transfer, I'll always confirm with you directly before we build on it.
+And anything to do with money, ID, finance owing, ownership or rego, I'll always check with you first before we touch it.
 
-Give me a call if anything's unclear. Otherwise I'll see you at the first session.
+Give us a call if anything's unclear. Otherwise see you at the first session.
 
 Cheers,
 Clent
-
-Clent Jewell
-Jewell Projects
-clent@jewellprojects.com
