@@ -8,6 +8,34 @@ const SAVE_PATH = "/__save";
 const LOAD_PATH = "/__answers";
 const LOGO = "/assets/ah-buymycar-logo.png";
 
+// Short labels for the Slack notification, so a save is scannable without
+// opening the session page. Kept in sync with the 22 CORE questions.
+const QUESTIONS = {
+  CQ01: "How you price a car — inputs weighed before a number",
+  CQ02: "Last car walked away from — what flipped yes to no",
+  CQ03: "Retail vs wholesale — what tells you, how often right",
+  CQ15: "How you'd know someone else's valuation was right",
+  CQ04: "Deal sequence — price to cash paid and clean title",
+  CQ05: "First contact to keys in hand — hours per deal",
+  CQ21: "Monthly number where settlement starts to break",
+  CQ06: "Where leads actually come from, and share",
+  CQ07: "How referrals happen — asked, or automatic",
+  CQ16: "The referral ask, in his words",
+  CQ18: "Marketing spend today — radio, print, digital",
+  CQ19: "Radio station relationship — who owns the archive",
+  CQ09: "Who does what today — what comes back to him",
+  CQ10: "What a new hire would never do without him",
+  CQ13: "Which parts of customer talk only he can do",
+  CQ17: "What he'd never hand over",
+  CQ12: "Non-negotiables a hire must never breach",
+  CQ14: "What a first 90 days must prove",
+  CQ20: "Who is the second buyer",
+  CQ11: "Personal name, or a name that can be sold",
+  CQ08: "What \"worth selling\" looks like in five years",
+  CQ22: "Monthly number that proves it runs without him",
+  NOTES: "Other notes from the session",
+};
+
 const SECURITY_HEADERS = {
   "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
   "X-Content-Type-Options": "nosniff",
@@ -89,7 +117,76 @@ async function handleSave(request, env) {
   const body = JSON.stringify(record);
   await env.ANSWERS.put("latest", body);
   await env.ANSWERS.put(`snapshot:${savedAt}`, body);
+  await notifySlack(env, record); // best-effort; a Slack failure never breaks the save
   return jsonResponse({ ok: true, savedAt });
+}
+
+// Posts the newly saved answers to Slack. Silently does nothing if the
+// webhook secret isn't configured, and never throws — a notification
+// failure must not stop the answers from being saved.
+async function notifySlack(env, record) {
+  if (!env.SLACK_WEBHOOK_URL) return;
+  try {
+    const entries = Object.entries(record.answers || {}).filter(
+      ([, text]) => typeof text === "string" && text.trim()
+    );
+    const answeredCount = entries.filter(([code]) => code !== "NOTES").length;
+    const when = new Date(record.savedAt).toLocaleString("en-AU", {
+      timeZone: "Australia/Brisbane",
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+
+    const blocks = [
+      {
+        type: "header",
+        text: {
+          type: "plain_text",
+          text: `📋 Adam Hall — CORE answers saved (${answeredCount}/22)`,
+          emoji: true,
+        },
+      },
+      {
+        type: "context",
+        elements: [{ type: "mrkdwn", text: `Saved ${when} (AEST)` }],
+      },
+      { type: "divider" },
+    ];
+
+    for (const [code, text] of entries) {
+      const label = QUESTIONS[code] || code;
+      const trimmed = text.length > 600 ? text.slice(0, 600) + "…" : text;
+      blocks.push({
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: `*${code === "NOTES" ? "Notes" : code} — ${label}*\n${trimmed}`,
+        },
+      });
+    }
+
+    blocks.push(
+      { type: "divider" },
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "<https://adamhall-summary.clent.workers.dev/session|Open the session page →>",
+        },
+      }
+    );
+
+    await fetch(env.SLACK_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        text: `Adam Hall — CORE answers saved (${answeredCount}/22)`, // fallback for notifications
+        blocks,
+      }),
+    });
+  } catch {
+    // Best-effort notification only; the save itself already succeeded.
+  }
 }
 
 function jsonResponse(obj, status = 200) {
