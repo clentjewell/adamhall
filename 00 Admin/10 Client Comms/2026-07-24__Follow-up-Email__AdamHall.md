@@ -1,4 +1,4 @@
-# Follow-up email to Adam — 24 July 2026
+# Follow-up email to Adam (24 July 2026)
 
 **To:** Adam Hall
 **From:** Clent Jewell · clent@jewellprojects.com
