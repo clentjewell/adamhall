@@ -19,14 +19,46 @@
 | Currency | AUD |
 | Amounts are | Tax exclusive (GST added) |
 
-## Line items (3D process with deliverables per phase)
+## Line items (3D process, deliverables per phase)
 
-| Description | Qty | Unit price (AUD) | Account | Tax rate | Amount (AUD) |
-|---|---|---|---|---|---|
-| **① DISCOVER, Gate One (this instalment).** Deliverables: the 22 CORE questions validated; how you buy, value, read people, close and settle captured word for word; your 3D Process Summary (one page per phase); the strategy locked; and the launch foundation stood up (marketplace and dealer console live). | 1 | 4,995.00 | Sales / Consulting | GST on Income (10%) | 4,995.00 |
-| **② DESIGN (to follow).** Deliverables: a full Sales, Marketing, Brand and Activation Plan; a brand book refresh; a website sitemap and build plan; a CRM and vehicle input tool; and Adam AI plus the Operating System portal for your team. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
-| **③ DEPLOY (to follow).** Deliverables: go-live with Google Business Profile and channels (socials, search and AI-search); always-on marketing; the operating system live in your team; and monthly reporting with 30/60/90 then quarterly reviews. Ongoing monthly run quoted separately, begins at launch. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
-| **Admin fee (5%)** | 1 | 249.75 | Sales / Consulting | GST on Income (10%) | 249.75 |
+### ① DISCOVER, Gate One (this instalment) — $4,995.00
+
+Already delivered:
+- The 62-document 3D discovery pack built from the 15 July session (discovery synthesis, competitor analysis, brand strategy, business model, draft launch playbook)
+- Intelligence Brief and 3D Process Summary drafted
+
+To come in Gate One:
+- The 22 CORE questions validated with you
+- How you buy, value, read people, close and settle captured word for word
+- The strategy locked and your 3D Process Summary finalised
+
+### ② DESIGN (to follow) — $0.00
+
+Already delivered:
+- The marketplace built (SEO and AI-search optimised, listing pages with trust block, PPSR, service history and finance estimate, plus a compare tool)
+- The dealer console and admin built (dashboard, submissions and CRM, inventory management, finance enquiries, site copy editor, analytics)
+- Adam AI built and trained on your voice, generating listing copy
+
+To come:
+- A full Sales, Marketing, Brand and Activation Plan
+- A brand book refresh
+- The website sitemap and build plan formalised
+- The CRM and vehicle input tool, including the value-my-car enquiry form
+- Adam AI language rules embedded, and the Operating System portal finalised
+
+### ③ DEPLOY (to follow) — $0.00
+
+Already delivered:
+- The platform is built and ready to launch (house-sale storefront run as proof of concept)
+
+To come:
+- Domain decision and go-live
+- Google Business Profile and channels (socials, search and AI-search)
+- Always-on marketing and the operating system live in your team
+- Monthly reporting with 30/60/90 then quarterly reviews
+- Ongoing monthly run quoted separately, begins at launch
+
+### Admin fee (5%) — $249.75
 
 ## Totals
 
@@ -38,19 +70,19 @@
 
 ## Notes to client (invoice footer)
 
-Gate One is the first instalment of the full 3D engagement. It covers Discover and the launch foundation. Design and Deploy follow, and the ongoing monthly run is set together off your launch numbers at the 30/60/90 review.
+Gate One is the first instalment of the full 3D engagement. It covers Discover and the launch foundation, most of which is already built. Design and Deploy follow, and the ongoing monthly run is set together off your launch numbers at the 30/60/90 review.
 
 > Reconciliation note (internal): the July Engagement Proposal shows $5,000 for Stage 1; the approved Gate One figure is $4,995 + admin and GST. Using $4,995 here per the current pricing decision.
 
 ---
 
-## Alternative: single-line version
+## Xero line-item table (only Gate One priced)
 
-If you'd rather keep it to one priced line, use this instead of the three-step breakdown above (same totals):
-
-| Description | Qty | Unit price (AUD) | Tax rate | Amount |
-|---|---|---|---|---|
-| **Gate One, Launch foundation (first instalment of the Buy My Car engagement).** Our 3D process: ① Discover (22 CORE questions validated, judgement captured, 3D Process Summary, strategy locked, launch foundation live), ② Design (Sales, Marketing, Brand and Activation Plan, brand refresh, website sitemap and build plan, CRM and input tool, Adam AI plus Operating System portal), ③ Deploy (go-live, Google Business Profile and channels, always-on marketing, monthly reporting plus 30/60/90 reviews). This invoice covers Gate One: Discover and the launch foundation. Design and Deploy follow; monthly run quoted separately. | 1 | 4,995.00 | GST on Income (10%) | 4,995.00 |
-| **Admin fee (5%)** | 1 | 249.75 | GST on Income (10%) | 249.75 |
+| Description | Qty | Unit price (AUD) | Account | Tax rate | Amount (AUD) |
+|---|---|---|---|---|---|
+| **① DISCOVER, Gate One (this instalment).** Already delivered: the 62-document 3D discovery pack, Intelligence Brief and 3D Process Summary drafted. To come: the 22 CORE questions validated, your judgement captured word for word, strategy locked and 3D Process Summary finalised. | 1 | 4,995.00 | Sales / Consulting | GST on Income (10%) | 4,995.00 |
+| **② DESIGN (to follow).** Already delivered: the marketplace, the dealer console and admin, and Adam AI trained on your voice. To come: the Sales, Marketing, Brand and Activation Plan; brand book refresh; sitemap and build plan; CRM and vehicle input tool (value-my-car form); Operating System portal. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
+| **③ DEPLOY (to follow).** Already delivered: the platform built and ready to launch. To come: domain and go-live; Google Business Profile and channels; always-on marketing; operating system live in the team; monthly reporting with 30/60/90 reviews. Monthly run quoted separately. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
+| **Admin fee (5%)** | 1 | 249.75 | Sales / Consulting | GST on Income (10%) | 249.75 |
 
 Same totals: Subtotal $5,244.75 · GST $524.48 · **Total $5,769.23**.
