@@ -4,6 +4,8 @@
 const COOKIE_NAME = "amh_session";
 const SESSION_TTL = 60 * 60 * 24 * 7; // 7 days
 const LOGIN_PATH = "/__auth";
+const SAVE_PATH = "/__save";
+const LOAD_PATH = "/__answers";
 const LOGO = "/assets/ah-buymycar-logo.png";
 
 const SECURITY_HEADERS = {
@@ -33,6 +35,24 @@ export default {
       return env.ASSETS.fetch(request);
     }
 
+    // CORE session answers: save and load, behind the same password gate.
+    if (url.pathname === SAVE_PATH || url.pathname === LOAD_PATH) {
+      if (!(await hasValidSession(request, expected))) {
+        return jsonResponse({ ok: false, error: "not authorised" }, 401);
+      }
+      if (!env.ANSWERS) {
+        return jsonResponse({ ok: false, error: "storage not configured" }, 503);
+      }
+      if (url.pathname === SAVE_PATH && request.method === "POST") {
+        return handleSave(request, env);
+      }
+      if (url.pathname === LOAD_PATH) {
+        const latest = await env.ANSWERS.get("latest");
+        return jsonResponse(latest ? JSON.parse(latest) : { ok: true, answers: {} });
+      }
+      return jsonResponse({ ok: false, error: "method not allowed" }, 405);
+    }
+
     if (await hasValidSession(request, expected)) {
       const asset = await env.ASSETS.fetch(request);
       const ct = asset.headers.get("Content-Type") || "";
@@ -47,6 +67,36 @@ export default {
     return loginPage(safeNext(url.pathname + url.search), false);
   },
 };
+
+// Persist the session answers. Every save also lands under a timestamped key so
+// nothing is ever overwritten beyond recovery.
+async function handleSave(request, env) {
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return jsonResponse({ ok: false, error: "invalid JSON" }, 400);
+  }
+  const answers =
+    payload && typeof payload.answers === "object" && payload.answers
+      ? payload.answers
+      : null;
+  if (!answers) {
+    return jsonResponse({ ok: false, error: "no answers supplied" }, 400);
+  }
+  const savedAt = new Date().toISOString();
+  const record = { ok: true, savedAt, answers, note: payload.note || "" };
+  const body = JSON.stringify(record);
+  await env.ANSWERS.put("latest", body);
+  await env.ANSWERS.put(`snapshot:${savedAt}`, body);
+  return jsonResponse({ ok: true, savedAt });
+}
+
+function jsonResponse(obj, status = 200) {
+  const headers = new Headers({ "Content-Type": "application/json; charset=UTF-8" });
+  applySecurityHeaders(headers);
+  return new Response(JSON.stringify(obj), { status, headers });
+}
 
 async function handleLogin(request, expected) {
   let password = "";

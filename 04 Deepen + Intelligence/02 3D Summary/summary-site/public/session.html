@@ -18,18 +18,13 @@
 body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   background: var(--cream); color: var(--black); -webkit-font-smoothing: antialiased;
   font-size: 16px; line-height: 1.6; }
-.wrap { max-width: 940px; margin: 0 auto; padding: 40px clamp(22px, 5vw, 56px) 80px; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 40px clamp(22px, 5vw, 56px) 120px; }
 
 /* Header */
 .top { display: flex; align-items: center; gap: 14px; margin-bottom: 44px; }
 .top img.logo { height: 34px; width: auto; display: block; }
 .top .x { color: #c4c1bc; font-weight: 300; }
 .top img.jw { height: 17px; width: auto; display: block; }
-.top .spacer { flex: 1 1 auto; }
-.printbtn { font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
-  border: 1px solid var(--rule); background: #fff; color: var(--black);
-  padding: 9px 15px; border-radius: 8px; transition: border-color .15s, background .15s, color .15s; }
-.printbtn:hover { border-color: var(--green); background: var(--green); color: #fff; }
 
 .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--green); margin-bottom: 16px; }
@@ -52,10 +47,39 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
   line-height: 1.2; margin-top: 8px; }
 .gives { margin-top: 12px; font-size: 14.5px; line-height: 1.6; color: var(--green-deep);
   border-left: 2px solid var(--tan); padding-left: 14px; }
-.qs { margin-top: 20px; list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.qs li { position: relative; padding-left: 26px; font-size: 15.5px; line-height: 1.55; }
-.qs li::before { content: ""; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px;
+
+/* Questions + answers */
+.qs { margin-top: 24px; list-style: none; display: flex; flex-direction: column; gap: 22px; }
+.qs > li { position: relative; padding-left: 26px; break-inside: avoid; }
+.qs > li::before { content: ""; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px;
   border-radius: 50%; background: var(--peach); }
+.q { font-size: 15.5px; line-height: 1.55; font-weight: 500; }
+textarea { display: block; width: 100%; margin-top: 10px; font-family: inherit; font-size: 15px;
+  line-height: 1.6; color: var(--black); background: var(--cream); border: 1px solid var(--rule);
+  border-radius: 9px; padding: 11px 13px; resize: vertical; min-height: 76px;
+  transition: border-color .15s, background .15s; }
+textarea::placeholder { color: #a6a29b; }
+textarea:focus { outline: none; border-color: var(--green); background: #fff; }
+textarea.filled { background: #fff; border-color: #b9c9c2; }
+.pa { display: none; }
+
+/* Save bar */
+.savebar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px clamp(16px, 4vw, 36px); background: rgba(248,247,243,.97);
+  border-top: 1px solid var(--rule); backdrop-filter: blur(6px); }
+.progress { font-size: 13px; font-weight: 600; color: var(--green); white-space: nowrap; }
+.status { font-size: 12.5px; color: var(--mid); }
+.status.err { color: #a33; font-weight: 600; }
+.sb-spacer { flex: 1 1 auto; }
+.btn { font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--rule); background: #fff; color: var(--black);
+  padding: 10px 15px; border-radius: 9px; white-space: nowrap;
+  transition: border-color .15s, background .15s, color .15s, opacity .15s; }
+.btn:hover { border-color: var(--green); }
+.btn-primary { background: var(--green); border-color: var(--green); color: #fff; }
+.btn-primary:hover { opacity: .92; border-color: var(--green); }
+.btn:disabled { opacity: .55; cursor: default; }
 
 /* Decision + close */
 .decision { margin-top: 40px; background: var(--green-deep); color: var(--cream);
@@ -68,26 +92,28 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
 .sig { margin-top: 18px; font-size: 14px; color: var(--mid); }
 .sig a { color: var(--green); text-decoration: none; }
 
-/* Print: clean A4, no chrome */
+/* Print: answers render as text, chrome hidden, clean A4 */
 @media print {
   @page { size: A4; margin: 14mm; }
   body { background: #fff; font-size: 10.5pt; }
   .wrap { padding: 0; max-width: none; }
-  .printbtn { display: none; }
+  .savebar { display: none; }
   .top { margin-bottom: 20px; }
   h1 { font-size: 26pt; }
   .lead { font-size: 11pt; margin-top: 12px; }
   .blocks { margin-top: 24px; gap: 10px; }
   .block { padding: 14px 16px; border-color: #ddd; }
   .block h2 { font-size: 14pt; }
-  .qs { margin-top: 12px; gap: 7px; }
-  .qs li { font-size: 10pt; }
+  .qs { margin-top: 14px; gap: 13px; }
+  .q { font-size: 10pt; }
+  textarea { display: none; }
+  .pa { display: block; margin-top: 5px; font-size: 10pt; line-height: 1.5;
+    white-space: pre-wrap; padding-left: 11px; border-left: 2px solid #004438; }
+  .pa:empty::before { content: "\2014"; color: #999; }
   .decision { margin-top: 18px; padding: 16px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .close { margin-top: 20px; }
 }
-@media (max-width: 560px) {
-  .btime { margin-left: 0; }
-}
+@media (max-width: 560px) { .btime { margin-left: 0; } .status { width: 100%; } }
 </style>
 </head>
 <body>
@@ -97,8 +123,6 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
     <img class="logo" src="assets/ah-buymycar-logo.png" alt="Adam Hall Buy My Car">
     <span class="x">&times;</span>
     <img class="jw" src="assets/jewell-logo.svg" alt="Jewell">
-    <span class="spacer"></span>
-    <button class="printbtn" type="button" onclick="window.print()">Print / Save PDF</button>
   </div>
 
   <p class="eyebrow">Today's session &middot; Adam Hall Buy My Car</p>
@@ -118,10 +142,14 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
       <h2>How you price a car</h2>
       <p class="gives">So the way you value a car can be taught to someone else &mdash; without you losing control of the number.</p>
       <ul class="qs">
-        <li>Standing in front of a car in a driveway, what do you weigh up, in order, before you land on a number?</li>
-        <li>Think of the last car you walked away from. What flipped your yes to a no?</li>
-        <li>What tells you a car is retail versus wholesale, and how often is that gut call right?</li>
-        <li>If someone else valued a car, how would you know they'd got it right?</li>
+        <li><p class="q">Standing in front of a car in a driveway, what do you weigh up, in order, before you land on a number?</p>
+          <textarea data-cq="CQ01" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">Think of the last car you walked away from. What flipped your yes to a no?</p>
+          <textarea data-cq="CQ02" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What tells you a car is retail versus wholesale, and how often is that gut call right?</p>
+          <textarea data-cq="CQ03" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">If someone else valued a car, how would you know they'd got it right?</p>
+          <textarea data-cq="CQ15" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
       </ul>
     </section>
 
@@ -130,9 +158,12 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
       <h2>How a deal actually gets done</h2>
       <p class="gives">So the money, the paperwork and the title never get missed &mdash; whoever is doing it. We'll write this one back to you to check we've got it exactly right.</p>
       <ul class="qs">
-        <li>Walk us through it: agreed price, through to cash paid and a clean title. Including finance owing and ID checks.</li>
-        <li>First contact to keys in hand &mdash; how many hours does a typical deal take you?</li>
-        <li>At what point, in cars per month, does the way you settle deals today start to break?</li>
+        <li><p class="q">Walk us through it: agreed price, through to cash paid and a clean title. Including finance owing and ID checks.</p>
+          <textarea data-cq="CQ04" placeholder="Capture the exact sequence, step by step&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">First contact to keys in hand &mdash; how many hours does a typical deal take you?</p>
+          <textarea data-cq="CQ05" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">At what point, in cars per month, does the way you settle deals today start to break?</p>
+          <textarea data-cq="CQ21" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
       </ul>
     </section>
 
@@ -141,11 +172,16 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
       <h2>Where your business actually comes from</h2>
       <p class="gives">So we put effort behind what's already working, instead of guessing. This is what stops marketing money being wasted.</p>
       <ul class="qs">
-        <li>Where do your leads really come from, and roughly what share from each?</li>
-        <li>When a happy seller refers someone, how does that happen &mdash; do you ask, or does it just happen?</li>
-        <li>If you were asking for a referral, what would you actually say?</li>
-        <li>What are you spending on marketing today &mdash; radio, print, digital &mdash; and what's each one doing for you?</li>
-        <li>Where do you stand with the radio station, and who owns the rights to those years of recordings?</li>
+        <li><p class="q">Where do your leads really come from, and roughly what share from each?</p>
+          <textarea data-cq="CQ06" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">When a happy seller refers someone, how does that happen &mdash; do you ask, or does it just happen?</p>
+          <textarea data-cq="CQ07" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">If you were asking for a referral, what would you actually say?</p>
+          <textarea data-cq="CQ16" placeholder="His exact wording, if he'll give it&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What are you spending on marketing today &mdash; radio, print, digital &mdash; and what's each one doing for you?</p>
+          <textarea data-cq="CQ18" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">Where do you stand with the radio station, and who owns the rights to those years of recordings?</p>
+          <textarea data-cq="CQ19" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
       </ul>
     </section>
 
@@ -154,13 +190,20 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
       <h2>What only you can do</h2>
       <p class="gives">So we know exactly where the line is: what someone else can take off your plate, and what stays yours forever.</p>
       <ul class="qs">
-        <li>Right now, who does what &mdash; and what still ends up coming back through you?</li>
-        <li>What would you never let a new person do without you in the room?</li>
-        <li>Which parts of talking to a customer do you believe only you can do, and why?</li>
-        <li>What would you never hand over, no matter how good someone turned out to be?</li>
-        <li>What are the things a person could never do, even once, and stay?</li>
-        <li>What would someone have to prove in their first 90 days before you'd trust them on their own?</li>
-        <li>Who's your second buyer &mdash; someone already here, or someone we find?</li>
+        <li><p class="q">Right now, who does what &mdash; and what still ends up coming back through you?</p>
+          <textarea data-cq="CQ09" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What would you never let a new person do without you in the room?</p>
+          <textarea data-cq="CQ10" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">Which parts of talking to a customer do you believe only you can do, and why?</p>
+          <textarea data-cq="CQ13" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What would you never hand over, no matter how good someone turned out to be?</p>
+          <textarea data-cq="CQ17" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What are the things a person could never do, even once, and stay?</p>
+          <textarea data-cq="CQ12" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What would someone have to prove in their first 90 days before you'd trust them on their own?</p>
+          <textarea data-cq="CQ14" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">Who's your second buyer &mdash; someone already here, or someone we find?</p>
+          <textarea data-cq="CQ20" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
       </ul>
     </section>
 
@@ -169,9 +212,22 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
       <h2>The name, and where this is heading</h2>
       <p class="gives">So the brand we build can carry your trust &mdash; and still be worth something the day you're not the one standing in the driveway.</p>
       <ul class="qs">
-        <li>Does the business carry your personal name, or a name that could be sold without you?</li>
-        <li>If you sold this in five years, what would &ldquo;worth selling&rdquo; look like in numbers?</li>
-        <li>What monthly number would convince you the business runs without you?</li>
+        <li><p class="q">Does the business carry your personal name, or a name that could be sold without you?</p>
+          <textarea data-cq="CQ11" placeholder="The direction, even if the wording isn't final&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">If you sold this in five years, what would &ldquo;worth selling&rdquo; look like in numbers?</p>
+          <textarea data-cq="CQ08" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+        <li><p class="q">What monthly number would convince you the business runs without you?</p>
+          <textarea data-cq="CQ22" placeholder="Adam's answer, in his words&hellip;"></textarea><div class="pa"></div></li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">ALSO</span><span class="btime">as they come</span></div>
+      <h2>Anything else worth catching</h2>
+      <p class="gives">Notes, side comments, things to come back to.</p>
+      <ul class="qs">
+        <li><p class="q">Other notes from the session</p>
+          <textarea data-cq="NOTES" placeholder="Anything else worth writing down&hellip;" style="min-height:120px;"></textarea><div class="pa"></div></li>
       </ul>
     </section>
 
@@ -189,5 +245,167 @@ h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
   </div>
 
 </div>
+
+<div class="savebar">
+  <span class="progress" id="progress">0 of 22 answered</span>
+  <span class="status" id="status">Autosaving to this device as you type</span>
+  <span class="sb-spacer"></span>
+  <button class="btn" type="button" id="download">Download .md</button>
+  <button class="btn" type="button" id="print">Print / PDF</button>
+  <button class="btn btn-primary" type="button" id="save">Save answers</button>
+</div>
+
+<script>
+(function () {
+  var LS_KEY = 'ah-core-answers-v1';
+  var areas = [].slice.call(document.querySelectorAll('textarea[data-cq]'));
+  var statusEl = document.getElementById('status');
+  var progressEl = document.getElementById('progress');
+  var saveBtn = document.getElementById('save');
+
+  function setStatus(msg, isErr) {
+    statusEl.textContent = msg;
+    statusEl.className = 'status' + (isErr ? ' err' : '');
+  }
+  function collect() {
+    var out = {};
+    areas.forEach(function (t) { if (t.value.trim()) { out[t.dataset.cq] = t.value.trim(); } });
+    return out;
+  }
+  function countAnswered() {
+    // The 22 CORE questions only; the free-text notes box is not counted.
+    return areas.filter(function (t) { return t.dataset.cq !== 'NOTES' && t.value.trim(); }).length;
+  }
+  function refresh() {
+    areas.forEach(function (t) {
+      t.classList.toggle('filled', !!t.value.trim());
+      var pa = t.nextElementSibling;
+      if (pa && pa.classList.contains('pa')) { pa.textContent = t.value.trim(); }
+    });
+    progressEl.textContent = countAnswered() + ' of 22 answered';
+  }
+  function saveLocal() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ savedAt: new Date().toISOString(), answers: collect() })); } catch (e) {}
+  }
+  function applyAnswers(answers) {
+    if (!answers) return 0;
+    var n = 0;
+    areas.forEach(function (t) {
+      var v = answers[t.dataset.cq];
+      if (typeof v === 'string' && v.trim() && !t.value.trim()) { t.value = v; n++; }
+    });
+    refresh();
+    return n;
+  }
+
+  // 1. Restore from this device immediately, so a refresh never loses anything.
+  var localHad = 0;
+  try {
+    var raw = localStorage.getItem(LS_KEY);
+    if (raw) { localHad = applyAnswers(JSON.parse(raw).answers); }
+  } catch (e) {}
+
+  // 2. Then merge anything already saved on the server (fills only blanks).
+  fetch('/__answers', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (d && d.answers) {
+        var added = applyAnswers(d.answers);
+        if (added) { setStatus('Loaded ' + added + ' saved answer' + (added === 1 ? '' : 's')); }
+        else if (localHad) { setStatus('Restored ' + localHad + ' answer' + (localHad === 1 ? '' : 's') + ' from this device'); }
+      } else if (localHad) {
+        setStatus('Restored ' + localHad + ' answer' + (localHad === 1 ? '' : 's') + ' from this device');
+      }
+    })
+    .catch(function () {
+      if (localHad) { setStatus('Restored ' + localHad + ' from this device (offline)'); }
+    });
+
+  // Autosave locally on every keystroke, debounced.
+  var t0 = null;
+  areas.forEach(function (t) {
+    t.addEventListener('input', function () {
+      refresh();
+      clearTimeout(t0);
+      t0 = setTimeout(function () { saveLocal(); setStatus('Saved on this device · not yet sent'); }, 400);
+    });
+  });
+  window.addEventListener('beforeunload', saveLocal);
+
+  // Save to the server.
+  saveBtn.addEventListener('click', function () {
+    saveLocal();
+    var answers = collect();
+    if (!Object.keys(answers).length) { setStatus('Nothing to save yet', true); return; }
+    saveBtn.disabled = true;
+    setStatus('Saving…');
+    fetch('/__save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers: answers })
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok && d.ok, d: d }; }); })
+      .then(function (res) {
+        saveBtn.disabled = false;
+        if (res.ok) {
+          var t = new Date(res.d.savedAt);
+          setStatus('Saved · ' + t.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+        } else {
+          setStatus((res.d && res.d.error ? res.d.error : 'Save failed') + ' — use Download .md', true);
+        }
+      })
+      .catch(function () {
+        saveBtn.disabled = false;
+        setStatus('No connection — kept on this device, use Download .md', true);
+      });
+  });
+
+  // Markdown export: this file drops straight into the repo.
+  function markdown() {
+    var stamp = new Date();
+    var lines = [
+      '# Adam Hall — CORE Questions, Answered',
+      '',
+      '**Captured:** ' + stamp.toLocaleString(),
+      '**Session:** CORE validation with Adam Hall (Buy My Car)',
+      '**Status:** Verbatim capture — promotes the Draft v01 set to v02',
+      ''
+    ];
+    document.querySelectorAll('.block').forEach(function (b) {
+      var h = b.querySelector('h2');
+      if (!h) return;
+      lines.push('## ' + h.textContent.trim(), '');
+      b.querySelectorAll('.qs > li').forEach(function (li) {
+        var q = li.querySelector('.q'), ta = li.querySelector('textarea[data-cq]');
+        if (!q || !ta) return;
+        var code = ta.dataset.cq;
+        lines.push('### ' + (code === 'NOTES' ? 'Notes' : code) + ' — ' + q.textContent.trim());
+        lines.push('');
+        lines.push(ta.value.trim() ? ta.value.trim() : '_Not answered._');
+        lines.push('');
+      });
+    });
+    lines.push('---', '', '_Captured live on the session page. ' + countAnswered() + ' of 22 CORE questions answered._');
+    return lines.join('\n');
+  }
+  document.getElementById('download').addEventListener('click', function () {
+    var d = new Date();
+    var name = 'CORE-Answers__AdamHall__' + d.getFullYear() + '-' +
+      String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + '.md';
+    var blob = new Blob([markdown()], { type: 'text/markdown;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    setStatus('Downloaded ' + name);
+  });
+
+  document.getElementById('print').addEventListener('click', function () { refresh(); window.print(); });
+  window.addEventListener('beforeprint', refresh);
+
+  refresh();
+})();
+</script>
 </body>
 </html>
