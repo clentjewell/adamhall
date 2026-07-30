@@ -19,11 +19,13 @@
 | Currency | AUD |
 | Amounts are | Tax exclusive (GST added) |
 
-## Line items
+## Line items — 3D process with deliverables per phase
 
 | Description | Qty | Unit price (AUD) | Account | Tax rate | Amount (AUD) |
 |---|---|---|---|---|---|
-| **Gate One — Launch foundation (first instalment of the Buy My Car engagement).** We run the business through our 3D process: **① Discover** — validate the 22 CORE questions and capture how you buy, value and win trust, and lock the strategy; **② Design** — strategy & brand refresh, the marketplace + dealer console, CRM and vehicle input tool, Adam AI, and the operating-system portal; **③ Deploy** — launch, Google Business Profile + channels (socials, search and AI-search), always-on marketing, and the monthly run set together at the 30/60/90 review. This invoice covers Gate One — the Discover step and the launch foundation. Design and Deploy follow; the ongoing monthly run is quoted separately and begins at launch. | 1 | 4,995.00 | Sales / Consulting | GST on Income (10%) | 4,995.00 |
+| **① DISCOVER — Gate One (this instalment).** Deliverables: the 22 CORE questions validated; how you buy, value, read people, close and settle captured word for word; your 3D Process Summary (one page per phase); the strategy locked; and the launch foundation stood up (marketplace + dealer console live). | 1 | 4,995.00 | Sales / Consulting | GST on Income (10%) | 4,995.00 |
+| **② DESIGN — to follow.** Deliverables: a full Sales, Marketing, Brand & Activation Plan; a brand book refresh; a website sitemap & build plan; a CRM + vehicle input tool; and Adam AI + the Operating System portal for your team. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
+| **③ DEPLOY — to follow.** Deliverables: go-live with Google Business Profile + channels (socials, search and AI-search); always-on marketing; the operating system live in your team; and monthly reporting with 30/60/90 then quarterly reviews. Ongoing monthly run quoted separately, begins at launch. | 1 | 0.00 | Sales / Consulting | GST on Income (10%) | 0.00 |
 | **Admin fee (5%)** | 1 | 249.75 | Sales / Consulting | GST on Income (10%) | 249.75 |
 
 ## Totals
@@ -42,15 +44,13 @@ Gate One is the first instalment of the full 3D engagement. It covers Discover a
 
 ---
 
-## Alternative: 3 steps shown as line items
+## Alternative: single-line version
 
-If you'd rather Adam see the three steps broken out on the invoice (with only Gate One priced), use these lines instead of the single description above:
+If you'd rather keep it to one priced line, use this instead of the three-step breakdown above (same totals):
 
 | Description | Qty | Unit price (AUD) | Tax rate | Amount |
 |---|---|---|---|---|
-| **① Discover — Gate One (this instalment).** Validate the 22 CORE questions, capture your buying/valuation/trust judgement, lock the strategy. Launch foundation included. | 1 | 4,995.00 | GST on Income (10%) | 4,995.00 |
-| **② Design — to follow.** Strategy & brand refresh, marketplace + dealer console, CRM/input tool, Adam AI, operating-system portal. | 1 | 0.00 | GST on Income (10%) | 0.00 |
-| **③ Deploy — to follow.** Launch, Google Business Profile + channels, always-on marketing, monthly run (set at the 30/60/90 review). | 1 | 0.00 | GST on Income (10%) | 0.00 |
+| **Gate One — Launch foundation (first instalment of the Buy My Car engagement).** Our 3D process: ① Discover (22 CORE questions validated, judgement captured, 3D Process Summary, strategy locked, launch foundation live), ② Design (Sales/Marketing/Brand & Activation Plan, brand refresh, website sitemap & build plan, CRM + input tool, Adam AI + Operating System portal), ③ Deploy (go-live, Google Business Profile + channels, always-on marketing, monthly reporting + 30/60/90 reviews). This invoice covers Gate One — Discover and the launch foundation. Design and Deploy follow; monthly run quoted separately. | 1 | 4,995.00 | GST on Income (10%) | 4,995.00 |
 | **Admin fee (5%)** | 1 | 249.75 | GST on Income (10%) | 249.75 |
 
 Same totals: Subtotal $5,244.75 · GST $524.48 · **Total $5,769.23**.
