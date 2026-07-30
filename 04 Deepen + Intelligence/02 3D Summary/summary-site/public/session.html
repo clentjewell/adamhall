@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Adam Hall · Buy My Car · Today's Session</title>
+<link rel="icon" href="assets/ah-buymycar-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #f8f7f3; --black: #111111; --green: #004438; --green-deep: #003a30;
+  --mid: #666666; --rule: #D4D2D0; --tan: #f2dab2; --peach: #ffbc7d;
+}
+body { font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: var(--cream); color: var(--black); -webkit-font-smoothing: antialiased;
+  font-size: 16px; line-height: 1.6; }
+.wrap { max-width: 940px; margin: 0 auto; padding: 40px clamp(22px, 5vw, 56px) 80px; }
+
+/* Header */
+.top { display: flex; align-items: center; gap: 14px; margin-bottom: 44px; }
+.top img.logo { height: 34px; width: auto; display: block; }
+.top .x { color: #c4c1bc; font-weight: 300; }
+.top img.jw { height: 17px; width: auto; display: block; }
+.top .spacer { flex: 1 1 auto; }
+.printbtn { font-family: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--rule); background: #fff; color: var(--black);
+  padding: 9px 15px; border-radius: 8px; transition: border-color .15s, background .15s, color .15s; }
+.printbtn:hover { border-color: var(--green); background: var(--green); color: #fff; }
+
+.eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 16px; }
+h1 { font-size: clamp(34px, 5.2vw, 56px); font-weight: 600; line-height: 1.05;
+  letter-spacing: -0.03em; max-width: 22ch; }
+.lead { font-size: clamp(16px, 1.5vw, 19px); color: var(--mid); line-height: 1.65;
+  max-width: 62ch; margin-top: 22px; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.chip { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  border: 1px solid var(--rule); background: #fff; border-radius: 999px; padding: 7px 14px; color: var(--mid); }
+
+/* Blocks */
+.blocks { margin-top: 52px; display: flex; flex-direction: column; gap: 18px; }
+.block { background: #fff; border: 1px solid var(--rule); border-radius: 14px;
+  padding: 26px clamp(20px, 3vw, 32px); break-inside: avoid; }
+.bhead { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.bnum { font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.08em; }
+.btime { margin-left: auto; font-size: 12px; color: var(--mid); white-space: nowrap; }
+.block h2 { font-size: clamp(21px, 2.4vw, 27px); font-weight: 600; letter-spacing: -0.02em;
+  line-height: 1.2; margin-top: 8px; }
+.gives { margin-top: 12px; font-size: 14.5px; line-height: 1.6; color: var(--green-deep);
+  border-left: 2px solid var(--tan); padding-left: 14px; }
+.qs { margin-top: 20px; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.qs li { position: relative; padding-left: 26px; font-size: 15.5px; line-height: 1.55; }
+.qs li::before { content: ""; position: absolute; left: 6px; top: 9px; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--peach); }
+
+/* Decision + close */
+.decision { margin-top: 40px; background: var(--green-deep); color: var(--cream);
+  border-radius: 14px; padding: 30px clamp(22px, 3vw, 34px); break-inside: avoid; }
+.decision .eyebrow { color: var(--tan); }
+.decision h2 { font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.decision p { margin-top: 14px; font-size: 15.5px; line-height: 1.7; color: rgba(248,247,243,.85); max-width: 60ch; }
+.close { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--rule); }
+.close p { font-size: 14.5px; color: var(--mid); line-height: 1.7; max-width: 66ch; }
+.sig { margin-top: 18px; font-size: 14px; color: var(--mid); }
+.sig a { color: var(--green); text-decoration: none; }
+
+/* Print: clean A4, no chrome */
+@media print {
+  @page { size: A4; margin: 14mm; }
+  body { background: #fff; font-size: 10.5pt; }
+  .wrap { padding: 0; max-width: none; }
+  .printbtn { display: none; }
+  .top { margin-bottom: 20px; }
+  h1 { font-size: 26pt; }
+  .lead { font-size: 11pt; margin-top: 12px; }
+  .blocks { margin-top: 24px; gap: 10px; }
+  .block { padding: 14px 16px; border-color: #ddd; }
+  .block h2 { font-size: 14pt; }
+  .qs { margin-top: 12px; gap: 7px; }
+  .qs li { font-size: 10pt; }
+  .decision { margin-top: 18px; padding: 16px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .close { margin-top: 20px; }
+}
+@media (max-width: 560px) {
+  .btime { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <img class="logo" src="assets/ah-buymycar-logo.png" alt="Adam Hall Buy My Car">
+    <span class="x">&times;</span>
+    <img class="jw" src="assets/jewell-logo.svg" alt="Jewell">
+    <span class="spacer"></span>
+    <button class="printbtn" type="button" onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+  <p class="eyebrow">Today's session &middot; Adam Hall Buy My Car</p>
+  <h1>Getting what you know out of your head.</h1>
+  <p class="lead">Everything that makes this business work &mdash; how you price a car, when you walk away, how a deal gets settled, why people trust you &mdash; currently lives in one place: your head. Today we write it down, in your words. You talk, we take notes. Nothing gets built on a guess.</p>
+
+  <div class="meta">
+    <span class="chip">About two hours</span>
+    <span class="chip">Five things to cover</span>
+    <span class="chip">One decision to make</span>
+  </div>
+
+  <div class="blocks">
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">ONE</span><span class="btime">~30 min</span></div>
+      <h2>How you price a car</h2>
+      <p class="gives">So the way you value a car can be taught to someone else &mdash; without you losing control of the number.</p>
+      <ul class="qs">
+        <li>Standing in front of a car in a driveway, what do you weigh up, in order, before you land on a number?</li>
+        <li>Think of the last car you walked away from. What flipped your yes to a no?</li>
+        <li>What tells you a car is retail versus wholesale, and how often is that gut call right?</li>
+        <li>If someone else valued a car, how would you know they'd got it right?</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">TWO</span><span class="btime">~20 min</span></div>
+      <h2>How a deal actually gets done</h2>
+      <p class="gives">So the money, the paperwork and the title never get missed &mdash; whoever is doing it. We'll write this one back to you to check we've got it exactly right.</p>
+      <ul class="qs">
+        <li>Walk us through it: agreed price, through to cash paid and a clean title. Including finance owing and ID checks.</li>
+        <li>First contact to keys in hand &mdash; how many hours does a typical deal take you?</li>
+        <li>At what point, in cars per month, does the way you settle deals today start to break?</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">THREE</span><span class="btime">~20 min</span></div>
+      <h2>Where your business actually comes from</h2>
+      <p class="gives">So we put effort behind what's already working, instead of guessing. This is what stops marketing money being wasted.</p>
+      <ul class="qs">
+        <li>Where do your leads really come from, and roughly what share from each?</li>
+        <li>When a happy seller refers someone, how does that happen &mdash; do you ask, or does it just happen?</li>
+        <li>If you were asking for a referral, what would you actually say?</li>
+        <li>What are you spending on marketing today &mdash; radio, print, digital &mdash; and what's each one doing for you?</li>
+        <li>Where do you stand with the radio station, and who owns the rights to those years of recordings?</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">FOUR</span><span class="btime">~25 min</span></div>
+      <h2>What only you can do</h2>
+      <p class="gives">So we know exactly where the line is: what someone else can take off your plate, and what stays yours forever.</p>
+      <ul class="qs">
+        <li>Right now, who does what &mdash; and what still ends up coming back through you?</li>
+        <li>What would you never let a new person do without you in the room?</li>
+        <li>Which parts of talking to a customer do you believe only you can do, and why?</li>
+        <li>What would you never hand over, no matter how good someone turned out to be?</li>
+        <li>What are the things a person could never do, even once, and stay?</li>
+        <li>What would someone have to prove in their first 90 days before you'd trust them on their own?</li>
+        <li>Who's your second buyer &mdash; someone already here, or someone we find?</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <div class="bhead"><span class="bnum">FIVE</span><span class="btime">~15 min</span></div>
+      <h2>The name, and where this is heading</h2>
+      <p class="gives">So the brand we build can carry your trust &mdash; and still be worth something the day you're not the one standing in the driveway.</p>
+      <ul class="qs">
+        <li>Does the business carry your personal name, or a name that could be sold without you?</li>
+        <li>If you sold this in five years, what would &ldquo;worth selling&rdquo; look like in numbers?</li>
+        <li>What monthly number would convince you the business runs without you?</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div class="decision">
+    <p class="eyebrow">The one decision for today</p>
+    <h2>Your name, or a name that can stand on its own?</h2>
+    <p>Everything public waits on this one &mdash; the domain, the signage, the brand. We don't need the final wording today, just the direction. The two obvious web addresses are already taken, so knowing which way you're leaning lets us go and secure the right one.</p>
+  </div>
+
+  <div class="close">
+    <p>Nothing here is a test, and there are no wrong answers &mdash; you're the only person who knows this. Anything you'd rather not answer yet, we leave open and come back to. Within three days of today, every document you've been sent gets updated to match what you've told us.</p>
+    <p class="sig">Clent Jewell &middot; Jewell Projects &middot; <a href="mailto:clent@jewellprojects.com">clent@jewellprojects.com</a></p>
+  </div>
+
+</div>
+</body>
+</html>
