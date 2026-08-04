@@ -1,13 +1,23 @@
 import type { CSSProperties } from "react";
 import { trustBar } from "@/lib/site-data/site";
 
-/** Five-item icon strip (5 Star Reviews, Hassle-free Guarantee, …). */
-export default function TrustBar() {
+/**
+ * Five-item icon strip. Defaults to the seller claims used by the parent pages
+ * hosted here; the buy side passes `buyerTrustBar` instead, because a promise
+ * made to a seller is not a reason to buy.
+ */
+export default function TrustBar({
+  items = trustBar,
+  label = "Why sell to Adam Hall",
+}: {
+  items?: { icon: string; label: string }[];
+  label?: string;
+}) {
   return (
-    <section className="trustbar" aria-label="Why sell to Adam Hall">
+    <section className="trustbar" aria-label={label}>
       <div className="container container--wide">
         <ul className="trustbar__items">
-          {trustBar.map((item, i) => (
+          {items.map((item, i) => (
             <li
               key={item.label}
               className="trustbar__item reveal"

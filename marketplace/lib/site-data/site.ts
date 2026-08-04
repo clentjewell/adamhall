@@ -46,13 +46,25 @@ export const unlistedSellerPages = [
   '/privacy-policy',
 ];
 
-/* Five-item trust bar shown on green hero sections */
+/* Five-item trust bar shown on green hero sections. Seller claims — still
+   used by the parent pages hosted here. */
 export const trustBar = [
   { icon: '/assets/icons/icon-5-star.svg', label: '5 Star Reviews' },
   { icon: '/assets/icons/icon-hassle-free.svg', label: 'Hassle-free Guarantee' },
   { icon: '/assets/icons/icon-shield.svg', label: 'Real Market Pricing' },
   { icon: '/assets/icons/icon-27.svg', label: 'Over 27 Years Experience' },
   { icon: '/assets/icons/icon-stop-watch.svg', label: 'Same Day Payment' },
+];
+
+/* The buy side's own five. Same-day payment and the hassle-free guarantee are
+   promises to a seller, so they are not here; these are facts about the stock
+   and about who picked it. */
+export const buyerTrustBar = [
+  { icon: '/assets/icons/icon-shield.svg', label: 'Every car PPSR checked' },
+  { icon: '/assets/icons/icon-hassle-free.svg', label: 'Faults named up front' },
+  { icon: '/assets/icons/icon-27.svg', label: '27 years picking cars' },
+  { icon: '/assets/icons/icon-stop-watch.svg', label: 'Around 25 cars a month' },
+  { icon: '/assets/icons/icon-5-star.svg', label: '5 Star Reviews' },
 ];
 
 /* Three-item strip shown in the black pre-footer band.
