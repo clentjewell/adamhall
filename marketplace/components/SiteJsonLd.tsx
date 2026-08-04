@@ -1,6 +1,5 @@
 import { getContent } from "@/lib/content";
 import { brand, parentSite } from "@/lib/brand";
-import { site } from "@/lib/site-data/site";
 
 // Sitewide AutoDealer structured data. Drives the local rich result —
 // business name, contact, opening hours and the review stars — in Google.
@@ -38,26 +37,15 @@ function real(v: string | undefined): string | undefined {
 }
 
 /**
- * The phone number is the one piece of NAP that must never disagree with
- * itself: it is the proof that both sites are one business. The editable
- * content row currently holds a leftover placeholder (+61400000000) while the
- * header and footer display the real trading number, so the site was telling
- * Google a number it does not show a human.
- *
- * Prefer the CMS value so Adam can change it, but only when it is plausibly a
- * real number. A run of zeros is the signature of a stub, not a phone number.
- * Falls back to the number the site actually displays.
+ * E.164 for schema — Google reads international format most reliably. The
+ * number itself is already guaranteed real by mergePhone() in lib/content.ts,
+ * which is where the one-number rule is enforced.
  */
-function phoneNumber(fromContent: string | undefined): string {
-  const cmsValue = fromContent?.replace(/^tel:/, "").trim();
-  const isStub = !cmsValue || /0{5,}/.test(cmsValue.replace(/\D/g, ""));
-  const chosen = isStub ? site.phoneHref.replace(/^tel:/, "") : cmsValue;
-
-  // E.164 for schema: Google reads international format most reliably.
-  const digits = chosen.replace(/\D/g, "");
+function e164(raw: string): string {
+  const digits = raw.replace(/^tel:/, "").replace(/\D/g, "");
   if (digits.startsWith("61")) return `+${digits}`;
   if (digits.startsWith("0")) return `+61${digits.slice(1)}`;
-  return chosen;
+  return raw;
 }
 
 function to24(raw: string): string | null {
@@ -110,7 +98,7 @@ function openingHours(hours: { days: string; hours: string }[]) {
 export default async function SiteJsonLd() {
   const { contact, phone, reviews } = await getContent();
 
-  const telephone = phoneNumber(phone.tel);
+  const telephone = e164(phone.tel);
   const street = real(contact.address?.split("\n")[0]);
   const email = real(contact.email);
   const hoursSpec = openingHours(contact.hours ?? []);
