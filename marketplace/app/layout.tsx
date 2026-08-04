@@ -1,27 +1,37 @@
 import type { Metadata } from "next";
+import { Figtree } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
 import EditModeBridge from "@/components/EditModeBridge";
 import SiteJsonLd from "@/components/SiteJsonLd";
+import { brand } from "@/lib/brand";
 import "./globals.css";
 
-// Brand type comes from the client's Adobe Typekit kit (Neue Haas Grotesk
-// Display for headings, Mr Eaves Modern for body) — same kit the reference
-// adamhallbuymycar.com.au site loads. Fallback stacks live in globals.css.
+// One family across the whole buy side. See the type note in globals.css for
+// why Figtree rather than the parent's Typekit pair: the identity's geometric
+// sans is unnamed and unlicensable, Figtree is its documented stand-in, and a
+// self-hosted Google family avoids the domain lock that would break a Typekit
+// kit the moment carmarketplace.com.au goes live.
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700", "800", "900"],
+  variable: "--font-figtree",
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Adam Hall — Buy My Car | Quality used cars, straight answers",
-    template: "%s | Adam Hall — Buy My Car",
+    default: `${brand.name} | Hand-picked used cars, honestly described`,
+    template: `%s | ${brand.name}`,
   },
   description:
-    "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Transparent pricing, honest condition reports and fast settlements. Selling? Adam personally reviews every car within 1 business day.",
+    "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, honestly described and priced to sell. Around 25 cars pass through every month.",
   openGraph: {
-    siteName: "Adam Hall — Buy My Car",
+    siteName: brand.fullName,
     type: "website",
     locale: "en_AU",
   },
@@ -31,11 +41,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-AU">
-      <head>
-        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://use.typekit.net/knr6tgk.css" />
-      </head>
+    <html lang="en-AU" className={figtree.variable}>
       <body className="min-h-dvh flex flex-col">
         <SiteJsonLd />
         <TopLoader />

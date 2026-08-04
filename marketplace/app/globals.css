@@ -1,34 +1,104 @@
 @import "tailwindcss";
 
 /*
-  Adam Hall design tokens — aligned to the adamhallbuymycar.com.au brand
-  (Elementor kit: deep green #004438, cream, tan, purple CTA; Typekit
-  Neue Haas Grotesk Display headings + Mr Eaves Modern body).
+  ===========================================================================
+  Car Marketplace design tokens — THE source of truth for colour and type.
+  Source: "Car Marketplace by Adam Hall — Brand Identity", Edition 1,
+  August 2026 (Liz / Jewell Projects). Names and the logo live in lib/brand.ts.
+
+  No component may hard-code a hex. components/site/tokens.css derives its
+  variables from this block so the ported pages re-skin from here too.
+
+  Locked and inherited from the parent brand: green #004438, black, white,
+  lilac. Proposed and pending Adam's approval: sand, the buy-side accent.
+  Neutrals were observed in the parent identity rather than specified, and are
+  proposed here as the working ramp.
+
+  Balance rule (inherited): lead with green and white. One accent per view,
+  never two. Sand carries the single action that matters on each screen.
   Shape rule (locked): buttons = pill, cards = rounded-2xl, inputs = rounded-lg.
-  The forest-* scale keeps its semantic names so every existing page
-  re-skins from here; values now derive from the brand green.
+  ===========================================================================
 */
 @theme {
-  --color-ink: #1c1c1c;
-  --color-paper: #f8f7f3;
-  --color-card: #ffffff;
-  --color-forest-50: #edf3f1;
-  --color-forest-100: #d6e3df;
-  --color-forest-200: #b3ccc6;
-  --color-forest-500: #0a5a4a;
+  /* --- Inherited, locked --------------------------------------------- */
+  /* Green leads everywhere: header, footer, hero, every dark band. PMS 3308 C. */
   --color-forest-600: #004438;
   --color-forest-700: #003a30;
   --color-forest-800: #00332b;
+  --color-forest-500: #0a5a4a;
+  --color-forest-200: #b3ccc6;
+  --color-forest-100: #d6e3df;
+  --color-forest-50: #edf3f1;
+  --color-card: #ffffff;
+  /* The parent's human accent. Steps back on the buy side, where it is used
+     only for moments that are Adam himself. PMS 2567 C. */
+  --color-lilac: #c29fd8;
+  --color-lilac-dark: #b184cd;
+
+  /* --- Proposed distinguishing accent (needs Adam's approval) -------- */
+  /* Sand: sampled from the parent's own website hero CTA, so it is already
+     Adam's colour rather than an invention. Primary buttons, "just in" flags,
+     finance highlights. Deliberately low-chroma: a bright accent on a
+     used-car site reads as a sale sticker. */
+  --color-sand: #f3dcb3;
+
+  /* --- Neutral ramp (proposed) --------------------------------------- */
+  --color-cream: #f7f6f2;    /* page ground, warmer than grey */
+  --color-hairline: #e4e1d8; /* card borders, dividers, 1px only */
+  --color-mute: #9a9f99;     /* disabled controls, sold prices, placeholders */
+  --color-meta: #7b827d;     /* captions, specs, odometer lines, legal */
+  --color-soft-ink: #2f3833; /* running body copy — never pure black */
+  --color-headline: #000000; /* headings and the mark only */
+
+  /* --- Semantic aliases --------------------------------------------- */
+  /* `ink` is the body colour, so text-ink resolves to soft ink everywhere.
+     Headings are pulled back to true black by the element rules below. */
+  --color-ink: var(--color-soft-ink);
+  --color-paper: var(--color-cream);
+  /* Kept so existing markup keeps working. tan and brand-purple are the old
+     names for sand and lilac; amber-* remains status-only (SOLD, response
+     stat, draft banners) and is not part of the brand palette. */
+  --color-tan: var(--color-sand);
+  --color-brand-purple: var(--color-lilac);
+  --color-brand-purple-dark: var(--color-lilac-dark);
+  --color-peach: #ffbc7d;
   --color-amber-accent: #d99a4e;
   --color-amber-soft: #f9f0e0;
-  --color-cream: #f8f7f3;
-  --color-tan: #f2dab2;
-  --color-brand-purple: #c29fd8;
-  --color-brand-purple-dark: #b184cd;
-  --color-peach: #ffbc7d;
 
-  --font-display: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* --- Type ---------------------------------------------------------- */
+  /* The identity specifies a bold geometric sans across 300–900 with tabular
+     figures, but the family is embedded as artwork in the logo files and never
+     named, so no licence exists to buy. Figtree is the identity's own
+     documented stand-in: geometric, 300–900, free, and not domain-locked —
+     which matters on a brand-new domain. Substitute here, in one place, once
+     the licensed family is confirmed. Loaded via next/font in app/layout.tsx.
+
+     The parent's brush script and Adam's signature are deliberately absent. A
+     listings page carries too much information to support a script, and the
+     signature is the parent's asset, used only where Adam signs off himself. */
+  --font-display: var(--font-figtree), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: var(--font-figtree), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Type scale, desktop. Step down one size on mobile.
+   Display 900 · Heading 900 · Subheading 800 · Lead 300 · Body 400 ·
+   Caption 500 · Label 700 · Price 800 with tabular figures, always. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-headline);
+    font-family: var(--font-display);
+  }
+  /* Prices and odometers must not reflow as digits change. */
+  .tabular,
+  [data-price] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
 }
 
 html {
