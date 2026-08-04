@@ -43,7 +43,9 @@
   font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--c-text);
+  /* Soft ink, not meta. Meta is for captions and spec lines; at this size on
+     cream it measures 3.64:1, under the 4.5:1 AA floor. Soft ink is 11.2:1. */
+  color: var(--c-text-dark);
   text-decoration: none;
   text-underline-offset: 3px;
   transition: color 0.15s ease;

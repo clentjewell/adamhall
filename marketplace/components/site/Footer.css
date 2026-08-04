@@ -76,10 +76,15 @@
   color: rgba(255, 255, 255, 0.55);
 }
 
+/* Green, per the identity: green grounds the header, the footer, the hero and
+   every dark band. Black is held for headings and the mark, not used as a
+   surface. A hairline keeps the footer distinct from the crossing band above it
+   now that both share the same green. */
 .ah-site .site-footer {
-  background: var(--c-black);
+  background: var(--c-green);
   color: rgba(255, 255, 255, 0.85);
   padding-block: 1rem 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 .ah-site .site-footer__grid {
   display: grid;
@@ -102,8 +107,9 @@
   color: var(--c-white);
 }
 .ah-site .site-footer__col h6 {
-  
-  color: var(--c-purple);
+  /* Sand, not lilac. Lilac is the parent's accent and steps back on the buy
+     side. One accent per view. */
+  color: var(--c-sand);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.875rem;
@@ -122,7 +128,7 @@
   font-size: 1.5rem; 
 }
 .ah-site .site-footer__col a:hover {
-  color: var(--c-purple);
+  color: var(--c-sand);
 }
 .ah-site .site-footer__legal {
   display: flex;
@@ -139,7 +145,7 @@
   white-space: nowrap;
 }
 .ah-site .site-footer__legal a:hover {
-  color: var(--c-purple);
+  color: var(--c-sand);
 }
 @media (max-width: 860px) {
 .ah-site .site-footer__grid {
