@@ -18,6 +18,7 @@ Single inventory of every artefact in this repository. Update this table wheneve
 | SOP | Orchestration SOP (Jewell OS) | Blueprint | Live | v01 | `05 Blueprint Extraction/ORCHESTRATION-SOP.md` |
 | B01 | Marketplace web app (Next.js + Supabase) | Deploy | Draft | v01 | `marketplace/` |
 | DD14 | Finance Page Compliance Review | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
+| DD15 | Open Questions for Adam (Car Marketplace) | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
 
 ## Version and status notes
 
