@@ -33,6 +33,43 @@
   width: auto;
 }
 
+/* The crossing to the parent site. Deliberately not styled as a nav item:
+   a divider to its left, and the sand accent on hover, so it reads as a
+   different kind of link rather than a seventh page. */
+.ah-site .site-header__crossing {
+  flex-shrink: 0;
+  padding-left: 1.4rem;
+  border-left: 1px solid var(--c-border);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--c-text);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+.ah-site .site-header__crossing:hover,
+.ah-site .site-header__crossing:focus-visible {
+  color: var(--c-green);
+  text-decoration: underline;
+}
+@media (max-width: 1100px) {
+  .ah-site .site-header__crossing {
+    display: none;
+  }
+}
+
+/* Same link at the foot of the mobile menu, held apart from the six items. */
+.ah-site .mobile-menu__crossing {
+  display: block;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-border);
+  font-size: 1rem !important;
+  font-weight: 500;
+  color: var(--c-text) !important;
+}
+
 /* Right side: nav items and phone pill on one row */
 .ah-site .site-header__right {
   display: flex;
