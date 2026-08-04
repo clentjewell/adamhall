@@ -2,13 +2,27 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { nav, site, preFooterTrust } from "@/lib/site-data/site";
+import { nav, site, preFooterTrust, marketplaceTagline } from "@/lib/site-data/site";
+import { brand } from "@/lib/brand";
+import BrandLockup from "@/components/BrandLockup";
+import CrossSiteBand from "@/components/CrossSiteBand";
 import "@/components/site/site.css";
 
+// The five legal documents. Every one of these was live and loading but
+// unlinked from anywhere on the site, so nothing could reach them.
+const legalLinks = [
+  { href: "/legal/privacy", label: "Privacy Policy" },
+  { href: "/legal/terms", label: "Terms of Use" },
+  { href: "/legal/website-disclaimer", label: "Website Disclaimer" },
+  { href: "/legal/finance-disclaimer", label: "Finance Disclaimer" },
+  { href: "/legal/complaints", label: "Complaints" },
+];
+
 /**
- * Public site footer — the ported reference footer: black pre-footer trust
- * band, brand + link columns, and a legal strip. A modest "Dealer login"
- * link into /admin is kept in the contact column.
+ * Public site footer — buy-side only. The pre-footer trust band, the Car
+ * Marketplace lockup, the six nav pages, the legal set, and the crossing band
+ * back to Adam. This is the one place in the identity where both marks may
+ * appear together.
  */
 export default function Footer() {
   const pathname = usePathname();
@@ -41,23 +55,17 @@ export default function Footer() {
         </div>
       </section>
 
+      <CrossSiteBand />
+
       <footer className="site-footer">
         <div className="container container--wide site-footer__grid">
           <div className="site-footer__brand">
-            <Link href="/" aria-label="Adam Hall Buy My Car — home">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/logos/logo-white.svg"
-                alt="Adam Hall Buy My Car"
-                width={170}
-                height={70}
-              />
-            </Link>
-            <p>{site.tagline}</p>
+            <BrandLockup reverse />
+            <p>{marketplaceTagline}</p>
           </div>
 
           <div className="site-footer__col">
-            <h6>Get around</h6>
+            <h6>Buying a car</h6>
             <ul>
               {nav.map((item) => (
                 <li key={item.to}>
@@ -68,23 +76,13 @@ export default function Footer() {
           </div>
 
           <div className="site-footer__col">
-            <h6>Buying a car</h6>
+            <h6>Legal</h6>
             <ul>
-              <li>
-                <Link href="/cars">Cars for Sale</Link>
-              </li>
-              <li>
-                <Link href="/finance">Finance</Link>
-              </li>
-              <li>
-                <Link href="/compare">Compare cars</Link>
-              </li>
-              <li>
-                <Link href="/saved">Saved cars</Link>
-              </li>
-              <li>
-                <Link href="/faq">FAQ</Link>
-              </li>
+              {legalLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href}>{item.label}</Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -95,11 +93,6 @@ export default function Footer() {
                 <a href={site.phoneHref}>
                   <span aria-hidden="true">☎</span> {site.phoneDisplay}
                 </a>
-              </li>
-              <li>
-                <Link href="/buy-my-car">
-                  <span aria-hidden="true">☺</span> Value my car
-                </Link>
               </li>
               <li>
                 <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
@@ -114,8 +107,10 @@ export default function Footer() {
         </div>
 
         <div className="container container--wide site-footer__legal">
-          <p>{site.copyright}</p>
-          <Link href="/privacy-policy">Privacy Policy</Link>
+          <p>
+            © {new Date().getFullYear()} {brand.domain}. {brand.fullName}.
+          </p>
+          <Link href="/legal">Legal</Link>
         </div>
       </footer>
     </div>
