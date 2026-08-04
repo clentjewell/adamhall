@@ -1,4 +1,5 @@
 import { brand, parentSite, parentUrl } from "@/lib/brand";
+import Button from "@/components/site/Button";
 
 /**
  * The crossing between the two domains.
@@ -10,32 +11,32 @@ import { brand, parentSite, parentUrl } from "@/lib/brand";
  *
  * This is also the one place both marks may appear together. Everywhere else on
  * the marketplace, Car Marketplace leads alone.
+ *
+ * Sits directly beneath the green trust strip with no background of its own, so
+ * the two read as a single block. Centred to match the strip above, and using
+ * the site's own tan button so the sand carries dark ink rather than white.
  */
 export default function CrossSiteBand() {
   return (
     <aside
-      className="bg-forest-600 text-white"
-      aria-label={`Selling a car — go to ${parentSite.name}`}
+      className="prefooter-crossing"
+      aria-label={`Selling a car, go to ${parentSite.name}`}
     >
-      <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-        <p className="flex-1 text-lg md:text-xl leading-snug">
-          <span className="font-display font-extrabold">{parentSite.crossing.heading}</span>{" "}
-          <span className="text-forest-100">{parentSite.crossing.body}</span>
+      <div className="container container--wide">
+        <p className="prefooter-crossing__line">
+          <strong>{parentSite.crossing.heading}</strong> {parentSite.crossing.body}
         </p>
 
-        <a
-          href={parentUrl("/", "marketplace-footer-band")}
-          className="btn shrink-0 bg-sand text-headline hover:bg-white px-6 py-3"
-        >
+        <Button href={parentUrl("/", "marketplace-footer-band")} variant="tan" arrow>
           {parentSite.crossing.cta}
-        </a>
-      </div>
+        </Button>
 
-      <p className="max-w-6xl mx-auto px-4 pb-8 -mt-1 text-xs text-forest-200">
-        {parentSite.name} and {brand.name} are the same business, the same phone
-        number and the same service area. One buys your car, the other sells you
-        one.
-      </p>
+        <p className="prefooter-crossing__note">
+          {parentSite.name} and {brand.name} are the same business, the same
+          phone number and the same service area. One buys your car, the other
+          sells you one.
+        </p>
+      </div>
     </aside>
   );
 }

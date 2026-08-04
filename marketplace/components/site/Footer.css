@@ -1,6 +1,9 @@
 /* scoped port of Footer.css */
+/* Green, not black, so the trust strip and the crossing band below it read as
+   one block instead of a green sandwich between two black ones. The wavy rule
+   at the bottom becomes the divider inside that block. */
 .ah-site .prefooter {
-  background: var(--c-black);
+  background: var(--c-green);
   color: var(--c-white);
   padding-top: 2.5rem;
 }
@@ -20,18 +23,59 @@
   align-items: center;
   gap: 0.55rem;
 }
+/* Sand ticks, not lilac. On the buy side sand is the accent and lilac steps
+   back to the parent, and lilac on green is weak contrast besides. */
 .ah-site .prefooter__items svg {
-  color: var(--c-purple);
+  color: var(--c-sand);
   flex-shrink: 0;
 }
+/* Masked rather than used as a background image, so the wave takes the buy
+   side's accent instead of the lilac baked into the SVG. The identity allows
+   one accent per view, never two, and this block's accent is sand. */
 .ah-site .prefooter__wave {
   display: block;
   width: 100%;
   height: 7px;
   margin-top: 2rem;
-  background: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
-  opacity: 0.9;
+  background-color: var(--c-sand);
+  mask: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
+  -webkit-mask: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
+  opacity: 0.55;
 }
+/* The crossing to the parent site. Continues the green block started by the
+   trust strip, so it carries no background of its own. Centred to match the
+   strip, with the button under the line rather than beside it. */
+.ah-site .prefooter-crossing {
+  background: var(--c-green);
+  color: var(--c-white);
+  text-align: center;
+  padding-block: 2rem 3rem;
+}
+.ah-site .prefooter-crossing__line {
+  font-family: var(--font-body);
+  font-size: var(--fs-h5);
+  line-height: 1.4;
+  max-width: 46ch;
+  margin-inline: auto;
+  color: rgba(255, 255, 255, 0.82);
+}
+.ah-site .prefooter-crossing__line strong {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: var(--c-white);
+}
+.ah-site .prefooter-crossing .btn {
+  margin-top: 1.5rem;
+}
+.ah-site .prefooter-crossing__note {
+  margin-top: 2.25rem;
+  max-width: 66ch;
+  margin-inline: auto;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+}
+
 .ah-site .site-footer {
   background: var(--c-black);
   color: rgba(255, 255, 255, 0.85);
