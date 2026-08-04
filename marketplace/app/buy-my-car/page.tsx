@@ -9,6 +9,10 @@ import { buyMyCarTestimonials } from "@/lib/site-data/testimonials";
 import { site } from "@/lib/site-data/site";
 
 export const metadata: Metadata = {
+  // Parent-brand seller page, kept reachable but off the buy-side nav.
+  // Out of the index so it cannot compete with the same content on
+  // adamhallbuymycar.com.au. follow:true so the links out still carry.
+  robots: { index: false, follow: true },
   title: "Adam Hall Value My Car | What's My Car Worth?",
   description:
     "Up-to-the-minute market pricing and decades of experience to help you set the right price for your car. Get a free, obligation-free valuation from Adam Hall.",

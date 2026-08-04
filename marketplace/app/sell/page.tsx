@@ -9,6 +9,9 @@ import SellFlow from "@/components/sell/SellFlow";
 import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
+  // The seller intake engine, not a buy-side page. Reachable from the
+  // trade-in bridge on any car page, off the nav, out of the index.
+  robots: { index: false, follow: true },
   title: "Sell your car",
   description:
     "Sell your car to Adam Hall in about five minutes. Rego, a few photos, done — Adam personally reviews every car and makes a real offer within 1 business day.",

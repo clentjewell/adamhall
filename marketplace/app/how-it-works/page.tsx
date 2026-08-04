@@ -15,6 +15,10 @@ import { steps } from "@/lib/site-data/steps";
 import { namedTestimonials, heroQuote } from "@/lib/site-data/testimonials";
 
 export const metadata: Metadata = {
+  // Parent-brand seller page, kept reachable but off the buy-side nav.
+  // Out of the index so it cannot compete with the same content on
+  // adamhallbuymycar.com.au. follow:true so the links out still carry.
+  robots: { index: false, follow: true },
   title: "Adam Hall Value My Car | How it Works",
   description:
     "We come to you, provide an instant offer for your car and can provide payment and collection within 24 hours. See how selling your car to Adam Hall works.",
