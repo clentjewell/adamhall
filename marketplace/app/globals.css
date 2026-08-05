@@ -66,18 +66,23 @@
   --color-amber-soft: #f9f0e0;
 
   /* --- Type ---------------------------------------------------------- */
-  /* The identity specifies a bold geometric sans across 300–900 with tabular
-     figures, but the family is embedded as artwork in the logo files and never
-     named, so no licence exists to buy. Figtree is the identity's own
-     documented stand-in: geometric, 300–900, free, and not domain-locked —
-     which matters on a brand-new domain. Substitute here, in one place, once
-     the licensed family is confirmed. Loaded via next/font in app/layout.tsx.
+  /* The same type as the parent brand: Neue Haas Grotesk Display for headings,
+     Mr Eaves Modern for body, from Adam's Adobe Fonts web project (the Typekit
+     kit loaded in app/layout.tsx). Stacks and fallbacks match the parent site
+     exactly so the two brands read as one family.
+
+     The kit ships weights 400, 500, 600, 700. The type scale still asks for
+     800 and 900 in places; `font-synthesis: none` on the body makes those
+     render in the real 700 face rather than a synthesised faux-heavy, and 300
+     in the real 400. Every weight on the page is a weight Adobe actually
+     serves. If heavier cuts are added to the web project later, the scale
+     picks them up with no code change.
 
      The parent's brush script and Adam's signature are deliberately absent. A
      listings page carries too much information to support a script, and the
      signature is the parent's asset, used only where Adam signs off himself. */
-  --font-display: var(--font-figtree), "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: var(--font-figtree), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* Type scale, desktop. Step down one size on mobile.
@@ -109,6 +114,9 @@ html {
 
 body {
   @apply bg-paper text-ink font-body antialiased;
+  /* The Adobe kit ships 400–700 only. Never fake a heavier or lighter cut:
+     let the browser fall to the nearest real weight instead. */
+  font-synthesis: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

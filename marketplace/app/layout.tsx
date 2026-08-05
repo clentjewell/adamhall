@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
@@ -7,18 +6,6 @@ import EditModeBridge from "@/components/EditModeBridge";
 import SiteJsonLd from "@/components/SiteJsonLd";
 import { brand } from "@/lib/brand";
 import "./globals.css";
-
-// One family across the whole buy side. See the type note in globals.css for
-// why Figtree rather than the parent's Typekit pair: the identity's geometric
-// sans is unnamed and unlicensable, Figtree is its documented stand-in, and a
-// self-hosted Google family avoids the domain lock that would break a Typekit
-// kit the moment carmarketplace.com.au goes live.
-const figtree = Figtree({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "800", "900"],
-  variable: "--font-figtree",
-  display: "swap",
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -41,7 +28,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-AU" className={figtree.variable}>
+    <html lang="en-AU">
+      <head>
+        {/* Same type as the parent brand: Neue Haas Grotesk Display for
+            headings, Mr Eaves Modern for body, from Adam's own Adobe Fonts
+            web project. The kit ships weights 400–700; globals.css pins the
+            stacks and disables faux-weight synthesis so heavier steps render
+            in the real 700 rather than a synthesised heavy. */}
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="" />
+        <link rel="stylesheet" href="https://use.typekit.net/knr6tgk.css" />
+      </head>
       <body className="min-h-dvh flex flex-col">
         <SiteJsonLd />
         <TopLoader />
