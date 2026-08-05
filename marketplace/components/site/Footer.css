@@ -29,18 +29,26 @@
   color: var(--c-sand);
   flex-shrink: 0;
 }
-/* Masked rather than used as a background image, so the wave takes the buy
-   side's accent instead of the lilac baked into the SVG. The identity allows
-   one accent per view, never two, and this block's accent is sand. */
-.ah-site .prefooter__wave {
+/* The gauge, the identity's one pattern device (section 12): fine vertical
+   ticks on a baseline, every fifth one taller. "Counted, checked, measured",
+   which is the promise the brand makes. Generated from three gradients rather
+   than an SVG, so it needs no vector master and cannot go stale in an asset
+   folder. Medium scale, sand on green, as the identity specifies for the
+   footer band. Proportions per the identity: short tick 45% of the tall tick,
+   tall tick every fifth position, tick gap eight times the tick weight. */
+.ah-site .prefooter__gauge {
   display: block;
   width: 100%;
-  height: 7px;
+  height: 15px;
   margin-top: 2rem;
-  background-color: var(--c-sand);
-  mask: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
-  -webkit-mask: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
-  opacity: 0.55;
+  background-image:
+    linear-gradient(var(--c-sand), var(--c-sand)),
+    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 18px),
+    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 90px);
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 100% 2px, 18px 6px, 90px 13px;
+  opacity: 0.85;
 }
 /* The crossing to the parent site. Continues the green block started by the
    trust strip, so it carries no background of its own. Centred to match the

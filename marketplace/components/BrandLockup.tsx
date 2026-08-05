@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { brand } from "@/lib/brand";
 
@@ -22,9 +23,30 @@ export default function BrandLockup({
 }) {
   const nameSize = size === "sm" ? "text-lg" : "text-xl md:text-2xl";
   const endorsementSize = size === "sm" ? "text-[9px]" : "text-[10px] md:text-[11px]";
+  const cartHeight = size === "sm" ? "h-7" : "h-9 md:h-10";
 
-  const mark =
-    brand.logo.kind === "image" ? (
+  const wordmark = (
+    <span className="flex flex-col leading-[0.95]">
+      <span
+        className={`font-display font-black tracking-[-0.03em] ${nameSize} ${
+          reverse ? "text-white" : "text-headline"
+        }`}
+      >
+        {brand.name}
+      </span>
+      <span
+        className={`font-display font-bold uppercase tracking-[0.14em] mt-1 ${endorsementSize} ${
+          reverse ? "text-forest-200" : "text-meta"
+        }`}
+      >
+        {brand.endorsement}
+      </span>
+    </span>
+  );
+
+  let mark: ReactNode;
+  if (brand.logo.kind === "image") {
+    mark = (
       /* eslint-disable-next-line @next/next/no-img-element */
       <img
         src={reverse ? brand.logo.srcReverse : brand.logo.src}
@@ -32,24 +54,26 @@ export default function BrandLockup({
         width={brand.logo.width}
         height={brand.logo.height}
       />
-    ) : (
-      <span className="flex flex-col leading-[0.95]">
-        <span
-          className={`font-display font-black tracking-[-0.03em] ${nameSize} ${
-            reverse ? "text-white" : "text-headline"
-          }`}
-        >
-          {brand.name}
-        </span>
-        <span
-          className={`font-display font-bold uppercase tracking-[0.14em] mt-1 ${endorsementSize} ${
-            reverse ? "text-forest-200" : "text-meta"
-          }`}
-        >
-          {brand.endorsement}
-        </span>
+    );
+  } else if (brand.logo.kind === "mark") {
+    // The primary horizontal lockup: cart artwork, then the wordmark. The cart
+    // is decorative here because the wordmark beside it already names the brand,
+    // so it carries an empty alt to avoid the name being read out twice.
+    mark = (
+      <span className="inline-flex items-center gap-2.5">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={reverse ? brand.logo.cartReverse : brand.logo.cart}
+          alt=""
+          aria-hidden="true"
+          className={`${cartHeight} w-auto`}
+        />
+        {wordmark}
       </span>
     );
+  } else {
+    mark = wordmark;
+  }
 
   if (href === null) return mark;
 

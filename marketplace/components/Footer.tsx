@@ -51,7 +51,7 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <div className="prefooter__wave" aria-hidden="true" />
+          <div className="prefooter__gauge" aria-hidden="true" />
         </div>
       </section>
 

@@ -6,17 +6,24 @@
 // app/globals.css @theme; everything name-, mark- and crossing-related lives
 // here. No component should hard-code a brand string or a logo path.
 //
-// The supplied cart mark is a PLACEHOLDER: raster only, no vector master, and
-// section 03 of the identity states it must not be issued to a developer until
-// the artwork is signed off. So `logo.kind` is "wordmark" and the header
-// renders type, not artwork. When the vector master lands, drop the file in
-// public/brand/ and switch `logo` to the image variant below. That is the only
-// change required — BrandLockup reads this and nothing else does.
+// The cart mark is the vector artwork Liz supplied (Car Marketplace brand
+// pack, 01 Logos), approved for use by the client. It sits beside the wordmark
+// as the identity's primary horizontal lockup. Only BrandLockup reads this; to
+// swap in the full single-file lockup artwork later, switch `logo` to the
+// "image" variant and drop the file in public/brand/.
 // ---------------------------------------------------------------------------
 
 export type BrandLogo =
   | { kind: "wordmark" }
-  | { kind: "image"; src: string; srcReverse: string; width: number; height: number };
+  | { kind: "image"; src: string; srcReverse: string; width: number; height: number }
+  /**
+   * The cart mark set beside the wordmark, which is the identity's primary
+   * horizontal lockup. `cart` is the black artwork for light grounds, `cartReverse`
+   * the white for green and photography. The mark is black or white, never
+   * recoloured (identity section 03). The wordmark and endorsement beside it are
+   * set live in the brand face, so the two brands share one type.
+   */
+  | { kind: "mark"; cart: string; cartReverse: string };
 
 export const brand = {
   /** Written in full on first mention, then just `name`. Never "CM", never "Adam Hall Car Marketplace" — the order carries the hierarchy. */
@@ -26,8 +33,11 @@ export const brand = {
 
   domain: "carmarketplace.com.au",
 
-  /** Swap to { kind: "image", ... } once a signed-off vector master exists. */
-  logo: { kind: "wordmark" } as BrandLogo,
+  logo: {
+    kind: "mark",
+    cart: "/brand/car-marketplace-cart.svg",
+    cartReverse: "/brand/car-marketplace-cart-white.svg",
+  } as BrandLogo,
 
   /** "Curated, not classified." — the two words that separate this from every other place a used car is sold online. */
   essence: "Curated, not classified.",
