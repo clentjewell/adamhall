@@ -19,6 +19,7 @@ Single inventory of every artefact in this repository. Update this table wheneve
 | B01 | Marketplace web app (Next.js + Supabase) | Deploy | Draft | v01 | `marketplace/` |
 | DD14 | Finance Page Compliance Review | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
 | DD15 | Open Questions for Adam (Car Marketplace) | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
+| DD16 | Instant Valuation Assumptions | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
 
 ## Version and status notes
 
