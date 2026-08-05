@@ -22,7 +22,7 @@ interface PhotoItem {
   preview: string;
 }
 
-interface Draft {
+export interface Draft {
   rego: string;
   rego_state: string;
   manual: boolean;
@@ -82,8 +82,16 @@ const SHOT_LIST = [
 
 export default function SellFlow({
   tradeTarget,
+  prefill,
 }: {
   tradeTarget: { id: string; title: string } | null;
+  /**
+   * Seeded from the URL when a seller arrives from the instant valuation
+   * tool, so they do not retype what they just told us. Applied over any
+   * saved draft, because arriving with fresh details is a newer intent than
+   * whatever was left in localStorage.
+   */
+  prefill?: Partial<Draft>;
 }) {
   const [step, setStep] = useState(0);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
@@ -103,12 +111,20 @@ export default function SellFlow({
         const saved = JSON.parse(raw) as Draft;
         // Object previews don't survive reload; keep paths only.
         saved.photos = (saved.photos ?? []).map((p) => ({ ...p, preview: "" }));
-        setDraft({ ...emptyDraft(), ...saved });
-        if (saved.rego || saved.make || saved.seller_name) setRestored(true);
+        setDraft({ ...emptyDraft(), ...saved, ...prefill });
+        // Don't offer to restore when the car details came in from the URL:
+        // the seller is starting a new car, not resuming an old one.
+        if (!prefill && (saved.rego || saved.make || saved.seller_name)) {
+          setRestored(true);
+        }
+        return;
       }
+      if (prefill) setDraft({ ...emptyDraft(), ...prefill });
     } catch {
       /* fresh start */
     }
+    // Prefill is fixed for the life of the page: it comes from searchParams.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
