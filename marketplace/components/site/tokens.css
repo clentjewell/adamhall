@@ -23,11 +23,13 @@
   --c-text-dark: var(--color-soft-ink);
   --c-border: var(--color-hairline);
 
-  /* Typography — one family, worked hard. The parent's brush script and
-     Adam's signature are not part of the buy-side system. */
+  /* Typography — match the parent's pairing so the two sites read as one
+     family of brands: Neue Haas Grotesk Display for headings, Mr Eaves
+     Modern for body and accents (--font-body is defined in globals.css).
+     The parent's brush script and Adam's signature stay out of the buy-side
+     system; the body face does not. */
   --font-heading: var(--font-display);
-  --font-body: var(--font-display);
-  --font-accent: var(--font-display);
+  --font-accent: var(--font-body);
 
   --fw-heading: 600;
   --fw-sub: 400;
