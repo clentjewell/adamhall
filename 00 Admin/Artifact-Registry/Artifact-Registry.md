@@ -2,7 +2,7 @@
 
 Single inventory of every artefact in this repository. Update this table whenever an artefact is added, promoted, or superseded. Status per Jewell OS: Draft / Review / Final / Live.
 
-**Client:** Adam Hall Buy My Car · **Engagement:** 3D Process — Operating System · **Registry updated:** 4 August 2026
+**Client:** Adam Hall Buy My Car · **Engagement:** 3D Process — Operating System · **Registry updated:** 6 August 2026
 
 | Code | Title | Phase | Status | Version | Location |
 |---|---|---|---|---|---|
@@ -18,7 +18,7 @@ Single inventory of every artefact in this repository. Update this table wheneve
 | SOP | Orchestration SOP (Jewell OS) | Blueprint | Live | v01 | `05 Blueprint Extraction/ORCHESTRATION-SOP.md` |
 | B01 | Marketplace web app (Next.js + Supabase) | Deploy | Draft | v01 | `marketplace/` |
 | DD14 | Finance Page Compliance Review | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
-| DD15 | Open Questions for Adam (Car Marketplace) | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
+| DD15 | Open Questions for Adam (Car Marketplace) | Deploy | Draft | v02 | `03 Deploy/04 Website + CRO/` (v01 in `99 Archive/`) |
 | DD16 | Instant Valuation Assumptions | Deploy | Draft | v01 | `03 Deploy/04 Website + CRO/` |
 
 ## Version and status notes
