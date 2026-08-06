@@ -42,14 +42,14 @@
   height: 48px;
   border-radius: 50%;
   border: 0;
-  background: var(--c-purple);
+  background: var(--c-green);
   color: var(--c-white);
   display: grid;
   place-items: center;
   transition: background var(--transition), transform var(--transition);
 }
 .ah-site .ap__play:hover {
-  background: var(--c-purple-dark);
+  background: var(--c-green-deep);
   transform: scale(1.05);
 }
 .ah-site .ap__play svg {

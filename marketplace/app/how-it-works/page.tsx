@@ -110,7 +110,7 @@ export default function HowItWorksPage() {
               your car.
             </span>
           </h4>
-          <Button to="/buy-my-car" variant="purple" arrow>
+          <Button to="/buy-my-car" variant="green" arrow>
             Adam, Buy My Car
           </Button>
         </div>
@@ -157,7 +157,7 @@ export default function HowItWorksPage() {
               ]}
             />
             <div className="hiw-exhaust__actions">
-              <Button to="/buy-my-car" variant="purple" arrow>
+              <Button to="/buy-my-car" variant="green" arrow>
                 Buy My Car
               </Button>
             </div>

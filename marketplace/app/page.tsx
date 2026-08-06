@@ -97,7 +97,7 @@ export default async function HomePage() {
               ]}
             />
             <div className="home-actions">
-              <Button to="/cars" variant="purple" arrow>
+              <Button to="/cars" variant="green" arrow>
                 See what's in stock
               </Button>
             </div>
@@ -152,7 +152,7 @@ export default async function HomePage() {
               ]}
             />
             <div className="home-actions">
-              <Button to="/faq" variant="purple" arrow>
+              <Button to="/faq" variant="green" arrow>
                 Common questions
               </Button>
             </div>
@@ -239,7 +239,7 @@ export default async function HomePage() {
                 ]}
               />
               <div className="home-actions">
-                <Button to="/about-adam-hall" variant="purple" arrow>
+                <Button to="/about-adam-hall" variant="green" arrow>
                   About Adam
                 </Button>
               </div>
