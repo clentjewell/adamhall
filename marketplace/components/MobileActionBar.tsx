@@ -16,7 +16,7 @@ export default function MobileActionBar({
     <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-stone-200 pb-[env(safe-area-inset-bottom)]">
       {sold ? (
         <div className="p-3">
-          <Link href="/cars" className="btn-primary w-full text-sm py-2.5">
+          <Link href="/cars" className="btn-cta w-full text-sm py-2.5">
             See what&apos;s still available
           </Link>
         </div>
@@ -26,7 +26,7 @@ export default function MobileActionBar({
             <Phone size={16} weight="bold" />
             Call
           </a>
-          <a href="#enquire" className="btn-primary text-sm py-2.5" data-car-id={carId}>
+          <a href="#enquire" className="btn-cta text-sm py-2.5" data-car-id={carId}>
             <ChatCircleText size={16} weight="bold" />
             Enquire
           </a>

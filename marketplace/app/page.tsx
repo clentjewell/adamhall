@@ -97,7 +97,7 @@ export default async function HomePage() {
               ]}
             />
             <div className="home-actions">
-              <Button to="/cars" variant="green" arrow>
+              <Button to="/cars" variant="tan" arrow>
                 See what's in stock
               </Button>
             </div>
@@ -174,7 +174,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="green" arrow>
+                <Button to="/cars" variant="tan" arrow>
                   View all cars for sale
                 </Button>
               </div>
@@ -186,7 +186,7 @@ export default async function HomePage() {
                 available.
               </p>
               <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="green" arrow>
+                <Button to="/cars" variant="tan" arrow>
                   View all cars for sale
                 </Button>
               </div>
