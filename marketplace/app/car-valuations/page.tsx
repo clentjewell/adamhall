@@ -50,8 +50,7 @@ export default async function CarValuationsPage() {
                 Adam&apos;s own book
               </p>
               <p className="mt-2">
-                The range comes from cars Adam has bought and sold himself. Around
-                twenty-five pass through the books each month.
+                The range comes from cars Adam has bought and sold himself.
               </p>
             </div>
             <div>

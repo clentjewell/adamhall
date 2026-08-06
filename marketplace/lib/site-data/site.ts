@@ -63,7 +63,7 @@ export const buyerTrustBar = [
   { icon: '/assets/icons/icon-shield.svg', label: 'Every car PPSR checked' },
   { icon: '/assets/icons/icon-hassle-free.svg', label: 'Faults named up front' },
   { icon: '/assets/icons/icon-27.svg', label: '27 years picking cars' },
-  { icon: '/assets/icons/icon-stop-watch.svg', label: 'Around 25 cars a month' },
+  { icon: '/assets/icons/icon-stop-watch.svg', label: 'New arrivals regularly' },
   { icon: '/assets/icons/icon-5-star.svg', label: '5 Star Reviews' },
 ];
 
@@ -77,7 +77,7 @@ export const buyerTrustBar = [
 export const preFooterTrust = [
   'Every car PPSR checked',
   'Faults named in the description',
-  'Around 25 cars a month',
+  'Priced to sell',
 ];
 
 /* Footer strapline for the buy side. The seller tagline above stays put for the

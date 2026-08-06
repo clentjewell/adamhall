@@ -14,7 +14,7 @@ import { homeHeroImage } from "@/lib/heroes";
 export const metadata: Metadata = {
   title: "Hand-picked used cars on the Gold Coast",
   description:
-    "Around 25 used cars a month across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, faults named in the description, priced to sell.",
+    "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, faults named in the description, priced to sell.",
 };
 
 export default async function HomePage() {
@@ -86,8 +86,8 @@ export default async function HomePage() {
               We have already done <span className="wavy">the sorting</span>
             </h3>
             <p>
-              Around twenty-five cars pass through here every month. The ones on
-              the site are the ones that made the cut.
+              The cars here move quickly, and the ones on the site are the ones
+              that made the cut.
             </p>
             <IconList
               items={[
@@ -264,7 +264,7 @@ export default async function HomePage() {
       <PurpleCta
         lineOne={
           <>
-            Around <span className="pcta__pill">25 cars a month</span>
+            Every car here is <span className="pcta__pill">hand-picked</span>
           </>
         }
         lineTwo={
