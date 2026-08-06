@@ -103,7 +103,7 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: var(--c-purple);
+  background: var(--c-green);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition);
@@ -182,7 +182,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 .ah-site .mobile-menu a:hover {
-  color: var(--c-purple);
+  color: var(--c-sand);
 }
 .ah-site .mobile-menu__call {
   align-self: flex-start;
