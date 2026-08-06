@@ -128,7 +128,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
   contact: {
     title: "Talk to a human",
     sub: "No call centre, no ticket number. Ring or drop by and you'll get Adam or someone who actually knows the cars.",
-    email: "[sales@ email to be confirmed]",
+    email: "adam@carmarketplace.com.au",
     address: "[street address to be confirmed]\nServing the Gold Coast, Brisbane & Northern Rivers",
     hours: [
       { days: "Monday – Friday", hours: "8:30am – 5:30pm" },
