@@ -73,7 +73,7 @@ export default function Header() {
 
           <Button
             href={site.phoneHref}
-            variant="green"
+            variant="tan"
             className="btn--bubble site-header__phone"
           >
             {site.phoneDisplay}
@@ -117,7 +117,7 @@ export default function Header() {
         </nav>
         <Button
           href={site.phoneHref}
-          variant="white"
+          variant="tan"
           className="mobile-menu__call"
         >
           Call Adam {site.phoneDisplay}

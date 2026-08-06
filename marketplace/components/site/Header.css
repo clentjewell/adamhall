@@ -187,6 +187,12 @@
 .ah-site .mobile-menu__call {
   align-self: flex-start;
 }
+/* The generic ".mobile-menu a" colour rule would otherwise force this
+   button's label white, leaving white-on-sand; keep the sand button's ink
+   label legible by overriding at higher specificity. */
+.ah-site .mobile-menu a.mobile-menu__call {
+  color: var(--c-black);
+}
 
 @media (max-width: 1200px) {
   .ah-site .site-header__right {
