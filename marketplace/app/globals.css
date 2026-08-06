@@ -41,6 +41,7 @@
      finance highlights. Deliberately low-chroma: a bright accent on a
      used-car site reads as a sale sticker. */
   --color-sand: #f3dcb3;
+  --color-sand-dark: #e7c68e; /* hover for the sand CTA button */
 
   /* --- Neutral ramp (proposed) --------------------------------------- */
   --color-cream: #f7f6f2;    /* page ground, warmer than grey */
@@ -140,9 +141,12 @@ body {
 @utility btn-secondary {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none border-2 border-forest-600 text-forest-700 hover:bg-forest-50 px-6 py-3;
 }
-/* Brand conversion CTA — the reference site's purple pill */
+/* Brand conversion CTA. Sand is the buy-side accent for the one action that
+   matters on each screen (identity section 04). Sand is a light ground, so the
+   label is dark ink, never white. Lilac is the parent's accent and does not
+   appear on the marketplace. */
 @utility btn-cta {
-  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none bg-brand-purple text-white hover:bg-brand-purple-dark px-6 py-3;
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none bg-sand text-ink hover:bg-sand-dark px-6 py-3;
 }
 @utility btn-ghost {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none text-forest-700 hover:bg-forest-50 px-4 py-2;
