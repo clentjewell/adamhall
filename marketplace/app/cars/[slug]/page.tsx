@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
+import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
 import CarHero from "@/components/CarHero";
@@ -199,8 +200,8 @@ export default async function CarDetailPage({ params }: Props) {
                 </Link>
                 <EnquiryForm carId={car.id} carName={title} />
                 <TestDriveForm carId={car.id} carName={title} />
-                <Link
-                  href={`/sell?trade=${car.slug}`}
+                <a
+                  href={parentUrl("/buy-my-car", "marketplace-tradein")}
                   className="card p-5 flex items-center gap-4 hover:border-forest-200 hover:-translate-y-0.5 transition-all group"
                 >
                   <ArrowsLeftRight size={26} className="text-forest-600 shrink-0" weight="bold" />
@@ -212,7 +213,7 @@ export default async function CarDetailPage({ params }: Props) {
                       Send us yours and Adam will price both sides of the deal at once.
                     </p>
                   </div>
-                </Link>
+                </a>
               </>
             )}
           </aside>
