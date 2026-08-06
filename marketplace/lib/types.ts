@@ -101,6 +101,7 @@ export interface Enquiry {
   kind: EnquiryKind;
   name: string;
   phone: string;
+  email: string | null;
   preferred_time: string | null;
   message: string | null;
   status: EnquiryStatus;

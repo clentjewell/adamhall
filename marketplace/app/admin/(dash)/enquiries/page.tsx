@@ -24,6 +24,11 @@ export default async function EnquiriesPage() {
           <a href={`tel:${e.phone}`} className="ml-2 text-forest-700 text-sm font-bold">
             {e.phone}
           </a>
+          {e.email && (
+            <a href={`mailto:${e.email}`} className="ml-2 text-forest-700 text-sm font-bold">
+              {e.email}
+            </a>
+          )}
         </p>
         <p className="text-sm text-stone-500 truncate">
           {e.kind === "book_look" ? "Wants a look" : "Question"} ·{" "}

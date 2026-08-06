@@ -62,6 +62,12 @@ export default function EnquiryForm({ carId, carName }: { carId: string; carName
           <input id="enq-phone" name="phone" type="tel" required className="input" autoComplete="tel" />
           <p className="helper">We call rather than email tennis. Quicker for everyone.</p>
         </div>
+        <div>
+          <label htmlFor="enq-email" className="label">
+            Email <span className="font-normal text-stone-400">(optional)</span>
+          </label>
+          <input id="enq-email" name="email" type="email" className="input" autoComplete="email" />
+        </div>
         {kind === "book_look" && (
           <div>
             <label htmlFor="enq-time" className="label">When suits you?</label>

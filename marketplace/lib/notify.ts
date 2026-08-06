@@ -83,11 +83,12 @@ export const emailTemplates = {
         <p>That's about what we can retail right now, not about your car. If circumstances change or you have another car down the track, we'd genuinely like to hear from you.</p>`),
     };
   },
-  enquiryReceived(adminEmail: string, carName: string, name: string, phone: string) {
+  enquiryReceived(adminEmail: string, carName: string, name: string, phone: string, email?: string) {
+    const contact = email ? `${phone}, ${email}` : phone;
     return {
       to: adminEmail,
       subject: `New enquiry: ${carName}`,
-      html: wrap(`<p><strong>${name}</strong> (${phone}) enquired about the ${carName}. It's in the admin inbox.</p>`),
+      html: wrap(`<p><strong>${name}</strong> (${contact}) enquired about the ${carName}. It's in the admin inbox.</p>`),
     };
   },
   watchlistMatch(email: string, carName: string, price: string, url: string) {
