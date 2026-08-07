@@ -6,11 +6,13 @@
 // app/globals.css @theme; everything name-, mark- and crossing-related lives
 // here. No component should hard-code a brand string or a logo path.
 //
-// The cart mark is the vector artwork Liz supplied (Car Marketplace brand
-// pack, 01 Logos), approved for use by the client. It sits beside the wordmark
-// as the identity's primary horizontal lockup. Only BrandLockup reads this; to
-// swap in the full single-file lockup artwork later, switch `logo` to the
-// "image" variant and drop the file in public/brand/.
+// The logo is the primary horizontal lockup Liz supplied (Car Marketplace
+// brand pack, "01 Car_Marketplace_Primary_Logo"), approved for use by the
+// client: the cart, the wordmark and Adam's own signature set as one piece of
+// artwork. It is used as supplied — the signature is drawn, not typeset, so it
+// cannot be rebuilt from live text. `src` is the black cut for light grounds,
+// `srcReverse` the white for green and photography; the mark is black or white
+// and never recoloured (identity section 03). Only BrandLockup reads this.
 // ---------------------------------------------------------------------------
 
 export type BrandLogo =
@@ -34,9 +36,11 @@ export const brand = {
   domain: "carmarketplace.com.au",
 
   logo: {
-    kind: "mark",
-    cart: "/brand/car-marketplace-cart.svg",
-    cartReverse: "/brand/car-marketplace-cart-white.svg",
+    kind: "image",
+    src: "/brand/car-marketplace-logo.svg",
+    srcReverse: "/brand/car-marketplace-logo-white.svg",
+    width: 1103,
+    height: 377,
   } as BrandLogo,
 
   /** "Curated, not classified." — the two words that separate this from every other place a used car is sold online. */

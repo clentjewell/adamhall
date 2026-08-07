@@ -24,6 +24,10 @@ export default function BrandLockup({
   const nameSize = size === "sm" ? "text-lg" : "text-xl md:text-2xl";
   const endorsementSize = size === "sm" ? "text-[9px]" : "text-[10px] md:text-[11px]";
   const cartHeight = size === "sm" ? "h-7" : "h-9 md:h-10";
+  // The full lockup stacks two lines of type plus the signature, so it needs a
+  // little more height than the cart-and-wordmark pairing to read at the same
+  // weight in the header.
+  const lockupHeight = size === "sm" ? "h-10" : "h-12 md:h-14";
 
   const wordmark = (
     <span className="flex flex-col leading-[0.95]">
@@ -46,6 +50,9 @@ export default function BrandLockup({
 
   let mark: ReactNode;
   if (brand.logo.kind === "image") {
+    // The supplied lockup already carries the name and the endorsement, so the
+    // live wordmark is not rendered beside it. Height is set here and the width
+    // follows the artwork's own ratio.
     mark = (
       /* eslint-disable-next-line @next/next/no-img-element */
       <img
@@ -53,6 +60,7 @@ export default function BrandLockup({
         alt={brand.fullName}
         width={brand.logo.width}
         height={brand.logo.height}
+        className={`${lockupHeight} w-auto`}
       />
     );
   } else if (brand.logo.kind === "mark") {
