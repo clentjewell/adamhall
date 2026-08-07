@@ -11,6 +11,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* The source is 16:9 with Adam on the right and the customer mid-frame.
+     A centred crop in this narrow column cuts Adam out and leaves only the
+     customer. Pull the crop right so Adam is the subject and the handshake
+     still reads. */
+  object-position: 90% center;
 }
 .ah-site .hero__signature {
   position: absolute;
