@@ -12,6 +12,11 @@
    the parent's decorative signatures come off the buy side.
    What stays: forest green, the Neue Haas / Mr Eaves pairing, sand for
    the one action that matters, cream ground, the plain copy voice.
+
+   Shape lock: every rounded thing on this page takes its radius from the
+   tokens (--radius on photographs, --radius-sm on small chrome). The
+   ported parent CSS sprinkled 4px and 5px literals around, which is the
+   parent's radius, not ours.
    =================================================================== */
 
 /* Eyebrows on the buy side are green, not lilac. base.css colours .eyebrow
@@ -63,9 +68,7 @@
 }
 .ah-site .mp-hero__media img {
   width: 100%;
-  /* Shape lock, per the identity: cards are rounded-2xl. The ported parent
-     CSS puts 4px on every image, which is the parent's radius, not ours. */
-  border-radius: 1rem;
+  border-radius: var(--radius);
   object-fit: cover;
   aspect-ratio: 4 / 3;
   display: block;
@@ -86,7 +89,14 @@
     #ffffff 100%
   );
 }
+/* Source order is heading-then-grid so the card h3s sit under their own h2.
+   Visual order is the reverse. */
+.ah-site .mp-stock__inner {
+  display: flex;
+  flex-direction: column;
+}
 .ah-site .mp-stock__grid {
+  order: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
@@ -103,6 +113,7 @@
 /* Title and CTA sit under the grid, not above it: the cars introduce
    themselves, and the eye finishes on "view all". */
 .ah-site .mp-stock__footer {
+  order: 2;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -110,7 +121,7 @@
   flex-wrap: wrap;
   margin-top: 2.5rem;
   padding-top: 1.75rem;
-  border-top: 1px solid var(--color-hairline, #e4e1d8);
+  border-top: 1px solid var(--c-border);
 }
 .ah-site .mp-stock__title {
   font-size: var(--fs-h4);
@@ -203,83 +214,19 @@
   }
 }
 
-.ah-site .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 39%) 1fr;
-  min-height: 900px; 
-}
-.ah-site .hero__media {
-  position: relative;
-}
-.ah-site .hero__media > img:not(.hero__signature) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* The source is 16:9 with Adam on the right and the customer mid-frame.
-     A centred crop in this narrow column cuts Adam out and leaves only the
-     customer. Pull the crop right so Adam is the subject and the handshake
-     still reads. */
-  object-position: 90% center;
-}
-.ah-site .hero__signature {
-  position: absolute;
-  left: 70px;
-  bottom: 1.75rem;
-  width: 130px; 
-  height: auto;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
-}
-.ah-site .hero__content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  
-  padding: calc(var(--header-h) + 2rem) clamp(1.25rem, 5vw, 4.7rem) clamp(2.5rem, 5vw, 4.5rem)
-    clamp(1.25rem, 6vw, 5.4rem);
-  max-width: none;
-}
-.ah-site .hero__title {
-  font-size: var(--fs-hero);
-  color: var(--c-white);
-  line-height: 1.12;
-  margin-bottom: 0.9rem;
-}
-.ah-site .hero__subtitle {
-  
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
-  line-height: 1.3;
-  color: var(--c-white);
-  margin-bottom: 1.6rem;
-  max-width: 42rem;
-}
-.ah-site .hero__actions {
-  display: flex;
-  align-items: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-}
-.ah-site .hero__featured {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-.ah-site .hero__featured > span {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-}
-.ah-site .hero__featured img {
-  height: 46px;
-  width: auto;
-}
+/* --- Body sections ---------------------------------------------------
+   The Draft 1 hero (.hero, .hero__signature, .hero__featured and the rest
+   of the 900px portrait split) has been deleted rather than left dormant:
+   it was superseded by .mp-hero above and nothing rendered it. The same
+   goes for the parent's decorative furniture that came across with the
+   port and was never placed on this side — the spinning guarantee badge,
+   the collage inset, the speech bubbles, and the media-left variant of
+   the split. */
+
 .ah-site .home-intro {
   text-align: center;
 }
 .ah-site .home-intro__title {
-  
   font-size: clamp(1.7rem, 2.8vw, 2.5rem);
   line-height: 1.3;
   color: var(--c-black);
@@ -292,15 +239,10 @@
   margin-inline: auto;
 }
 .ah-site .home-split {
-  
   display: grid;
   grid-template-columns: 1fr minmax(0, 51.5%);
   align-items: center;
   gap: clamp(2.5rem, 7.2vw, 6.5rem);
-}
-.ah-site .home-split--media-left {
-  
-  grid-template-columns: minmax(0, 44%) 1fr;
 }
 .ah-site .home-split__title {
   font-size: var(--fs-h3);
@@ -316,92 +258,33 @@
 .ah-site .home-split__media {
   position: relative;
 }
+/* Crop lock: both photographs on this page sit at 4/3, the same ratio as
+   the hero image, so the three pictures agree with each other instead of
+   each carrying the ratio of whichever source file it came from. */
 .ah-site .home-split__media > img:first-child {
   width: 100%;
-  border-radius: 4px;
+  border-radius: var(--radius);
   object-fit: cover;
-  aspect-ratio: 738 / 650; 
+  aspect-ratio: 4 / 3;
 }
-.ah-site .home-split--media-left .home-split__media > img:first-child {
-  aspect-ratio: 652 / 650; 
-}
+/* Past the container width the photograph runs out to the viewport edge.
+   The outer corners square off so it reads as bleeding off the page
+   rather than as a card that happens to be very wide. */
 @media (min-width: 1161px) {
-.ah-site .home-split:not(.home-split--media-left) .home-split__media {
+  .ah-site .home-split .home-split__media {
     margin-right: calc((1160px - 100vw) / 2);
   }
-.ah-site .home-split:not(.home-split--media-left) .home-split__media > img:first-child {
+  .ah-site .home-split .home-split__media > img:first-child {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-.ah-site .home-split--media-left .home-split__media {
-    margin-left: calc((1160px - 100vw) / 2);
-  }
-.ah-site .home-split--media-left .home-split__media > img:first-child {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
 }
 
-.ah-site .home-split__bubbles {
-  
-  position: absolute;
-  left: 18%;
-  bottom: 20%;
-  width: 64%;
-  pointer-events: none;
-}
-.ah-site .home-split--media-left .home-split__media {
-  order: 0;
-}
-.ah-site .home-split--media-left .home-split__content {
-  order: 1;
-}
 .ah-site .home-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1.8rem;
-}
-.ah-site .home-buy {
-  position: relative;
-}
-.ah-site .home-split__media--collage {
-  padding-bottom: 110px; 
-}
-.ah-site .home-split__collage {
-  
-  position: absolute;
-  left: 58%;
-  bottom: 5px;
-  width: 49%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: var(--shadow);
-}
-.ah-site .home-split__media .home-badge {
-  
-  position: absolute;
-  left: 29%;
-  bottom: -10px;
-  width: 213px !important;
-  height: 213px !important;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  border-radius: 0;
-  animation: badge-spin 24s linear infinite;
-  z-index: 2;
-}
-@keyframes badge-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-.ah-site .home-badge {
-    animation: none;
-  }
 }
 
 .ah-site .home-voice__logo {
@@ -411,34 +294,14 @@
   filter: brightness(0) saturate(100%);
   opacity: 0.9;
 }
-@media (max-width: 1024px) {
-.ah-site .hero {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-.ah-site .hero__media {
-    margin-top: 0;
-    max-height: 420px;
-    overflow: hidden;
-  }
-.ah-site .hero__content {
-    padding-block: 2.5rem 3rem;
-  }
-}
 
 @media (max-width: 900px) {
-.ah-site .home-split {
+  .ah-site .home-split {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-.ah-site .home-split__media {
+  .ah-site .home-split__media {
     order: -1;
-  }
-.ah-site .home-split--media-left .home-split__content {
-    order: 0;
-  }
-.ah-site .home-badge {
-    display: none;
   }
 }
 

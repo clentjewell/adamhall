@@ -66,17 +66,21 @@ export default async function HomePage() {
           opens on cars rather than on a picture of a person. */}
       {latest.length > 0 ? (
         <section className="mp-stock">
-          <div className="container container--wide">
-            <div className="mp-stock__grid">
-              {latest.map((car, i) => (
-                <CarCard key={car.id} car={car} priority={i < 3} />
-              ))}
-            </div>
+          <div className="container container--wide mp-stock__inner">
+            {/* The heading leads in the DOM and CSS order drops it below the
+                grid. Written the other way round, the three card h3s came
+                before the h2 that titles them — an h1 -> h3 jump, and the
+                cards read as belonging to the hero. */}
             <div className="mp-stock__footer reveal">
               <h2 className="mp-stock__title">Cars for sale right now</h2>
               <Button to="/cars" variant="tan" arrow>
                 View all cars
               </Button>
+            </div>
+            <div className="mp-stock__grid">
+              {latest.map((car, i) => (
+                <CarCard key={car.id} car={car} priority={i < 3} />
+              ))}
             </div>
           </div>
         </section>
@@ -233,7 +237,7 @@ export default async function HomePage() {
                 alt="Adam Hall presenting What's Your Car Worth on 4CRB 89.3FM"
                 loading="lazy"
                 width={640}
-                height={430}
+                height={480}
               />
             </div>
           </div>
