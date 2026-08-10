@@ -7,8 +7,9 @@ import IconList from "@/components/site/IconList";
 import FaqSection from "@/components/site/FaqSection";
 import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeroVideo from "@/components/HeroVideo";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
-import { homeHeroImage } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 export const metadata: Metadata = {
   title: "Hand-picked used cars on the Gold Coast",
@@ -26,13 +27,23 @@ export default async function HomePage() {
     <div className="ah-site mp-home">
       <SiteReveal />
 
-      {/* Hero. Shorter than the parent's portrait-split, and it hands over to
-          the stock grid rather than filling the viewport on its own.
+      {/* Hero. A full-height film, matching the inner pages, with the stock
+          grid still riding up over its bottom edge so the page opens on cars
+          rather than on a picture of a person.
           Adam's signature and the 4CRB badge are deliberately absent. Both are
           the parent brand's assets — the signature belongs where Adam signs off
           himself, and the radio segment is his credential, not the
           Marketplace's. */}
+      {/* bg-green is the ground the film sits on, and what shows if it never
+          arrives. HeroVideo keeps the poster up for reduced-motion and
+          save-data users, so this reads as the old still hero for them. */}
       <section className="mp-hero bg-green">
+        <HeroVideo
+          src={pageHeroVideos.home}
+          poster={pageHeroImages.home}
+          posterAlt="A customer shaking hands with Adam Hall beside the car he has just bought"
+        />
+        <div className="mp-hero__scrim" />
         <div className="container container--wide mp-hero__inner">
           <div className="mp-hero__content">
             <span className="eyebrow eyebrow--hero">
@@ -51,13 +62,6 @@ export default async function HomePage() {
                 Call {site.phoneDisplay}
               </Button>
             </div>
-          </div>
-          <div className="mp-hero__media">
-            <img
-              src={homeHeroImage}
-              alt="A customer shaking hands with Adam Hall beside the car he has just bought"
-              fetchPriority="high"
-            />
           </div>
         </div>
       </section>

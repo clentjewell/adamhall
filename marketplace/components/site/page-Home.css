@@ -33,19 +33,50 @@
 }
 
 /* --- Hero -----------------------------------------------------------
-   Shorter than the parent's (which runs 900px tall to carry a portrait).
-   This one is sized to leave the top of the listings grid visible on a
-   laptop, because the first question a buyer has is "what have you got",
-   not "who are you". Extra bottom padding is the runway the stock grid
-   overlaps into. */
+   A full-height film rather than a photograph in a box. The section slides
+   up under the sticky 65px header (-4rem, the same trick PageHero uses on
+   the inner pages) so the video reaches the top of the window and the hero
+   still bottoms out around the fold.
+
+   Do not reach for --header-h here: that token is 150px, inherited from the
+   parent site's much taller masthead, and this header measures 65. The
+   padding-top below is what actually clears it.
+
+   Bottom padding is deliberately large — it is the runway the stock grid
+   overlaps up into, and it keeps the headline clear of the cards. */
 .ah-site .mp-hero {
-  padding-block: calc(var(--header-h) + 2.5rem) 9rem;
+  position: relative;
+  margin-top: -4rem;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-block: 9rem 14rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* The video mounts absolutely inside the section; the scrim sits between it
+   and the copy. Both need to lose to .mp-hero__inner on z-order. */
+.ah-site .mp-hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* Two jobs stacked: a green foot that lets the film hand over to the solid
+     green the stock grid overlaps into, and a black wash that buys the white
+     headline its contrast wherever the footage happens to be bright. */
+  background:
+    linear-gradient(to bottom, transparent 50%, var(--c-green) 100%),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.3) 40%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
 }
 .ah-site .mp-hero__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
-  align-items: center;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  position: relative;
+  z-index: 1;
+}
+.ah-site .mp-hero__content {
+  max-width: 38rem;
 }
 .ah-site .mp-hero__title {
   font-size: var(--fs-hero);
@@ -66,12 +97,11 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
-.ah-site .mp-hero__media img {
-  width: 100%;
-  border-radius: var(--radius);
-  object-fit: cover;
-  aspect-ratio: 4 / 3;
-  display: block;
+/* Text sitting on moving footage needs a touch more weight than text on a
+   flat green panel. */
+.ah-site .mp-hero__subtitle,
+.ah-site .mp-hero__title {
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
 }
 
 /* --- Stock, overlapping the hero -------------------------------------
@@ -79,13 +109,16 @@
    over the green edge so cars are the first object on the page, and the
    boundary between hero and body is crossed by content rather than drawn
    as a straight line. */
+/* The green strip here has to be exactly as deep as the grid's negative
+   margin, so it meets the green foot of the hero's scrim with no seam and
+   the cards cross one continuous band. Change one, change the other. */
 .ah-site .mp-stock {
   padding-bottom: var(--section-py);
   background: linear-gradient(
     to bottom,
     var(--c-green) 0,
-    var(--c-green) 6rem,
-    #ffffff 6rem,
+    var(--c-green) 9rem,
+    #ffffff 9rem,
     #ffffff 100%
   );
 }
@@ -100,7 +133,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  margin-top: -6rem;
+  margin-top: -9rem;
 }
 /* Vehicle names run to one or two lines. Reserve two so price and spec
    share a baseline across the row instead of stepping down under a long
@@ -184,14 +217,10 @@
 
 @media (max-width: 1024px) {
   .ah-site .mp-hero {
-    padding-block: calc(var(--header-h-mobile) + 2rem) 8rem;
+    padding-block: 7rem 12rem;
   }
-  .ah-site .mp-hero__inner {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  .ah-site .mp-hero__media {
-    order: -1;
+  .ah-site .mp-hero__content {
+    max-width: none;
   }
   .ah-site .mp-stock__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -203,11 +232,27 @@
   }
 }
 @media (max-width: 560px) {
+  /* A full-height film plus a 14rem runway is too much on a phone: the
+     headline ends up floating in the middle of nowhere. Let the hero size to
+     its content instead, with a floor rather than a fixed viewport height. */
+  .ah-site .mp-hero {
+    min-height: 78dvh;
+    padding-block: 6rem 9rem;
+  }
   .ah-site .mp-stock__grid {
     grid-template-columns: 1fr;
-    /* One column is taller than the green runway, so stop overlapping and
-       just sit the grid on white. */
+    /* One card column is taller than the runway, so the overlap shortens. */
     margin-top: -3rem;
+  }
+  /* Keep the green strip locked to the shorter overlap above. */
+  .ah-site .mp-stock {
+    background: linear-gradient(
+      to bottom,
+      var(--c-green) 0,
+      var(--c-green) 3rem,
+      #ffffff 3rem,
+      #ffffff 100%
+    );
   }
   .ah-site .mp-stock__footer {
     gap: 1.25rem;
