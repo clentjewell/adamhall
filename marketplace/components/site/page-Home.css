@@ -1,4 +1,208 @@
 /* scoped port of pages/Home.css */
+
+/* ===================================================================
+   MARKETPLACE HOME, DRAFT 2
+   -------------------------------------------------------------------
+   The buy side had become a reskin of adamhall.com.au: same 900px
+   portrait-split hero, same alternating image/text rows, same hand-drawn
+   underline, same lilac closing band. Same green and same type is the
+   family resemblance we want. Same skeleton is not.
+
+   What moves: the page now opens on stock rather than on a portrait, and
+   the parent's decorative signatures come off the buy side.
+   What stays: forest green, the Neue Haas / Mr Eaves pairing, sand for
+   the one action that matters, cream ground, the plain copy voice.
+   =================================================================== */
+
+/* Eyebrows on the buy side are green, not lilac. base.css colours .eyebrow
+   with --c-purple, which is the parent's human accent; the identity keeps it
+   for moments that are Adam himself. Scoped to .mp-home rather than fixed in
+   base.css because the parent-brand pages hosted on this domain (buy-my-car,
+   about-adam-hall, the 4CRB page) should keep it. */
+.ah-site.mp-home .eyebrow {
+  color: var(--c-green);
+}
+.ah-site.mp-home .bg-green .eyebrow,
+.ah-site.mp-home .eyebrow--hero {
+  color: var(--c-sand);
+}
+
+/* --- Hero -----------------------------------------------------------
+   Shorter than the parent's (which runs 900px tall to carry a portrait).
+   This one is sized to leave the top of the listings grid visible on a
+   laptop, because the first question a buyer has is "what have you got",
+   not "who are you". Extra bottom padding is the runway the stock grid
+   overlaps into. */
+.ah-site .mp-hero {
+  padding-block: calc(var(--header-h) + 2.5rem) 9rem;
+}
+.ah-site .mp-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 46%);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+.ah-site .mp-hero__title {
+  font-size: var(--fs-hero);
+  color: var(--c-white);
+  line-height: 1.08;
+  margin-bottom: 0.9rem;
+}
+.ah-site .mp-hero__subtitle {
+  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.88);
+  margin-bottom: 1.9rem;
+  max-width: 34rem;
+}
+.ah-site .mp-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ah-site .mp-hero__media img {
+  width: 100%;
+  /* Shape lock, per the identity: cards are rounded-2xl. The ported parent
+     CSS puts 4px on every image, which is the parent's radius, not ours. */
+  border-radius: 1rem;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+  display: block;
+}
+
+/* --- Stock, overlapping the hero -------------------------------------
+   The single biggest break from the parent. Three live listings ride up
+   over the green edge so cars are the first object on the page, and the
+   boundary between hero and body is crossed by content rather than drawn
+   as a straight line. */
+.ah-site .mp-stock {
+  padding-bottom: var(--section-py);
+  background: linear-gradient(
+    to bottom,
+    var(--c-green) 0,
+    var(--c-green) 6rem,
+    #ffffff 6rem,
+    #ffffff 100%
+  );
+}
+.ah-site .mp-stock__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: -6rem;
+}
+/* Vehicle names run to one or two lines. Reserve two so price and spec
+   share a baseline across the row instead of stepping down under a long
+   name. Only where there is more than one column to align against. */
+@media (min-width: 561px) {
+  .ah-site .mp-stock__grid .font-display {
+    min-height: 3.4375rem;
+  }
+}
+/* Title and CTA sit under the grid, not above it: the cars introduce
+   themselves, and the eye finishes on "view all". */
+.ah-site .mp-stock__footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-hairline, #e4e1d8);
+}
+.ah-site .mp-stock__title {
+  font-size: var(--fs-h4);
+  margin: 0;
+}
+.ah-site .mp-stock--empty {
+  background: #ffffff;
+  padding-top: var(--section-py);
+  text-align: center;
+}
+
+/* --- Honesty band ----------------------------------------------------
+   Was a third consecutive image/text split. Three in a row is the
+   parent's rhythm and reads as a template. This one becomes a green
+   statement band, which also puts a second dark ground on the page so
+   the cream stretch is broken up. */
+.ah-site .mp-honest {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 50%);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+.ah-site .mp-honest__title {
+  font-size: var(--fs-h3);
+  line-height: 1.12;
+  margin: 0;
+}
+.ah-site .mp-honest__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ah-site .mp-honest__list li {
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+}
+.ah-site .mp-honest__list li:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.22);
+}
+.ah-site .mp-honest__actions {
+  margin-top: 2rem;
+}
+
+/* --- Closing band ----------------------------------------------------
+   Replaces the lilac PurpleCta. Lilac is the parent's human accent and
+   the identity says it does not appear on the buy side; the homepage was
+   ending on a full band of it. Green ground, sand action. */
+.ah-site .mp-close {
+  text-align: center;
+}
+.ah-site .mp-close__title {
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  max-width: 22ch;
+  margin: 0 auto 1.75rem;
+}
+
+@media (max-width: 1024px) {
+  .ah-site .mp-hero {
+    padding-block: calc(var(--header-h-mobile) + 2rem) 8rem;
+  }
+  .ah-site .mp-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .ah-site .mp-hero__media {
+    order: -1;
+  }
+  .ah-site .mp-stock__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .ah-site .mp-honest {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+@media (max-width: 560px) {
+  .ah-site .mp-stock__grid {
+    grid-template-columns: 1fr;
+    /* One column is taller than the green runway, so stop overlapping and
+       just sit the grid on white. */
+    margin-top: -3rem;
+  }
+  .ah-site .mp-stock__footer {
+    gap: 1.25rem;
+  }
+}
+
 .ah-site .hero {
   display: grid;
   grid-template-columns: minmax(0, 39%) 1fr;
@@ -238,56 +442,6 @@
   }
 }
 
-/* "Cars for sale right now" — live inventory grid (added for the merged site) */
-/* The listings sit on white so they lift off the cream that runs above and
-   below. Hairline top and bottom keep the change of ground deliberate rather
-   than accidental. */
-.ah-site .bg-listings {
-  background-color: #ffffff;
-  border-block: 1px solid var(--color-hairline, #e4e1d8);
-}
-
-/* Section opens with a header row: title left, CTA right. Replaces the centred
-   title plus a repeated button under the grid (one CTA per intent). */
-.ah-site .home-cars__header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-.ah-site .home-cars__title {
-  margin: 0;
-}
-
-.ah-site .home-cars__grid {
-  display: grid;
-  /* Three larger cards, not four small ones. Fewer, bigger listings read as
-     hand-picked; a dense grid reads as a classifieds dump, which is the exact
-     thing this brand positions against. */
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin: 2.5rem 0 0;
-}
-/* Vehicle names run to one or two lines. Reserve two, so the price and the
-   spec line share a baseline across the row instead of stepping down under a
-   long name. Only where there is more than one column to align against. */
-@media (min-width: 561px) {
-  .ah-site .home-cars__grid .font-display {
-    min-height: 3.4375rem; /* 2 lines at text-xl / leading-snug */
-  }
-}
-@media (max-width: 1024px) {
-  .ah-site .home-cars__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-}
-@media (max-width: 560px) {
-  .ah-site .home-cars__grid {
-    grid-template-columns: 1fr;
-  }
-  .ah-site .home-cars__header {
-    gap: 1.25rem;
-  }
-}
+/* The mid-page listings section that used to live here moved into .mp-stock at
+   the top of this file, where it now opens the page instead of sitting between
+   two cream sections. */

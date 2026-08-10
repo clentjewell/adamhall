@@ -5,7 +5,6 @@ import CarCard from "@/components/CarCard";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
 import FaqSection from "@/components/site/FaqSection";
-import PurpleCta from "@/components/site/PurpleCta";
 import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
@@ -24,43 +23,81 @@ export default async function HomePage() {
   const latest = cars.filter((c) => c.status === "published").slice(0, 3);
 
   return (
-    <div className="ah-site">
+    <div className="ah-site mp-home">
       <SiteReveal />
 
-      {/* Hero: full-bleed photo left, content right.
+      {/* Hero. Shorter than the parent's portrait-split, and it hands over to
+          the stock grid rather than filling the viewport on its own.
           Adam's signature and the 4CRB badge are deliberately absent. Both are
           the parent brand's assets — the signature belongs where Adam signs off
           himself, and the radio segment is his credential, not the
           Marketplace's. */}
-      <section className="hero bg-green">
-        <div className="hero__media">
-          <img
-            src={homeHeroImage}
-            alt="A customer shaking hands with Adam Hall beside the car he has just bought"
-            fetchPriority="high"
-          />
-        </div>
-        <div className="hero__content">
-          <span className="eyebrow eyebrow--hero">
-            Gold Coast, Brisbane &amp; Northern Rivers
-          </span>
-          <h1 className="hero__title">
-            Cars worth putting <span className="wavy">our name on</span>
-          </h1>
-          <p className="hero__subtitle">
-            Every car here is one Adam decided was worth buying. What the listing
-            says is what you get.
-          </p>
-          <div className="hero__actions">
-            <Button to="/cars" variant="tan" arrow>
-              See the cars
-            </Button>
-            <Button href={site.phoneHref} variant="outline-white">
-              Call {site.phoneDisplay}
-            </Button>
+      <section className="mp-hero bg-green">
+        <div className="container container--wide mp-hero__inner">
+          <div className="mp-hero__content">
+            <span className="eyebrow eyebrow--hero">
+              Gold Coast, Brisbane &amp; Northern Rivers
+            </span>
+            <h1 className="mp-hero__title">Cars worth putting our name on</h1>
+            <p className="mp-hero__subtitle">
+              Every car here is one Adam decided was worth buying. What the
+              listing says is what you get.
+            </p>
+            <div className="mp-hero__actions">
+              <Button to="/cars" variant="tan" arrow>
+                See the cars
+              </Button>
+              <Button href={site.phoneHref} variant="outline-white">
+                Call {site.phoneDisplay}
+              </Button>
+            </div>
+          </div>
+          <div className="mp-hero__media">
+            <img
+              src={homeHeroImage}
+              alt="A customer shaking hands with Adam Hall beside the car he has just bought"
+              fetchPriority="high"
+            />
           </div>
         </div>
       </section>
+
+      {/* Stock first. The listings ride up over the green edge so the page
+          opens on cars rather than on a picture of a person. */}
+      {latest.length > 0 ? (
+        <section className="mp-stock">
+          <div className="container container--wide">
+            <div className="mp-stock__grid">
+              {latest.map((car, i) => (
+                <CarCard key={car.id} car={car} priority={i < 3} />
+              ))}
+            </div>
+            <div className="mp-stock__footer reveal">
+              <h2 className="mp-stock__title">Cars for sale right now</h2>
+              <Button to="/cars" variant="tan" arrow>
+                View all cars
+              </Button>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="mp-stock mp-stock--empty">
+          <div className="container container--wide">
+            <h2 className="mp-stock__title" style={{ marginBottom: "1rem" }}>
+              Cars for sale right now
+            </h2>
+            <p style={{ marginBottom: "1.5rem" }}>
+              Fresh stock is on its way. Take a look at everything currently
+              available.
+            </p>
+            <div className="home-actions" style={{ justifyContent: "center" }}>
+              <Button to="/cars" variant="tan" arrow>
+                View all cars for sale
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
       <TrustBar items={buyerTrustBar} label="Why buy from Car Marketplace" />
 
@@ -84,9 +121,7 @@ export default async function HomePage() {
         <div className="container container--wide home-split">
           <div className="home-split__content reveal-left">
             <span className="eyebrow">Curated, not classified</span>
-            <h3 className="home-split__title">
-              We have already done <span className="wavy">the sorting</span>
-            </h3>
+            <h2 className="home-split__title">We have already done the sorting</h2>
             <p>
               The cars here move quickly, and the ones on the site are the ones
               that made the cut.
@@ -116,93 +151,30 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Honesty: what the listing tells you. The hassle-free guarantee badge is
-          gone from here — it is the parent's selling promise, not a buy-side claim. */}
-      <section className="section bg-cream home-buy" style={{ paddingTop: 0 }}>
-        <div className="container container--wide home-split home-split--media-left">
-          <div className="home-split__media home-split__media--collage reveal-left">
-            <img
-              src="/assets/images/Adam-Hall-Value-My-Car.jpg"
-              alt="Adam Hall talking with a customer through their car window"
-              loading="lazy"
-              width={640}
-              height={480}
-            />
-            <img
-              className="home-split__collage"
-              src="/assets/images/Adam-Hall-Car-Buying-Gold-Coast.jpg"
-              alt="Adam Hall talking a family through a car in their driveway"
-              loading="lazy"
-              width={320}
-              height={240}
-            />
-          </div>
-          <div className="home-split__content reveal-right">
-            <span className="eyebrow">Honestly described</span>
-            <h3 className="home-split__title">
-              If there's a mark on it, <span className="wavy">we say so</span>
-            </h3>
-            <p>
-              We don't describe a car better than it is. Read the listing, look
-              at the photos, and you already know what you're turning up to.
-            </p>
-            <IconList
-              items={[
-                "A PPSR check before anything goes up",
-                "Full service history and condition, written out",
-                "Sold cars stay up a month so you can see what moves",
-              ]}
-            />
-            <div className="home-actions">
-              <Button to="/faq" variant="green" arrow>
+      {/* Honesty: what the listing tells you.
+          Was a third image/text split in a row, which is the parent's rhythm
+          and reads as a template by the third pass. A green statement band
+          instead: it breaks the run, and it puts a second dark ground on the
+          page so the cream stretch is not eight screens long.
+          The hassle-free guarantee badge is gone from here — it is the parent's
+          selling promise, not a buy-side claim. */}
+      <section className="section bg-green">
+        <div className="container container--wide mp-honest">
+          <h2 className="mp-honest__title reveal-left">
+            If there&rsquo;s a mark on it, we say so
+          </h2>
+          <div className="reveal-right">
+            <ul className="mp-honest__list">
+              <li>A PPSR check before anything goes up</li>
+              <li>Full service history and condition, written out</li>
+              <li>Sold cars stay up a month so you can see what moves</li>
+            </ul>
+            <div className="mp-honest__actions">
+              <Button to="/faq" variant="outline-white" arrow>
                 Common questions
               </Button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Cars for sale right now — live inventory from the marketplace */}
-      {/* White ground, not cream: the listings are the product, and they need to
-          read as objects on a surface rather than dissolve into the long cream
-          field that runs either side of them. */}
-      <section className="section bg-listings home-cars">
-        <div className="container container--wide">
-          {latest.length > 0 ? (
-            <>
-              {/* Header row rather than a centred title, so the section opens
-                  with a horizontal line of tension and the CTA sits where the
-                  eye finishes rather than repeating below the grid. */}
-              <div className="home-cars__header reveal">
-                <h3 className="home-split__title home-cars__title">
-                  Cars for sale <span className="wavy">right now</span>
-                </h3>
-                <Button to="/cars" variant="tan" arrow>
-                  View all cars
-                </Button>
-              </div>
-              <div className="home-cars__grid">
-                {latest.map((car, i) => (
-                  <CarCard key={car.id} car={car} priority={i < 2} />
-                ))}
-              </div>
-            </>
-          ) : (
-            <div style={{ textAlign: "center" }}>
-              <h3 className="home-split__title reveal" style={{ marginBottom: "1rem" }}>
-                Cars for sale <span className="wavy">right now</span>
-              </h3>
-              <p style={{ marginBottom: "1.5rem" }}>
-                Fresh stock is on its way. Take a look at everything currently
-                available.
-              </p>
-              <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="tan" arrow>
-                  View all cars for sale
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
@@ -229,9 +201,9 @@ export default async function HomePage() {
           />
           <div className="home-split">
             <div className="home-split__content reveal">
-              <h3 className="home-split__title">
+              <h2 className="home-split__title">
                 One person picked every car here
-              </h3>
+              </h2>
               <p>
                 No sales team, no head office. Adam Hall has spent twenty-seven
                 years working out which used cars are worth buying. These are the
@@ -271,22 +243,20 @@ export default async function HomePage() {
       <FaqSection />
 
       {/* Closing CTA, buy side. The crossing to Adam is named separately in the
-          footer band, so this one stays on the cars. */}
-      <PurpleCta
-        lineOne={
-          <>
-            Every car here is <span className="pcta__pill">hand-picked</span>
-          </>
-        }
-        lineTwo={
-          <>
-            <span className="pcta__feet">The good ones</span> don&rsquo;t hang about.
-          </>
-        }
-        startLabel="Take a look"
-        ctaLabel="Cars for sale"
-        ctaTo="/cars"
-      />
+          footer band, so this one stays on the cars.
+          Green, not the parent's lilac band: the identity keeps lilac for
+          moments that are Adam himself, and the buy-side homepage was ending on
+          a full screen of it. */}
+      <section className="section bg-green mp-close">
+        <div className="container container--narrow reveal">
+          <h2 className="mp-close__title">
+            Every car here is hand-picked. The good ones don&rsquo;t hang about.
+          </h2>
+          <Button to="/cars" variant="tan" arrow>
+            Cars for sale
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }
