@@ -28,8 +28,8 @@ export default function TrustBar({
                 alt=""
                 aria-hidden="true"
                 loading="lazy"
-                width={40}
-                height={40}
+                width={48}
+                height={48}
               />
               <span>{item.label}</span>
             </li>

@@ -64,7 +64,7 @@ export const buyerTrustBar = [
   { icon: '/assets/icons/icon-hassle-free.svg', label: 'Faults named up front' },
   { icon: '/assets/icons/icon-27.svg', label: '27 years picking cars' },
   { icon: '/assets/icons/icon-stop-watch.svg', label: 'New arrivals regularly' },
-  { icon: '/assets/icons/icon-5-star.svg', label: '5 Star Reviews' },
+  { icon: '/assets/icons/icon-5-star.svg', label: 'Five-star reviews' },
 ];
 
 /* Three-item strip shown in the black pre-footer band.
