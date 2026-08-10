@@ -1,9 +1,42 @@
 /* scoped port of pages/BuyMyCar.css */
-.ah-site .bmc {
+
+/* This page used to be cream with black copy. It now runs on a film, so the
+   whole left column inverts to white and the ground colour underneath becomes
+   green rather than cream — that is what shows before the poster paints and
+   if the video never arrives. The valuation form keeps its own white card;
+   it is the one thing here that should not be see-through. */
+/* Compound, not descendant: the page root is <div class="ah-site bmc">, so
+   both classes land on the SAME element and `.ah-site .bmc` matches nothing.
+   It never has — the ported rule below was inert, which is why this page ran
+   at position:static with no min-height. That mattered the moment a film was
+   added, because an inert position:relative left the absolutely positioned
+   video sized to the viewport instead of the page. */
+.ah-site.bmc {
+  position: relative;
   min-height: 100vh;
-  background: var(--c-cream);
+  background: var(--c-green);
   display: flex;
   flex-direction: column;
+  isolation: isolate;
+}
+/* The film is absolutely positioned against .bmc, so it covers the full
+   scroll height of the page rather than just the first screen. */
+.ah-site .bmc__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.62) 0%,
+    rgba(0, 0, 0, 0.55) 40%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+}
+/* Everything real sits above the film and its scrim. */
+.ah-site .bmc__top,
+.ah-site .bmc__body,
+.ah-site .bmc__foot {
+  position: relative;
+  z-index: 1;
 }
 .ah-site .bmc__top {
   
@@ -27,13 +60,13 @@
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.7rem;
-  color: var(--c-black);
+  color: var(--c-white);
 }
+/* The asset is already the white 4CRB mark; the filter existed only to knock
+   it back to black for the old cream ground. */
 .ah-site .bmc__featured img {
   height: 42px;
   width: auto;
-  
-  filter: brightness(0) saturate(100%);
 }
 .ah-site .bmc__body {
   
@@ -46,24 +79,32 @@
 }
 .ah-site .bmc__title {
   font-size: clamp(2.4rem, 5vw, 3.5rem);
-  color: var(--c-black);
+  color: var(--c-white);
   margin-bottom: 1.2rem;
 }
 .ah-site .bmc__lead {
   font-size: var(--fs-body);
-  color: var(--c-black);
+  color: var(--c-white);
   margin-bottom: 1.8rem;
   max-width: 32rem;
 }
 .ah-site .bmc__rule {
   border: 0;
-  border-top: 1px solid var(--c-border);
+  /* --c-border is a hairline meant for cream; it vanishes on the film. */
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
   margin: 2rem 0;
   max-width: 30rem;
 }
 .ah-site .bmc__phone {
   margin-top: 1.6rem;
-  color: var(--c-black);
+  color: var(--c-white);
+}
+/* The testimonials share the left column, so they invert with it. Compound
+   .ah-site.bmc for the same reason as above. */
+.ah-site.bmc .tlist__item,
+.ah-site.bmc .tlist__item p,
+.ah-site.bmc .tlist__name {
+  color: var(--c-white);
 }
 .ah-site .bmc__phone a {
   color: var(--c-green);
@@ -83,7 +124,10 @@
   justify-content: center;
   padding-block: 2rem;
   font-size: 1rem;
-  color: var(--c-text);
+  color: rgba(255, 255, 255, 0.82);
+}
+.ah-site .bmc__foot a {
+  color: var(--c-white);
 }
 .ah-site .bmc__foot p {
   margin: 0;

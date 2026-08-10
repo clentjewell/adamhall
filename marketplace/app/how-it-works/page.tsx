@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import GreenHero from "@/components/site/GreenHero";
+import PageHero from "@/components/PageHero";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import Accordion from "@/components/site/Accordion";
 import { TestimonialList } from "@/components/site/Testimonials";
 import FeaturedTestimonial from "@/components/site/FeaturedTestimonial";
@@ -15,6 +16,10 @@ import { steps } from "@/lib/site-data/steps";
 import { namedTestimonials, heroQuote } from "@/lib/site-data/testimonials";
 
 export const metadata: Metadata = {
+  // Parent-brand seller page, kept reachable but off the buy-side nav.
+  // Out of the index so it cannot compete with the same content on
+  // adamhallbuymycar.com.au. follow:true so the links out still carry.
+  robots: { index: false, follow: true },
   title: "Adam Hall Value My Car | How it Works",
   description:
     "We come to you, provide an instant offer for your car and can provide payment and collection within 24 hours. See how selling your car to Adam Hall works.",
@@ -44,16 +49,24 @@ export default function HowItWorksPage() {
   return (
     <div className="ah-site">
       <SiteReveal />
-      <GreenHero
+      {/* The bridge photo is gone because the film IS that photo, animated —
+          Adam-Hall-Car-Buying-Gold-Coast-3 is the still it was generated from,
+          so leaving the bridge in place showed the same frame twice running. */}
+      <PageHero
+        image={pageHeroImages.howItWorks}
+        video={pageHeroVideos.howItWorks}
+        imageAlt="Adam Hall handing paperwork to a customer through their car window"
         title={
           <>
-            Let Adam buy your car <span className="wavy">hassle free</span>
+            Let Adam buy your car{" "}
+            <span className="wavy wavy--white">hassle free</span>
           </>
         }
-        subtitle="Industry leading market knowledge, safe and secure payment."
-        bridgeImage="/assets/images/Adam-Hall-Car-Buying-Gold-Coast-3.jpg"
-        bridgeAlt="Adam Hall handing paperwork to a customer through their car window"
-      />
+      >
+        <p className="text-stone-200 max-w-[60ch] text-lg">
+          Industry leading market knowledge, safe and secure payment.
+        </p>
+      </PageHero>
 
       {/* Friendly, convenient and fast */}
       <section className="section bg-white hiw-lead" style={{ paddingTop: 0 }}>
@@ -106,7 +119,7 @@ export default function HowItWorksPage() {
               your car.
             </span>
           </h4>
-          <Button to="/buy-my-car" variant="purple" arrow>
+          <Button to="/buy-my-car" variant="green" arrow>
             Adam, Buy My Car
           </Button>
         </div>
@@ -153,7 +166,7 @@ export default function HowItWorksPage() {
               ]}
             />
             <div className="hiw-exhaust__actions">
-              <Button to="/buy-my-car" variant="purple" arrow>
+              <Button to="/buy-my-car" variant="green" arrow>
                 Buy My Car
               </Button>
             </div>

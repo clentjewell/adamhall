@@ -1,27 +1,35 @@
 /* ============================================================
-   Design tokens — extracted from the reference site
-   (Elementor global kit + Kava theme)
+   Design tokens for the ported reference pages.
+
+   These are NOT independent values. Every one derives from the
+   @theme block in app/globals.css, which is the single source of
+   truth for Car Marketplace colour and type. Change a brand value
+   there and it flows through here. Do not reintroduce hexes below.
    ============================================================ */
 :root {
   /* Brand colours */
-  --c-green: #004438;        /* primary brand dark green (secondary in kit) */
-  --c-green-deep: #003a30;   /* slightly deeper green for hovers/gradients */
-  --c-black: #000000;
-  --c-dark: #2c2c2c;
-  --c-cream: #f8f7f3;        /* page background */
-  --c-tan: #f2dab2;          /* warm accent */
-  --c-purple: #c29fd8;       /* accent / CTA */
-  --c-purple-dark: #b184cd;
-  --c-peach: #ffbc7d;
+  --c-green: var(--color-forest-600);
+  --c-green-deep: var(--color-forest-700);
+  --c-black: var(--color-headline);
+  --c-dark: var(--color-soft-ink);
+  --c-cream: var(--color-cream);      /* page background */
+  --c-tan: var(--color-sand);         /* buy-side accent */
+  --c-sand: var(--color-sand);
+  --c-purple: var(--color-lilac);     /* the parent's human accent */
+  --c-purple-dark: var(--color-lilac-dark);
+  --c-peach: var(--color-peach);
   --c-white: #ffffff;
-  --c-text: #7a7a7a;         /* body grey */
-  --c-text-dark: #2c2c2c;
-  --c-border: #dedede;
+  --c-text: var(--color-meta);        /* captions, specs, meta */
+  --c-text-dark: var(--color-soft-ink);
+  --c-border: var(--color-hairline);
 
-  /* Typography */
-  --font-heading: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-accent: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, sans-serif;
+  /* Typography — match the parent's pairing so the two sites read as one
+     family of brands: Neue Haas Grotesk Display for headings, Mr Eaves
+     Modern for body and accents (--font-body is defined in globals.css).
+     The parent's brush script and Adam's signature stay out of the buy-side
+     system; the body face does not. */
+  --font-heading: var(--font-display);
+  --font-accent: var(--font-body);
 
   --fw-heading: 600;
   --fw-sub: 400;

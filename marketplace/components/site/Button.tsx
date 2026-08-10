@@ -26,7 +26,7 @@ interface Props {
 export default function Button({
   to,
   href,
-  variant = "purple",
+  variant = "green",
   children,
   className = "",
   onClick,

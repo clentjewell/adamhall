@@ -90,7 +90,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
   },
   carsHero: {
     title: "Cars for sale",
-    sub: "Around 25 cars pass through here every month, so the good ones don't hang about. Sold cars stay up for a month so you can see what moves.",
+    sub: "The good ones don't hang about here, so it's worth checking back. Sold cars stay up for a month so you can see what moves.",
   },
   sellHero: {
     title: "Sell your car without the circus",
@@ -128,7 +128,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
   contact: {
     title: "Talk to a human",
     sub: "No call centre, no ticket number. Ring or drop by and you'll get Adam or someone who actually knows the cars.",
-    email: "[sales@ email to be confirmed]",
+    email: "adam@carmarketplace.com.au",
     address: "[street address to be confirmed]\nServing the Gold Coast, Brisbane & Northern Rivers",
     hours: [
       { days: "Monday – Friday", hours: "8:30am – 5:30pm" },
@@ -303,10 +303,31 @@ Adam Hall Buy My Car operates under motor dealer licence number [licence number 
   },
 };
 
+/**
+ * One phone number, everywhere.
+ *
+ * The number is the proof that both sites are one business, so it must never
+ * differ between what a visitor sees, what they dial, and what search engines
+ * are told. A stub saved into the content row was overriding the real number,
+ * which put a dead number behind the call button on every car page.
+ *
+ * An editor may change the number, but a value with a run of zeros in it is a
+ * stub, not a phone number, and loses to the default. Guarding here rather than
+ * in each consumer means the call button, the schema and Adam AI cannot drift
+ * apart again.
+ */
+function mergePhone(saved: Partial<SiteContent["phone"]> | undefined): SiteContent["phone"] {
+  const isStub = (v: string | undefined) => !v?.trim() || /0{5,}/.test(v.replace(/\D/g, ""));
+  return {
+    display: isStub(saved?.display) ? CONTENT_DEFAULTS.phone.display : saved!.display!,
+    tel: isStub(saved?.tel) ? CONTENT_DEFAULTS.phone.tel : saved!.tel!,
+  };
+}
+
 function merge(saved: Partial<SiteContent> | null): SiteContent {
   if (!saved) return CONTENT_DEFAULTS;
   return {
-    phone: { ...CONTENT_DEFAULTS.phone, ...saved.phone },
+    phone: mergePhone(saved.phone),
     hero: { ...CONTENT_DEFAULTS.hero, ...saved.hero },
     why: saved.why?.length ? saved.why : CONTENT_DEFAULTS.why,
     sellBand: { ...CONTENT_DEFAULTS.sellBand, ...saved.sellBand },

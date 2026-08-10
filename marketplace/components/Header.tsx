@@ -4,22 +4,18 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/lib/site-data/site";
+import { parentSite, parentUrl } from "@/lib/brand";
+import BrandLockup from "@/components/BrandLockup";
+import GarageCount from "@/components/garage/GarageCount";
 import Button from "@/components/site/Button";
 import "@/components/site/site.css";
 
-// Reference nav + the marketplace's buying-side pages so every public page
-// is reachable from the top of the site, not just the footer.
-const headerNav = [
-  ...nav,
-  { label: "Cars for Sale", to: "/cars" },
-  { label: "Finance", to: "/finance" },
-  { label: "FAQ", to: "/faq" },
-];
-
 /**
- * Public site header — the ported reference header (cream, black logo,
- * uppercase nav, purple phone bubble). Solid and always visible; the old
- * scroll hide/show + video-hero tone logic is intentionally dropped.
+ * Public site header. Six buy-side items, the Car Marketplace lockup, and the
+ * crossing to Adam set apart from the nav rather than dropped in as a seventh
+ * link — the identity is explicit that the crossing must be named, not buried
+ * in a list. The phone number is shared with the parent brand on purpose: one
+ * number, one person, both sites, and the strongest proof it is one business.
  */
 export default function Header() {
   const pathname = usePathname();
@@ -45,39 +41,39 @@ export default function Header() {
   return (
     <header className="ah-site site-header">
       <div className="site-header__inner">
-        <Link
-          href="/"
-          className="site-header__logo"
-          aria-label="Adam Hall Buy My Car — home"
-          onClick={() => setOpen(false)}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/assets/logos/logo-black.svg"
-            alt="Adam Hall Buy My Car"
-            width={200}
-            height={90}
-          />
-        </Link>
+        <div className="site-header__logo" onClick={() => setOpen(false)}>
+          <BrandLockup />
+        </div>
 
         <div className="site-header__right">
           <nav className="site-header__nav" aria-label="Primary">
             <ul>
-              {headerNav.map((item) => (
+              {nav.map((item) => (
                 <li key={item.to}>
                   <Link
                     href={item.to}
                     className={isActive(item.to) ? "is-active" : undefined}
                   >
                     {item.label}
+                    {item.garage && <GarageCount kind={item.garage} />}
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
+
+          {/* The crossing, worded as a service to the seller rather than a
+              cross-sell, and visually separate from the nav list. */}
+          <a
+            href={parentUrl("/", "marketplace-header")}
+            className="site-header__crossing"
+          >
+            {parentSite.headerLink}
+          </a>
+
           <Button
             href={site.phoneHref}
-            variant="purple"
+            variant="tan"
             className="btn--bubble site-header__phone"
           >
             {site.phoneDisplay}
@@ -100,18 +96,28 @@ export default function Header() {
       <div className={`mobile-menu ${open ? "is-open" : ""}`} aria-hidden={!open}>
         <nav aria-label="Mobile">
           <ul>
-            {headerNav.map((item) => (
+            {nav.map((item) => (
               <li key={item.to}>
                 <Link href={item.to} onClick={() => setOpen(false)}>
                   {item.label}
+                  {item.garage && <GarageCount kind={item.garage} />}
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href={parentUrl("/", "marketplace-mobile-menu")}
+                onClick={() => setOpen(false)}
+                className="mobile-menu__crossing"
+              >
+                {parentSite.headerLink}
+              </a>
+            </li>
           </ul>
         </nav>
         <Button
           href={site.phoneHref}
-          variant="purple"
+          variant="tan"
           className="mobile-menu__call"
         >
           Call Adam {site.phoneDisplay}

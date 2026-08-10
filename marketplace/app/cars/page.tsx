@@ -24,7 +24,7 @@ export default async function CarsPage() {
       <PageHero
         image={pageHeroImages.cars}
         video={pageHeroVideos.cars}
-        imageAlt="Adam helping a family find the right car"
+        imageAlt="Cars ready for sale, lined up in the morning light"
         title={content.carsHero.title}
         titleEditPath="carsHero.title"
       >

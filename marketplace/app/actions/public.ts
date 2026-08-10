@@ -14,6 +14,7 @@ const enquirySchema = z.object({
   kind: z.enum(["enquiry", "book_look"]),
   name: z.string().trim().min(2, "Tell us your name"),
   phone: z.string().trim().min(8, "We need a phone number to call you back"),
+  email: z.string().trim().email("That email doesn't look right").optional().or(z.literal("")),
   preferred_time: z.string().trim().max(200).optional(),
   message: z.string().trim().max(2000).optional(),
 });
@@ -27,6 +28,7 @@ export async function submitEnquiry(
     kind: formData.get("kind"),
     name: formData.get("name"),
     phone: formData.get("phone"),
+    email: formData.get("email") || undefined,
     preferred_time: formData.get("preferred_time") || undefined,
     message: formData.get("message") || undefined,
   });
@@ -37,6 +39,7 @@ export async function submitEnquiry(
   const supabase = await createClient();
   const { error } = await supabase.from("enquiries").insert({
     ...parsed.data,
+    email: parsed.data.email || null,
     preferred_time: parsed.data.preferred_time ?? null,
     message: parsed.data.message ?? null,
   });
@@ -60,6 +63,7 @@ export async function submitEnquiry(
       carName,
       parsed.data.name,
       parsed.data.phone,
+      parsed.data.email || undefined,
     );
     await notifier.sendEmail({ to: t.to, subject: t.subject, html: t.html });
   }

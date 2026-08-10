@@ -114,6 +114,17 @@
 .ah-site .bg-green h6 {
   color: var(--c-white);
 }
+/* Same job as the .bg-green block above, for the parent-brand pages whose
+   hero is now a film rather than a green panel. Without it `.ah-site h1`
+   (0,1,1) outranks Tailwind's `.text-white` (0,1,0) and the heading renders
+   black over the footage. */
+.ah-site .hero-on-film h1,
+.ah-site .hero-on-film h2,
+.ah-site .hero-on-film h3,
+.ah-site .hero-on-film p {
+  color: var(--c-white);
+}
+
 .ah-site.bg-cream,
 .ah-site .bg-cream {
   background-color: var(--c-cream);

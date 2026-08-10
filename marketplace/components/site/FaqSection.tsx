@@ -10,9 +10,11 @@ export default function FaqSection() {
   return (
     <section className="faq section bg-cream" aria-labelledby="faq-title">
       <div className="container container--narrow">
-        <h4 id="faq-title" className="faq__title reveal">
+        {/* h2, not h4: the questions below are h3, so an h4 here put the
+            section heading a level *under* its own contents. */}
+        <h2 id="faq-title" className="faq__title reveal">
           Questions &amp; Answers
-        </h4>
+        </h2>
         <div className="faq__list">
           {faqs.map((item, i) => {
             const isOpen = open === i;

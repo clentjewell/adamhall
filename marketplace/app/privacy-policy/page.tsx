@@ -3,6 +3,10 @@ import { privacyBlocks } from "@/lib/site-data/privacy";
 import SiteReveal from "@/components/site/SiteReveal";
 
 export const metadata: Metadata = {
+  // Parent-brand seller page, kept reachable but off the buy-side nav.
+  // Out of the index so it cannot compete with the same content on
+  // adamhallbuymycar.com.au. follow:true so the links out still carry.
+  robots: { index: false, follow: true },
   title: "Privacy Policy | Adam Hall Buy My Car",
   description:
     "Adam Hall Buy My Car privacy policy — how we collect, use, disclose, store and protect your personal information.",

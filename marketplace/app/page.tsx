@@ -4,238 +4,199 @@ import { fetchPublicCars } from "@/lib/cars";
 import CarCard from "@/components/CarCard";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
-import { TestimonialGrid } from "@/components/site/Testimonials";
-import FeaturedTestimonial from "@/components/site/FeaturedTestimonial";
 import FaqSection from "@/components/site/FaqSection";
-import PurpleCta from "@/components/site/PurpleCta";
 import Button from "@/components/site/Button";
-import WaveDivider from "@/components/site/WaveDivider";
 import SiteReveal from "@/components/site/SiteReveal";
-import { homeTestimonials, heroQuote } from "@/lib/site-data/testimonials";
-import { site } from "@/lib/site-data/site";
+import HeroVideo from "@/components/HeroVideo";
+import { site, buyerTrustBar } from "@/lib/site-data/site";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 export const metadata: Metadata = {
-  title: "Adam Hall | Sell your car, hassle-free!",
+  title: "Hand-picked used cars on the Gold Coast",
   description:
-    "Gold Coast, Brisbane & Northern Rivers car owners let Adam Hall come to you, provide a FREE car valuation and, if you’re keen, buy your car hassle-free… all in 24hrs.",
+    "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, faults named in the description, priced to sell.",
 };
 
 export default async function HomePage() {
   const cars = await fetchPublicCars();
-  const latest = cars.filter((c) => c.status === "published").slice(0, 4);
+  // Three, not four. The proposition is hand-picked, and three larger cards
+  // carry that better than a full grid of small ones.
+  const latest = cars.filter((c) => c.status === "published").slice(0, 3);
 
   return (
-    <div className="ah-site">
+    <div className="ah-site mp-home">
       <SiteReveal />
 
-      {/* Hero: full-bleed photo left, content right */}
-      <section className="hero bg-green">
-        <div className="hero__media">
-          <img
-            src="/assets/images/Adam-Hall-4CRB-Gold-Coast.jpg"
-            alt="Adam Hall standing beside a customer's car on the Gold Coast"
-            fetchPriority="high"
-          />
-          <img
-            className="hero__signature"
-            src="/assets/logos/logo-signature-white.svg"
-            alt=""
-            aria-hidden="true"
-            width={170}
-            height={76}
-          />
-        </div>
-        <div className="hero__content">
-          <span className="eyebrow eyebrow--hero">
-            Gold Coast, Brisbane &amp; Northern Rivers
-          </span>
-          <h1 className="hero__title">
-            Sell your car, <span className="wavy">hassle-free!</span>
-          </h1>
-          <p className="hero__subtitle">
-            Let Adam come to you to buy your car quickly and easily, hassle free.
-          </p>
-          <div className="hero__actions">
-            <Button href={site.phoneHref} variant="tan" arrow>
-              Call Adam {site.phoneDisplay}
-            </Button>
-            <span className="hero__featured">
-              <span>Featured On</span>
-              <img
-                src="/assets/logos/4crb-white.png"
-                alt="4CRB 89.3FM"
-                width={110}
-                height={55}
-              />
+      {/* Hero. A full-height film, matching the inner pages, with the stock
+          grid still riding up over its bottom edge so the page opens on cars
+          rather than on a picture of a person.
+          Adam's signature and the 4CRB badge are deliberately absent. Both are
+          the parent brand's assets — the signature belongs where Adam signs off
+          himself, and the radio segment is his credential, not the
+          Marketplace's. */}
+      {/* bg-green is the ground the film sits on, and what shows if it never
+          arrives. HeroVideo keeps the poster up for reduced-motion and
+          save-data users, so this reads as the old still hero for them. */}
+      <section className="mp-hero bg-green">
+        <HeroVideo
+          src={pageHeroVideos.home}
+          poster={pageHeroImages.home}
+          posterAlt="A customer shaking hands with Adam Hall beside the car he has just bought"
+        />
+        <div className="mp-hero__scrim" />
+        <div className="container container--wide mp-hero__inner">
+          <div className="mp-hero__content">
+            <span className="eyebrow eyebrow--hero">
+              Gold Coast, Brisbane &amp; Northern Rivers
             </span>
+            <h1 className="mp-hero__title">Cars worth putting our name on</h1>
+            <p className="mp-hero__subtitle">
+              Every car here is one Adam decided was worth buying. What the
+              listing says is what you get.
+            </p>
+            <div className="mp-hero__actions">
+              <Button to="/cars" variant="tan" arrow>
+                See the cars
+              </Button>
+              <Button href={site.phoneHref} variant="outline-white">
+                Call {site.phoneDisplay}
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      <TrustBar />
+      {/* Stock first. The listings ride up over the green edge so the page
+          opens on cars rather than on a picture of a person. */}
+      {latest.length > 0 ? (
+        <section className="mp-stock">
+          <div className="container container--wide mp-stock__inner">
+            {/* The heading leads in the DOM and CSS order drops it below the
+                grid. Written the other way round, the three card h3s came
+                before the h2 that titles them — an h1 -> h3 jump, and the
+                cards read as belonging to the hero. */}
+            <div className="mp-stock__footer reveal">
+              <h2 className="mp-stock__title">Cars for sale right now</h2>
+              <Button to="/cars" variant="tan" arrow>
+                View all cars
+              </Button>
+            </div>
+            <div className="mp-stock__grid">
+              {latest.map((car, i) => (
+                <CarCard key={car.id} car={car} priority={i < 3} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="mp-stock mp-stock--empty">
+          <div className="container container--wide">
+            <h2 className="mp-stock__title" style={{ marginBottom: "1rem" }}>
+              Cars for sale right now
+            </h2>
+            <p style={{ marginBottom: "1.5rem" }}>
+              Fresh stock is on its way. Take a look at everything currently
+              available.
+            </p>
+            <div className="home-actions" style={{ justifyContent: "center" }}>
+              <Button to="/cars" variant="tan" arrow>
+                View all cars for sale
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
 
-      {/* Intro */}
+      <TrustBar items={buyerTrustBar} label="Why buy from Car Marketplace" />
+
+      {/* Intro: the problem this replaces */}
       <section className="section bg-cream home-intro">
         <div className="container container--narrow reveal">
           <h2 className="home-intro__title">
-            Thinking of selling your car but don&rsquo;t want the hassle of
-            selling it privately or through a dealer?
+            Spent a night on the classifieds and still no idea which cars are
+            honest?
           </h2>
           <p className="home-intro__text">
-            Forget the hours of research, the cleaning &amp; detailing, the
-            haggling, the no-shows, the lowball offers.
+            Thousands of listings, every one written by someone who wants it
+            gone. Then a Saturday driving around looking at cars that were
+            nothing like the photos.
           </p>
         </div>
       </section>
 
-      {/* Value my car — image right with welcome/hello bubbles */}
+      {/* Curation: how the stock gets chosen */}
       <section className="section bg-cream" style={{ paddingTop: 0 }}>
         <div className="container container--wide home-split">
           <div className="home-split__content reveal-left">
-            <span className="eyebrow">Value my car</span>
-            <h3 className="home-split__title">
-              <span className="wavy">What&rsquo;s</span> Your Car Worth?
-            </h3>
+            <span className="eyebrow">Curated, not classified</span>
+            <h2 className="home-split__title">We have already done the sorting</h2>
             <p>
-              Up-to-the-minute market pricing and decades of experience means you
-              can rest easy.
+              The cars here move quickly, and the ones on the site are the ones
+              that made the cut.
             </p>
             <IconList
               items={[
-                "Obligation fast and free, expert valuation at your door",
-                "Easy, safe and fast",
-                "Known & trusted by the 4CRB 89.3FM Community",
+                "Adam picks, checks and prices every car himself",
+                "If he wouldn't put his name on it, it isn't listed",
+                "The price on the car is the price you pay",
               ]}
             />
             <div className="home-actions">
-              <Button to="/buy-my-car" variant="purple" arrow>
-                Buy My Car
+              <Button to="/cars" variant="tan" arrow>
+                See what's in stock
               </Button>
             </div>
           </div>
           <div className="home-split__media reveal-right">
             <img
-              src="/assets/images/Adam-Hall-Buy-My-Car-1-Long.jpg"
-              alt="Adam Hall shaking hands with a customer at their home"
+              src="/assets/images/Adam-Hall-Value-My-Car-2.jpg"
+              alt="Adam Hall looking over a car in a driveway"
               loading="lazy"
               width={640}
               height={480}
-            />
-            <img
-              className="home-split__bubbles"
-              src="/assets/decor/welcome-hello.svg"
-              alt=""
-              aria-hidden="true"
             />
           </div>
         </div>
       </section>
 
-      {/* Buy my car — image left, rotating hassle-free badge */}
-      <section className="section bg-cream home-buy" style={{ paddingTop: 0 }}>
-        <div className="container container--wide home-split home-split--media-left">
-          <div className="home-split__media home-split__media--collage reveal-left">
-            <img
-              src="/assets/images/Adam-Hall-Value-My-Car.jpg"
-              alt="Adam Hall talking with a customer through their car window"
-              loading="lazy"
-              width={640}
-              height={480}
-            />
-            <img
-              className="home-split__collage"
-              src="/assets/images/Adam-Hall-Car-Buying-Gold-Coast.jpg"
-              alt="Adam Hall helping a family sell their car"
-              loading="lazy"
-              width={320}
-              height={240}
-            />
-            <img
-              className="home-badge"
-              src="/assets/icons/hassle-free-guarantee.svg"
-              alt="Adam Hall hassle-free guarantee"
-              loading="lazy"
-              width={110}
-              height={110}
-            />
-          </div>
-          <div className="home-split__content reveal-right">
-            <span className="eyebrow">Buy my car</span>
-            <h3 className="home-split__title">
-              The <span className="wavy">easiest</span> and quickest way to sell
-              your car, hassle-free
-            </h3>
-            <p>
-              Time&rsquo;s precious and life&rsquo;s busy, so we aim to make the
-              process of selling your car simple and seamless.
-            </p>
-            <IconList
-              items={[
-                "We come to you",
-                "Same day payment",
-                "Complimentary car pickup",
-              ]}
-            />
-            <div className="home-actions">
-              <Button to="/how-it-works" variant="purple" arrow>
-                How does it work?
+      {/* Honesty: what the listing tells you.
+          Was a third image/text split in a row, which is the parent's rhythm
+          and reads as a template by the third pass. A green statement band
+          instead: it breaks the run, and it puts a second dark ground on the
+          page so the cream stretch is not eight screens long.
+          The hassle-free guarantee badge is gone from here — it is the parent's
+          selling promise, not a buy-side claim. */}
+      <section className="section bg-green">
+        <div className="container container--wide mp-honest">
+          <h2 className="mp-honest__title reveal-left">
+            If there&rsquo;s a mark on it, we say so
+          </h2>
+          <div className="reveal-right">
+            <ul className="mp-honest__list">
+              <li>A PPSR check before anything goes up</li>
+              <li>Full service history and condition, written out</li>
+              <li>Sold cars stay up a month so you can see what moves</li>
+            </ul>
+            <div className="mp-honest__actions">
+              <Button to="/faq" variant="outline-white" arrow>
+                Common questions
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Cars for sale right now — live inventory from the marketplace */}
-      <section className="section bg-cream home-cars" style={{ paddingTop: 0 }}>
-        <div className="container container--wide">
-          <h3 className="home-split__title reveal" style={{ textAlign: "center" }}>
-            Cars for sale <span className="wavy">right now</span>
-          </h3>
-          {latest.length > 0 ? (
-            <>
-              <div className="home-cars__grid">
-                {latest.map((car, i) => (
-                  <CarCard key={car.id} car={car} priority={i < 2} />
-                ))}
-              </div>
-              <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="green" arrow>
-                  View all cars for sale
-                </Button>
-              </div>
-            </>
-          ) : (
-            <div style={{ textAlign: "center" }}>
-              <p style={{ marginBottom: "1.5rem" }}>
-                Fresh stock is on its way. Take a look at everything currently
-                available.
-              </p>
-              <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="green" arrow>
-                  View all cars for sale
-                </Button>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Customer proof is deliberately absent for now.
+          Every testimonial and Google quote on this site is from a SELLER
+          ("I will only sell my cars to Adam", "the money was in my account the
+          same day"). On a page for buyers that is proof of the wrong thing, and
+          the identity lists Adam's personal service promise among the claims the
+          Marketplace must never make as its own. Rather than write buyer quotes
+          nobody said, the section is out until Adam supplies two or three real
+          ones. Both wave dividers went with it, so the cream runs straight
+          through to the section below. */}
 
-      <WaveDivider color="green" />
-
-      {/* Featured testimonial */}
-      <FeaturedTestimonial
-        photo="/assets/images/Adam-Hall-Car-Buying-Gold-Coast-1.jpg"
-        photoAlt="Jen and her father at home on the couch"
-        quote={heroQuote.home.quote}
-        name={heroQuote.home.name}
-        role={heroQuote.home.role}
-      />
-
-      <TestimonialGrid items={homeTestimonials} />
-
-      <WaveDivider color="green" flip />
-
-      {/* Radio / voice you trust */}
+      {/* Who you are buying from */}
       <section className="section bg-cream home-voice">
         <div className="container container--wide">
           <img
@@ -248,29 +209,29 @@ export default async function HomePage() {
           />
           <div className="home-split">
             <div className="home-split__content reveal">
-              <h3 className="home-split__title">
-                Adam Hall, the voice you know and trust
-              </h3>
+              <h2 className="home-split__title">
+                One person picked every car here
+              </h2>
               <p>
-                Over the years, Adam&rsquo;s segment &ldquo;What&rsquo;s your car
-                worth?&rdquo; on 4CRB 89.3FM has become the go-to trusted source
-                of advice for the community.
+                No sales team, no head office. Adam Hall has spent twenty-seven
+                years working out which used cars are worth buying. These are the
+                ones he bought.
               </p>
               <p>
-                He offers this same, obligation-free service to value your car at
-                home.
+                He&rsquo;s the voice behind &ldquo;What&rsquo;s your car
+                worth?&rdquo; on 4CRB 89.3FM, where he has valued more than ten
+                thousand cars live on air.
               </p>
-              <p>All you have to do is to make a quick call to get in touch.</p>
               <IconList
                 items={[
-                  "Radio host on 4CRB 89.3FM ‘What’s your car worth?’",
-                  "27+ years in the automotive industry",
-                  "10,000 car valuations live on air and counting!",
+                  "27 years in the automotive trade",
+                  "10,000 valuations live on 4CRB 89.3FM",
+                  "Buys the cars, checks them, prices them, stands behind them",
                 ]}
               />
               <div className="home-actions">
-                <Button to="/buy-my-car" variant="purple" arrow>
-                  Buy My Car
+                <Button to="/about-adam-hall" variant="green" arrow>
+                  About Adam
                 </Button>
               </div>
             </div>
@@ -280,7 +241,7 @@ export default async function HomePage() {
                 alt="Adam Hall presenting What's Your Car Worth on 4CRB 89.3FM"
                 loading="lazy"
                 width={640}
-                height={430}
+                height={480}
               />
             </div>
           </div>
@@ -288,7 +249,22 @@ export default async function HomePage() {
       </section>
 
       <FaqSection />
-      <PurpleCta />
+
+      {/* Closing CTA, buy side. The crossing to Adam is named separately in the
+          footer band, so this one stays on the cars.
+          Green, not the parent's lilac band: the identity keeps lilac for
+          moments that are Adam himself, and the buy-side homepage was ending on
+          a full screen of it. */}
+      <section className="section bg-green mp-close">
+        <div className="container container--narrow reveal">
+          <h2 className="mp-close__title">
+            Every car here is hand-picked. The good ones don&rsquo;t hang about.
+          </h2>
+          <Button to="/cars" variant="tan" arrow>
+            Cars for sale
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,6 +1,9 @@
 /* scoped port of Footer.css */
+/* Green, not black, so the trust strip and the crossing band below it read as
+   one block instead of a green sandwich between two black ones. The wavy rule
+   at the bottom becomes the divider inside that block. */
 .ah-site .prefooter {
-  background: var(--c-black);
+  background: var(--c-green);
   color: var(--c-white);
   padding-top: 2.5rem;
 }
@@ -20,22 +23,76 @@
   align-items: center;
   gap: 0.55rem;
 }
+/* Sand ticks, not lilac. On the buy side sand is the accent and lilac steps
+   back to the parent, and lilac on green is weak contrast besides. */
 .ah-site .prefooter__items svg {
-  color: var(--c-purple);
+  color: var(--c-sand);
   flex-shrink: 0;
 }
-.ah-site .prefooter__wave {
+/* The gauge, the identity's one pattern device (section 12): fine vertical
+   ticks on a baseline, every fifth one taller. "Counted, checked, measured",
+   which is the promise the brand makes. Generated from three gradients rather
+   than an SVG, so it needs no vector master and cannot go stale in an asset
+   folder. Medium scale, sand on green, as the identity specifies for the
+   footer band. Proportions per the identity: short tick 45% of the tall tick,
+   tall tick every fifth position, tick gap eight times the tick weight. */
+.ah-site .prefooter__gauge {
   display: block;
   width: 100%;
-  height: 7px;
+  height: 15px;
   margin-top: 2rem;
-  background: url('/assets/decor/wavy-line-short.svg') left center / auto 100% repeat-x;
-  opacity: 0.9;
+  background-image:
+    linear-gradient(var(--c-sand), var(--c-sand)),
+    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 18px),
+    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 90px);
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 100% 2px, 18px 6px, 90px 13px;
+  opacity: 0.85;
 }
+/* The crossing to the parent site. Continues the green block started by the
+   trust strip, so it carries no background of its own. Centred to match the
+   strip, with the button under the line rather than beside it. */
+.ah-site .prefooter-crossing {
+  background: var(--c-green);
+  color: var(--c-white);
+  text-align: center;
+  padding-block: 2rem 3rem;
+}
+.ah-site .prefooter-crossing__line {
+  font-family: var(--font-body);
+  font-size: var(--fs-h5);
+  line-height: 1.4;
+  max-width: 46ch;
+  margin-inline: auto;
+  color: rgba(255, 255, 255, 0.82);
+}
+.ah-site .prefooter-crossing__line strong {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  color: var(--c-white);
+}
+.ah-site .prefooter-crossing .btn {
+  margin-top: 1.5rem;
+}
+.ah-site .prefooter-crossing__note {
+  margin-top: 2.25rem;
+  max-width: 66ch;
+  margin-inline: auto;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Green, per the identity: green grounds the header, the footer, the hero and
+   every dark band. Black is held for headings and the mark, not used as a
+   surface. A hairline keeps the footer distinct from the crossing band above it
+   now that both share the same green. */
 .ah-site .site-footer {
-  background: var(--c-black);
+  background: var(--c-green);
   color: rgba(255, 255, 255, 0.85);
   padding-block: 1rem 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 .ah-site .site-footer__grid {
   display: grid;
@@ -58,8 +115,9 @@
   color: var(--c-white);
 }
 .ah-site .site-footer__col h6 {
-  
-  color: var(--c-purple);
+  /* Sand, not lilac. Lilac is the parent's accent and steps back on the buy
+     side. One accent per view. */
+  color: var(--c-sand);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 0.875rem;
@@ -78,7 +136,7 @@
   font-size: 1.5rem; 
 }
 .ah-site .site-footer__col a:hover {
-  color: var(--c-purple);
+  color: var(--c-sand);
 }
 .ah-site .site-footer__legal {
   display: flex;
@@ -95,7 +153,7 @@
   white-space: nowrap;
 }
 .ah-site .site-footer__legal a:hover {
-  color: var(--c-purple);
+  color: var(--c-sand);
 }
 @media (max-width: 860px) {
 .ah-site .site-footer__grid {

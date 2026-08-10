@@ -1,9 +1,19 @@
 import { getContent } from "@/lib/content";
+import { brand, parentSite } from "@/lib/brand";
 
 // Sitewide AutoDealer structured data. Drives the local rich result —
 // business name, contact, opening hours and the review stars — in Google.
 // Placeholder content (unconfirmed address/email) is skipped so we never
 // publish bracketed junk into schema.
+//
+// Identity: this is the buy side's own brand, endorsed by the parent, not the
+// parent itself. So the dealer is named Car Marketplace by Adam Hall and the
+// relationship to Adam Hall Buy My Car is declared rather than implied. One
+// business, one phone number, two brands.
+//
+// `logo` is deliberately absent. There is no approved Car Marketplace mark yet
+// (placeholder artwork, no vector master), and pointing this at the parent's
+// logo would teach Google to render Adam's mark for this brand.
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -24,6 +34,18 @@ function real(v: string | undefined): string | undefined {
   const t = v.trim();
   if (!t || /[[\]]|to be confirmed|pending|tbc|placeholder/i.test(t)) return undefined;
   return t;
+}
+
+/**
+ * E.164 for schema — Google reads international format most reliably. The
+ * number itself is already guaranteed real by mergePhone() in lib/content.ts,
+ * which is where the one-number rule is enforced.
+ */
+function e164(raw: string): string {
+  const digits = raw.replace(/^tel:/, "").replace(/\D/g, "");
+  if (digits.startsWith("61")) return `+${digits}`;
+  if (digits.startsWith("0")) return `+61${digits.slice(1)}`;
+  return raw;
 }
 
 function to24(raw: string): string | null {
@@ -76,7 +98,7 @@ function openingHours(hours: { days: string; hours: string }[]) {
 export default async function SiteJsonLd() {
   const { contact, phone, reviews } = await getContent();
 
-  const telephone = phone.tel?.replace(/^tel:/, "");
+  const telephone = e164(phone.tel);
   const street = real(contact.address?.split("\n")[0]);
   const email = real(contact.email);
   const hoursSpec = openingHours(contact.hours ?? []);
@@ -85,12 +107,17 @@ export default async function SiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
     "@id": `${siteUrl}/#dealer`,
-    name: "Adam Hall Buy My Car",
+    name: brand.fullName,
+    alternateName: brand.name,
     description:
-      "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers with transparent pricing, honest condition reports and fast settlements.",
+      "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, honestly described and priced to sell.",
     url: siteUrl,
-    logo: `${siteUrl}/assets/logos/logo-black.svg`,
     image: `${siteUrl}/brand/home-hero.jpg`,
+    parentOrganization: {
+      "@type": "Organization",
+      name: parentSite.name,
+      url: parentSite.url,
+    },
     ...(telephone ? { telephone } : {}),
     ...(email ? { email } : {}),
     priceRange: "$$",
