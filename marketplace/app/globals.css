@@ -113,6 +113,16 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* The off-canvas mobile drawer parks at translateX(100%), which extends the
+   document's scrollable width and leaves the whole site scrolling sideways on
+   a phone (461px of scroll in a 390px viewport). Clip the horizontal axis at
+   the root. `clip` rather than `hidden` because `hidden` would make this a
+   scroll container and break the sticky header. */
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   @apply bg-paper text-ink font-body antialiased;
   /* The Adobe kit ships 400–700 only. Never fake a heavier or lighter cut:

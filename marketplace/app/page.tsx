@@ -19,7 +19,9 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const cars = await fetchPublicCars();
-  const latest = cars.filter((c) => c.status === "published").slice(0, 4);
+  // Three, not four. The proposition is hand-picked, and three larger cards
+  // carry that better than a full grid of small ones.
+  const latest = cars.filter((c) => c.status === "published").slice(0, 3);
 
   return (
     <div className="ah-site">
@@ -161,26 +163,35 @@ export default async function HomePage() {
       </section>
 
       {/* Cars for sale right now — live inventory from the marketplace */}
-      <section className="section bg-cream home-cars" style={{ paddingTop: 0 }}>
+      {/* White ground, not cream: the listings are the product, and they need to
+          read as objects on a surface rather than dissolve into the long cream
+          field that runs either side of them. */}
+      <section className="section bg-listings home-cars">
         <div className="container container--wide">
-          <h3 className="home-split__title reveal" style={{ textAlign: "center" }}>
-            Cars for sale <span className="wavy">right now</span>
-          </h3>
           {latest.length > 0 ? (
             <>
+              {/* Header row rather than a centred title, so the section opens
+                  with a horizontal line of tension and the CTA sits where the
+                  eye finishes rather than repeating below the grid. */}
+              <div className="home-cars__header reveal">
+                <h3 className="home-split__title home-cars__title">
+                  Cars for sale <span className="wavy">right now</span>
+                </h3>
+                <Button to="/cars" variant="tan" arrow>
+                  View all cars
+                </Button>
+              </div>
               <div className="home-cars__grid">
                 {latest.map((car, i) => (
                   <CarCard key={car.id} car={car} priority={i < 2} />
                 ))}
               </div>
-              <div className="home-actions" style={{ justifyContent: "center" }}>
-                <Button to="/cars" variant="tan" arrow>
-                  View all cars for sale
-                </Button>
-              </div>
             </>
           ) : (
             <div style={{ textAlign: "center" }}>
+              <h3 className="home-split__title reveal" style={{ marginBottom: "1rem" }}>
+                Cars for sale <span className="wavy">right now</span>
+              </h3>
               <p style={{ marginBottom: "1.5rem" }}>
                 Fresh stock is on its way. Take a look at everything currently
                 available.

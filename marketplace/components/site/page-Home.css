@@ -239,19 +239,55 @@
 }
 
 /* "Cars for sale right now" — live inventory grid (added for the merged site) */
+/* The listings sit on white so they lift off the cream that runs above and
+   below. Hairline top and bottom keep the change of ground deliberate rather
+   than accidental. */
+.ah-site .bg-listings {
+  background-color: #ffffff;
+  border-block: 1px solid var(--color-hairline, #e4e1d8);
+}
+
+/* Section opens with a header row: title left, CTA right. Replaces the centred
+   title plus a repeated button under the grid (one CTA per intent). */
+.ah-site .home-cars__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.ah-site .home-cars__title {
+  margin: 0;
+}
+
 .ah-site .home-cars__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin: 2.5rem 0;
+  /* Three larger cards, not four small ones. Fewer, bigger listings read as
+     hand-picked; a dense grid reads as a classifieds dump, which is the exact
+     thing this brand positions against. */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2.5rem 0 0;
+}
+/* Vehicle names run to one or two lines. Reserve two, so the price and the
+   spec line share a baseline across the row instead of stepping down under a
+   long name. Only where there is more than one column to align against. */
+@media (min-width: 561px) {
+  .ah-site .home-cars__grid .font-display {
+    min-height: 3.4375rem; /* 2 lines at text-xl / leading-snug */
+  }
 }
 @media (max-width: 1024px) {
   .ah-site .home-cars__grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
   }
 }
 @media (max-width: 560px) {
   .ah-site .home-cars__grid {
     grid-template-columns: 1fr;
+  }
+  .ah-site .home-cars__header {
+    gap: 1.25rem;
   }
 }
