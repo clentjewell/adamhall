@@ -1,14 +1,42 @@
 /* scoped port of pages/Contact.css */
+
+/* A film behind the enquiry form rather than a flat green panel. Same
+   construction as the home hero: slide up under the sticky 65px header, fill
+   the window, and lay a scrim between the footage and the content so both the
+   headline and the form keep their contrast wherever the frame is bright.
+   The old padding-top leaned on --header-h, which is the parent site's 150px
+   masthead and has never matched this one. */
 .ah-site .contact-hero {
-  padding-block: calc(var(--header-h-mobile) + 1.5rem) clamp(3rem, 6vw, 5rem);
+  position: relative;
+  margin-top: -4rem;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding-block: 9rem 4rem;
+  overflow: hidden;
+  isolation: isolate;
 }
-@media (min-width: 1025px) {
-.ah-site .contact-hero {
-    padding-top: calc(var(--header-h) + 1.5rem);
-  }
+/* This frame is a bright indoor shot, so it needs a heavier hand than the
+   driveway films. Weighted to the left, where the white headline sits; the
+   right stays lighter because the form card brings its own white ground and
+   does not need the help. */
+.ah-site .contact-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.74) 0%,
+      rgba(0, 0, 0, 0.52) 45%,
+      rgba(0, 0, 0, 0.34) 100%
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.45));
 }
 
 .ah-site .contact-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr minmax(0, 480px);
   gap: clamp(2rem, 6vw, 5rem);
@@ -42,5 +70,11 @@
 @media (max-width: 900px) {
 .ah-site .contact-hero__inner {
     grid-template-columns: 1fr;
+  }
+  /* Stacked, the form alone is taller than the window, so a 100dvh floor
+     only adds dead space above it. */
+  .ah-site .contact-hero {
+    min-height: 0;
+    padding-block: 7rem 3rem;
   }
 }

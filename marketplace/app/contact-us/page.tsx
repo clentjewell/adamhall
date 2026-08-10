@@ -3,7 +3,9 @@ import FaqSection from "@/components/site/FaqSection";
 import PurpleCta from "@/components/site/PurpleCta";
 import ContactForm from "@/components/site/ContactForm";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeroVideo from "@/components/HeroVideo";
 import { site } from "@/lib/site-data/site";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 export const metadata: Metadata = {
   title: "Contact Adam Hall",
@@ -16,6 +18,12 @@ export default function ContactUsPage() {
     <div className="ah-site">
       <SiteReveal />
       <section className="bg-green contact-hero">
+        <HeroVideo
+          src={pageHeroVideos.contact}
+          poster={pageHeroImages.contact}
+          posterAlt="Adam Hall talking with a customer beside their car"
+        />
+        <div className="contact-hero__scrim" />
         <div className="container container--wide contact-hero__inner">
           <div className="contact-hero__content reveal-left">
             <h1 className="contact-hero__title">Got Questions?</h1>

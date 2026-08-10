@@ -18,14 +18,16 @@ export default function PageHero({
   image: string;
   imageAlt: string;
   video?: string;
-  title: string;
+  /** ReactNode rather than string so the parent-brand pages can keep their
+      hand-drawn .wavy underline inside the heading. */
+  title: ReactNode;
   titleEditPath?: string;
   children?: ReactNode;
 }) {
   return (
     <section
       data-header-tone="dark"
-      className="relative -mt-16 min-h-[100dvh] flex items-end"
+      className="hero-on-film relative -mt-16 min-h-[100dvh] flex items-end"
     >
       {video ? (
         <HeroVideo src={video} poster={image} posterAlt={imageAlt} />

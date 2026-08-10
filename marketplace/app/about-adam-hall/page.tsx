@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import GreenHero from "@/components/site/GreenHero";
+import PageHero from "@/components/PageHero";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import StatCounter from "@/components/site/StatCounter";
 import PurpleCta from "@/components/site/PurpleCta";
 import SiteReveal from "@/components/site/SiteReveal";
@@ -47,17 +48,23 @@ export default function AboutAdamHallPage() {
   return (
     <div className="ah-site">
       <SiteReveal />
-      <GreenHero
+      {/* The bridge photo that used to hang out of the bottom of the green
+          band is gone with it: the film is the picture of Adam now, and a
+          second portrait immediately underneath said the same thing twice. */}
+      <PageHero
+        image={pageHeroImages.about}
+        video={pageHeroVideos.about}
+        imageAlt="Adam Hall leaning against a car in a Gold Coast driveway"
         title={
           <>
-            Adam&rsquo;s <span className="wavy">story.</span>
+            Adam&rsquo;s <span className="wavy wavy--white">story.</span>
           </>
         }
-        subtitle="Adam Hall has been serving the community for almost three decades."
-        bridgeImage="/assets/images/Adam-Hall-Gold-Coast.jpg"
-        bridgeAlt="Adam Hall standing in a doorway at home on the Gold Coast"
-        bridgeBg="cream"
-      />
+      >
+        <p className="text-stone-200 max-w-[60ch] text-lg">
+          Adam Hall has been serving the community for almost three decades.
+        </p>
+      </PageHero>
 
       {/* Bio */}
       <section className="section bg-cream" style={{ paddingTop: 0 }}>
