@@ -5,6 +5,8 @@ import ValuationForm from "@/components/site/ValuationForm";
 import IconList from "@/components/site/IconList";
 import { TestimonialList } from "@/components/site/Testimonials";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeroVideo from "@/components/HeroVideo";
+import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { buyMyCarTestimonials } from "@/lib/site-data/testimonials";
 import { site } from "@/lib/site-data/site";
 
@@ -22,6 +24,15 @@ export default function BuyMyCarPage() {
   return (
     <div className="ah-site bmc">
       <SiteReveal />
+      {/* The film sits behind the whole landing page rather than in a band of
+          its own: this page is a single screen with no section breaks to hang
+          a hero off, and the valuation form has to stay above the fold. */}
+      <HeroVideo
+        src={pageHeroVideos.buyMyCar}
+        poster={pageHeroImages.buyMyCar}
+        posterAlt="Adam Hall valuing a customer's car in their driveway"
+      />
+      <div className="bmc__scrim" />
       <header className="bmc__top">
         <Link
           href="/"
@@ -29,7 +40,7 @@ export default function BuyMyCarPage() {
           aria-label="Adam Hall Buy My Car — home"
         >
           <img
-            src="/assets/logos/logo-black.svg"
+            src="/assets/logos/logo-white.svg"
             alt="Adam Hall Buy My Car"
             width={200}
             height={90}
@@ -49,13 +60,14 @@ export default function BuyMyCarPage() {
       <div className="bmc__body container container--wide">
         <div className="bmc__intro reveal-left">
           <h1 className="bmc__title">
-            <span className="wavy">Buy</span> my car.
+            <span className="wavy wavy--white">Buy</span> my car.
           </h1>
           <p className="bmc__lead">
             Up-to-the-minute market pricing and decades of experience to help you
             set the right price for your car.
           </p>
           <IconList
+            light
             items={[
               "Known & trusted by the 4CRB 89.3FM Community",
               "Obligation-free, expert valuation",
