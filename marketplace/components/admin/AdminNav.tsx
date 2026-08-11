@@ -17,7 +17,9 @@ import {
 } from "@phosphor-icons/react";
 import { signOut } from "@/app/actions/admin";
 
-const items = [
+/** Shared with the redesigned dashboard preview so the two navs cannot
+    drift apart. */
+export const ADMIN_NAV = [
   { href: "/admin", label: "Dashboard", icon: House, exact: true },
   { href: "/admin/adam-ai", label: "Adam AI", icon: Sparkle, exact: false },
   { href: "/admin/submissions", label: "Submissions", icon: Tray, exact: false },
@@ -48,7 +50,7 @@ export default function AdminNav({ adminName }: { adminName: string }) {
         Signed in as {adminName}
       </p>
       <nav className="flex md:flex-col gap-1 overflow-x-auto pb-2 md:pb-0">
-        {items.map(({ href, label, icon: Icon, exact }) => {
+        {ADMIN_NAV.map(({ href, label, icon: Icon, exact }) => {
           const active = exact ? pathname === href : pathname.startsWith(href);
           return (
             <Link

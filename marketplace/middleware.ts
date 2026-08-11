@@ -49,6 +49,12 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
+// `/admin2` is the redesigned dashboard preview. It must be listed
+// explicitly: `/admin/:path*` matches `/admin` and `/admin/...` but NOT
+// `/admin2`, so without this entry the middleware would never run for it and
+// the route would sit outside the signed-out redirect. The guard below is
+// `pathname.startsWith("/admin")`, which already covers it, and every admin
+// page still calls requireAdmin() server-side regardless.
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/admin2/:path*"],
 };
