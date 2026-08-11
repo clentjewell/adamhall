@@ -79,7 +79,7 @@ export default function ComparePageClient() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="grid gap-6 sm:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="space-y-3">
@@ -96,7 +96,7 @@ export default function ComparePageClient() {
   if (failed) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
           <p className="font-display font-bold text-lg">Couldn&apos;t load these cars</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
@@ -118,7 +118,7 @@ export default function ComparePageClient() {
   if (orderedCars.length === 0) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
           <p className="font-display font-bold text-lg">Nothing to compare yet</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
@@ -174,7 +174,7 @@ export default function ComparePageClient() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="font-display font-bold text-3xl mb-2">Compare cars</h1>
+      <h1 className="type-heading mb-2">Compare cars</h1>
       <p className="text-stone-500 mb-8">
         {multiple
           ? `Comparing ${orderedCars.length} cars.`

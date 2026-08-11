@@ -162,6 +162,74 @@ body {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none text-forest-700 hover:bg-forest-50 px-4 py-2;
 }
 
+/* ---- Type scale (identity section 05) ------------------------------------
+   One named class per style so sizes stay uniform instead of ad hoc.
+   Desktop values with the identity's one-step-down on mobile. The scale's
+   900/800 weights render in the kit's real 700 via font-synthesis: none.
+   Display (the hero) stays with the hero components; Body is the base.
+   Price deliberately inherits its font family: figures set in whichever
+   face their context uses, but always 800, tight, and tabular. */
+@layer components {
+  .type-heading {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2rem; /* 32px mobile */
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  .type-subheading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem; /* 24px mobile */
+    line-height: 1.2;
+  }
+  .type-lead {
+    font-weight: 300;
+    font-size: 1.1875rem; /* 19px mobile */
+    line-height: 1.55;
+  }
+  .type-caption {
+    font-weight: 500;
+    font-size: 0.84375rem; /* 13.5px — never smaller than 13 */
+    line-height: 1.5;
+  }
+  .type-label {
+    font-weight: 700;
+    font-size: 0.6875rem; /* 11px */
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+  .type-price {
+    font-weight: 800;
+    font-size: 1.625rem; /* 26px */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+  .type-price-lg {
+    font-weight: 800;
+    font-size: 1.875rem; /* 30px mobile */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+  @media (min-width: 640px) {
+    .type-heading {
+      font-size: 2.5rem; /* 40px */
+    }
+    .type-subheading {
+      font-size: 1.75rem; /* 28px */
+    }
+    .type-lead {
+      font-size: 1.3125rem; /* 21px */
+    }
+    .type-price-lg {
+      font-size: 2.125rem; /* 34px */
+    }
+  }
+}
+
 @utility card {
   @apply bg-card rounded-2xl border border-stone-200;
 }

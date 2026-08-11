@@ -37,10 +37,10 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-display font-bold text-xl leading-snug text-ink group-hover:text-forest-700 transition-colors duration-[120ms]">
+        <h3 className="type-subheading text-ink group-hover:text-forest-700 transition-colors duration-[120ms]">
           {carTitle(car)}
         </h3>
-        <p className="mt-1 text-xl font-extrabold text-forest-700">
+        <p className="type-price mt-1.5 text-forest-700">
           {sold ? "Sold" : formatPrice(car.price)}
         </p>
         <p className="mt-2 text-sm text-stone-500">

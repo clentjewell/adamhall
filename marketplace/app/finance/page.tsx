@@ -43,7 +43,7 @@ export default async function FinancePage() {
         </div>
 
         <div className="mt-16">
-          <h2 className="font-display font-bold text-2xl text-center mb-8">How it works</h2>
+          <h2 className="type-heading text-center mb-8">How it works</h2>
           <div className="grid gap-8 sm:grid-cols-3">
             {content.financePage.steps.map((step, i) => {
               const Icon = STEP_ICONS[i % STEP_ICONS.length];

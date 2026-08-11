@@ -495,7 +495,7 @@ export default function InstantQuote({
         <div className="lg:sticky lg:top-24">
           {!result && !pending && (
             <div className="card h-full p-6">
-              <p className="text-[21px] leading-[1.55] font-light text-meta">
+              <p className="type-lead text-meta">
                 Fill in the car on the left and we will show you the range it
                 sits in, straight away. No account, no contact details, just the
                 range.
@@ -537,12 +537,12 @@ export default function InstantQuote({
                 <>
                   <div className="bg-forest-600 px-6 py-5 text-white">
                     <div className="flex items-baseline justify-between gap-3">
-                      <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/80">
+                      <p className="type-label text-white/80">
                         Indicative range
                       </p>
                       <span className="flex items-center gap-2">
                         {refreshing && (
-                          <span className="text-[11px] font-semibold text-white/70">
+                          <span className="type-caption text-white/70">
                             updating…
                           </span>
                         )}
@@ -581,7 +581,7 @@ export default function InstantQuote({
                     {/* Prices never count up and never flicker on change
                         (identity section 13). The figures simply update;
                         the bar below and the movement chip carry the change. */}
-                    <p className="tabular mt-1 text-3xl font-extrabold sm:text-4xl">
+                    <p className="type-price-lg mt-1">
                       {formatRoughPrice(result.low)} to {formatRoughPrice(result.high)}
                     </p>
 
@@ -703,10 +703,10 @@ export default function InstantQuote({
                 </>
               ) : (
                 <div className="space-y-4 p-6">
-                  <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-meta">
+                  <p className="type-label text-meta">
                     No instant number for this one
                   </p>
-                  <p className="text-[21px] leading-[1.55] font-light text-ink">
+                  <p className="type-lead text-ink">
                     {result.message}
                   </p>
                   <div className="flex flex-col gap-3 pt-2 sm:flex-row">

@@ -15,7 +15,7 @@ function renderLegalText(text: string) {
     const trimmed = block.trim();
     if (trimmed.startsWith("## ")) {
       return (
-        <h2 key={i} className="font-display font-bold text-xl mt-8 mb-3">
+        <h2 key={i} className="type-subheading mt-8 mb-3">
           {trimmed.slice(3).trim()}
         </h2>
       );
@@ -41,7 +41,7 @@ export default async function PrivacyPolicyPage() {
         </p>
       </div>
 
-      <h1 className="font-display font-extrabold text-3xl md:text-4xl">Privacy Policy</h1>
+      <h1 className="type-heading">Privacy Policy</h1>
       {renderLegalText(content.legal.privacy)}
     </div>
   );

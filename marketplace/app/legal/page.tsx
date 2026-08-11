@@ -54,7 +54,7 @@ export default function LegalIndexPage() {
         </p>
       </div>
 
-      <h1 className="font-display font-extrabold text-3xl md:text-4xl">Legal</h1>
+      <h1 className="type-heading">Legal</h1>
       <p className="text-stone-700 leading-relaxed mt-4 mb-10">
         The policies and disclaimers that apply to this website and to buying a
         car from us. If something here is unclear, ring us and ask.

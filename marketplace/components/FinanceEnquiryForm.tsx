@@ -34,7 +34,7 @@ export default function FinanceEnquiryForm({
   return (
     <form action={action} className="card p-6">
       {carId && <input type="hidden" name="car_id" value={carId} />}
-      <h2 className="font-display font-bold text-xl mb-5">Get finance sorted</h2>
+      <h2 className="type-subheading mb-5">Get finance sorted</h2>
 
       <div className="space-y-4">
         <div>

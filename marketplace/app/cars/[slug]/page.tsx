@@ -141,7 +141,7 @@ export default async function CarDetailPage({ params }: Props) {
             )}
 
             <Reveal>
-              <h2 className="font-display font-bold text-xl mb-3">The details</h2>
+              <h2 className="type-subheading mb-3">The details</h2>
               <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-stone-200 rounded-2xl overflow-hidden">
                 {specs.map(([k, v]) => (
                   <div key={k} className="bg-white p-4">
@@ -154,7 +154,7 @@ export default async function CarDetailPage({ params }: Props) {
 
             {video && (
               <Reveal className="mt-10">
-                <h2 className="font-display font-bold text-xl mb-3 flex items-center gap-2">
+                <h2 className="type-subheading mb-3 flex items-center gap-2">
                   <Play size={20} weight="fill" className="text-forest-600" />
                   Walk-around with Adam
                 </h2>
@@ -172,7 +172,7 @@ export default async function CarDetailPage({ params }: Props) {
 
             {car.description && (
               <Reveal className="mt-10">
-                <h2 className="font-display font-bold text-xl mb-3">About this car</h2>
+                <h2 className="type-subheading mb-3">About this car</h2>
                 <p className="text-stone-700 leading-relaxed whitespace-pre-line max-w-[68ch]">
                   {car.description}
                 </p>
@@ -222,7 +222,7 @@ export default async function CarDetailPage({ params }: Props) {
         {others.length > 0 && (
           <section className="mt-16">
             <Reveal>
-              <h2 className="font-display font-bold text-2xl mb-6">
+              <h2 className="type-subheading mb-6">
                 {sold ? "Still available" : "Also in stock"}
               </h2>
             </Reveal>

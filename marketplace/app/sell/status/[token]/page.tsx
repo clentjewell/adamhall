@@ -30,7 +30,7 @@ export default async function StatusPage({ params }: Props) {
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center">
-        <h1 className="font-display font-extrabold text-2xl">Status tracking is warming up</h1>
+        <h1 className="type-heading">Status tracking is warming up</h1>
         <p className="text-stone-600 mt-3">
           This page isn&apos;t wired up in this environment yet. Your submission
           is safe. Adam will be in touch within 1 business day.
@@ -64,7 +64,7 @@ export default async function StatusPage({ params }: Props) {
   return (
     <div className="max-w-xl mx-auto px-4 py-12">
       <p className="text-sm font-semibold text-forest-700">Your submission</p>
-      <h1 className="font-display font-extrabold text-3xl tracking-tight mt-1">
+      <h1 className="type-heading mt-1">
         {title}
       </h1>
       <p className="text-stone-500 text-sm mt-1">

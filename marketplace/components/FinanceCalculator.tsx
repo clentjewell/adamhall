@@ -59,7 +59,7 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
 
   return (
     <div className="card p-6">
-      <h2 className="font-display font-bold text-xl mb-5">Repayment calculator</h2>
+      <h2 className="type-subheading mb-5">Repayment calculator</h2>
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
@@ -217,7 +217,7 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
         <p className="text-sm font-semibold text-forest-700">Estimated repayment</p>
         {/* Prices never count up and never flicker on change (identity
             section 13). The figure simply updates; the bar below moves. */}
-        <p className="tabular font-display font-extrabold text-4xl text-forest-700 mt-1">
+        <p className="type-price-lg font-display text-forest-700 mt-1">
           {formatPrice(Math.round(result.paymentPerPeriod))}
           <span className="text-lg font-bold">/{activeFreq.suffix}</span>
         </p>

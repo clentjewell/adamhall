@@ -249,7 +249,7 @@ export default function SellFlow({
     return (
       <div className="card p-8 text-center max-w-xl mx-auto" role="status">
         <CheckCircle size={56} weight="fill" className="text-forest-600 mx-auto" />
-        <h2 className="font-display font-extrabold text-2xl mt-4">
+        <h2 className="type-subheading mt-4">
           Done. Adam has your car.
         </h2>
         <p className="text-stone-600 mt-3 leading-relaxed">
@@ -353,7 +353,7 @@ export default function SellFlow({
       >
       {step === 0 && (
         <section className="space-y-5">
-          <h2 className="font-display font-bold text-2xl">
+          <h2 className="type-subheading">
             Let&apos;s start with the car
           </h2>
           {!draft.manual ? (
@@ -436,7 +436,7 @@ export default function SellFlow({
       {step === 1 && (
         <section className="space-y-6">
           <div>
-            <h2 className="font-display font-bold text-2xl">How&apos;s it holding up?</h2>
+            <h2 className="type-subheading">How&apos;s it holding up?</h2>
             <p className="text-stone-600 mt-1">
               Be straight with us and we&apos;ll be straight with you. Honest
               answers get honest offers. Nobody&apos;s marking you down for a
@@ -522,7 +522,7 @@ export default function SellFlow({
       {step === 2 && (
         <section className="space-y-5">
           <div>
-            <h2 className="font-display font-bold text-2xl">Show us the car</h2>
+            <h2 className="type-subheading">Show us the car</h2>
             <p className="text-stone-600 mt-1">
               Four to twelve photos, phone camera is perfect. This shot list is
               what Adam looks at first:
@@ -606,7 +606,7 @@ export default function SellFlow({
       {step === 3 && (
         <section className="space-y-5">
           <div>
-            <h2 className="font-display font-bold text-2xl">Where do we send the offer?</h2>
+            <h2 className="type-subheading">Where do we send the offer?</h2>
             <p className="text-stone-600 mt-1">
               Adam calls with the number, then confirms it in writing. No
               lowball-by-text here.

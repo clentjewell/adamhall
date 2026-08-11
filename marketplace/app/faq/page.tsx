@@ -58,7 +58,7 @@ export default async function FaqPage() {
         {groups.map((group) => (
           <Reveal key={group.title}>
             <div>
-              <h2 className="font-display font-bold text-2xl md:text-3xl mb-5">
+              <h2 className="type-heading mb-5">
                 {group.title}
               </h2>
               <div className="space-y-3">

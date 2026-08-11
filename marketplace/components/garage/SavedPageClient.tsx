@@ -64,7 +64,7 @@ export default function SavedPageClient() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="font-display font-bold text-3xl mb-8">Saved cars</h1>
+      <h1 className="type-heading mb-8">Saved cars</h1>
 
       {loading ? (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -105,7 +105,7 @@ export default function SavedPageClient() {
 
       {(loading || recentCars.length > 0) && (
         <section className="mt-16">
-          <h2 className="font-display font-bold text-xl mb-4">Recently viewed</h2>
+          <h2 className="type-subheading mb-4">Recently viewed</h2>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {loading
               ? Array.from({ length: 4 }).map((_, i) => (

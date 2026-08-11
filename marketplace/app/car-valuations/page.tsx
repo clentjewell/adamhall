@@ -41,12 +41,12 @@ export default async function CarValuationsPage() {
         {/* How the number is arrived at. The brand's whole promise is that
             nothing is hidden, so the method is on the page, not in a tooltip. */}
         <section className="mt-16 border-t border-hairline pt-10">
-          <h2 className="text-[28px] font-extrabold leading-[1.2]">
+          <h2 className="type-heading">
             How we work the number out
           </h2>
           <div className="mt-6 grid gap-8 sm:grid-cols-3">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-meta">
+              <p className="type-label text-meta">
                 Adam&apos;s own book
               </p>
               <p className="mt-2">
