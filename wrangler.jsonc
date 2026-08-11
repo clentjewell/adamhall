@@ -1,0 +1,24 @@
+{
+  // Root config for the git-connected `adamhall` Workers service.
+  //
+  // That service builds this repository from its ROOT on every push, and
+  // for a year the root had no Wrangler config, so every build failed
+  // ("Workers Builds: adamhall" red on every PR). The worker itself is
+  // live and serves the Adam Hall Operating System proposal one-pager.
+  //
+  // This config makes the repo own exactly what is already deployed:
+  // `adamhall-site/` is a byte-for-byte mirror of the live worker's
+  // assets (index.html + jewell-logo.svg, mirrored 2026-08-11), served
+  // as a static-assets worker. Builds now succeed and deploy the same
+  // page that was already there. To change the proposal page, edit
+  // `adamhall-site/` — the next push to the default branch ships it.
+  //
+  // The marketplace app is a SEPARATE service (`adamhall-marketplace`,
+  // root directory `marketplace`) and is untouched by this config.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "adamhall",
+  "compatibility_date": "2025-05-05",
+  "assets": {
+    "directory": "adamhall-site"
+  }
+}
