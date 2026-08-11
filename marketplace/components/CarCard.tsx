@@ -2,21 +2,17 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
+import { isJustIn } from "@/lib/car-flags";
 
 // The card's entire motion vocabulary, per the identity (section 13):
 // a 2px lift and a soft shadow at 200ms. The photograph is the graphic,
 // so it does not zoom, pan or swap on hover.
-const JUST_IN_DAYS = 7;
 
 export default function CarCard({ car, priority = false }: { car: Car; priority?: boolean }) {
   const photo = car.photos[0];
   const sold = car.status === "sold";
   // Sand carries the "just in" flag (identity section 04) for the first week.
-  const justIn =
-    !sold &&
-    car.published_at != null &&
-    Date.now() - new Date(car.published_at).getTime() <
-      JUST_IN_DAYS * 24 * 60 * 60 * 1000;
+  const justIn = isJustIn(car);
 
   return (
     <Link

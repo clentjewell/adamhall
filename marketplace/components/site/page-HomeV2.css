@@ -1,0 +1,588 @@
+/* ===================================================================
+   MARKETPLACE HOME — REDESIGN (route: /home-v2)
+   -------------------------------------------------------------------
+   Layout, section order, spacing and card anatomy follow the
+   "Carmarketplace UI mockups" artifact, frames 1a (desktop 1280) and
+   1b (mobile 390).
+
+   Colour and type do NOT come from the artifact. That mockup was drawn
+   on placeholder tokens (a lighter green, Bricolage Grotesque and
+   Figtree); this page is built on the live identity instead — forest
+   #004438, cream, sand for the one action that matters, and the Neue
+   Haas Grotesk Display / Mr Eaves Modern pairing. Every value below
+   resolves through tokens.css, so re-skinning still happens in one
+   place. No hexes here.
+
+   Lives alongside page-Home.css rather than replacing it: both home
+   pages stay live until this one is signed off.
+   =================================================================== */
+
+/* Eyebrows are green on the buy side, matching the existing home page.
+   base.css colours .eyebrow with the parent's lilac, which the identity
+   reserves for moments that are Adam himself. */
+.ah-site.mp-home-v2 .eyebrow {
+  color: var(--c-green);
+}
+.ah-site.mp-home-v2 .mp2-hero .eyebrow {
+  color: var(--c-sand);
+}
+
+/* --- Hero ------------------------------------------------------------
+   A banded film rather than the full-viewport hero of the current page:
+   the artifact gives it a fixed 560px on desktop, 420px on mobile, and
+   lets the trust strip and the stock grid arrive above the fold on a
+   laptop. It sits *below* the 64px sticky header rather than pulling up
+   behind it, because the header is solid cream and the artifact treats
+   the two as separate bands. */
+.ah-site .mp2-hero {
+  position: relative;
+  min-height: clamp(26.25rem, 44vw, 35rem); /* 420 -> 560px */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--c-green);
+}
+.ah-site .mp2-hero__scrim {
+  position: absolute;
+  inset: 0;
+  /* Desktop: the wash runs left to right so the copy has a dark ground and
+     the right-hand third of the photograph stays legible. */
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.86) 0%,
+    rgba(0, 0, 0, 0.68) 42%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+.ah-site .mp2-hero__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.ah-site .mp2-hero__content {
+  max-width: 46rem;
+}
+.ah-site .mp2-hero__title {
+  color: var(--c-white);
+  font-size: clamp(2.25rem, 5.3vw, 4.25rem); /* 36 -> 68px */
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+  margin: 0.75rem 0 0;
+}
+.ah-site .mp2-hero__sub {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(0.9375rem, 1.3vw, 1.1875rem); /* 15 -> 19px */
+  line-height: 1.55;
+  max-width: 46ch;
+  margin: 1.25rem 0 0;
+  text-wrap: pretty;
+}
+.ah-site .mp2-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+/* Text over moving footage needs a little more separation than text on a
+   flat panel. */
+.ah-site .mp2-hero__title,
+.ah-site .mp2-hero__sub {
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* --- Trust strip -----------------------------------------------------
+   Five facts across a white band, divided by hairlines. The 1px grid gap
+   over a hairline-coloured ground draws the rules, so there is no border
+   bookkeeping per cell. Below 1024px the row becomes a scrollable set of
+   pills, which is the artifact's own mobile treatment — nothing is
+   dropped, it just scrolls. */
+.ah-site .mp2-trust {
+  background: var(--c-white);
+  border-bottom: 1px solid var(--c-border);
+}
+.ah-site .mp2-trust__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--c-border);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ah-site .mp2-trust__item {
+  background: var(--c-white);
+  padding: 1.375rem 1.25rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--c-black);
+}
+/* The first and last cells lose their outer padding so the row lines up
+   with the container edge rather than sitting inset from it. */
+.ah-site .mp2-trust__item:first-child {
+  padding-left: 0;
+}
+.ah-site .mp2-trust__item:last-child {
+  padding-right: 0;
+}
+
+/* --- Stock -----------------------------------------------------------
+   Heading and "view all" share a baseline above the grid, per the
+   artifact. (The current home page runs the heading *below* the cards;
+   this redesign puts it back on top, so source order and visual order
+   agree and the card h3s sit under their own h2 with no CSS reordering.) */
+.ah-site .mp2-stock {
+  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+.ah-site .mp2-stock__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.ah-site .mp2-stock__title {
+  font-size: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-stock__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.ah-site .mp2-stock__empty {
+  margin: 0 0 1.5rem;
+  max-width: 52ch;
+  color: var(--c-text-dark);
+}
+
+/* A text link that still reads as an action: green, semibold, with a 2px
+   rule under it that thickens the underline into a target. */
+.ah-site .mp2-link-strong {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--c-green-deep);
+  text-decoration: none;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid var(--c-green);
+  white-space: nowrap;
+  transition: color var(--transition), border-color var(--transition);
+}
+.ah-site .mp2-link-strong:hover {
+  color: var(--c-green);
+  border-bottom-color: var(--c-sand);
+}
+.ah-site .mp2-link-strong span {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+.ah-site .mp2-link-strong:hover span {
+  transform: translateX(3px);
+}
+
+/* --- Listing card ----------------------------------------------------
+   Same 2px lift and soft shadow as the existing listing card (identity
+   section 13). The photograph is the graphic, so it does not zoom or pan
+   on hover. */
+.ah-site .mp2-card {
+  display: block;
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.ah-site .mp2-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.ah-site .mp2-card__media {
+  position: relative;
+  aspect-ratio: 5 / 3;
+  background: var(--c-cream);
+  overflow: hidden;
+}
+.ah-site .mp2-card__img {
+  object-fit: cover;
+}
+.ah-site .mp2-card__img.is-sold {
+  opacity: 0.8;
+}
+.ah-site .mp2-card__nophoto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text);
+  font-size: 0.875rem;
+}
+.ah-site .mp2-card__badge {
+  position: absolute;
+  top: 0.875rem;
+  left: 0.875rem;
+  border-radius: var(--radius-pill);
+  padding: 0.375rem 0.75rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  /* Neutral by default: a PPSR note is a fact, not an accent moment. */
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--c-black);
+}
+/* Sand carries "just in" (identity section 04) — the buy side's one accent. */
+.ah-site .mp2-card__badge--new {
+  background: var(--c-sand);
+  color: var(--c-black);
+}
+/* Amber is status-only and is not part of the palette. */
+.ah-site .mp2-card__badge--sold {
+  background: var(--color-amber-accent);
+  color: var(--c-black);
+}
+.ah-site .mp2-card__body {
+  padding: 1.125rem 1.125rem 1.25rem;
+}
+.ah-site .mp2-card__title {
+  font-size: 1.1875rem; /* 19px */
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.ah-site .mp2-card__pricerow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+.ah-site .mp2-card__price {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.625rem; /* 26px */
+  line-height: 1;
+  color: var(--c-green-deep);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.ah-site .mp2-card__price.is-sold {
+  color: var(--color-mute);
+}
+.ah-site .mp2-card__qualifier {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--c-text);
+  margin: 0;
+  white-space: nowrap;
+}
+/* Spec line below a hairline, dot-separated. The separators are generated
+   rather than authored so the markup stays a plain list of facts. */
+.ah-site .mp2-card__spec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.875rem 0 0;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--c-border);
+  font-size: 0.8125rem;
+  color: var(--c-text);
+}
+.ah-site .mp2-card__spec span + span::before {
+  content: "·";
+  margin-right: 0.5rem;
+  color: var(--c-border);
+}
+
+/* --- Story splits ----------------------------------------------------
+   Two mirrored halves: words and photograph, then photograph and words.
+   The second sits on a white band with rules top and bottom so the pair
+   is visibly a pair rather than two similar rows. */
+.ah-site .mp2-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  padding-block: clamp(2.75rem, 6.5vw, 5rem);
+}
+.ah-site .mp2-split__title {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem); /* 28 -> 40px */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-split__text {
+  color: var(--c-text-dark);
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem); /* 15 -> 17px */
+  line-height: 1.6;
+  max-width: 46ch;
+  margin: 1.125rem 0 0;
+  text-wrap: pretty;
+}
+.ah-site .mp2-split__actions {
+  margin-top: 1.875rem;
+}
+.ah-site .mp2-split__media {
+  position: relative;
+  aspect-ratio: 6 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--c-cream);
+}
+.ah-site .mp2-split__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Mirror: photograph first on desktop, words first in the DOM so the
+   reading order stays heading-then-supporting-image on a phone. */
+.ah-site .mp2-split--flip .mp2-split__media {
+  order: -1;
+}
+.ah-site .mp2-band {
+  background: var(--c-white);
+  border-top: 1px solid var(--c-border);
+  border-bottom: 1px solid var(--c-border);
+}
+
+/* Dash list. The artifact marks each point with an em dash rather than a
+   tick, which keeps the claims reading as statements rather than as a
+   feature checklist. */
+.ah-site .mp2-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ah-site .mp2-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--c-text-dark);
+}
+.ah-site .mp2-list li::before {
+  content: "—";
+  color: var(--c-green);
+  font-weight: 800;
+  flex: 0 0 auto;
+}
+
+/* --- Closing call to action ------------------------------------------
+   A green card floating on the cream rather than a full-bleed band, with
+   the trust line inside it and the crossing to Adam named underneath. */
+.ah-site .mp2-close {
+  background: var(--c-green);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+.ah-site .mp2-close__title {
+  color: var(--c-white);
+  font-size: clamp(1.625rem, 2.9vw, 2.25rem); /* 26 -> 36px */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 18ch;
+  margin: 0;
+}
+.ah-site .mp2-close__meta {
+  color: var(--color-forest-200);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 1rem 0 0;
+}
+.ah-site .mp2-crossing {
+  text-align: center;
+  color: var(--c-text);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  max-width: 70ch;
+  margin: 1.5rem auto 0;
+}
+.ah-site .mp2-crossing a {
+  font-weight: 700;
+  color: var(--c-green-deep);
+  text-underline-offset: 3px;
+}
+
+/* ---------------------------------------------------------------------
+   Responsive. Two real breaks, matching the artifact's own two frames:
+   the desktop composition holds to 1024, a two-column intermediate
+   carries tablets, and below 640 everything stacks.
+   --------------------------------------------------------------------- */
+
+/* Tablet and below: the five-across trust row becomes a scrollable set of
+   pills. Nothing is dropped; the row scrolls under the thumb. */
+@media (max-width: 1023px) {
+  .ah-site .mp2-trust__grid {
+    display: flex;
+    gap: 0.5rem;
+    background: transparent;
+    padding: 0.875rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ah-site .mp2-trust__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .ah-site .mp2-trust__item {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-pill);
+    font-size: 0.8125rem;
+    background: var(--c-cream);
+  }
+  .ah-site .mp2-trust__item:first-child,
+  .ah-site .mp2-trust__item:last-child {
+    padding-inline: 0.875rem;
+  }
+
+  /* Two cards abreast rather than three. */
+  .ah-site .mp2-stock__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ah-site .mp2-split {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 899px) {
+  /* Splits stack, and the mirrored one gives up its swap so both read
+     heading-first. */
+  .ah-site .mp2-split {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .ah-site .mp2-split--flip .mp2-split__media {
+    order: 0;
+  }
+  .ah-site .mp2-split__title,
+  .ah-site .mp2-split__text {
+    max-width: none;
+  }
+  .ah-site .mp2-split__media {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* The closing card stacks and its button goes full width — a wide,
+     thumb-height target rather than a pill floating right. */
+  .ah-site .mp2-close {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+  .ah-site .mp2-close__title {
+    max-width: none;
+  }
+  .ah-site .mp2-close .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  /* Hero: the wash turns vertical and the copy sits at the foot of the
+     film, which is where the artifact's 390px frame puts it. */
+  .ah-site .mp2-hero {
+    align-items: flex-end;
+    min-height: 26.25rem; /* 420px */
+  }
+  .ah-site .mp2-hero__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0.86) 62%
+    );
+  }
+  .ah-site .mp2-hero__inner {
+    padding-bottom: 1.625rem;
+  }
+  .ah-site .mp2-hero__title,
+  .ah-site .mp2-hero__sub {
+    max-width: none;
+  }
+  /* Both hero actions go full width and stack: on a phone these are the
+     only two things to do on the screen. */
+  .ah-site .mp2-hero__actions {
+    margin-top: 1.125rem;
+  }
+  .ah-site .mp2-hero__actions .btn {
+    width: 100%;
+  }
+
+  /* One card at a time. */
+  .ah-site .mp2-stock__grid {
+    grid-template-columns: 1fr;
+    gap: 1.125rem;
+  }
+  /* The "view all" link leaves the heading row and becomes a full-width
+     button under the cards, as in the artifact's mobile frame. */
+  .ah-site .mp2-stock__head {
+    display: block;
+    margin-bottom: 1.375rem;
+  }
+  .ah-site .mp2-stock__head .mp2-link-strong {
+    display: none;
+  }
+  .ah-site .mp2-stock__foot {
+    margin-top: 1.25rem;
+  }
+  .ah-site .mp2-stock__foot .btn {
+    width: 100%;
+  }
+
+  .ah-site .mp2-split__actions .btn {
+    width: 100%;
+  }
+
+  /* The crossing to Adam is an inline link inside a sentence, which on a
+     phone leaves a 16px-tall target. Give it its own line and a 44px box so
+     it can actually be tapped. */
+  .ah-site .mp2-crossing a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding-inline: 0.75rem;
+  }
+}
+
+/* Above the phone breakpoint the mobile-only "view all" button is
+   redundant — the link in the heading row carries it. */
+@media (min-width: 640px) {
+  .ah-site .mp2-stock__foot {
+    display: none;
+  }
+}
+
+/* Vehicle names run to one or two lines. Reserve two so price and spec
+   share a baseline across the row instead of stepping down under a long
+   name. Only where there is more than one column to align against. */
+@media (min-width: 640px) {
+  .ah-site .mp2-card__title {
+    min-height: 2.85em;
+  }
+}
