@@ -8,7 +8,15 @@ const serviceLabels: Record<Car["service_history"], string> = {
   unknown: "History being confirmed",
 };
 
-export default function TrustBlock({ car }: { car: Car }) {
+export default function TrustBlock({
+  car,
+  showQuote = true,
+}: {
+  car: Car;
+  /** The car page renders Adam's take as its own dark card in the reading
+      flow, so its rail passes false to avoid saying it twice. */
+  showQuote?: boolean;
+}) {
   return (
     <div className="card p-6 bg-forest-50/60 !border-forest-100">
       <ul className="space-y-3.5">
@@ -40,7 +48,7 @@ export default function TrustBlock({ car }: { car: Car }) {
           </li>
         )}
       </ul>
-      {car.adams_take && (
+      {showQuote && car.adams_take && (
         <figure className="mt-5 pt-5 border-t border-forest-100">
           <div className="flex gap-3">
             <Quotes size={22} weight="fill" className="text-forest-400 shrink-0" />

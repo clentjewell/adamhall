@@ -325,6 +325,52 @@
   }
 }
 
+/* Mirrored split, per the mockup: photograph left, words right, so the two
+   story sections read as a pair. The bleed swaps to the left edge. */
+.ah-site .home-split--flip {
+  grid-template-columns: minmax(0, 51.5%) 1fr;
+}
+@media (min-width: 1161px) {
+  .ah-site .home-split--flip .home-split__media {
+    margin-right: 0;
+    margin-left: calc((1160px - 100vw) / 2);
+  }
+  .ah-site .home-split--flip .home-split__media > img:first-child {
+    border-radius: var(--radius);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+@media (max-width: 900px) {
+  .ah-site .home-split--flip {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Closing card, per the mockup: a rounded green card floating on the cream
+   rather than a full-bleed band, with the trust line inside it. */
+.ah-site .mp-close-card {
+  background: var(--c-green);
+  color: var(--c-white);
+  border-radius: calc(var(--radius) * 2);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.ah-site .mp-close-card__title {
+  color: var(--c-white);
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+  max-width: 24ch;
+  margin-bottom: 1rem;
+}
+.ah-site .mp-close-card__meta {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .ah-site .home-actions {
   display: flex;
   flex-wrap: wrap;

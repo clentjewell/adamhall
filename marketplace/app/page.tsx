@@ -159,26 +159,40 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Honesty: what the listing tells you.
-          Was a third image/text split in a row, which is the parent's rhythm
-          and reads as a template by the third pass. A green statement band
-          instead: it breaks the run, and it puts a second dark ground on the
-          page so the cream stretch is not eight screens long.
-          The hassle-free guarantee badge is gone from here — it is the parent's
-          selling promise, not a buy-side claim. */}
-      <section className="section bg-green">
-        <div className="container container--wide mp-honest">
-          <h2 className="mp-honest__title reveal-left">
-            If there&rsquo;s a mark on it, we say so
-          </h2>
-          <div className="reveal-right">
-            <ul className="mp-honest__list">
-              <li>A PPSR check before anything goes up</li>
-              <li>Full service history and condition, written out</li>
-              <li>Sold cars stay up a month so you can see what moves</li>
-            </ul>
-            <div className="mp-honest__actions">
-              <Button to="/faq" variant="outline-white" arrow>
+      {/* Honesty: what the listing tells you. The mockup sets this as the
+          mirror of the sorting split — photograph left, words right — so the
+          two story sections read as a pair. The hassle-free guarantee badge
+          stays out: it is the parent's selling promise, not a buy-side claim. */}
+      <section className="section bg-cream" style={{ paddingTop: 0 }}>
+        <div className="container container--wide home-split home-split--flip">
+          <div className="home-split__media reveal-left">
+            <img
+              src="/assets/images/Adam-Hall-Car-Buying-Gold-Coast-1.jpg"
+              alt="Adam Hall talking a buyer through a car"
+              loading="lazy"
+              width={640}
+              height={480}
+            />
+          </div>
+          <div className="home-split__content reveal-right">
+            <span className="eyebrow">Honestly described</span>
+            <h2 className="home-split__title">
+              If there&rsquo;s a mark on it, we say so
+            </h2>
+            <p>
+              We don&rsquo;t describe a car better than it is. Read the listing,
+              look at the photos, and you already know what you&rsquo;re turning
+              up to.
+            </p>
+            <IconList
+              items={[
+                "A PPSR check before anything goes up",
+                "Full service history and condition, written out",
+                "Sold cars stay up a month so you can see what moves",
+              ]}
+            />
+            <div className="home-actions">
+              <Button to="/faq" variant="green" arrow>
                 Common questions
               </Button>
             </div>
@@ -250,19 +264,26 @@ export default async function HomePage() {
 
       <FaqSection />
 
-      {/* Closing CTA, buy side. The crossing to Adam is named separately in the
-          footer band, so this one stays on the cars.
-          Green, not the parent's lilac band: the identity keeps lilac for
-          moments that are Adam himself, and the buy-side homepage was ending on
-          a full screen of it. */}
-      <section className="section bg-green mp-close">
-        <div className="container container--narrow reveal">
-          <h2 className="mp-close__title">
-            Every car here is hand-picked. The good ones don&rsquo;t hang about.
-          </h2>
-          <Button to="/cars" variant="tan" arrow>
-            Cars for sale
-          </Button>
+      {/* Closing CTA, buy side. The mockup sets this as a rounded green card
+          floating on the cream rather than a full-bleed band, with the trust
+          line inside it. The crossing to Adam stays named in the footer band. */}
+      <section className="section bg-cream">
+        <div className="container container--wide">
+          <div className="mp-close-card reveal">
+            <div>
+              <h2 className="mp-close-card__title">
+                Every car here is hand-picked. The good ones don&rsquo;t hang
+                about.
+              </h2>
+              <p className="mp-close-card__meta">
+                Every car PPSR checked · Faults named in the description ·
+                Priced to sell
+              </p>
+            </div>
+            <Button to="/cars" variant="tan" arrow>
+              Cars for sale
+            </Button>
+          </div>
         </div>
       </section>
     </div>

@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import CarsBrowser from "@/components/CarsBrowser";
 import WatchlistForm from "@/components/WatchlistForm";
-import PageHero from "@/components/PageHero";
-import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Cars for sale",
@@ -19,25 +16,26 @@ export default async function CarsPage() {
   const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const makes = [...new Set(cars.map((c) => c.make))].sort();
 
+  const inStock = cars.filter((c) => c.status === "published").length;
+
   return (
     <>
-      <PageHero
-        image={pageHeroImages.cars}
-        video={pageHeroVideos.cars}
-        imageAlt="Cars ready for sale, lined up in the morning light"
-        title={content.carsHero.title}
-        titleEditPath="carsHero.title"
-      >
-        <p data-edit="carsHero.sub" className="text-stone-200 max-w-[60ch] text-lg">
+      {/* Typographic header, per the mockup: hero media belongs to the home
+          page only; here the cars themselves are the picture. */}
+      <header className="max-w-6xl mx-auto px-4 pt-10">
+        <p className="type-label text-forest-600">
+          {inStock} car{inStock === 1 ? "" : "s"} in stock
+        </p>
+        <h1 data-edit="carsHero.title" className="type-heading mt-2">
+          {content.carsHero.title}
+        </h1>
+        <p data-edit="carsHero.sub" className="mt-3 max-w-[60ch] text-stone-600">
           {content.carsHero.sub}
         </p>
-      </PageHero>
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 py-10">
-        <CarsBrowser cars={cars} />
-        <Reveal className="mt-16 max-w-2xl">
-          <WatchlistForm makes={makes} />
-        </Reveal>
+        <CarsBrowser cars={cars} watchPanel={<WatchlistForm makes={makes} />} />
       </div>
     </>
   );

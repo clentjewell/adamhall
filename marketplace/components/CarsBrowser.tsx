@@ -31,7 +31,15 @@ function readFilters(sp: URLSearchParams): CarFilters {
   };
 }
 
-export default function CarsBrowser({ cars }: { cars: Car[] }) {
+export default function CarsBrowser({
+  cars,
+  watchPanel,
+}: {
+  cars: Car[];
+  /** Rendered under the filters, per the mockup: "Nothing that fits? Set a
+      watch." Passed in so the server page keeps ownership of the form. */
+  watchPanel?: React.ReactNode;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -189,6 +197,7 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
             {select("Transmission", "transmission", filters.transmission, transmissions.map((t) => ({ value: t, label: t })), "Any")}
             {select("Fuel", "fuel", filters.fuel, fuels.map((f) => ({ value: f, label: f })), "Any")}
           </div>
+          {watchPanel && <div className="mt-6">{watchPanel}</div>}
         </aside>
 
         <div>

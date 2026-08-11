@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { ChatText, HandCoins, PenNib } from "@phosphor-icons/react/dist/ssr";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
-import PageHero from "@/components/PageHero";
 import FinanceCalculator from "@/components/FinanceCalculator";
 import FinanceEnquiryForm from "@/components/FinanceEnquiryForm";
 import { Reveal } from "@/components/motion/Reveal";
@@ -15,27 +13,38 @@ export const metadata: Metadata = {
 
 const STEP_ICONS = [ChatText, HandCoins, PenNib];
 
-export default async function FinancePage() {
-  const content = await getContent();
+export default async function FinancePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ price?: string }>;
+}) {
+  const [content, { price }] = await Promise.all([getContent(), searchParams]);
+  // "Estimate yours" on a car page arrives with that car's price in the URL,
+  // so the calculator opens on the car being considered.
+  const parsedPrice = Number(price);
+  const defaultPrice =
+    Number.isFinite(parsedPrice) && parsedPrice >= 5000 && parsedPrice <= 500000
+      ? Math.round(parsedPrice)
+      : undefined;
 
   return (
     <>
-      <PageHero
-        image={pageHeroImages.finance}
-        video={pageHeroVideos.finance}
-        imageAlt="Adam at his desk, ready to talk finance"
-        title={content.financePage.title}
-        titleEditPath="financePage.title"
-      >
-        <p data-edit="financePage.sub" className="text-stone-200 max-w-[52ch] text-lg">
+      {/* Typographic header, per the mockup: hero media stays on the home
+          page, and this page opens on the calculator. */}
+      <header className="max-w-6xl mx-auto px-4 pt-10">
+        <p className="type-label text-forest-600">Finance</p>
+        <h1 data-edit="financePage.title" className="type-heading mt-2">
+          {content.financePage.title}
+        </h1>
+        <p data-edit="financePage.sub" className="mt-3 max-w-[52ch] text-stone-600">
           {content.financePage.sub}
         </p>
-      </PageHero>
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <Reveal>
-            <FinanceCalculator />
+            <FinanceCalculator defaultPrice={defaultPrice} />
           </Reveal>
           <Reveal delay={0.08}>
             <FinanceEnquiryForm />

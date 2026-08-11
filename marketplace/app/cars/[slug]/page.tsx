@@ -7,7 +7,7 @@ import { getContent } from "@/lib/content";
 import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
-import CarHero from "@/components/CarHero";
+import CarGallery from "@/components/CarGallery";
 import TrustBlock from "@/components/TrustBlock";
 import EnquiryForm from "@/components/EnquiryForm";
 import TestDriveForm from "@/components/TestDriveForm";
@@ -60,6 +60,11 @@ export default async function CarDetailPage({ params }: Props) {
   const title = carTitle(car);
   const sold = car.status === "sold";
   const video = car.video_url ? embedUrl(car.video_url) : null;
+  // Sand carries the "just in" flag for a car's first week, as on the card.
+  const justIn =
+    !sold &&
+    car.published_at != null &&
+    Date.now() - new Date(car.published_at).getTime() < 7 * 24 * 60 * 60 * 1000;
 
   const specs: [string, string][] = [
     ["Year", String(car.year)],
@@ -111,16 +116,9 @@ export default async function CarDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <CarHero
-        photos={car.photos}
-        title={title}
-        price={car.price}
-        sold={sold}
-        transitionName={`car-${car.id}`}
-      />
       <RecentViewTracker carId={car.id} />
 
-      <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
+      <div className="max-w-6xl mx-auto px-4 pt-6 pb-24 md:pb-10">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <Breadcrumbs
             items={[
@@ -132,8 +130,81 @@ export default async function CarDetailPage({ params }: Props) {
           <SaveCompareButtons carId={car.id} variant="detail" />
         </div>
 
+        {/* Mockup layout: boxed gallery and facts on the left, the buying
+            rail (name, price, trust, enquiry) on the right. On mobile the
+            rail follows the gallery, so the price is never below the fold
+            of the description. */}
         <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
-          <div className="min-w-0">
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+            <CarGallery
+              photos={car.photos}
+              title={title}
+              sold={sold}
+              transitionName={`car-${car.id}`}
+            />
+          </div>
+
+          <aside className="space-y-6 self-start lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:row-span-2">
+            <div>
+              {justIn && (
+                <span className="type-label inline-block rounded-full bg-sand px-3 py-1.5 text-ink">
+                  Just in
+                </span>
+              )}
+              <h1 className={`type-subheading ${justIn ? "mt-3" : ""}`}>{title}</h1>
+              {sold ? (
+                <p className="type-price-lg mt-3 text-mute">Sold</p>
+              ) : (
+                <>
+                  <p className="mt-3">
+                    <span className="type-price-lg text-forest-700">
+                      {formatPrice(car.price)}
+                    </span>
+                    <span className="ml-2 text-sm font-semibold text-stone-500">
+                      drive away
+                    </span>
+                  </p>
+                  <p className="mt-2 text-sm text-stone-600">
+                    Approx.{" "}
+                    <strong className="tabular">
+                      {formatPrice(estimateWeekly(car.price))}/week
+                    </strong>{" "}
+                    on finance ·{" "}
+                    <Link
+                      href={`/finance?price=${car.price}`}
+                      className="font-semibold text-forest-700 underline underline-offset-2 hover:text-forest-600"
+                    >
+                      estimate yours
+                    </Link>
+                  </p>
+                </>
+              )}
+            </div>
+
+            <TrustBlock car={car} showQuote={false} />
+            {!sold && (
+              <>
+                <EnquiryForm carId={car.id} carName={title} />
+                <TestDriveForm carId={car.id} carName={title} />
+                <a
+                  href={parentUrl("/buy-my-car", "marketplace-tradein")}
+                  className="card p-5 flex items-center gap-4 hover:border-forest-200 hover:-translate-y-0.5 transition-[translate,border-color] duration-200 group"
+                >
+                  <ArrowsLeftRight size={26} className="text-forest-600 shrink-0" weight="bold" />
+                  <div>
+                    <p className="font-bold group-hover:text-forest-700 transition-colors duration-[120ms]">
+                      Have a car to trade?
+                    </p>
+                    <p className="text-sm text-stone-600">
+                      Send us yours and Adam will price both sides of the deal at once.
+                    </p>
+                  </div>
+                </a>
+              </>
+            )}
+          </aside>
+
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
             {sold && (
               <div className="card p-5 mb-8 bg-amber-soft !border-amber-accent/30">
                 <p className="font-bold">
@@ -188,45 +259,22 @@ export default async function CarDetailPage({ params }: Props) {
                 </p>
               </Reveal>
             )}
-          </div>
 
-          <aside className="space-y-6 lg:sticky lg:top-20 self-start">
-            <TrustBlock car={car} />
-            {!sold && (
-              <>
-                <Link
-                  href="/finance"
-                  className="card p-4 flex items-center justify-between gap-3 hover:border-forest-200 transition-colors text-sm"
-                >
-                  <span>
-                    <span className="font-bold">
-                      From ~{formatPrice(estimateWeekly(car.price))}/week
-                    </span>
-                    <span className="block text-stone-500">
-                      Estimate only, not an offer. Run your own numbers.
-                    </span>
-                  </span>
-                  <span className="btn-ghost !py-1.5 !px-3 shrink-0">Calculator</span>
-                </Link>
-                <EnquiryForm carId={car.id} carName={title} />
-                <TestDriveForm carId={car.id} carName={title} />
-                <a
-                  href={parentUrl("/buy-my-car", "marketplace-tradein")}
-                  className="card p-5 flex items-center gap-4 hover:border-forest-200 hover:-translate-y-0.5 transition-all group"
-                >
-                  <ArrowsLeftRight size={26} className="text-forest-600 shrink-0" weight="bold" />
-                  <div>
-                    <p className="font-bold group-hover:text-forest-700 transition-colors">
-                      Have a car to trade?
-                    </p>
-                    <p className="text-sm text-stone-600">
-                      Send us yours and Adam will price both sides of the deal at once.
-                    </p>
-                  </div>
-                </a>
-              </>
+            {/* Adam's line on the car, as the mockup sets it: a dark card in
+                the reading flow, the one voice on the page that is a person. */}
+            {car.adams_take && (
+              <Reveal className="mt-10">
+                <figure className="rounded-2xl bg-forest-800 p-6 sm:p-8">
+                  <blockquote className="type-lead text-white">
+                    &ldquo;{car.adams_take}&rdquo;
+                  </blockquote>
+                  <figcaption className="type-label mt-4 text-white/70">
+                    Adam Hall · 27 years in the trade
+                  </figcaption>
+                </figure>
+              </Reveal>
             )}
-          </aside>
+          </div>
         </div>
 
         {others.length > 0 && (
