@@ -230,6 +230,65 @@ body {
   }
 }
 
+/* ---- Page transitions (View Transitions API) -----------------------------
+   Route changes cross-fade on the identity's motion tokens (section 13):
+   the old page leaves quickly on the exit curve, the new one arrives on
+   the entrance curve, and nothing runs past 320ms. A car's photo carries
+   from the listing card to the car-page hero through a shared
+   view-transition-name, so the click reads as continuity, not a jump.
+   Browsers without the API just navigate instantly. */
+::view-transition-old(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+::view-transition-group(*) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.2, 1);
+}
+/* The chrome holds still while the page changes between header and
+   footer: each gets its own snapshot group pinned in place. */
+.vt-site-header {
+  view-transition-name: site-header;
+}
+.vt-site-footer {
+  view-transition-name: site-footer;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* The gauge at fine scale, green on light: the identity's one pattern
+   device (section 12) as a section transition on long pages. Same
+   proportions as the footer's medium cut — short tick 45% of tall, tall
+   every fifth position, gap eight times the tick weight — at almost no
+   contrast, structural rather than decorative. Budget: twice per page,
+   and the footer's gauge counts as one. */
+@layer components {
+  .gauge-fine {
+    height: 9px;
+    color: var(--color-forest-600);
+    opacity: 0.3;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 40px);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size:
+      100% 1px,
+      8px 4px,
+      40px 8px;
+  }
+}
+
 @utility card {
   @apply bg-card rounded-2xl border border-stone-200;
 }

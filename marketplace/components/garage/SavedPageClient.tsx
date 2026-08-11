@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { X } from "@phosphor-icons/react";
 import { createClient } from "@/lib/supabase/client";
 import type { Car } from "@/lib/types";

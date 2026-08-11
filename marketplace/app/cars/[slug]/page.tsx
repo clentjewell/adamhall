@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
@@ -111,7 +111,13 @@ export default async function CarDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <CarHero photos={car.photos} title={title} price={car.price} sold={sold} />
+      <CarHero
+        photos={car.photos}
+        title={title}
+        price={car.price}
+        sold={sold}
+        transitionName={`car-${car.id}`}
+      />
       <RecentViewTracker carId={car.id} />
 
       <div className="max-w-6xl mx-auto px-4 py-8 pb-24 md:pb-8">
@@ -151,6 +157,10 @@ export default async function CarDetailPage({ params }: Props) {
                 ))}
               </dl>
             </Reveal>
+
+            {/* The identity's section-transition device: the gauge at fine
+                scale, once, separating the facts from the description. */}
+            <div className="gauge-fine mt-10" aria-hidden="true" />
 
             {video && (
               <Reveal className="mt-10">

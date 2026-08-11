@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Phone, TrendDown, TrendUp } from "@phosphor-icons/react";
 import { getInstantQuote, type QuotePayload } from "@/app/actions/quote";

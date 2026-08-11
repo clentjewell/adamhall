@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Lightning, Star } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug } from "@/lib/cars";
 import { getResponseStat } from "@/lib/stats";

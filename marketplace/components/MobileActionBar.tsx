@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Phone, ChatCircleText, CalendarCheck } from "@phosphor-icons/react";
 
 export default function MobileActionBar({

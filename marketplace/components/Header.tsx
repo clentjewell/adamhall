@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/lib/site-data/site";
 import { parentSite, parentUrl } from "@/lib/brand";
@@ -39,7 +39,7 @@ export default function Header() {
     pathname === to || pathname?.startsWith(to + "/");
 
   return (
-    <header className="ah-site site-header">
+    <header className="ah-site site-header vt-site-header">
       <div className="site-header__inner">
         <div className="site-header__logo" onClick={() => setOpen(false)}>
           <BrandLockup />

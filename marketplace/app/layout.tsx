@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
@@ -28,7 +29,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-AU">
+    // View Transitions wrap route changes in document.startViewTransition
+    // where the browser supports it; elsewhere navigation is simply instant.
+    <ViewTransitions>
+      <html lang="en-AU">
       <head>
         {/* Same type as the parent brand: Neue Haas Grotesk Display for
             headings, Mr Eaves Modern for body, from Adam's own Adobe Fonts
@@ -47,6 +51,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
-    </html>
+      </html>
+    </ViewTransitions>
   );
 }

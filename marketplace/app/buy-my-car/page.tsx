@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import ValuationForm from "@/components/site/ValuationForm";
 import IconList from "@/components/site/IconList";
 import { TestimonialList } from "@/components/site/Testimonials";

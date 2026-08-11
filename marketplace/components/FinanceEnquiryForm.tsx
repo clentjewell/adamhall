@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { submitFinanceEnquiry, type FinanceActionState } from "@/app/actions/finance";
 
 const initial: FinanceActionState = { ok: false };

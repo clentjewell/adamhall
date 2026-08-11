@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import {
   ArrowLeft,
   ArrowRight,

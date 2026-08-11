@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { nav, site, preFooterTrust, marketplaceTagline } from "@/lib/site-data/site";
 import { brand } from "@/lib/brand";
@@ -30,7 +30,7 @@ export default function Footer() {
   if (pathname?.startsWith("/admin") || pathname === "/buy-my-car") return null;
 
   return (
-    <div className="ah-site">
+    <div className="ah-site vt-site-footer">
       {/* Black pre-footer trust band */}
       <section className="prefooter" aria-label="Why choose Adam Hall">
         <div className="container container--wide">

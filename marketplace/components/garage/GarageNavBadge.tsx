@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Heart } from "@phosphor-icons/react";
 import { getSaved, onGarageChange } from "@/lib/garage";
 

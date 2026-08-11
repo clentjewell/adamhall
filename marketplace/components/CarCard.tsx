@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
 
@@ -15,7 +15,11 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
       href={`/cars/${car.slug}`}
       className="bg-card rounded-2xl overflow-hidden group hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-0.5 transition-[translate,box-shadow] duration-200"
     >
-      <div className="relative aspect-[3/2] bg-stone-200 overflow-hidden">
+      {/* Named so the photo morphs into the car-page hero on navigation. */}
+      <div
+        className="relative aspect-[3/2] bg-stone-200 overflow-hidden"
+        style={{ viewTransitionName: `car-${car.id}` }}
+      >
         {photo ? (
           <Image
             src={photo.url}

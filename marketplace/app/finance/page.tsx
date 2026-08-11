@@ -42,7 +42,10 @@ export default async function FinancePage() {
           </Reveal>
         </div>
 
-        <div className="mt-16">
+        {/* Section transition: the gauge at fine scale (identity section 12). */}
+        <div className="gauge-fine mt-16" aria-hidden="true" />
+
+        <div className="mt-10">
           <h2 className="type-heading text-center mb-8">How it works</h2>
           <div className="grid gap-8 sm:grid-cols-3">
             {content.financePage.steps.map((step, i) => {

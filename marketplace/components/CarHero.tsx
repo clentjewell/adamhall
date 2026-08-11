@@ -14,11 +14,15 @@ export default function CarHero({
   title,
   price,
   sold,
+  transitionName,
 }: {
   photos: CarPhoto[];
   title: string;
   price: number;
   sold: boolean;
+  /** Shared view-transition-name with the listing card, so the photo
+      carries across the navigation instead of cutting. */
+  transitionName?: string;
 }) {
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
@@ -27,6 +31,10 @@ export default function CarHero({
   return (
     <section data-header-tone="dark" className="relative -mt-16 h-[52vh] min-h-[360px] md:h-[68vh] bg-ink">
       {current ? (
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={transitionName ? { viewTransitionName: transitionName } : undefined}
+        >
         <AnimatePresence initial={false}>
           <motion.div
             key={current.url}
@@ -46,6 +54,7 @@ export default function CarHero({
             />
           </motion.div>
         </AnimatePresence>
+        </div>
       ) : (
         <div className="absolute inset-0 flex items-center justify-center text-stone-400">
           Photos coming shortly
