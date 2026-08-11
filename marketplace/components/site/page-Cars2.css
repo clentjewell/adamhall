@@ -1,0 +1,460 @@
+/* ===================================================================
+   CARS FOR SALE — REDESIGN (route: /cars2)
+   -------------------------------------------------------------------
+   Layout from the "Carmarketplace UI mockups" artifact, frames 1c
+   (desktop 1280) and 1d (mobile 390). Colour and type come from the live
+   identity via tokens.css, never from the mockup. No hexes here.
+
+   Sticky offsets assume the 64px cream header (Header.css). The filter
+   bar parks directly under it, and the sidebar parks under both.
+   =================================================================== */
+
+.ah-site.mp-cars2 .eyebrow {
+  color: var(--c-green);
+}
+
+/* --- Page header ----------------------------------------------------- */
+.ah-site .mp2-pagehead {
+  background: var(--c-white);
+  border-bottom: 1px solid var(--c-border);
+  padding-block: clamp(1.625rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.25rem);
+}
+.ah-site .mp2-pagehead__title {
+  font-size: clamp(2rem, 3.7vw, 2.875rem); /* 32 -> 46px */
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-pagehead__sub {
+  color: var(--c-text-dark);
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  line-height: 1.6;
+  max-width: 60ch;
+  margin: 0.75rem 0 0;
+  text-wrap: pretty;
+}
+
+/* --- Sticky filter bar ------------------------------------------------
+   What is currently narrowing the list, kept in reach while scrolling.
+   The bar is opaque so results never show through it. */
+.ah-site .mp2-filterbar {
+  position: sticky;
+  top: 64px;
+  z-index: 4;
+  background: var(--c-cream);
+  border-bottom: 1px solid var(--c-border);
+}
+.ah-site .mp2-filterbar__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-block: 1rem;
+  flex-wrap: wrap;
+}
+.ah-site .mp2-filterbar__count {
+  font-size: 0.8125rem;
+  color: var(--c-text);
+  margin: 0;
+  white-space: nowrap;
+}
+/* The panel toggle is phone-and-tablet only; on desktop the sidebar is
+   always open, so a button that opens it would do nothing. */
+.ah-site .mp2-filterbar__toggle {
+  display: none;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--c-border);
+  background: var(--c-white);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--c-text-dark);
+  cursor: pointer;
+  min-height: 40px;
+}
+.ah-site .mp2-filterbar__toggle:hover {
+  border-color: var(--c-green);
+  color: var(--c-green);
+}
+
+/* Chips: a removable statement of one active filter. */
+.ah-site .mp2-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-pill);
+  padding: 0.4375rem 0.8125rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  border: 1px solid var(--c-border);
+  background: var(--c-white);
+  color: var(--c-text-dark);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition);
+}
+.ah-site .mp2-chip--on {
+  background: var(--c-green);
+  border-color: var(--c-green);
+  color: var(--c-white);
+}
+.ah-site .mp2-chip--on:hover {
+  background: var(--c-green-deep);
+  border-color: var(--c-green-deep);
+}
+.ah-site .mp2-clear {
+  background: none;
+  border: 0;
+  padding: 0.25rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--c-text);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ah-site .mp2-clear:hover {
+  color: var(--c-green);
+}
+.ah-site .mp2-sort {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.ah-site .mp2-sort__label {
+  font-size: 0.8125rem;
+  color: var(--c-text);
+}
+
+/* --- Form controls ---------------------------------------------------- */
+.ah-site .mp2-field__label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.6875rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--c-text);
+  margin-bottom: 0.375rem;
+}
+.ah-site .mp2-select {
+  width: 100%;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-white);
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--c-text-dark);
+  min-height: 40px;
+  /* Native arrow removed for a token-coloured one, so the control matches
+     the rest of the chrome rather than the OS. */
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 1rem center, right 0.7rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.ah-site .mp2-select:focus-visible {
+  border-color: var(--c-green);
+}
+.ah-site .mp2-select--auto {
+  width: auto;
+  font-weight: 600;
+}
+
+/* --- Layout: sidebar + results ---------------------------------------- */
+.ah-site .mp2-cars__layout {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  padding-block: 1.75rem clamp(3rem, 6vw, 4.5rem);
+}
+.ah-site .mp2-sidebar__card {
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  position: sticky;
+  top: 8.5rem; /* clears the header and the filter bar */
+}
+.ah-site .mp2-sidebar__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.9375rem;
+  margin: 0 0 1rem;
+}
+.ah-site .mp2-sidebar__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.ah-site .mp2-field-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.625rem;
+}
+.ah-site .mp2-sidebar__note {
+  margin: 1.25rem 0 0;
+  padding-top: 1.125rem;
+  border-top: 1px solid var(--c-border);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--c-text);
+}
+
+.ah-site .mp2-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* --- Listing card ----------------------------------------------------- */
+.ah-site .mp2-lcard {
+  position: relative;
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.ah-site .mp2-lcard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.ah-site .mp2-lcard__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.ah-site .mp2-lcard__media {
+  position: relative;
+  aspect-ratio: 8 / 5;
+  background: var(--c-cream);
+  overflow: hidden;
+}
+.ah-site .mp2-lcard__img {
+  object-fit: cover;
+}
+.ah-site .mp2-lcard__img.is-sold {
+  opacity: 0.75;
+}
+.ah-site .mp2-lcard__nophoto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-text);
+  font-size: 0.8125rem;
+}
+.ah-site .mp2-lcard__badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  border-radius: var(--radius-pill);
+  padding: 0.3125rem 0.6875rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--c-black);
+}
+/* Sand carries "just in"; amber is status-only for SOLD. */
+.ah-site .mp2-lcard__badge--new {
+  background: var(--c-sand);
+}
+.ah-site .mp2-lcard__badge--sold {
+  background: var(--color-amber-accent);
+}
+.ah-site .mp2-lcard__body {
+  padding: 1rem;
+}
+.ah-site .mp2-lcard__title {
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+  /* Two lines reserved so price and spec share a baseline across a row
+     instead of stepping down under a long name. */
+  min-height: 2.5em;
+}
+.ah-site .mp2-lcard__price {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.4375rem; /* 23px */
+  line-height: 1;
+  color: var(--c-green-deep);
+  margin: 0.625rem 0 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.ah-site .mp2-lcard__price.is-sold {
+  color: var(--color-mute);
+}
+.ah-site .mp2-lcard__spec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4375rem;
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--c-border);
+  font-size: 0.75rem;
+  color: var(--c-text);
+}
+.ah-site .mp2-lcard__spec span + span::before {
+  content: "·";
+  margin-right: 0.4375rem;
+  color: var(--c-border);
+}
+
+/* --- Empty state ------------------------------------------------------ */
+.ah-site .mp2-empty {
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+}
+.ah-site .mp2-empty__title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.125rem;
+  margin: 0;
+}
+.ah-site .mp2-empty__body {
+  color: var(--c-text-dark);
+  margin: 0.5rem auto 1.25rem;
+  max-width: 46ch;
+  line-height: 1.6;
+}
+
+/* --- Watchlist panel --------------------------------------------------
+   The artifact sets this as a tinted card across the foot of the results.
+   WatchlistForm brings its own markup and server action; only its shell is
+   restyled here, so the form itself is untouched. */
+.ah-site .mp2-watch {
+  margin-top: 2rem;
+}
+.ah-site .mp2-watch form.card,
+.ah-site .mp2-watch div.card {
+  background: var(--color-forest-50);
+  border-color: var(--color-forest-100);
+  border-radius: var(--radius);
+  padding: clamp(1.375rem, 3vw, 2.25rem);
+}
+
+/* ---------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------- */
+
+/* Tablet: two cards abreast, and the sidebar becomes a collapsible panel
+   opened from the filter bar. */
+@media (max-width: 1023px) {
+  .ah-site .mp2-filterbar__toggle {
+    display: inline-flex;
+  }
+  .ah-site .mp2-cars__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+  .ah-site .mp2-sidebar {
+    display: none;
+  }
+  .ah-site .mp2-sidebar.is-open {
+    display: block;
+  }
+  .ah-site .mp2-sidebar__card {
+    position: static;
+  }
+  .ah-site .mp2-sidebar__fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.875rem;
+  }
+  .ah-site .mp2-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  /* The bar goes translucent so results scrolling under it stay hinted at,
+     matching the artifact's mobile frame. */
+  .ah-site .mp2-filterbar__inner {
+    padding-block: 0.75rem;
+    gap: 0.5rem;
+  }
+  .ah-site .mp2-sidebar__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The artifact's horizontal card: photo left, facts right. Same markup,
+     same data — only the axis changes. */
+  .ah-site .mp2-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+  .ah-site .mp2-lcard__link {
+    display: flex;
+    align-items: stretch;
+  }
+  .ah-site .mp2-lcard__media {
+    flex: 0 0 132px;
+    aspect-ratio: auto;
+  }
+  .ah-site .mp2-lcard__body {
+    flex: 1 1 0%;
+    padding: 0.875rem;
+    min-width: 0;
+  }
+  .ah-site .mp2-lcard__title {
+    font-size: 0.9375rem;
+    min-height: 0;
+  }
+  .ah-site .mp2-lcard__price {
+    font-size: 1.25rem;
+    margin-top: 0.375rem;
+  }
+  .ah-site .mp2-lcard__spec {
+    font-size: 0.6875rem;
+    gap: 0.375rem;
+    margin-top: 0.625rem;
+    padding-top: 0.625rem;
+  }
+  .ah-site .mp2-lcard__badge {
+    top: 0.5rem;
+    left: 0.5rem;
+    font-size: 0.5625rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Suspense fallback for the browser: reserves roughly the height the
+   filter bar and first row of results occupy, so the page does not jump
+   when they arrive. */
+.ah-site .mp2-browser-fallback {
+  min-height: 60vh;
+}
+
+/* Touch targets. SaveCompareButtons sizes its card icons to 34px, which is
+   under the 40px floor on a phone. Bumped here rather than in the shared
+   component so the existing pages keep the sizing they were signed off with. */
+.ah-site .mp2-lcard button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}

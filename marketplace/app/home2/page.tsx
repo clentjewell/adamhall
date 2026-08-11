@@ -11,7 +11,7 @@ import { parentSite, parentUrl } from "@/lib/brand";
 import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 /**
- * Redesigned home page, built to the "Carmarketplace UI mockups" artifact
+ * Redesigned home page (route: /home2), built to the "Carmarketplace UI mockups" artifact
  * (frames 1a desktop / 1b mobile).
  *
  * Deliberately a second route rather than a replacement: app/page.tsx and
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default async function HomeV2Page() {
+export default async function Home2Page() {
   const cars = await fetchPublicCars();
   const published = cars.filter((c) => c.status === "published");
   // Three, not four. The proposition is hand-picked, and three larger cards
@@ -40,7 +40,7 @@ export default async function HomeV2Page() {
   const viewAllLabel = `View all ${inStock} car${inStock === 1 ? "" : "s"}`;
 
   return (
-    <div className="ah-site mp-home-v2">
+    <div className="ah-site mp-home2">
       <SiteReveal />
 
       {/* --- Hero ---------------------------------------------------------
@@ -68,7 +68,7 @@ export default async function HomeV2Page() {
               listing says is what you get.
             </p>
             <div className="mp2-hero__actions">
-              <Button to="/cars" variant="tan" arrow>
+              <Button to="/cars2" variant="tan" arrow>
                 See the cars
               </Button>
               <Button href={site.phoneHref} variant="outline-white">
@@ -105,7 +105,7 @@ export default async function HomeV2Page() {
               <h2 className="mp2-stock__title">Cars for sale right now</h2>
             </div>
             {inStock > 0 && (
-              <Link href="/cars" className="mp2-link-strong">
+              <Link href="/cars2" className="mp2-link-strong">
                 {viewAllLabel} <span aria-hidden="true">&rarr;</span>
               </Link>
             )}
@@ -115,7 +115,7 @@ export default async function HomeV2Page() {
             <>
               <div className="mp2-stock__grid">
                 {latest.map((car, i) => (
-                  <StockCard key={car.id} car={car} priority={i < 3} />
+                  <StockCard key={car.id} car={car} priority={i < 3} basePath="/cars2" />
                 ))}
               </div>
               {/* Phone-only stand-in for the link in the heading row, as a
@@ -123,7 +123,7 @@ export default async function HomeV2Page() {
                   display:none at the other's width — so only ever one of them
                   is in the accessibility tree. */}
               <div className="mp2-stock__foot">
-                <Button to="/cars" variant="outline-green" arrow>
+                <Button to="/cars2" variant="outline-green" arrow>
                   {viewAllLabel}
                 </Button>
               </div>
@@ -134,7 +134,7 @@ export default async function HomeV2Page() {
                 Fresh stock is on its way. Take a look at everything currently
                 available.
               </p>
-              <Button to="/cars" variant="tan" arrow>
+              <Button to="/cars2" variant="tan" arrow>
                 View all cars for sale
               </Button>
             </>
@@ -160,7 +160,7 @@ export default async function HomeV2Page() {
               <li>The price on the car is the price you pay</li>
             </ul>
             <div className="mp2-split__actions">
-              <Button to="/cars" variant="outline-green" arrow>
+              <Button to="/cars2" variant="outline-green" arrow>
                 See what&rsquo;s in stock
               </Button>
             </div>
@@ -236,13 +236,13 @@ export default async function HomeV2Page() {
                 &middot; Priced to sell
               </p>
             </div>
-            <Button to="/cars" variant="tan" arrow>
+            <Button to="/cars2" variant="tan" arrow>
               Cars for sale
             </Button>
           </div>
           <p className="mp2-crossing">
             {parentSite.crossing.heading} {parentSite.crossing.body}{" "}
-            <a href={parentUrl("/", "marketplace-home-v2-close")}>
+            <a href={parentUrl("/", "marketplace-home2-close")}>
               {parentSite.crossing.cta} &rarr;
             </a>
           </p>

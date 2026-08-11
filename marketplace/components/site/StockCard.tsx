@@ -20,16 +20,19 @@ import { isJustIn } from "@/lib/car-flags";
 export default function StockCard({
   car,
   priority = false,
+  basePath = "/cars",
 }: {
   car: Car;
   priority?: boolean;
+  /** Lets the v2 pages keep their journey inside the v2 routes. */
+  basePath?: string;
 }) {
   const photo = car.photos[0];
   const sold = car.status === "sold";
   const justIn = isJustIn(car);
 
   return (
-    <Link href={`/cars/${car.slug}`} className="mp2-card">
+    <Link href={`${basePath}/${car.slug}`} className="mp2-card">
       {/* Named so the photo morphs into the car-page hero on navigation. */}
       <div
         className="mp2-card__media"

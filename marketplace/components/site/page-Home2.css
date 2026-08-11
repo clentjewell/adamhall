@@ -1,5 +1,5 @@
 /* ===================================================================
-   MARKETPLACE HOME — REDESIGN (route: /home-v2)
+   MARKETPLACE HOME — REDESIGN (route: /home2)
    -------------------------------------------------------------------
    Layout, section order, spacing and card anatomy follow the
    "Carmarketplace UI mockups" artifact, frames 1a (desktop 1280) and
@@ -20,10 +20,10 @@
 /* Eyebrows are green on the buy side, matching the existing home page.
    base.css colours .eyebrow with the parent's lilac, which the identity
    reserves for moments that are Adam himself. */
-.ah-site.mp-home-v2 .eyebrow {
+.ah-site.mp-home2 .eyebrow {
   color: var(--c-green);
 }
-.ah-site.mp-home-v2 .mp2-hero .eyebrow {
+.ah-site.mp-home2 .mp2-hero .eyebrow {
   color: var(--c-sand);
 }
 

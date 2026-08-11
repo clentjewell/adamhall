@@ -28,10 +28,15 @@
 
 /* Pages */
 @import "./page-Home.css";
-/* Redesign of the home page, served at /home-v2 while both versions are
-   live for comparison. Scoped under .mp-home-v2, so page-Home.css above
-   and every other route are untouched. */
-@import "./page-HomeV2.css";
+/* Redesign, served at the `2` routes while both versions are live for
+   comparison. Each is scoped under its own page class (.mp-home2,
+   .mp-cars2, ...), so the pages above and every other route are
+   untouched. */
+@import "./page-Home2.css";
+@import "./page-Cars2.css";
+@import "./page-Car2.css";
+@import "./page-Finance2.css";
+@import "./page-Compare2.css";
 @import "./page-HowItWorks.css";
 @import "./page-About.css";
 @import "./page-Listen.css";
