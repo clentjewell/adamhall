@@ -51,7 +51,7 @@
   margin-top: 0.25rem;
 }
 .ah-site .mp2-console__who {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--c-text);
   font-weight: 600;
   margin: 1.5rem 0 0.5rem;
@@ -62,14 +62,19 @@
   flex-direction: column;
   gap: 3px;
 }
+/* 16px, not the 14px the mockup specifies. At 14px in a 236px rail these
+   read as fine print rather than as the console's primary navigation, and
+   this is a tool Adam uses daily. Row height goes up with it so the targets
+   stay comfortable. */
 .ah-site .mp2-console__link {
-  padding: 0.625rem 0.75rem;
+  padding: 0.6875rem 0.875rem;
   border-radius: 9px;
   color: var(--c-text-dark);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1.25;
   text-decoration: none;
-  min-height: 40px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   transition: background-color var(--transition), color var(--transition);
@@ -86,8 +91,8 @@
 .ah-site .mp2-console__add {
   margin-top: 1.5rem;
   width: 100%;
-  padding: 0.6875rem 1rem;
-  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
   min-height: 44px;
 }
 .ah-site .mp2-console__out {
@@ -97,9 +102,9 @@
 .ah-site .mp2-console__out button {
   background: none;
   border: 0;
-  padding: 0.625rem 0.75rem;
+  padding: 0.625rem 0.875rem;
   font-family: var(--font-heading);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--c-text);
   cursor: pointer;
