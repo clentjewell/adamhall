@@ -62,6 +62,13 @@ export default function CarHero({
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/25 to-transparent pointer-events-none" />
 
+      {/* Where you are in the set, so "look at all the photos" has an end. */}
+      {photos.length > 1 && (
+        <p className="tabular absolute top-20 right-4 rounded-full bg-ink/60 px-3 py-1 text-xs font-semibold text-white">
+          {Math.min(active + 1, photos.length)} / {photos.length}
+        </p>
+      )}
+
       <div className="absolute inset-x-0 bottom-0">
         <div className="max-w-6xl mx-auto px-4 pb-5 flex flex-wrap items-end justify-between gap-4">
           <div>

@@ -76,6 +76,27 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
   const filtered = useMemo(() => applyFilters(cars, filters), [cars, filters]);
   const activeCount = Object.values(filters).filter(Boolean).length - (filters.sort ? 1 : 0);
 
+  // Each active filter as a removable chip, so what is narrowing the list
+  // is visible and undoable without opening the panel.
+  const chips = useMemo(() => {
+    const out: { key: string; label: string }[] = [];
+    if (filters.make) out.push({ key: "make", label: filters.make });
+    if (filters.model) out.push({ key: "model", label: filters.model });
+    if (filters.body) out.push({ key: "body", label: filters.body });
+    if (filters.transmission)
+      out.push({ key: "transmission", label: filters.transmission });
+    if (filters.fuel) out.push({ key: "fuel", label: filters.fuel });
+    if (filters.yearMin) out.push({ key: "yearMin", label: `From ${filters.yearMin}` });
+    if (filters.yearMax) out.push({ key: "yearMax", label: `To ${filters.yearMax}` });
+    if (filters.priceMin)
+      out.push({ key: "priceMin", label: `Over $${filters.priceMin.toLocaleString("en-AU")}` });
+    if (filters.priceMax)
+      out.push({ key: "priceMax", label: `Under $${filters.priceMax.toLocaleString("en-AU")}` });
+    if (filters.kmMax)
+      out.push({ key: "kmMax", label: `Under ${filters.kmMax.toLocaleString("en-AU")} km` });
+    return out;
+  }, [filters]);
+
   const select = (
     label: string,
     key: string,
@@ -117,10 +138,21 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
         <p className="text-sm text-stone-500">
           {filtered.length} car{filtered.length === 1 ? "" : "s"}
         </p>
+        {chips.map((chip) => (
+          <button
+            key={chip.key}
+            onClick={() => setFilter(chip.key, "")}
+            className="inline-flex items-center gap-1.5 rounded-full border border-forest-200 bg-forest-50 px-3 py-1.5 text-sm font-semibold text-forest-700 hover:border-forest-600"
+            aria-label={`Remove filter: ${chip.label}`}
+          >
+            {chip.label}
+            <X size={12} weight="bold" />
+          </button>
+        ))}
         {activeCount > 0 && (
           <button onClick={clearAll} className="btn-ghost text-sm !py-1.5">
             <X size={14} weight="bold" />
-            Clear filters
+            Clear all
           </button>
         )}
         <div className="ml-auto">
