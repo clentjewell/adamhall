@@ -7,6 +7,7 @@ import { X } from "@phosphor-icons/react";
 import { createClient } from "@/lib/supabase/client";
 import type { Car, ServiceHistory } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
+import { estimateWeekly } from "@/lib/finance";
 import { getCompare, toggleCompare, onGarageChange } from "@/lib/garage";
 
 const SERVICE_HISTORY_LABELS: Record<ServiceHistory, string> = {
@@ -16,22 +17,12 @@ const SERVICE_HISTORY_LABELS: Record<ServiceHistory, string> = {
   unknown: "Unknown",
 };
 
-// Rough guide only, not a finance offer: 10% deposit, 60-month term,
-// 9.5% p.a. reducing rate, converted from a monthly amortised payment to a
-// weekly figure. Local to this page — nowhere else needs this maths.
-function estimateWeeklyRepayment(price: number): number {
-  const principal = price * 0.9;
-  const monthlyRate = 0.095 / 12;
-  const months = 60;
-  const factor = Math.pow(1 + monthlyRate, months);
-  const monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
-  return (monthlyPayment * 12) / 52;
-}
-
 interface Row {
   label: string;
   render: (car: Car) => ReactNode;
   highlight?: (car: Car) => boolean;
+  /** Chip shown on the winning cell, so the best value is named, not just bolded. */
+  highlightLabel?: string;
 }
 
 export default function ComparePageClient() {
@@ -152,20 +143,23 @@ export default function ComparePageClient() {
       label: "Price",
       render: (car) => (car.status === "sold" ? "Sold" : formatPrice(car.price)),
       highlight: (car) => multiple && car.price === lowestPrice,
+      highlightLabel: "Lowest price",
     },
     {
       label: "Est. weekly repayment*",
-      render: (car) => `~${formatPrice(Math.round(estimateWeeklyRepayment(car.price)))}/wk`,
+      render: (car) => `~${formatPrice(estimateWeekly(car.price))}/wk`,
     },
     {
       label: "Year",
       render: (car) => String(car.year),
       highlight: (car) => multiple && car.year === newestYear,
+      highlightLabel: "Newest",
     },
     {
       label: "Odometer",
       render: (car) => formatKm(car.odometer_km),
       highlight: (car) => multiple && car.odometer_km === lowestKm,
+      highlightLabel: "Lowest kays",
     },
     { label: "Body", render: (car) => car.body_type },
     { label: "Transmission", render: (car) => car.transmission },
@@ -243,6 +237,11 @@ export default function ComparePageClient() {
                       className={`p-3 align-top min-w-[200px] ${best ? "text-forest-700 font-bold" : "text-ink"}`}
                     >
                       {row.render(car)}
+                      {best && row.highlightLabel && (
+                        <span className="ml-2 inline-block rounded-full bg-forest-50 px-2 py-0.5 align-middle text-xs font-bold text-forest-700">
+                          {row.highlightLabel}
+                        </span>
+                      )}
                     </td>
                   );
                 })}

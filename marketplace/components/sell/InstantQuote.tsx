@@ -2,19 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  AnimatePresence,
-  animate,
-  motion,
-  useMotionValue,
-  useTransform,
-  useReducedMotion,
-} from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Phone, TrendDown, TrendUp } from "@phosphor-icons/react";
 import { getInstantQuote, type QuotePayload } from "@/app/actions/quote";
 import type { ValuationResult } from "@/lib/valuation";
 import { formatKm, formatPrice } from "@/lib/format";
 import { EASE } from "@/components/motion/Reveal";
+import RollingNumber from "@/components/motion/RollingNumber";
 
 const CONDITIONS: { value: QuotePayload["condition"]; label: string; hint: string }[] =
   [
@@ -102,20 +96,8 @@ function sellHref(form: Form): string {
   return `/sell?${q.toString()}`;
 }
 
-/** Price that rolls to its new value like an odometer instead of snapping. */
-function RollingPrice({ value, reduce }: { value: number; reduce: boolean }) {
-  const mv = useMotionValue(value);
-  const text = useTransform(mv, (v) => formatPrice(Math.round(v / 100) * 100));
-  useEffect(() => {
-    if (reduce) {
-      mv.set(value);
-      return;
-    }
-    const controls = animate(mv, value, { duration: 0.55, ease: EASE });
-    return () => controls.stop();
-  }, [value, reduce, mv]);
-  return <motion.span>{text}</motion.span>;
-}
+/** Ranges are quoted to the nearest $100, so the roll keeps that grain. */
+const formatRoughPrice = (v: number) => formatPrice(Math.round(v / 100) * 100);
 
 /** The estimate window the range bar draws inside. Wider than the range
     itself so the band has room to slide as the seller adjusts the car. */
@@ -589,8 +571,8 @@ export default function InstantQuote({
                       </span>
                     </div>
                     <p className="tabular mt-1 text-3xl font-extrabold sm:text-4xl">
-                      <RollingPrice value={result.low} reduce={reduce} /> to{" "}
-                      <RollingPrice value={result.high} reduce={reduce} />
+                      <RollingNumber value={result.low} format={formatRoughPrice} /> to{" "}
+                      <RollingNumber value={result.high} format={formatRoughPrice} />
                     </p>
 
                     {/* The range, drawn. The band slides and stretches as the

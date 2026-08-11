@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Car } from "@/lib/types";
@@ -5,23 +8,40 @@ import { carTitle, formatKm, formatPrice } from "@/lib/format";
 
 export default function CarCard({ car, priority = false }: { car: Car; priority?: boolean }) {
   const photo = car.photos[0];
+  const secondPhoto = car.photos[1];
   const sold = car.status === "sold";
+  // The second angle only mounts once the card is first hovered or focused,
+  // so a grid of cards never downloads two photos per car up front.
+  const [peek, setPeek] = useState(false);
 
   return (
     <Link
       href={`/cars/${car.slug}`}
-      className="bg-card rounded-2xl overflow-hidden group hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-1 transition-all duration-300"
+      onMouseEnter={() => setPeek(true)}
+      onFocus={() => setPeek(true)}
+      className="bg-card rounded-2xl overflow-hidden group hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-1 transition-[translate,box-shadow] duration-300"
     >
       <div className="relative aspect-[3/2] bg-stone-200 overflow-hidden">
         {photo ? (
-          <Image
-            src={photo.url}
-            alt={photo.alt ?? carTitle(car)}
-            fill
-            priority={priority}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className={`object-cover group-hover:scale-[1.03] transition-transform duration-500 ${sold ? "opacity-80" : ""}`}
-          />
+          <>
+            <Image
+              src={photo.url}
+              alt={photo.alt ?? carTitle(car)}
+              fill
+              priority={priority}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className={`object-cover group-hover:scale-[1.03] transition-transform duration-500 ${sold ? "opacity-80" : ""}`}
+            />
+            {peek && secondPhoto && !sold && (
+              <Image
+                src={secondPhoto.url}
+                alt=""
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover opacity-0 group-hover:opacity-100 group-hover:scale-[1.03] transition-[opacity,scale] duration-500"
+              />
+            )}
+          </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-stone-400 text-sm">
             Photos coming

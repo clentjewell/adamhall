@@ -298,6 +298,18 @@ export default function SellFlow({
         </div>
       )}
 
+      {/* Close the loop from the instant valuation tool: the seller just
+          typed these details there, so say plainly they carried across. */}
+      {prefill && step === 0 && (
+        <div className="card p-4 mb-6 text-sm !border-forest-200 !bg-forest-50">
+          <p className="font-bold">Your details came across from the valuation</p>
+          <p className="text-stone-600 mt-0.5">
+            Make, model, year and kays are already filled in below. Check
+            they&apos;re right and keep going.
+          </p>
+        </div>
+      )}
+
       {restored && step === 0 && (
         <div className="card p-4 mb-6 text-sm flex items-center justify-between gap-3">
           <p className="text-stone-600">
