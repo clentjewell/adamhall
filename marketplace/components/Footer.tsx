@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "next-view-transitions";
+import { ArrowRight } from "@phosphor-icons/react";
 import { usePathname } from "next/navigation";
 import { nav, site, preFooterTrust, marketplaceTagline } from "@/lib/site-data/site";
 import { brand } from "@/lib/brand";
@@ -29,8 +30,38 @@ export default function Footer() {
   // Admin has its own chrome; Buy My Car is a standalone landing with its own footer.
   if (pathname?.startsWith("/admin") || pathname === "/buy-my-car") return null;
 
+  // The instant valuation tool had no entry point anywhere on the site.
+  // This band puts one on every page, above the footer, and steps aside
+  // on the pages that already are the seller journey.
+  const showValuationCta =
+    pathname !== "/car-valuations" && !pathname?.startsWith("/sell");
+
   return (
     <div className="ah-site vt-site-footer">
+      {showValuationCta && (
+        <section
+          aria-label="Instant car valuation"
+          className="border-t border-hairline bg-paper"
+        >
+          <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-5 px-4 py-10 sm:flex-row sm:items-center">
+            <div>
+              <p className="type-label text-meta">Selling or trading in?</p>
+              <h2 className="type-subheading mt-1.5">
+                What&apos;s my car worth?
+              </h2>
+              <p className="mt-1.5 max-w-[52ch] text-stone-600">
+                Tell us the car and see the range it sits in, straight away.
+                No account, no contact details, just the number.
+              </p>
+            </div>
+            <Link href="/car-valuations" className="btn-cta shrink-0">
+              Get an instant range
+              <ArrowRight size={18} weight="bold" />
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* Black pre-footer trust band */}
       <section className="prefooter" aria-label="Why choose Adam Hall">
         <div className="container container--wide">
