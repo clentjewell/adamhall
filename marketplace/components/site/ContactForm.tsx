@@ -49,7 +49,7 @@ export default function ContactForm() {
         </div>
         <h3>Message sent!</h3>
         <p>
-          Thanks for getting in touch — Adam will get back to you asap. For
+          Thanks for getting in touch. Adam will get back to you asap. For
           anything urgent, call{" "}
           <a href="tel:0404290617">0404&nbsp;290&nbsp;617</a>.
         </p>

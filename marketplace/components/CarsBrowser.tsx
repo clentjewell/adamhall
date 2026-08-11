@@ -150,8 +150,8 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
               {select("Year to", "yearMax", filters.yearMax?.toString(), years.map((y) => ({ value: String(y), label: String(y) })), "Any")}
             </div>
             <div className="grid grid-cols-2 gap-3">
-              {select("Price from", "priceMin", filters.priceMin?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${(p / 1000).toFixed(0)}k` })), "Any")}
-              {select("Price to", "priceMax", filters.priceMax?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${(p / 1000).toFixed(0)}k` })), "Any")}
+              {select("Price from", "priceMin", filters.priceMin?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${p.toLocaleString("en-AU")}` })), "Any")}
+              {select("Price to", "priceMax", filters.priceMax?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${p.toLocaleString("en-AU")}` })), "Any")}
             </div>
             {select("Odometer under", "kmMax", filters.kmMax?.toString(), kmSteps.map((k) => ({ value: String(k), label: `${(k / 1000).toFixed(0)},000 km` })), "Any kms")}
             {select("Transmission", "transmission", filters.transmission, transmissions.map((t) => ({ value: t, label: t })), "Any")}

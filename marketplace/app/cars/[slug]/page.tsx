@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = carTitle(car);
   const description =
     car.status === "sold"
-      ? `${title} — sold. See what else is in stock at Adam Hall Buy My Car.`
+      ? `${title}: sold. See what else is in stock at Adam Hall Buy My Car.`
       : `${title} for ${formatPrice(car.price)}. ${formatKm(car.odometer_km)}, ${car.transmission}, ${car.fuel}. PPSR checked and honestly described.`;
   return {
     title,
@@ -131,7 +131,7 @@ export default async function CarDetailPage({ params }: Props) {
             {sold && (
               <div className="card p-5 mb-8 bg-amber-soft !border-amber-accent/30">
                 <p className="font-bold">
-                  Sold {car.sold_at ? formatDate(car.sold_at) : ""} — this one found its owner.
+                  Sold {car.sold_at ? formatDate(car.sold_at) : ""}. This one found its owner.
                 </p>
                 <p className="text-sm text-stone-600 mt-1">
                   The cars below are still available, or jump on the watchlist

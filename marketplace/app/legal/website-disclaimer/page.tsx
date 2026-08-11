@@ -36,7 +36,7 @@ export default async function WebsiteDisclaimerPage() {
       <div className="card bg-amber-soft !border-amber-accent/40 p-5 mb-8 flex gap-3 items-start">
         <SealWarning size={22} weight="fill" className="text-[#8a5a1e] shrink-0 mt-0.5" />
         <p className="text-sm font-semibold text-ink">
-          DRAFT — requires review by the dealership's legal adviser for
+          DRAFT: requires review by the dealership's legal adviser for
           NSW/QLD before launch.
         </p>
       </div>

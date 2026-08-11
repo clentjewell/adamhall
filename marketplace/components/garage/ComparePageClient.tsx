@@ -122,7 +122,7 @@ export default function ComparePageClient() {
         <div className="card p-10 text-center">
           <p className="font-display font-bold text-lg">Nothing to compare yet</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
-            Tap the scales icon on any car to add it here — pick up to three
+            Tap the scales icon on any car to add it here. Pick up to three
             to line them up side by side.
           </p>
           <Link href="/cars" className="btn-cta mt-5 inline-flex">

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
   title: "Sell your car",
   description:
-    "Sell your car to Adam Hall in about five minutes. Rego, a few photos, done — Adam personally reviews every car and makes a real offer within 1 business day.",
+    "Sell your car to Adam Hall in about five minutes. Rego, a few photos, done. Adam personally reviews every car and makes a real offer within 1 business day.",
 };
 
 interface Props {

@@ -4,7 +4,7 @@ import type { Car } from "@/lib/types";
 const serviceLabels: Record<Car["service_history"], string> = {
   full: "Full service history, books supplied",
   partial: "Partial history, receipts supplied",
-  none: "No books — priced accordingly",
+  none: "No books, priced accordingly",
   unknown: "History being confirmed",
 };
 

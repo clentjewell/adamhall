@@ -179,7 +179,7 @@ export default function ValuationForm() {
         <div className="vform__check" aria-hidden="true">
           ✓
         </div>
-        <h3>Great — let&rsquo;s get your valuation</h3>
+        <h3>Great, let&rsquo;s get your valuation</h3>
         <p>
           You&rsquo;ll be taken to our 5-minute valuation flow to finish up. For
           anything urgent, call{" "}

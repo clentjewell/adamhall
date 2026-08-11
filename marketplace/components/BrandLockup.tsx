@@ -86,7 +86,7 @@ export default function BrandLockup({
   if (href === null) return mark;
 
   return (
-    <Link href={href} aria-label={`${brand.fullName} — home`} className="inline-flex">
+    <Link href={href} aria-label={`${brand.fullName}, home`} className="inline-flex">
       {mark}
     </Link>
   );

@@ -41,7 +41,7 @@ export default function SaveCompareButtons({ carId, variant }: Props) {
     e.stopPropagation();
     const result = toggleCompare(carId);
     if (!result.ok) {
-      setCompareError(result.error ?? "Compare holds three cars — remove one first.");
+      setCompareError(result.error ?? "Compare holds three cars. Remove one first.");
       window.setTimeout(() => setCompareError(null), 3500);
       return;
     }

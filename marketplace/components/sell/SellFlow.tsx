@@ -155,7 +155,7 @@ export default function SellFlow({
     }
     if (step === 2) {
       if (draft.photos.length < 4)
-        return "Four photos minimum — front, rear, interior and dash. More is better.";
+        return "Four photos minimum: front, rear, interior and dash. More is better.";
     }
     if (step === 3) {
       if (draft.seller_name.trim().length < 2) return "We need your name.";
@@ -181,7 +181,7 @@ export default function SellFlow({
     const room = 12 - draft.photos.length;
     const list = Array.from(files).slice(0, room);
     if (list.length === 0) {
-      setError("That's the lot — 12 photos is plenty.");
+      setError("That's the lot. 12 photos is plenty.");
       return;
     }
     setUploading((n) => n + list.length);
@@ -253,7 +253,7 @@ export default function SellFlow({
           Done. Adam has your car.
         </h2>
         <p className="text-stone-600 mt-3 leading-relaxed">
-          He personally reviews every car that comes through here — you&apos;ll
+          He personally reviews every car that comes through here. You&apos;ll
           hear back within 1 business day, usually much sooner. We&apos;ve
           emailed you a link, or watch it move here:
         </p>
@@ -313,7 +313,7 @@ export default function SellFlow({
       {restored && step === 0 && (
         <div className="card p-4 mb-6 text-sm flex items-center justify-between gap-3">
           <p className="text-stone-600">
-            Picked up where you left off — your earlier answers are saved.
+            Picked up where you left off. Your earlier answers are saved.
           </p>
           <button
             className="btn-ghost text-sm !py-1.5 shrink-0"
@@ -428,7 +428,7 @@ export default function SellFlow({
               onChange={(e) => set({ odometer_km: e.target.value })}
               placeholder="89000"
             />
-            <p className="helper">Near enough is fine — we&apos;ll confirm at inspection.</p>
+            <p className="helper">Near enough is fine. We&apos;ll confirm at inspection.</p>
           </div>
         </section>
       )}
@@ -439,7 +439,7 @@ export default function SellFlow({
             <h2 className="font-display font-bold text-2xl">How&apos;s it holding up?</h2>
             <p className="text-stone-600 mt-1">
               Be straight with us and we&apos;ll be straight with you. Honest
-              answers get honest offers — nobody&apos;s marking you down for a
+              answers get honest offers. Nobody&apos;s marking you down for a
               worn tyre.
             </p>
           </div>
@@ -644,7 +644,7 @@ export default function SellFlow({
               placeholder="25000"
             />
             <p className="helper">
-              Doesn&apos;t lock anything in — it just tells us where your
+              Doesn&apos;t lock anything in. It just tells us where your
               head&apos;s at.
             </p>
           </div>

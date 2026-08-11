@@ -10,7 +10,7 @@ import { Reveal } from "@/components/motion/Reveal";
 export const metadata: Metadata = {
   title: "Finance",
   description:
-    "Work out a repayment estimate and get finance sorted before you shop — no hype, no approval claims, just the numbers.",
+    "Work out a repayment estimate and get finance sorted before you shop. No hype, no approval claims, just the numbers.",
 };
 
 const STEP_ICONS = [ChatText, HandCoins, PenNib];
@@ -68,7 +68,7 @@ export default async function FinancePage() {
         </div>
 
         <p className="helper max-w-3xl mx-auto text-center mt-16 leading-relaxed">
-          Figures on this page are estimates only — not an offer or approval
+          Figures on this page are estimates only, not an offer or approval
           of finance. Actual rates, fees and approval depend on assessment
           by the lender. Comparison rate warning:{" "}
           [legal review required for jurisdiction wording].

@@ -49,7 +49,7 @@ export default function LegalIndexPage() {
       <div className="card bg-amber-soft !border-amber-accent/40 p-5 mb-8 flex gap-3 items-start">
         <SealWarning size={22} weight="fill" className="text-[#8a5a1e] shrink-0 mt-0.5" />
         <p className="text-sm font-semibold text-ink">
-          DRAFT — every document below requires review by the dealership&apos;s
+          DRAFT: every document below requires review by the dealership&apos;s
           legal adviser for NSW/QLD before launch.
         </p>
       </div>

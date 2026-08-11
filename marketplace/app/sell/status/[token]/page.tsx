@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const PIPELINE = [
   { status: "new", label: "Received", blurb: "Your car is in the queue." },
   { status: "reviewing", label: "Adam's reviewing it", blurb: "He's looking at your photos and the numbers." },
-  { status: "offer_made", label: "Offer made", blurb: "Check your email — the number is there." },
+  { status: "offer_made", label: "Offer made", blurb: "Check your email. The number is there." },
   { status: "accepted", label: "Deal agreed", blurb: "We're organising inspection and paperwork." },
   { status: "settled", label: "Settled", blurb: "Money moved. Done." },
 ] as const;
@@ -33,7 +33,7 @@ export default async function StatusPage({ params }: Props) {
         <h1 className="font-display font-extrabold text-2xl">Status tracking is warming up</h1>
         <p className="text-stone-600 mt-3">
           This page isn&apos;t wired up in this environment yet. Your submission
-          is safe — Adam will be in touch within 1 business day.
+          is safe. Adam will be in touch within 1 business day.
         </p>
       </div>
     );
@@ -74,7 +74,7 @@ export default async function StatusPage({ params }: Props) {
       {declined ? (
         <div className="card p-6 mt-8">
           <p className="font-display font-bold text-lg">
-            We passed on this one — and said why
+            We passed on this one, and said why
           </p>
           <p className="text-stone-600 mt-2 leading-relaxed">
             {submission.declined_reason ??
@@ -128,7 +128,7 @@ export default async function StatusPage({ params }: Props) {
       <div className="card p-5 mt-10 flex items-center gap-4">
         <Phone size={24} className="text-forest-600 shrink-0" weight="duotone" />
         <p className="text-sm text-stone-600">
-          Questions while you wait? Call us — a human answers, and it&apos;s
+          Questions while you wait? Call us. A human answers, and it&apos;s
           usually Adam.
         </p>
       </div>

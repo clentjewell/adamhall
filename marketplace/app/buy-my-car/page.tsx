@@ -37,7 +37,7 @@ export default function BuyMyCarPage() {
         <Link
           href="/"
           className="bmc__logo"
-          aria-label="Adam Hall Buy My Car — home"
+          aria-label="Adam Hall Buy My Car, home"
         >
           <img
             src="/assets/logos/logo-white.svg"

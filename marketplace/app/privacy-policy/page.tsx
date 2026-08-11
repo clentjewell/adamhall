@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
   title: "Privacy Policy | Adam Hall Buy My Car",
   description:
-    "Adam Hall Buy My Car privacy policy — how we collect, use, disclose, store and protect your personal information.",
+    "Adam Hall Buy My Car privacy policy: how we collect, use, disclose, store and protect your personal information.",
 };
 
 export default function PrivacyPolicyPage() {

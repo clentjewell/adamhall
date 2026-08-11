@@ -7,8 +7,12 @@ import { ArrowRight, Phone, TrendDown, TrendUp } from "@phosphor-icons/react";
 import { getInstantQuote, type QuotePayload } from "@/app/actions/quote";
 import type { ValuationResult } from "@/lib/valuation";
 import { formatKm, formatPrice } from "@/lib/format";
-import { EASE } from "@/components/motion/Reveal";
-import RollingNumber from "@/components/motion/RollingNumber";
+import {
+  DUR,
+  EASE_ENTRANCE,
+  EASE_EXIT,
+  EASE_STANDARD,
+} from "@/components/motion/Reveal";
 
 const CONDITIONS: { value: QuotePayload["condition"]; label: string; hint: string }[] =
   [
@@ -243,9 +247,11 @@ export default function InstantQuote({
 
   const sliderKm = Math.min(Number(form.odometer_km) || 0, SLIDER_MAX_KM);
 
-  // Motion tokens for the panel: the site's one easing, quick enough that a
-  // second visit never waits on it, instant under reduced motion.
-  const t = reduce ? { duration: 0 } : { duration: 0.55, ease: EASE };
+  // Standard token for state changes between two on-screen states
+  // (identity section 13). Instant under reduced motion.
+  const t = reduce
+    ? { duration: 0 }
+    : { duration: DUR.standard, ease: EASE_STANDARD };
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
@@ -523,7 +529,7 @@ export default function InstantQuote({
               initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8 }}
               animate={{ opacity: stale ? 0.45 : 1, y: 0 }}
               // Entrance token from the identity: arrives fast, settles.
-              transition={{ duration: 0.32, ease: [0, 0, 0.2, 1] }}
+              transition={{ duration: DUR.entrance, ease: EASE_ENTRANCE }}
               className="card overflow-hidden"
               aria-live="polite"
             >
@@ -544,18 +550,20 @@ export default function InstantQuote({
                           {delta != null && (
                             <motion.span
                               key={delta}
-                              initial={
-                                reduce
-                                  ? { opacity: 0 }
-                                  : { opacity: 0, y: 4, filter: "blur(3px)" }
-                              }
-                              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                              exit={
-                                reduce
-                                  ? { opacity: 0 }
-                                  : { opacity: 0, y: -4, filter: "blur(3px)" }
-                              }
-                              transition={{ duration: 0.3, ease: EASE }}
+                              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                              animate={{
+                                opacity: 1,
+                                y: 0,
+                                transition: reduce
+                                  ? { duration: 0 }
+                                  : { duration: DUR.standard, ease: EASE_STANDARD },
+                              }}
+                              exit={{
+                                opacity: 0,
+                                transition: reduce
+                                  ? { duration: 0 }
+                                  : { duration: DUR.instant, ease: EASE_EXIT },
+                              }}
                               className="tabular inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-bold"
                             >
                               {delta > 0 ? (
@@ -570,9 +578,11 @@ export default function InstantQuote({
                         </AnimatePresence>
                       </span>
                     </div>
+                    {/* Prices never count up and never flicker on change
+                        (identity section 13). The figures simply update;
+                        the bar below and the movement chip carry the change. */}
                     <p className="tabular mt-1 text-3xl font-extrabold sm:text-4xl">
-                      <RollingNumber value={result.low} format={formatRoughPrice} /> to{" "}
-                      <RollingNumber value={result.high} format={formatRoughPrice} />
+                      {formatRoughPrice(result.low)} to {formatRoughPrice(result.high)}
                     </p>
 
                     {/* The range, drawn. The band slides and stretches as the
@@ -659,7 +669,7 @@ export default function InstantQuote({
 
                     <p className="rounded-lg bg-forest-50 p-3 text-sm text-ink">
                       Change the condition or wind the kays up and down on the
-                      left — the range follows as you go.
+                      left, and the range follows as you go.
                     </p>
 
                     {result.confidence === "low" && (

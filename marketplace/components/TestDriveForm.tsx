@@ -17,7 +17,7 @@ export default function TestDriveForm({ carId, carName }: { carId: string; carNa
     return (
       <div className="card p-6 text-center" role="status">
         <p className="font-display font-bold text-lg text-forest-700">
-          Request in. We&apos;ll call to lock in the exact time — a test drive
+          Request in. We&apos;ll call to lock in the exact time. A test drive
           isn&apos;t confirmed until you hear from us.
         </p>
       </div>
@@ -101,7 +101,7 @@ export default function TestDriveForm({ carId, carName }: { carId: string; carNa
         {pending ? "Sending…" : "Request a test drive"}
       </button>
       <p className="helper text-center">
-        We confirm every booking by phone — nothing&apos;s locked in until we speak.
+        We confirm every booking by phone. Nothing&apos;s locked in until we speak.
       </p>
     </form>
   );

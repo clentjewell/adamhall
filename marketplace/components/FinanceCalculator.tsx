@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { calculateRepayment, type RepaymentFrequency } from "@/lib/finance";
 import { formatPrice } from "@/lib/format";
-import { EASE } from "@/components/motion/Reveal";
-import RollingNumber from "@/components/motion/RollingNumber";
+import { DUR, EASE_STANDARD } from "@/components/motion/Reveal";
 
 const TERM_OPTIONS_MONTHS = [12, 24, 36, 48, 60, 72, 84];
 const BALLOON_OPTIONS_PCT = [0, 10, 15, 20, 25, 30, 35, 40];
@@ -46,7 +45,11 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
   );
 
   const activeFreq = FREQUENCIES.find((f) => f.value === frequency)!;
-  const t = reduce ? { duration: 0 } : { duration: 0.55, ease: EASE };
+  // Standard token for state changes (identity section 13); instant
+  // under reduced motion.
+  const t = reduce
+    ? { duration: 0 }
+    : { duration: DUR.standard, ease: EASE_STANDARD };
 
   // What the money is made of: the amount financed versus the interest paid
   // on top of it. Drawn as one bar so the cost of the loan is visible, not
@@ -212,11 +215,10 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
 
       <div className="mt-6 rounded-xl bg-forest-50 p-5 text-center">
         <p className="text-sm font-semibold text-forest-700">Estimated repayment</p>
+        {/* Prices never count up and never flicker on change (identity
+            section 13). The figure simply updates; the bar below moves. */}
         <p className="tabular font-display font-extrabold text-4xl text-forest-700 mt-1">
-          <RollingNumber
-            value={result.paymentPerPeriod}
-            format={(v) => formatPrice(Math.round(v))}
-          />
+          {formatPrice(Math.round(result.paymentPerPeriod))}
           <span className="text-lg font-bold">/{activeFreq.suffix}</span>
         </p>
       </div>
@@ -262,7 +264,7 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
       </dl>
 
       <p className="helper mt-5 leading-relaxed">
-        Estimates only — this isn&apos;t an offer or approval of finance.
+        Estimates only. This isn&apos;t an offer or approval of finance.
         Actual rates and fees depend on the lender&apos;s assessment of you
         and the vehicle. Comparison rate warning:{" "}
         [legal review required for jurisdiction wording].
