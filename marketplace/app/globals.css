@@ -83,7 +83,7 @@
      listings page carries too much information to support a script, and the
      signature is the parent's asset, used only where Adam signs off himself. */
   --font-display: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-body: "mr-eaves-modern", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: "mr-eaves-modern", "mr-eaves-fallback", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* Type scale, desktop. Step down one size on mobile.
@@ -105,6 +105,40 @@
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
   }
+}
+
+/* ---- Webfont swap: hold the apparent size steady -------------------------
+   Mr Eaves Modern has an unusually small x-height, so at a given pixel size
+   it renders visibly smaller than the system faces it falls back to. Without
+   this, a page paints in the fallback and then all the body type appears to
+   shrink the moment Typekit arrives.
+
+   The fix is a metric-matched fallback face rather than a global
+   font-size-adjust: `size-adjust` scales ONLY this @font-face, so the real
+   Mr Eaves is never rescaled, headings in the display face are untouched,
+   and it needs no JavaScript and no per-selector opt-outs. It applies
+   automatically wherever --font-body is used, which is the only stack that
+   needs it — Neue Haas Grotesk Display has a normal x-height and its
+   Helvetica fallback already matches.
+
+   90% ≈ Mr Eaves' x-height ratio over Helvetica's. It is an estimate: the
+   fonts are unreachable from the build sandbox. To correct it, run this on
+   a page with the fonts loaded and set size-adjust to (that number / 0.52):
+     s=document.createElement('span');s.textContent='x';
+     s.style.cssText='font:100px mr-eaves-modern;position:absolute;visibility:hidden';
+     document.body.append(s);s.getBoundingClientRect().height/100
+   Being slightly off only affects how the fallback renders before the swap;
+   the settled page is unaffected either way. */
+@font-face {
+  font-family: "mr-eaves-fallback";
+  src:
+    local("Avenir Next"),
+    local("Segoe UI"),
+    local("Roboto"),
+    local("Helvetica Neue"),
+    local("Arial");
+  size-adjust: 90%;
+  font-display: swap;
 }
 
 html {
@@ -129,6 +163,8 @@ body {
      let the browser fall to the nearest real weight instead. */
   font-synthesis: none;
 }
+
+
 
 @media (prefers-reduced-motion: reduce) {
   html {
