@@ -133,16 +133,20 @@
   flex-direction: column;
   gap: 0.7rem;
 }
-/* 18px, between the 24px this started at and the 16px it was first cut to.
-   Two things make 16px read smaller here than the header's 16px: the header
-   nav is uppercase with tracking, which occupies much more visual height
-   than sentence case, and light-on-dark optically thins type. The extra
-   weight compensates for the second of those on the green ground. Still
-   well below the ported pages' 20-24px body scale, so the columns no longer
-   dominate. */
+/* 20px. Sized for how this renders in Mr Eaves Modern, NOT in the fallback
+   stack — the body face has an unusually small x-height, so it looks
+   materially smaller than Helvetica or Arial at the same pixel size. Judge
+   any change to this with the Typekit fonts actually loaded; in the fallback
+   it will look a step too big, and that is expected.
+
+   History, so this does not get "corrected" back down: 24px read slightly
+   heavy, 16px and 18px both read too small once the webfont arrived. The
+   header nav gets away with 16px because it is uppercase with tracking,
+   which occupies far more visual height than this sentence case. Weight 500
+   holds the line up against the dark green ground. */
 .ah-site .site-footer__col a {
   color: var(--c-white);
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.35;
   display: inline-block;
