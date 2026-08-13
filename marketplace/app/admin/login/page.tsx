@@ -33,6 +33,12 @@ export default async function AdminLoginPage({ searchParams }: Props) {
           </p>
         )}
         <LoginForm />
+        <Link
+          href="/admin/forgot-password"
+          className="btn-ghost text-sm mt-4 !px-0"
+        >
+          Forgot your password?
+        </Link>
         <p className="helper mt-6">
           No public signups here. Accounts are added by Adam only.
         </p>

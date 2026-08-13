@@ -4,6 +4,12 @@ import { NextResponse, type NextRequest } from "next/server";
 // Keeps Supabase auth cookies fresh and bounces signed-out visitors off
 // /admin. The allowlist check itself happens server-side in the admin
 // layout (and RLS backs everything regardless).
+// The only /admin pages a signed-out visitor may see. /admin/reset-password
+// is not among them by design: the recovery link signs the visitor in before
+// sending them there, so arriving without a session means the link was spent
+// or faked, and the bounce to login is the right answer.
+const PUBLIC_ADMIN_PATHS = new Set(["/admin/login", "/admin/forgot-password"]);
+
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -35,7 +41,7 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login" && !user) {
+  if (pathname.startsWith("/admin") && !PUBLIC_ADMIN_PATHS.has(pathname) && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/admin/login";
     return NextResponse.redirect(url);
