@@ -22,7 +22,7 @@ export default async function CarsPage() {
     <>
       {/* Typographic header, per the mockup: hero media belongs to the home
           page only; here the cars themselves are the picture. */}
-      <header className="max-w-6xl mx-auto px-4 pt-10">
+      <header className="page-shell pt-10">
         <p className="type-label text-forest-600">
           {inStock} car{inStock === 1 ? "" : "s"} in stock
         </p>
@@ -34,7 +34,7 @@ export default async function CarsPage() {
         </p>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="page-shell py-10">
         <CarsBrowser cars={cars} watchPanel={<WatchlistForm makes={makes} />} />
       </div>
     </>

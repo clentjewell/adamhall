@@ -1,6 +1,6 @@
 export default function CarsLoading() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="page-shell py-10">
       <div className="skeleton h-10 w-64" />
       <div className="skeleton h-5 w-96 mt-3" />
       <div className="mt-10 grid gap-8 lg:grid-cols-[260px_1fr]">

@@ -35,7 +35,7 @@ export default async function CarValuationsPage() {
         </p>
       </PageHero>
 
-      <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="page-shell py-12">
         <InstantQuote phone={content.phone} />
 
         {/* How the number is arrived at. The brand's whole promise is that

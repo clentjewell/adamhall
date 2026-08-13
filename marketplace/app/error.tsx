@@ -2,7 +2,7 @@
 
 export default function GlobalError({ reset }: { error: Error; reset: () => void }) {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-24 text-center">
+    <div className="page-shell py-24 text-center">
       <h1 className="type-heading">Something hiccuped</h1>
       <p className="mt-3 text-stone-600 max-w-[46ch] mx-auto">
         Not your fault. Give it another go, and if it keeps happening, call us

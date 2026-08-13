@@ -47,7 +47,7 @@ export default function Footer() {
           aria-label="Instant car valuation"
           className="border-t border-hairline bg-paper"
         >
-          <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-5 px-4 py-10 sm:flex-row sm:items-center">
+          <div className="page-shell flex flex-col items-start justify-between gap-5 py-10 sm:flex-row sm:items-center">
             <div>
               <p className="type-label text-meta">Selling or trading in?</p>
               <h2 className="type-subheading mt-1.5">

@@ -286,7 +286,10 @@
 .ah-site .home-intro__text {
   font-size: var(--fs-body);
   color: var(--c-black);
-  max-width: 44rem;
+  /* Measured in characters, like the FAQ panel, rather than the 44rem this
+     used to carry: a third fixed width inside an 800px column drew a third
+     content edge on the page for no reason. */
+  max-width: 52ch;
   margin-inline: auto;
 }
 .ah-site .home-split {

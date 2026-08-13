@@ -118,7 +118,7 @@ export default async function CarDetailPage({ params }: Props) {
 
       <RecentViewTracker carId={car.id} />
 
-      <div className="max-w-6xl mx-auto px-4 pt-6 pb-24 md:pb-10">
+      <div className="page-shell pt-6 pb-24 md:pb-10">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
           <Breadcrumbs
             items={[

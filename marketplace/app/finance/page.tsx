@@ -31,7 +31,7 @@ export default async function FinancePage({
     <>
       {/* Typographic header, per the mockup: hero media stays on the home
           page, and this page opens on the calculator. */}
-      <header className="max-w-6xl mx-auto px-4 pt-10">
+      <header className="page-shell pt-10">
         <p className="type-label text-forest-600">Finance</p>
         <h1 data-edit="financePage.title" className="type-heading mt-2">
           {content.financePage.title}
@@ -41,7 +41,7 @@ export default async function FinancePage({
         </p>
       </header>
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="page-shell py-12">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <Reveal>
             <FinanceCalculator defaultPrice={defaultPrice} />
@@ -79,7 +79,7 @@ export default async function FinancePage({
           </div>
         </div>
 
-        <p className="helper max-w-3xl mx-auto text-center mt-16 leading-relaxed">
+        <p className="helper mx-auto mt-16 max-w-[var(--measure-text)] text-center leading-relaxed">
           Figures on this page are estimates only, not an offer or approval
           of finance. Actual rates, fees and approval depend on assessment
           by the lender. Comparison rate warning:{" "}

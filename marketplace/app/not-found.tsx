@@ -2,7 +2,7 @@ import { Link } from "next-view-transitions";
 
 export default function NotFound() {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-24 text-center">
+    <div className="page-shell py-24 text-center">
       <h1 className="type-heading">That page has moved on</h1>
       <p className="mt-3 text-stone-600 max-w-[46ch] mx-auto">
         Like a good car, whatever was here didn&apos;t stick around. The current

@@ -54,7 +54,7 @@ export default async function FaqPage() {
         </p>
       </PageHero>
 
-      <div className="max-w-3xl mx-auto px-4 py-16 space-y-14">
+      <div className="text-shell py-16 space-y-14">
         {groups.map((group) => (
           <Reveal key={group.title}>
             <div>

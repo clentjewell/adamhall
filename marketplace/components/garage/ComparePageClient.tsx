@@ -78,7 +78,7 @@ export default function ComparePageClient() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="page-shell py-10">
         <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="grid gap-6 sm:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -95,7 +95,7 @@ export default function ComparePageClient() {
 
   if (failed) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="page-shell py-10">
         <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
           <p className="font-display font-bold text-lg">Couldn&apos;t load these cars</p>
@@ -117,7 +117,7 @@ export default function ComparePageClient() {
 
   if (orderedCars.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
+      <div className="page-shell py-10">
         <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
           <p className="font-display font-bold text-lg">Nothing to compare yet</p>
@@ -173,7 +173,7 @@ export default function ComparePageClient() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="page-shell py-10">
       <h1 className="type-heading mb-2">Compare cars</h1>
       <p className="text-stone-500 mb-8">
         {multiple

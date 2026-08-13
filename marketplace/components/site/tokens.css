@@ -47,12 +47,16 @@
   --fs-body: clamp(1.25rem, 1.7vw, 1.5rem);        /* ~20 -> 24px */
   --fs-small: 1rem;
 
-  /* Layout */
-  --container: 1140px;
-  --container-wide: 1200px;
-  --container-narrow: 960px;
-  --gutter: 20px;
-  --section-py: clamp(3rem, 7vw, 6.5rem);
+  /* Layout. Every one of these now points at the site-wide geometry in
+     globals.css, so the ported pages sit on exactly the same column as the
+     marketplace pages. They used to be three separate measures (1140, 1200,
+     960) on a gutter of their own, which is why the content edge jumped as
+     you moved between the two halves of the site. */
+  --container: var(--measure-wide);
+  --container-wide: var(--measure-wide);
+  --container-narrow: var(--measure-text);
+  --gutter: var(--gutter-page);
+  --section-py: var(--rhythm-section);
 
   /* Radius / shadow / transitions */
   --radius-sm: 8px;

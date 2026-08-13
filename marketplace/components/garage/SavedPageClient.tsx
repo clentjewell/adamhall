@@ -63,7 +63,7 @@ export default function SavedPageClient() {
     .filter((c): c is Car => Boolean(c));
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
+    <div className="page-shell py-10">
       <h1 className="type-heading mb-8">Saved cars</h1>
 
       {loading ? (

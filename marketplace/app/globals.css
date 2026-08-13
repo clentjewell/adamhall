@@ -144,6 +144,57 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* ---- Page geometry -------------------------------------------------------
+   One grid for the whole site.
+
+   The site grew two layout systems: the ported brochure pages measured
+   1200/1140/960px on a 20px gutter, the marketplace pages 1152px on 16px.
+   Moving between them, the content edge stepped sideways by up to 60px, and
+   /about-adam-hall rendered four different measures on one page. Premium
+   here is not ornament, it is the column never moving.
+
+   Two measures, and only two: wide carries anything with pictures or cards
+   in it, text carries statements and prose. Both stacks below point at
+   these, so neither can drift again. */
+:root {
+  --measure-wide: 1200px;
+  --measure-text: 800px;
+  --gutter-page: 1.25rem; /* 20px */
+  /* Vertical rhythm. Two steps, in place of the 44/64/96/100.8/144/224px
+     that had accumulated. lg is for the moments that open or close a page. */
+  --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
+  --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
+}
+@media (min-width: 1024px) {
+  :root {
+    --gutter-page: 1.5rem; /* 24px once there is room for it */
+  }
+}
+
+/* The one layout primitive. Replaces `max-w-6xl mx-auto px-4` everywhere, so
+   the measure is set in a single place rather than restated per page. */
+@utility page-shell {
+  width: 100%;
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter-page);
+}
+/* Same grid, narrowed to a reading measure. Sits inside page-shell or alone. */
+@utility text-shell {
+  width: 100%;
+  max-width: var(--measure-text);
+  margin-inline: auto;
+  padding-inline: var(--gutter-page);
+}
+/* Section rhythm, so vertical space is chosen from the scale rather than
+   typed in per section. */
+@utility section-y {
+  padding-block: var(--rhythm-section);
+}
+@utility section-y-lg {
+  padding-block: var(--rhythm-section-lg);
+}
+
 /* The off-canvas mobile drawer parks at translateX(100%), which extends the
    document's scrollable width and leaves the whole site scrolling sideways on
    a phone (461px of scroll in a 390px viewport). Clip the horizontal axis at
