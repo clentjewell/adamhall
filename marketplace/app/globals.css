@@ -160,10 +160,20 @@ html {
   --measure-wide: 1200px;
   --measure-text: 800px;
   --gutter-page: 1.25rem; /* 20px */
-  /* Vertical rhythm. Two steps, in place of the 44/64/96/100.8/144/224px
-     that had accumulated. lg is for the moments that open or close a page. */
+  /* Vertical rhythm. Three named steps, in place of the 44/64/96/100.8/144/
+     224px that had accumulated: band for strips and bars, section for the
+     ordinary case, lg for the moments that open or close a page. */
+  --rhythm-band: clamp(2rem, 3vw, 2.75rem); /* 32 -> 44px, strips and bars */
   --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
   --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
+
+  /* Shape. These name the rule already locked at the top of this file:
+     pill for anything you press, 16px for cards and media, 8px for inputs
+     and small chrome. The public pages had drifted to 6 and 12px as well,
+     which the identity does not allow. 28px stays reserved for the one or
+     two large feature surfaces per page (--radius-lg in tokens.css). */
+  --radius-control: 0.5rem; /* 8px */
+  --radius-card: 1rem; /* 16px */
 }
 @media (min-width: 1024px) {
   :root {

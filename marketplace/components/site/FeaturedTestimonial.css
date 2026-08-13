@@ -1,6 +1,6 @@
 /* scoped port of FeaturedTestimonial.css */
 .ah-site .ftest {
-  padding-block: clamp(2.5rem, 6vw, 5rem);
+  padding-block: var(--rhythm-section);
 }
 .ah-site .ftest__inner {
   display: grid;

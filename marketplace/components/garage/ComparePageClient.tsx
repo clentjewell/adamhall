@@ -197,7 +197,7 @@ export default function ComparePageClient() {
                     >
                       <X size={14} weight="bold" />
                     </button>
-                    <div className="relative aspect-[3/2] rounded-xl overflow-hidden bg-stone-200">
+                    <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-stone-200">
                       {car.photos[0] ? (
                         <Image
                           src={car.photos[0].url}

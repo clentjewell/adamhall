@@ -110,13 +110,13 @@ export default function SavedPageClient() {
             {loading
               ? Array.from({ length: 4 }).map((_, i) => (
                   <div key={i} className="w-44 shrink-0 space-y-2">
-                    <div className="skeleton aspect-[3/2] rounded-xl" />
+                    <div className="skeleton aspect-[3/2] rounded-2xl" />
                     <div className="skeleton h-4 w-3/4" />
                   </div>
                 ))
               : recentCars.map((car) => (
                   <Link key={car.id} href={`/cars/${car.slug}`} className="w-44 shrink-0 group">
-                    <div className="relative aspect-[3/2] rounded-xl overflow-hidden bg-stone-200">
+                    <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-stone-200">
                       {car.photos[0] ? (
                         <Image
                           src={car.photos[0].url}

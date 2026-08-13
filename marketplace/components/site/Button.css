@@ -12,7 +12,7 @@
   line-height: 1.2;
   padding: 14px 30px;
   border: 0;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   text-align: center;
   cursor: pointer;
   transition: transform var(--transition), background-color var(--transition),
@@ -30,7 +30,7 @@
   background: var(--c-purple-dark);
 }
 .ah-site .btn--bubble {
-  border-radius: 22px 22px 22px 0;
+  border-radius: var(--radius-pill);
   padding: 10px 20px;
   font-size: 1.25rem;
 }

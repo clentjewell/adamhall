@@ -213,7 +213,7 @@ export default function FinanceCalculator({ defaultPrice }: { defaultPrice?: num
         </div>
       </div>
 
-      <div className="mt-6 rounded-xl bg-forest-50 p-5 text-center">
+      <div className="mt-6 rounded-2xl bg-forest-50 p-5 text-center">
         <p className="text-sm font-semibold text-forest-700">Estimated repayment</p>
         {/* Prices never count up and never flicker on change (identity
             section 13). The figure simply updates; the bar below moves. */}

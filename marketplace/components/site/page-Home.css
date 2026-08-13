@@ -361,7 +361,7 @@
 .ah-site .mp-close-card {
   background: var(--c-green);
   color: var(--c-white);
-  border-radius: calc(var(--radius) * 2);
+  border-radius: var(--radius-lg);
   padding: clamp(2.5rem, 5vw, 4rem);
   display: flex;
   align-items: center;
