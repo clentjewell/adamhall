@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
-import { isJustIn } from "@/lib/car-flags";
+import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
 
 /**
@@ -30,6 +30,7 @@ export default function ListingCard({
   const photo = car.photos[0];
   const sold = car.status === "sold";
   const justIn = isJustIn(car);
+  const availability = availabilityBadge(car);
 
   return (
     <div className="mp2-lcard">
@@ -51,8 +52,15 @@ export default function ListingCard({
             <span className="mp2-lcard__nophoto">Photos coming</span>
           )}
 
+          {/* One badge, most-important-first: sold, then availability (a
+              reserved car matters more to a buyer than a new one), then
+              just-in, then the PPSR reassurance as the resting state. */}
           {sold ? (
             <span className="mp2-lcard__badge mp2-lcard__badge--sold">SOLD</span>
+          ) : availability ? (
+            <span className="mp2-lcard__badge mp2-lcard__badge--status">
+              {availability}
+            </span>
           ) : justIn ? (
             <span className="mp2-lcard__badge mp2-lcard__badge--new">Just in</span>
           ) : car.ppsr_clear ? (

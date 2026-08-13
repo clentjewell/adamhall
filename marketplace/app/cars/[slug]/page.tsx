@@ -7,9 +7,11 @@ import { getContent } from "@/lib/content";
 import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
+import { availabilityBadge } from "@/lib/car-flags";
 import CarGallery from "@/components/CarGallery";
 import TrustBlock from "@/components/TrustBlock";
 import EnquiryForm from "@/components/EnquiryForm";
+import InterestedButton from "@/components/InterestedButton";
 import TestDriveForm from "@/components/TestDriveForm";
 import MobileActionBar from "@/components/MobileActionBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -59,6 +61,9 @@ export default async function CarDetailPage({ params }: Props) {
 
   const title = carTitle(car);
   const sold = car.status === "sold";
+  // null when the car is sold or plainly available — the shared precedence
+  // rule, so this page and the listing grid can never disagree.
+  const availability = availabilityBadge(car);
   const video = car.video_url ? embedUrl(car.video_url) : null;
   // Sand carries the "just in" flag for a car's first week, as on the card.
   const justIn =
@@ -146,12 +151,25 @@ export default async function CarDetailPage({ params }: Props) {
 
           <aside className="space-y-6 self-start lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:row-span-2">
             <div>
-              {justIn && (
-                <span className="type-label inline-block rounded-full bg-sand px-3 py-1.5 text-ink">
-                  Just in
-                </span>
+              {/* Availability leads: "Reserved" changes what the buyer should
+                  do, "Just in" only tells them how long it has been here.
+                  availabilityBadge() returns null when the car is sold, so the
+                  Sold treatment below is never doubled up on. */}
+              {(availability || justIn) && (
+                <div className="flex flex-wrap items-center gap-2">
+                  {availability && (
+                    <span className="type-label inline-block rounded-full bg-amber-soft px-3 py-1.5 text-[#8a5a1e]">
+                      {availability}
+                    </span>
+                  )}
+                  {justIn && (
+                    <span className="type-label inline-block rounded-full bg-sand px-3 py-1.5 text-ink">
+                      Just in
+                    </span>
+                  )}
+                </div>
               )}
-              <h1 className={`type-subheading ${justIn ? "mt-3" : ""}`}>{title}</h1>
+              <h1 className={`type-subheading ${availability || justIn ? "mt-3" : ""}`}>{title}</h1>
               {sold ? (
                 <p className="type-price-lg mt-3 text-mute">Sold</p>
               ) : (
@@ -180,6 +198,11 @@ export default async function CarDetailPage({ params }: Props) {
                 </>
               )}
             </div>
+
+            {/* The one action Adam wants, directly under the price. Save sits
+                up beside the breadcrumb as a quiet bookmark; this is the
+                active one and looks it. */}
+            {!sold && <InterestedButton />}
 
             <TrustBlock car={car} showQuote={false} />
             {!sold && (

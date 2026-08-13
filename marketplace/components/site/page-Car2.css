@@ -149,6 +149,14 @@
   flex-direction: column;
   gap: 1rem;
 }
+/* Availability and "just in" can both apply, so they share a row rather than
+   each carrying their own bottom margin. */
+.ah-site .mp2-rail__flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
 .ah-site .mp2-rail__flag {
   display: inline-block;
   border-radius: var(--radius-pill);
@@ -161,7 +169,20 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1;
-  margin-bottom: 0.75rem;
+}
+/* Amber is the identity's status colour, never an accent. Reserved and
+   "enquiry in progress" are exactly that: status, not a call to action. Text
+   stays on the headline colour so the two flags differ by ground alone. */
+.ah-site .mp2-rail__flag.is-status {
+  background: var(--color-amber-soft);
+}
+/* The scoped site styles run on content-box, so a full-width .btn would add
+   its 30px side padding on top of 100% and push the page sideways on a
+   phone. Border-box keeps the padding inside the width. */
+.ah-site .mp2-rail__interested {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
 }
 .ah-site .mp2-rail__title {
   font-size: clamp(1.625rem, 2.4vw, 1.875rem);

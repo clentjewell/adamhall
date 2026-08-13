@@ -6,11 +6,12 @@ import { getContent } from "@/lib/content";
 import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
-import { isJustIn } from "@/lib/car-flags";
+import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 import CarGallery from "@/components/CarGallery";
 import TrustBlock from "@/components/TrustBlock";
 import MobileActionBar from "@/components/MobileActionBar";
 import EnquiryForm from "@/components/EnquiryForm";
+import InterestedButton from "@/components/InterestedButton";
 import TestDriveForm from "@/components/TestDriveForm";
 import ListingCard from "@/components/site/ListingCard";
 import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
@@ -67,6 +68,7 @@ export default async function Car2DetailPage({ params }: Props) {
   const sold = car.status === "sold";
   const video = car.video_url ? embedUrl(car.video_url) : null;
   const justIn = isJustIn(car);
+  const availability = availabilityBadge(car);
 
   const specs: [string, string][] = [
     ["Year", String(car.year)],
@@ -195,7 +197,17 @@ export default async function Car2DetailPage({ params }: Props) {
         {/* Right: the buying rail. */}
         <aside className="mp2-rail">
           <div>
-            {justIn && <span className="mp2-rail__flag">Just in</span>}
+            {/* Availability first: it changes what the buyer should do.
+                availabilityBadge() returns null on a sold car, so the Sold
+                price treatment below is never doubled up on. */}
+            {(availability || justIn) && (
+              <div className="mp2-rail__flags">
+                {availability && (
+                  <span className="mp2-rail__flag is-status">{availability}</span>
+                )}
+                {justIn && <span className="mp2-rail__flag">Just in</span>}
+              </div>
+            )}
             <h1 className="mp2-rail__title">{title}</h1>
             {sold ? (
               <p className="mp2-rail__price is-sold">Sold</p>
@@ -216,6 +228,10 @@ export default async function Car2DetailPage({ params }: Props) {
               </>
             )}
           </div>
+
+          {/* The active CTA, directly under the price. Save/Compare sit above
+              the gallery as quiet bookmarks; this is the one Adam wants. */}
+          {!sold && <InterestedButton className="btn btn--tan mp2-rail__interested" />}
 
           <div className="mp2-rail__trust">
             <TrustBlock car={car} showQuote={false} />

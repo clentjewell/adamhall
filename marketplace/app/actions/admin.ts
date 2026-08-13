@@ -9,6 +9,7 @@ import { notifier, emailTemplates } from "@/lib/notify";
 import { carTitle, formatPrice, slugify } from "@/lib/format";
 import {
   CHECKLIST_ITEMS,
+  type CarAvailability,
   type ChecklistKey,
   type Submission,
   type SubmissionStatus,
@@ -439,6 +440,51 @@ export async function setCarStatus(
 
   revalidatePath("/admin", "layout");
   revalidatePath("/cars");
+  revalidatePath("/");
+  return { ok: true };
+}
+
+/**
+ * Sets a car's public availability badge. Entirely manual: there is no timer,
+ * no expiry and nothing that sets this on Adam's behalf. A car goes to
+ * "reserved" because he said so and comes back the same way.
+ *
+ * Deliberately separate from setCarStatus. Status decides whether the car is
+ * on the site at all and drives the public RLS policy; this only decides what
+ * the badge says. Selling a car is still setCarStatus("sold"), and the badge
+ * helpers give that precedence over whatever availability happens to be.
+ */
+export async function setCarAvailability(
+  carId: string,
+  next: CarAvailability,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const { data: car } = await admin.supabase
+    .from("cars")
+    .select("id, availability, slug")
+    .eq("id", carId)
+    .maybeSingle();
+  if (!car) return { ok: false, error: "Car not found." };
+  if (car.availability === next) return { ok: true };
+
+  const { error } = await admin.supabase
+    .from("cars")
+    .update({ availability: next })
+    .eq("id", carId);
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(
+    admin.supabase,
+    "car",
+    carId,
+    `availability:${car.availability}`,
+    `availability:${next}`,
+    admin.name,
+  );
+
+  revalidatePath("/admin", "layout");
+  revalidatePath("/cars");
+  revalidatePath(`/cars/${car.slug}`);
   revalidatePath("/");
   return { ok: true };
 }
