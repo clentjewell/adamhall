@@ -13,8 +13,12 @@ export default function CarsBrowser({
   watchPanel,
 }: {
   cars: Car[];
-  /** Rendered under the filters, per the mockup: "Nothing that fits? Set a
-      watch." Passed in so the server page keeps ownership of the form. */
+  /** "Nothing that fits? Set a watch." Passed in so the server page keeps
+      ownership of the form. Rendered under the results rather than in the
+      filter rail: the rail is 260px, which truncated every field, and the
+      filter card above it is sticky, so once the page scrolled it painted
+      over the top half of the form. Under the results is also where the
+      empty state has always pointed ("use the watchlist below"). */
   watchPanel?: React.ReactNode;
 }) {
   const [showFilters, setShowFilters] = useState(false);
@@ -123,7 +127,6 @@ export default function CarsBrowser({
             {select("Transmission", "transmission", filters.transmission, transmissions.map((t) => ({ value: t, label: t })), "Any")}
             {select("Fuel", "fuel", filters.fuel, fuels.map((f) => ({ value: f, label: f })), "Any")}
           </div>
-          {watchPanel && <div className="mt-6">{watchPanel}</div>}
         </aside>
 
         <div>
@@ -151,6 +154,7 @@ export default function CarsBrowser({
               </button>
             </div>
           )}
+          {watchPanel && <div className="mt-8">{watchPanel}</div>}
         </div>
       </div>
     </div>

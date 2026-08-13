@@ -240,6 +240,25 @@ body {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1;
   }
+  /* Card scale. A listing card is a component inside a page, not a section
+     of one, so it does not take the page-level Subheading and Price: six
+     cards set at 28px and 26px crowd the 40px h1 that titles them. Name and
+     figure share one size and are told apart by colour, which keeps a grid
+     of cards quiet and lets the page heading lead. */
+  .type-card-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1875rem; /* 19px mobile */
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .type-card-price {
+    font-weight: 800;
+    font-size: 1.1875rem; /* 19px mobile */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
   .type-price-lg {
     font-weight: 800;
     font-size: 1.875rem; /* 30px mobile */
@@ -259,6 +278,10 @@ body {
     }
     .type-price-lg {
       font-size: 2.125rem; /* 34px */
+    }
+    .type-card-title,
+    .type-card-price {
+      font-size: 1.25rem; /* 20px */
     }
   }
 }
