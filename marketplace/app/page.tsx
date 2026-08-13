@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Link } from "next-view-transitions";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
+import { getContent } from "@/lib/content";
 import CarCard from "@/components/CarCard";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const cars = await fetchPublicCars();
+  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   // Three, not four. The proposition is hand-picked, and three larger cards
   // carry that better than a full grid of small ones.
   const latest = cars.filter((c) => c.status === "published").slice(0, 3);
@@ -112,26 +114,48 @@ export default async function HomePage() {
       </div>
 
       {/* Valuation CTA, first section after the stock: a dedicated crossing
-          to the tool rather than the tool itself. It sits outside the
-          .ah-site wrapper because that scope's element margins override
-          Tailwind's spacing utilities (unlayered rules beat layered ones);
-          the tokens both systems share live on :root, so nothing else
-          changes. The footer band stays hidden on this page so the pitch is
-          made once. */}
+          to the tool rather than the tool itself, set as a rounded green
+          card floating on white with Adam in the photograph doing the exact
+          thing the button offers. It sits outside the .ah-site wrapper
+          because that scope's element margins override Tailwind's spacing
+          utilities (unlayered rules beat layered ones); the tokens both
+          systems share live on :root, so nothing else changes. The footer
+          band stays hidden on this page so the pitch is made once. */}
       <section aria-label="Instant car valuation" className="bg-white">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-14 sm:py-16 lg:flex-row lg:items-center">
-          <div>
-            <p className="type-label text-forest-600">Selling or trading in?</p>
-            <h2 className="type-heading mt-2">What&rsquo;s my car worth?</h2>
-            <p className="mt-3 max-w-[52ch] text-stone-600">
-              Tell us the car and see the range it sits in, straight away. No
-              account, no contact details, just the number.
-            </p>
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-16">
+          <div className="grid overflow-hidden rounded-[2rem] bg-forest-700 lg:grid-cols-[360px_1fr]">
+            <div className="relative hidden lg:block">
+              <Image
+                src="/assets/images/Adam-Hall-Value-My-Car.jpg"
+                alt="Adam Hall valuing a car with its owner in their driveway"
+                fill
+                sizes="360px"
+                className="object-cover"
+              />
+            </div>
+            <div className="px-6 py-10 sm:px-10 lg:py-12">
+              <p className="type-label text-sand">Selling or trading in?</p>
+              <h2 className="type-heading mt-2 text-white">
+                What&rsquo;s my car <span className="text-sand">worth?</span>
+              </h2>
+              <p className="mt-3 max-w-[52ch] text-stone-200">
+                Tell us the car and see the range it sits in, straight away.
+                No account, no contact details, just the number.
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link href="/car-valuations" className="btn-cta">
+                  Get an instant range
+                  <ArrowRight size={18} weight="bold" />
+                </Link>
+                <a
+                  href={content.phone.tel}
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/45 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10 active:translate-y-px"
+                >
+                  Call {content.phone.display}
+                </a>
+              </div>
+            </div>
           </div>
-          <Link href="/car-valuations" className="btn-cta shrink-0">
-            Get an instant range
-            <ArrowRight size={18} weight="bold" />
-          </Link>
         </div>
       </section>
 
