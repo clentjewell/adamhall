@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
-import { isJustIn } from "@/lib/car-flags";
+import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 
 /**
  * Showcase listing card for the redesigned home page.
@@ -30,6 +30,7 @@ export default function StockCard({
   const photo = car.photos[0];
   const sold = car.status === "sold";
   const justIn = isJustIn(car);
+  const availability = availabilityBadge(car);
 
   return (
     <Link href={`${basePath}/${car.slug}`} className="mp2-card">
@@ -51,8 +52,13 @@ export default function StockCard({
           <span className="mp2-card__nophoto">Photos coming</span>
         )}
 
+        {/* Most-important-first: sold, then availability, then just-in. */}
         {sold ? (
           <span className="mp2-card__badge mp2-card__badge--sold">SOLD</span>
+        ) : availability ? (
+          <span className="mp2-card__badge mp2-card__badge--status">
+            {availability}
+          </span>
         ) : justIn ? (
           <span className="mp2-card__badge mp2-card__badge--new">Just in</span>
         ) : car.ppsr_clear ? (

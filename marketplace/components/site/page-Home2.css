@@ -252,6 +252,12 @@
   background: var(--color-amber-accent);
   color: var(--c-black);
 }
+/* Reserved / enquiry in progress: status again, but the soft tint rather than
+   the accent, because the car is still for sale. */
+.ah-site .mp2-card__badge--status {
+  background: var(--color-amber-soft);
+  color: var(--c-black);
+}
 .ah-site .mp2-card__body {
   padding: 1.125rem 1.125rem 1.25rem;
 }

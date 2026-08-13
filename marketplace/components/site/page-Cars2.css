@@ -278,6 +278,11 @@
 .ah-site .mp2-lcard__badge--sold {
   background: var(--color-amber-accent);
 }
+/* Reserved / enquiry in progress. Amber again because it is status, but the
+   soft tint rather than the accent: the car is still for sale. */
+.ah-site .mp2-lcard__badge--status {
+  background: var(--color-amber-soft);
+}
 .ah-site .mp2-lcard__body {
   padding: 1rem;
 }

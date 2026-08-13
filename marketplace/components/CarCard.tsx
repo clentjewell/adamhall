@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "next-view-transitions";
 import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
-import { isJustIn } from "@/lib/car-flags";
+import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 
 // The card's entire motion vocabulary, per the identity (section 13):
 // a 2px lift and a soft shadow at 200ms. The photograph is the graphic,
@@ -29,6 +29,8 @@ export default function CarCard({
   const sold = car.status === "sold";
   // Sand carries the "just in" flag (identity section 04) for the first week.
   const justIn = isJustIn(car);
+  // Null when sold or plainly available — sold wins, and is rendered below.
+  const availability = availabilityBadge(car);
 
   return (
     <Link
@@ -54,15 +56,32 @@ export default function CarCard({
             Photos coming
           </div>
         )}
-        {sold && (
-          <span className="absolute top-3 left-3 bg-amber-accent text-ink text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
-            SOLD
-          </span>
-        )}
-        {justIn && (
-          <span className="type-label absolute top-3 left-3 rounded-full bg-sand px-3 py-1.5 text-ink">
-            Just in
-          </span>
+        {/* One positioned row, because a car can be both "just in" and
+            reserved. Sold and availability are mutually exclusive by the
+            precedence rule in availabilityBadge(), and isJustIn() is already
+            false for a sold car, so SOLD always stands alone. */}
+        {(sold || availability || justIn) && (
+          <div
+            /* Stops short of the save/compare buttons in the top-right corner
+               and wraps instead of running underneath them. */
+            className="absolute top-3 left-3 right-[5.25rem] flex flex-wrap items-center gap-1.5"
+          >
+            {sold && (
+              <span className="bg-amber-accent text-ink text-xs font-bold tracking-wide px-3 py-1.5 rounded-full">
+                SOLD
+              </span>
+            )}
+            {availability && (
+              <span className="type-label rounded-full bg-amber-soft px-3 py-1.5 text-ink">
+                {availability}
+              </span>
+            )}
+            {justIn && (
+              <span className="type-label rounded-full bg-sand px-3 py-1.5 text-ink">
+                Just in
+              </span>
+            )}
+          </div>
         )}
       </div>
       <div className="p-4">

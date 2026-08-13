@@ -29,6 +29,7 @@ function makeCar(overrides: Partial<Car> = {}): Car {
     inspection_summary: null,
     photos: [],
     status: "published",
+    availability: "available",
     published_at: new Date().toISOString(),
     sold_at: null,
     source_submission_id: null,

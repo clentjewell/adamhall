@@ -52,6 +52,15 @@ const wrap = (inner: string) => `
     <p style="color:#78716c;font-size:13px;margin-top:32px">Straight answers, fast settlements. Reply to this email any time.</p>
   </div>`;
 
+/**
+ * Escapes anything a stranger typed before it goes into an email body. The
+ * enquiry form is public, so a name or message can carry markup; without this
+ * it would render as HTML in Adam's inbox. Same helper submitContactMessage
+ * already applies in app/actions/public.ts.
+ */
+const esc = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
 export const emailTemplates = {
   submissionReceived(name: string, statusUrl: string) {
     return {
@@ -83,12 +92,87 @@ export const emailTemplates = {
         <p>That's about what we can retail right now, not about your car. If circumstances change or you have another car down the track, we'd genuinely like to hear from you.</p>`),
     };
   },
-  enquiryReceived(adminEmail: string, carName: string, name: string, phone: string, email?: string) {
-    const contact = email ? `${phone}, ${email}` : phone;
+  /**
+   * Adam's alert. Takes an object rather than a positional list — it grew
+   * past the point where `(carName, name, phone, email)` at a call site was
+   * readable, and every new field would have been another anonymous argument.
+   */
+  enquiryReceived(e: {
+    adminEmail: string;
+    carName: string;
+    carUrl?: string;
+    name: string;
+    phone: string;
+    email?: string;
+    /** "Wants a look" vs "Question" — the buyer's intent level. */
+    wantsLook?: boolean;
+    preferredContactMethod?: "call" | "text" | "email";
+    preferredTime?: string;
+    financingInterest?: boolean;
+    tradeInInterest?: boolean;
+  }) {
+    const contact = esc(e.email ? `${e.phone}, ${e.email}` : e.phone);
+    const how =
+      e.preferredContactMethod === "text"
+        ? "Prefers a text"
+        : e.preferredContactMethod === "email"
+          ? "Prefers email"
+          : "Prefers a call";
+    // Only the ticked ones, so the email stays scannable on a phone.
+    const flags = [
+      e.financingInterest ? "wants to talk finance" : null,
+      e.tradeInInterest ? "has a car to trade" : null,
+    ].filter(Boolean);
+
     return {
-      to: adminEmail,
-      subject: `New enquiry: ${carName}`,
-      html: wrap(`<p><strong>${name}</strong> (${contact}) enquired about the ${carName}. It's in the admin inbox.</p>`),
+      to: e.adminEmail,
+      // Subject lines are plain text, so they take the raw values.
+      subject: `${e.wantsLook ? "Wants a look" : "New enquiry"}: ${e.carName}`,
+      html: wrap(`
+        <p><strong>${esc(e.name)}</strong> (${contact}) ${
+          e.wantsLook ? "wants to come and look at" : "enquired about"
+        } the ${e.carUrl ? `<a href="${esc(e.carUrl)}" style="color:#1e5c41;font-weight:600">${esc(e.carName)}</a>` : esc(e.carName)}.</p>
+        <p style="margin:12px 0"><strong>${how}</strong>${
+          e.preferredTime ? ` — ${esc(e.preferredTime)}` : ""
+        }</p>
+        ${flags.length ? `<p style="margin:12px 0">Also: ${flags.join(", ")}.</p>` : ""}
+        <p>It's in the admin inbox.</p>`),
+    };
+  },
+  /**
+   * The buyer's receipt. Sent only when they gave an email; the on-screen
+   * confirmation is what everyone sees, and this is in addition to it, never
+   * instead of it.
+   *
+   * Deliberately short and un-salesy. The one job is to leave Adam's number
+   * somewhere the buyer can find it later.
+   */
+  enquiryConfirmation(e: {
+    name: string;
+    carName: string;
+    carUrl?: string;
+    phoneDisplay: string;
+    /** Only present when they ticked the finance box. */
+    financeUrl?: string;
+  }) {
+    const firstName = e.name.split(" ")[0] || e.name;
+    return {
+      subject: `Got your enquiry: ${e.carName}`,
+      html: wrap(`
+        <p>Hi ${esc(firstName)},</p>
+        <p>We've got your enquiry about the ${
+          e.carUrl
+            ? `<a href="${esc(e.carUrl)}" style="color:#1e5c41;font-weight:600">${esc(e.carName)}</a>`
+            : esc(e.carName)
+        }. Adam will be in touch shortly.</p>
+        <p style="margin:16px 0">If you'd rather not wait, call him direct on
+          <a href="tel:${e.phoneDisplay.replace(/\s/g, "")}" style="color:#1e5c41;font-weight:700">${e.phoneDisplay}</a>.</p>
+        ${
+          e.financeUrl
+            ? `<p>You mentioned finance. There's a repayment calculator here:
+                 <a href="${e.financeUrl}" style="color:#1e5c41;font-weight:600">work out what it costs a week</a>.</p>`
+            : ""
+        }`),
     };
   },
   watchlistMatch(email: string, carName: string, price: string, url: string) {
