@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import { Link } from "next-view-transitions";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
-import { getContent } from "@/lib/content";
 import CarCard from "@/components/CarCard";
-import InstantQuote from "@/components/sell/InstantQuote";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
 import FaqSection from "@/components/site/FaqSection";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
+  const cars = await fetchPublicCars();
   // Three, not four. The proposition is hand-picked, and three larger cards
   // carry that better than a full grid of small ones.
   const latest = cars.filter((c) => c.status === "published").slice(0, 3);
@@ -111,23 +111,27 @@ export default async function HomePage() {
         )}
       </div>
 
-      {/* Instant valuation, straight on the page as the first section after
-          the stock: the tool itself rather than a link out to it. It sits
-          outside the .ah-site wrapper because that scope's element margins
-          override Tailwind's spacing utilities (unlayered rules beat layered
-          ones), which would distort the tool's layout. The tokens both
-          systems share live on :root, so nothing else changes. */}
+      {/* Valuation CTA, first section after the stock: a dedicated crossing
+          to the tool rather than the tool itself. It sits outside the
+          .ah-site wrapper because that scope's element margins override
+          Tailwind's spacing utilities (unlayered rules beat layered ones);
+          the tokens both systems share live on :root, so nothing else
+          changes. The footer band stays hidden on this page so the pitch is
+          made once. */}
       <section aria-label="Instant car valuation" className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:py-16">
-          <p className="type-label text-forest-600">Selling or trading in?</p>
-          <h2 className="type-heading mt-2">What&rsquo;s my car worth?</h2>
-          <p className="mt-3 max-w-[52ch] text-stone-600">
-            Tell us the car and see the range it sits in, straight away. No
-            account, no contact details, just the number.
-          </p>
-          <div className="mt-8">
-            <InstantQuote phone={content.phone} />
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-14 sm:py-16 lg:flex-row lg:items-center">
+          <div>
+            <p className="type-label text-forest-600">Selling or trading in?</p>
+            <h2 className="type-heading mt-2">What&rsquo;s my car worth?</h2>
+            <p className="mt-3 max-w-[52ch] text-stone-600">
+              Tell us the car and see the range it sits in, straight away. No
+              account, no contact details, just the number.
+            </p>
           </div>
+          <Link href="/car-valuations" className="btn-cta shrink-0">
+            Get an instant range
+            <ArrowRight size={18} weight="bold" />
+          </Link>
         </div>
       </section>
 
