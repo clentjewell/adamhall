@@ -44,8 +44,8 @@ interface Form {
   model: string;
   year: string;
   odometer_km: string;
-  condition: QuotePayload["condition"];
-  service_history: QuotePayload["service_history"];
+  condition: "" | QuotePayload["condition"];
+  service_history: "" | QuotePayload["service_history"];
   had_accidents: "" | "yes" | "no";
   suburb: string;
 }
@@ -55,8 +55,12 @@ const emptyForm: Form = {
   model: "",
   year: "",
   odometer_km: "",
-  condition: "very_good",
-  service_history: "full",
+  // No pre-selected answers. They used to default to "very good" and "full
+  // book", which both flattered the car and meant the groups below could
+  // never be gated on a real answer. An unanswered question also reads as a
+  // question; a pre-answered one reads as a form already filled in.
+  condition: "",
+  service_history: "",
   had_accidents: "",
   suburb: "",
 };
@@ -160,8 +164,10 @@ export default function InstantQuote({
       model: f.model,
       year: Number(f.year),
       odometer_km: Number(f.odometer_km),
-      condition: f.condition,
-      service_history: f.service_history,
+      // Both are gated in the UI, and validated below, so by the time a
+      // request goes out they are answered.
+      condition: f.condition || "very_good",
+      service_history: f.service_history || "unknown",
       had_accidents: f.had_accidents === "yes",
       suburb: f.suburb || undefined,
     });
@@ -236,6 +242,14 @@ export default function InstantQuote({
       setError("Roughly how many kays has it done?");
       return;
     }
+    if (!form.condition) {
+      setError("How is the car looking?");
+      return;
+    }
+    if (!form.service_history) {
+      setError("What service history does it have?");
+      return;
+    }
     if (!form.had_accidents) {
       setError("Let us know whether it has been in an accident.");
       return;
@@ -253,6 +267,23 @@ export default function InstantQuote({
   const t = reduce
     ? { duration: 0 }
     : { duration: DUR.standard, ease: EASE_STANDARD };
+
+  // Progressive disclosure. The form used to lay every field out at once,
+  // which reads as a long form to fill in rather than a few quick
+  // questions. Each group appears when the one before it has an answer, so
+  // the visitor only ever sees what they are being asked now.
+  //
+  // Gated on real answers rather than a step counter, so the live
+  // re-estimation still works and nothing is trapped behind a Next button:
+  // going back and changing the year keeps everything below it on screen.
+  const carAnswered = Boolean(
+    form.make.trim() &&
+      form.model.trim() &&
+      form.year.length === 4 &&
+      form.odometer_km,
+  );
+  const conditionAnswered = carAnswered && Boolean(form.condition);
+  const serviceAnswered = conditionAnswered && Boolean(form.service_history);
 
   return (
     <>
@@ -340,7 +371,7 @@ export default function InstantQuote({
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6" hidden={!carAnswered}>
             <span className="label" id="q-condition-label">
               Condition
             </span>
@@ -385,7 +416,7 @@ export default function InstantQuote({
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6" hidden={!conditionAnswered}>
             <span className="label" id="q-service-label">
               Service history
             </span>
@@ -423,7 +454,7 @@ export default function InstantQuote({
             </div>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2" hidden={!serviceAnswered}>
             <div>
               <span className="label" id="q-accident-label">
                 Has it been in an accident?
@@ -485,7 +516,7 @@ export default function InstantQuote({
             </p>
           )}
 
-          <button type="submit" className="btn-cta mt-6 w-full sm:w-auto">
+          <button type="submit" className="btn-cta mt-6 w-full sm:w-auto" hidden={!serviceAnswered}>
             {pending
               ? "Working it out"
               : stale
