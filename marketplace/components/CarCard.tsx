@@ -7,6 +7,11 @@ import { isJustIn } from "@/lib/car-flags";
 // The card's entire motion vocabulary, per the identity (section 13):
 // a 2px lift and a soft shadow at 200ms. The photograph is the graphic,
 // so it does not zoom, pan or swap on hover.
+//
+// `block` is load-bearing: an <a> is inline by default, and while a grid
+// blockifies its items, the home rail puts the card inside a plain slide
+// div. Without it the white background paints around inline boxes only and
+// the card reads as transparent over the hero's green band.
 
 export default function CarCard({ car, priority = false }: { car: Car; priority?: boolean }) {
   const photo = car.photos[0];
@@ -17,7 +22,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
   return (
     <Link
       href={`/cars/${car.slug}`}
-      className="bg-card rounded-2xl overflow-hidden group hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-0.5 transition-[translate,box-shadow] duration-200"
+      className="block bg-card rounded-2xl overflow-hidden group hover:shadow-lg hover:shadow-stone-300/50 hover:-translate-y-0.5 transition-[translate,box-shadow] duration-200"
     >
       {/* Named so the photo morphs into the car-page hero on navigation. */}
       <div

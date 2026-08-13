@@ -29,7 +29,7 @@ export const site = {
    named separately in the header and in CrossSiteBand.
    ------------------------------------------------------------------ */
 export const nav = [
-  { label: 'Cars for Sale', to: '/cars' },
+  { label: 'The Marketplace', to: '/cars' },
   { label: 'Finance', to: '/finance' },
   { label: 'Compare', to: '/compare', garage: 'compare' as const },
   { label: 'Saved', to: '/saved', garage: 'saved' as const },

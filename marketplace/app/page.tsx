@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { fetchPublicCars } from "@/lib/cars";
-import CarCard from "@/components/CarCard";
+import StockRail from "@/components/home/StockRail";
 import ValuationBand from "@/components/ValuationBand";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
@@ -24,7 +24,6 @@ export default async function HomePage() {
   // Three, not four. The proposition is hand-picked, and three larger cards
   // carry that better than a full grid of small ones.
   const published = cars.filter((c) => c.status === "published");
-  const latest = published.slice(0, 3);
 
   return (
     <>
@@ -72,12 +71,12 @@ export default async function HomePage() {
 
         {/* Stock first. The listings ride up over the green edge so the page
             opens on cars rather than on a picture of a person. */}
-        {latest.length > 0 ? (
+        {published.length > 0 ? (
           <section className="mp-stock">
             <div className="container container--wide mp-stock__inner">
-              {/* The heading leads in the DOM and CSS order drops it below the
-                  grid. Written the other way round, the three card h3s came
-                  before the h2 that titles them — an h1 -> h3 jump, and the
+              {/* The heading leads in the DOM and CSS order drops it below
+                  the rail. Written the other way round, the card h3s came
+                  before the h2 that titles them, an h1 -> h3 jump, and the
                   cards read as belonging to the hero. */}
               <div className="mp-stock__footer reveal">
                 {/* The count gives the row its second line, so the title is
@@ -88,24 +87,20 @@ export default async function HomePage() {
                     {published.length} car{published.length === 1 ? "" : "s"} in
                     stock
                   </span>
-                  <h2 className="mp-stock__title">Cars for sale right now</h2>
+                  <h2 className="mp-stock__title">The Marketplace</h2>
                 </div>
                 <Button to="/cars" variant="tan" arrow>
                   View all cars
                 </Button>
               </div>
-              <div className="mp-stock__grid">
-                {latest.map((car, i) => (
-                  <CarCard key={car.id} car={car} priority={i < 3} />
-                ))}
-              </div>
+              <StockRail cars={published} />
             </div>
           </section>
         ) : (
           <section className="mp-stock mp-stock--empty">
             <div className="container container--wide">
               <h2 className="mp-stock__title" style={{ marginBottom: "1rem" }}>
-                Cars for sale right now
+                The Marketplace
               </h2>
               <p style={{ marginBottom: "1.5rem" }}>
                 Fresh stock is on its way. Take a look at everything currently
@@ -303,7 +298,7 @@ export default async function HomePage() {
                 </p>
               </div>
               <Button to="/cars" variant="tan" arrow>
-                Cars for sale
+                The Marketplace
               </Button>
             </div>
           </div>
