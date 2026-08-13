@@ -146,7 +146,6 @@
   gap: 2rem;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
   /* Room for the card's hover lift and shadow, which a clipped overflow
      would otherwise cut off. */
   padding-block: 0.5rem;
@@ -159,46 +158,9 @@
   outline: 2px solid var(--c-sand);
   outline-offset: 4px;
 }
-.ah-site .mp-rail__slide {
-  scroll-snap-align: start;
-}
-/* Arrows sit on the cards rather than in the heading row, which keeps the
-   rail self-contained and leaves that row to the title and "view all". */
-.ah-site .mp-rail__arrow {
-  position: absolute;
-  top: 50%;
-  translate: 0 -50%;
-  z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--c-border);
-  background: var(--c-white);
-  color: var(--c-green-deep);
-  box-shadow: var(--shadow-sm);
-  transition: background var(--transition), color var(--transition);
-}
-.ah-site .mp-rail__arrow:hover {
-  background: var(--c-green);
-  color: var(--c-white);
-}
-.ah-site .mp-rail__arrow[hidden] {
-  display: none;
-}
-.ah-site .mp-rail__arrow--prev {
-  left: -1.375rem;
-}
-.ah-site .mp-rail__arrow--next {
-  right: -1.375rem;
-}
-/* On a phone the arrows are redundant next to a thumb, and there is no room
-   for them outside the column. */
+/* The rail drifts on its own, so there are no arrows to place. On a phone
+   the cards are wider so one and a bit is visible at a time. */
 @media (max-width: 700px) {
-  .ah-site .mp-rail__arrow {
-    display: none;
-  }
   .ah-site .mp-rail__track {
     grid-auto-columns: 82%;
   }

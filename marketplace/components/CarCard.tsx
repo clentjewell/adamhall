@@ -13,7 +13,18 @@ import { isJustIn } from "@/lib/car-flags";
 // div. Without it the white background paints around inline boxes only and
 // the card reads as transparent over the hero's green band.
 
-export default function CarCard({ car, priority = false }: { car: Car; priority?: boolean }) {
+export default function CarCard({
+  car,
+  priority = false,
+  duplicate = false,
+}: {
+  car: Car;
+  priority?: boolean;
+  /** Set on the cloned half of a looping rail. A view-transition-name has
+      to be unique in the document, so a clone carrying the same one would
+      break the card-to-hero morph for the original. */
+  duplicate?: boolean;
+}) {
   const photo = car.photos[0];
   const sold = car.status === "sold";
   // Sand carries the "just in" flag (identity section 04) for the first week.
@@ -27,7 +38,7 @@ export default function CarCard({ car, priority = false }: { car: Car; priority?
       {/* Named so the photo morphs into the car-page hero on navigation. */}
       <div
         className="relative aspect-[3/2] bg-stone-200 overflow-hidden"
-        style={{ viewTransitionName: `car-${car.id}` }}
+        style={duplicate ? undefined : { viewTransitionName: `car-${car.id}` }}
       >
         {photo ? (
           <Image
