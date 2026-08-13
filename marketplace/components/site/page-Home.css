@@ -148,13 +148,19 @@
 .ah-site .mp-stock__footer {
   order: 2;
   display: flex;
-  align-items: baseline;
+  /* Centred, not baseline: a pill button has its own vertical padding, and
+     baselining its label against a 36px heading dropped it low enough that
+     the row read as two unrelated objects. */
+  align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1.5rem 2rem;
   flex-wrap: wrap;
   margin-top: 2.5rem;
   padding-top: 1.75rem;
   border-top: 1px solid var(--c-border);
+}
+.ah-site .mp-stock__heading .eyebrow {
+  margin-bottom: 0.35rem;
 }
 .ah-site .mp-stock__title {
   font-size: var(--fs-h4);
