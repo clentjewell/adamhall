@@ -30,7 +30,7 @@
   gap: 1rem;
 }
 .ah-site .ap__title {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   font-weight: 400;
   font-family: var(--font-body);
   margin: 0;
@@ -65,7 +65,7 @@
   margin-top: 1rem;
 }
 .ah-site .ap__time {
-  font-size: 0.8rem;
+  font-size: var(--fs-small);
   color: var(--c-black);
   font-variant-numeric: tabular-nums;
   min-width: 40px;
@@ -134,7 +134,7 @@
   padding: 0.4rem 0.5rem;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 1.35rem;
+  font-size: var(--fs-lead);
   color: var(--c-black);
 }
 .ah-site .ap__transcript-chev {
@@ -164,7 +164,7 @@
     height: 64px;
   }
 .ah-site .ap__title {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
   }
 .ah-site .ap__play {
     width: 40px;

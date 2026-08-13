@@ -22,7 +22,7 @@
 }
 .ah-site .listen__count {
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: var(--fs-small);
   color: var(--c-black);
 }
 @media (max-width: 900px) {

@@ -63,7 +63,7 @@ export default function HowItWorksPage() {
           </>
         }
       >
-        <p className="text-stone-200 max-w-[60ch] text-lg">
+        <p className="text-stone-200 max-w-[60ch] type-lead">
           Industry leading market knowledge, safe and secure payment.
         </p>
       </PageHero>

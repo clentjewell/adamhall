@@ -12,7 +12,7 @@
 .ah-site .pcta__title {
   color: var(--c-white);
   font-size: var(--fs-h2);
-  font-weight: 700;
+  font-weight: var(--fw-heading);
   letter-spacing: 0.3px;
   line-height: 1.35;
   margin: 0;
@@ -60,7 +60,7 @@
 .ah-site .pcta__start {
   position: relative;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-weight: var(--fw-heading);
   color: var(--c-white);
   font-size: var(--fs-h3);
   line-height: 1;

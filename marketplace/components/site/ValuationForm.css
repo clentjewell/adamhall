@@ -24,7 +24,7 @@
 }
 .ah-site .vform input, .ah-site .vform select, .ah-site .vform textarea {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   color: var(--c-black);
   padding: 0.8rem 1rem;
   border: 1.5px solid var(--c-border);
@@ -54,7 +54,7 @@
   font-size: 0.82rem;
 }
 .ah-site .vform__step {
-  font-size: 0.85rem;
+  font-size: var(--fs-small);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--c-text);
@@ -105,7 +105,7 @@
 }
 .ah-site .vform__note {
   text-align: center;
-  font-size: 0.85rem;
+  font-size: var(--fs-small);
   color: var(--c-black);
   margin: 0;
 }
@@ -114,7 +114,7 @@
   color: #a12626;
   border-radius: var(--radius-sm);
   padding: 0.8rem 1rem;
-  font-size: 0.9rem;
+  font-size: var(--fs-small);
   margin: 0;
 }
 .ah-site .vform--done {
@@ -131,12 +131,12 @@
   color: var(--c-green);
   display: grid;
   place-items: center;
-  font-size: 2rem;
+  font-size: var(--fs-h3);
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 .ah-site .vform--done h3 {
-  font-size: 1.6rem;
+  font-size: var(--fs-h3);
   margin: 0;
 }
 .ah-site .vform--done p {

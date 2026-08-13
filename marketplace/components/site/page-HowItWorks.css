@@ -98,7 +98,7 @@
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 .ah-site .hiw-promise__card h5 {
-  font-size: 1.3rem;
+  font-size: var(--fs-lead);
   margin-bottom: 0.5rem;
 }
 .ah-site .hiw-promise__card p {

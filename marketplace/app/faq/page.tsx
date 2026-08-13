@@ -49,7 +49,7 @@ export default async function FaqPage() {
         title={content.faq.title}
         titleEditPath="faq.title"
       >
-        <p data-edit="faq.sub" className="text-stone-200 max-w-[56ch] text-lg">
+        <p data-edit="faq.sub" className="text-stone-200 max-w-[56ch] type-lead">
           {content.faq.sub}
         </p>
       </PageHero>

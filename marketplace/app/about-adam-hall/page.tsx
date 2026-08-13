@@ -61,7 +61,7 @@ export default function AboutAdamHallPage() {
           </>
         }
       >
-        <p className="text-stone-200 max-w-[60ch] text-lg">
+        <p className="text-stone-200 max-w-[60ch] type-lead">
           Adam Hall has been serving the community for almost three decades.
         </p>
       </PageHero>

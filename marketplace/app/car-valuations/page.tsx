@@ -28,7 +28,7 @@ export default async function CarValuationsPage() {
         imageAlt="Adam checking over a car's engine"
         title="What's my car worth?"
       >
-        <p className="max-w-[52ch] text-lg text-stone-200">
+        <p className="max-w-[52ch] type-lead text-stone-200">
           Tell us about the car and we will show you the range it sits in, before
           you give us a single contact detail. The real offer comes from Adam
           {stat ? `, usually ${stat.label}` : ""}.

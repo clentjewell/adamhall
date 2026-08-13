@@ -73,7 +73,7 @@ export default async function StatusPage({ params }: Props) {
 
       {declined ? (
         <div className="card p-6 mt-8">
-          <p className="font-display font-bold text-lg">
+          <p className="font-display font-bold type-lead">
             We passed on this one, and said why
           </p>
           <p className="text-stone-600 mt-2 leading-relaxed">

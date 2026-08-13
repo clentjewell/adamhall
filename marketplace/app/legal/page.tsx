@@ -68,7 +68,7 @@ export default function LegalIndexPage() {
               className="card p-5 flex items-start justify-between gap-4 hover:border-forest-500 transition-colors group"
             >
               <span>
-                <span className="block font-display font-bold text-lg text-ink">
+                <span className="block font-display font-bold type-lead text-ink">
                   {doc.title}
                 </span>
                 <span className="block text-sm text-stone-600 leading-relaxed mt-1">

@@ -41,7 +41,7 @@
   padding-left: 1.4rem;
   border-left: 1px solid var(--c-border);
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   /* Soft ink, not meta. Meta is for captions and spec lines; at this size on
      cream it measures 3.64:1, under the 4.5:1 AA floor. Soft ink is 11.2:1. */
@@ -67,7 +67,7 @@
   margin-top: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid var(--c-border);
-  font-size: 1rem !important;
+  font-size: var(--fs-body) !important;
   font-weight: 500;
   color: var(--c-text) !important;
 }
@@ -88,7 +88,7 @@
 .ah-site .site-header__nav a {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1rem;
+  font-size: var(--fs-body);
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: var(--c-text-dark);
@@ -174,7 +174,7 @@
   display: block;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1.35rem;
+  font-size: var(--fs-lead);
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--c-white);

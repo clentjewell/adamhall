@@ -85,7 +85,7 @@ export default async function SellPage({ searchParams }: Props) {
         titleEditPath="sellHero.title"
       >
         <div>
-          <p data-edit="sellHero.sub" className="text-stone-200 max-w-[52ch] text-lg">
+          <p data-edit="sellHero.sub" className="text-stone-200 max-w-[52ch] type-lead">
             {content.sellHero.sub}
           </p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">

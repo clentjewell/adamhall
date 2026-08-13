@@ -33,7 +33,7 @@
 .ah-site .trustbar__item span {
   font-family: var(--font-heading);
   font-weight: 500;
-  font-size: 1.0625rem;
+  font-size: var(--fs-body);
   color: var(--c-black);
   line-height: 1.25;
   max-width: 9.5rem;
@@ -51,6 +51,6 @@
     height: 40px;
   }
   .ah-site .trustbar__item span {
-    font-size: 0.9rem;
+    font-size: var(--fs-small);
   }
 }
