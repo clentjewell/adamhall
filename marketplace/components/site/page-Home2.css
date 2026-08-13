@@ -256,7 +256,7 @@
   padding: 1.125rem 1.125rem 1.25rem;
 }
 .ah-site .mp2-card__title {
-  font-size: 1.1875rem; /* 19px */
+  font-size: 1.25rem; /* 20px, the live listing card's name size */
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0;
@@ -268,10 +268,15 @@
   gap: 0.75rem;
   margin-top: 0.75rem;
 }
+/* 20px, level with the name above it rather than 26px over it. A card is a
+   component inside a page, not a section of one: at 26px the figure outran
+   both its own title and the 38px heading that titles the row. Name and
+   figure now share a size and are told apart by colour, matching the live
+   listing card. */
 .ah-site .mp2-card__price {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.625rem; /* 26px */
+  font-size: 1.25rem; /* 20px */
   line-height: 1;
   color: var(--c-green-deep);
   margin: 0;
@@ -384,6 +389,94 @@
   color: var(--c-green);
   font-weight: 800;
   flex: 0 0 auto;
+}
+
+/* --- Valuation band ---------------------------------------------------
+   Full bleed: the section carries no container, so the ground runs to both
+   edges of the window and the photograph sits flush against the left of it.
+   Words left and actions right from 1280px, so a full-width band is not
+   half empty; below that they stack and the photograph stands down, since
+   a letterboxed strip of it would say nothing. */
+.ah-site .mp2-valuation {
+  background: var(--c-green-deep);
+  display: grid;
+}
+.ah-site .mp2-valuation__media {
+  display: none;
+}
+.ah-site .mp2-valuation__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.75rem;
+  padding: clamp(2.5rem, 5vw, 3rem) var(--gutter);
+}
+.ah-site .mp2-valuation__text {
+  max-width: 46ch;
+}
+.ah-site .mp2-valuation .eyebrow {
+  color: var(--c-sand);
+}
+.ah-site .mp2-valuation__title {
+  color: var(--c-white);
+  font-size: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px, as the stock title */
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.5rem 0 0;
+}
+/* One word in sand, the way the stock flags use it: the accent marks the
+   thing being asked, not the whole line. */
+.ah-site .mp2-valuation__accent {
+  color: var(--c-sand);
+}
+.ah-site .mp2-valuation__sub {
+  color: var(--color-forest-200);
+  line-height: 1.55;
+  margin: 0.875rem 0 0;
+  text-wrap: pretty;
+}
+.ah-site .mp2-valuation__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+}
+@media (min-width: 480px) {
+  .ah-site .mp2-valuation__actions {
+    flex-direction: row;
+  }
+}
+@media (min-width: 1024px) {
+  .ah-site .mp2-valuation {
+    grid-template-columns: minmax(0, 28rem) 1fr;
+  }
+  .ah-site .mp2-valuation__media {
+    display: block;
+    position: relative;
+  }
+  .ah-site .mp2-valuation__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ah-site .mp2-valuation__body {
+    padding: 4.5rem 2.5rem 4.5rem 3.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .ah-site .mp2-valuation__body {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+  /* The two pills stack once they move to the right of the words. Side by
+     side they take about 530px of a 900px column, which squeezed the
+     question onto two lines and the answer onto four. */
+  .ah-site .mp2-valuation__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 /* --- Closing call to action ------------------------------------------

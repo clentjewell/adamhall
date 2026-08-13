@@ -32,10 +32,11 @@ export default function Footer() {
 
   // The instant valuation tool had no entry point anywhere on the site.
   // This band puts one on every page, above the footer, and steps aside
-  // on the pages that already make the pitch: the seller journey, and the
-  // home page, which carries its own valuation CTA after the stock section.
+  // on the pages that already make the pitch: the seller journey, and both
+  // home pages, which carry their own valuation CTA after the stock section.
   const showValuationCta =
     pathname !== "/" &&
+    pathname !== "/home2" &&
     pathname !== "/car-valuations" &&
     !pathname?.startsWith("/sell");
 

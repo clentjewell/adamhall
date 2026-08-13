@@ -142,6 +142,49 @@ export default async function Home2Page() {
         </div>
       </section>
 
+      {/* --- Valuation -----------------------------------------------------
+          The crossing to the valuation tool, first thing after the stock, as
+          it is on the live home page. A full-bleed band rather than a card in
+          the container, so it reads as a change of ground between the white
+          stock section and the story splits below. Adam is in the photograph
+          doing the exact thing the button offers.
+          The footer's valuation band stands down on this route, so the pitch
+          is made once. */}
+      <section className="mp2-valuation" aria-label="Instant car valuation">
+        <div className="mp2-valuation__media">
+          <img
+            src="/assets/images/Adam-Hall-Value-My-Car.jpg"
+            alt="Adam Hall valuing a car with its owner in their driveway"
+            loading="lazy"
+            width={640}
+            height={427}
+          />
+        </div>
+        <div className="mp2-valuation__body">
+          {/* Held to a reading measure: the band is full width, the words
+              are not. */}
+          <div className="mp2-valuation__text">
+            <span className="eyebrow">Selling or trading in?</span>
+            <h2 className="mp2-valuation__title">
+              What&rsquo;s my car{" "}
+              <span className="mp2-valuation__accent">worth?</span>
+            </h2>
+            <p className="mp2-valuation__sub">
+              Tell us the car and see the range it sits in, straight away. No
+              account, no contact details, just the number.
+            </p>
+          </div>
+          <div className="mp2-valuation__actions">
+            <Button to="/car-valuations" variant="tan" arrow>
+              Get an instant range
+            </Button>
+            <Button href={site.phoneHref} variant="outline-white">
+              Call {site.phoneDisplay}
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* --- Curation: how the stock gets chosen --------------------------- */}
       <section className="container container--wide">
         <div className="mp2-split">
