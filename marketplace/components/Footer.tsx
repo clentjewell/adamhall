@@ -7,6 +7,7 @@ import { nav, site, preFooterTrust, marketplaceTagline } from "@/lib/site-data/s
 import { brand } from "@/lib/brand";
 import BrandLockup from "@/components/BrandLockup";
 import CrossSiteBand from "@/components/CrossSiteBand";
+import ValuationBand from "@/components/ValuationBand";
 import "@/components/site/site.css";
 
 // The five legal documents. Every one of these was live and loading but
@@ -41,31 +42,18 @@ export default function Footer() {
     !pathname?.startsWith("/sell");
 
   return (
-    <div className="ah-site vt-site-footer">
+    <>
+      {/* Outside the .ah-site wrapper below: that scope's element margins are
+          unlayered, so they beat the band's Tailwind spacing and would
+          distort it. Same reason the home page keeps it out of the wrapper. */}
       {showValuationCta && (
-        <section
-          aria-label="Instant car valuation"
-          className="border-t border-hairline bg-paper"
-        >
-          <div className="page-shell flex flex-col items-start justify-between gap-5 py-10 sm:flex-row sm:items-center">
-            <div>
-              <p className="type-label text-meta">Selling or trading in?</p>
-              <h2 className="type-subheading mt-1.5">
-                What&apos;s my car worth?
-              </h2>
-              <p className="mt-1.5 max-w-[52ch] text-stone-600">
-                Tell us the car and see the range it sits in, straight away.
-                No account, no contact details, just the number.
-              </p>
-            </div>
-            <Link href="/car-valuations" className="btn-cta shrink-0">
-              Get an instant range
-              <ArrowRight size={18} weight="bold" />
-            </Link>
-          </div>
-        </section>
+        <ValuationBand
+          phoneDisplay={site.phoneDisplay}
+          phoneHref={site.phoneHref}
+        />
       )}
 
+      <div className="ah-site vt-site-footer">
       {/* Black pre-footer trust band */}
       <section className="prefooter" aria-label="Why choose Adam Hall">
         <div className="container container--wide">
@@ -148,6 +136,7 @@ export default function Footer() {
           <Link href="/legal">Legal</Link>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

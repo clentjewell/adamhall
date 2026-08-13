@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Link } from "next-view-transitions";
-import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import { fetchPublicCars } from "@/lib/cars";
-import { getContent } from "@/lib/content";
 import CarCard from "@/components/CarCard";
+import ValuationBand from "@/components/ValuationBand";
 import TrustBar from "@/components/site/TrustBar";
 import IconList from "@/components/site/IconList";
 import FaqSection from "@/components/site/FaqSection";
@@ -22,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
+  const cars = await fetchPublicCars();
   // Three, not four. The proposition is hand-picked, and three larger cards
   // carry that better than a full grid of small ones.
   const published = cars.filter((c) => c.status === "published");
@@ -123,59 +121,12 @@ export default async function HomePage() {
         )}
       </div>
 
-      {/* Valuation CTA, first section after the stock: a dedicated crossing
-          to the tool rather than the tool itself. A full-bleed green band
-          rather than a card in the container, so it reads as a change of
-          ground between the white stock section and the trust bar; the
-          height is the card's, only the width runs to the edges. Adam is in
-          the photograph doing the exact thing the button offers.
-          It sits outside the .ah-site wrapper because that scope's element
-          margins override Tailwind's spacing utilities (unlayered rules beat
-          layered ones); the tokens both systems share live on :root, so
-          nothing else changes. The footer band stays hidden on this page so
-          the pitch is made once. */}
-      <section
-        aria-label="Instant car valuation"
-        className="grid bg-forest-700 lg:grid-cols-[minmax(0,28rem)_1fr]"
-      >
-        {/* Flush to the left edge of the window, full height of the band. */}
-        <div className="relative hidden lg:block">
-          <Image
-            src="/assets/images/Adam-Hall-Value-My-Car.jpg"
-            alt="Adam Hall valuing a car with its owner in their driveway"
-            fill
-            sizes="28rem"
-            className="object-cover"
-          />
-        </div>
-        {/* Words left, actions right, both centred on the band. Held to a
-            reading measure and split this way so a full-width band does not
-            leave half of itself empty. */}
-        <div className="flex flex-col justify-center gap-7 px-4 py-11 sm:px-8 lg:py-20 lg:pl-14 lg:pr-10 xl:flex-row xl:items-center xl:justify-between xl:gap-12">
-          <div className="max-w-[46ch]">
-            <p className="type-label text-sand">Selling or trading in?</p>
-            <h2 className="type-heading mt-2 text-white">
-              What&rsquo;s my car <span className="text-sand">worth?</span>
-            </h2>
-            <p className="mt-3 text-stone-200">
-              Tell us the car and see the range it sits in, straight away. No
-              account, no contact details, just the number.
-            </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row xl:shrink-0">
-            <Link href="/car-valuations" className="btn-cta">
-              Get an instant range
-              <ArrowRight size={18} weight="bold" />
-            </Link>
-            <a
-              href={content.phone.tel}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-white/45 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10 active:translate-y-px"
-            >
-              Call {content.phone.display}
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* The crossing to the valuation tool, first thing after the stock.
+          Same component as the band above the footer on every other page. */}
+      <ValuationBand
+        phoneDisplay={site.phoneDisplay}
+        phoneHref={site.phoneHref}
+      />
 
       <div className="ah-site mp-home">
         <TrustBar items={buyerTrustBar} label="Why buy from Car Marketplace" />
