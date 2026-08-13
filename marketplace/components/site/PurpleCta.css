@@ -1,6 +1,6 @@
 /* scoped port of PurpleCta.css */
 .ah-site .pcta {
-  padding-block: clamp(3.5rem, 7vw, 6rem);
+  padding-block: var(--rhythm-section);
 }
 .ah-site .pcta__inner {
   display: flex;

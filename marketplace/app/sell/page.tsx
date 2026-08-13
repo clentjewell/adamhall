@@ -103,7 +103,7 @@ export default async function SellPage({ searchParams }: Props) {
         </div>
       </PageHero>
 
-      <div className="page-shell py-12">
+      <div className="page-shell section-y">
         {/* Someone who wants a ballpark before filling in the full form. Only
             offered when they have not already come from the quote tool. */}
         {!prefill && (

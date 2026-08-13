@@ -34,7 +34,7 @@ export default async function CarsPage() {
         </p>
       </header>
 
-      <div className="page-shell py-10">
+      <div className="page-shell section-y">
         <CarsBrowser cars={cars} watchPanel={<WatchlistForm makes={makes} />} />
       </div>
     </>

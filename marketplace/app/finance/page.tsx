@@ -41,7 +41,7 @@ export default async function FinancePage({
         </p>
       </header>
 
-      <div className="page-shell py-12">
+      <div className="page-shell section-y">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <Reveal>
             <FinanceCalculator defaultPrice={defaultPrice} />
