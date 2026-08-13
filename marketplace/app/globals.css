@@ -493,3 +493,106 @@ body {
 .edit-mode .marquee-track {
   animation-play-state: paused;
 }
+
+/* ---- Valuation steps -----------------------------------------------------
+   The three steps of getting a range. Shape and colour come from the same
+   tokens as everything else: a pill marker, the forest ramp, sand nowhere
+   (it is reserved for the one action that matters, which on this page is
+   the submit button, not the progress line).
+
+   The connecting line is drawn by the step itself rather than by separate
+   elements, so a step can never be out of sync with its own rule. */
+.vsteps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0 0 2.25rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+.vsteps__step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding-top: 0.25rem;
+  min-width: 0;
+}
+/* The rule runs from each step back to the one before it. */
+.vsteps__step:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  top: 1.3125rem;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+  background: var(--color-hairline);
+}
+.vsteps__step.is-done::before,
+.vsteps__step.is-now::before {
+  background: var(--color-forest-600);
+}
+.vsteps__marker {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-hairline);
+  background: #ffffff;
+  color: var(--color-meta);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.84375rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+.vsteps__step.is-done .vsteps__marker {
+  background: var(--color-forest-600);
+  border-color: var(--color-forest-600);
+  color: #ffffff;
+}
+.vsteps__step.is-now .vsteps__marker {
+  border-color: var(--color-forest-600);
+  color: var(--color-forest-700);
+  box-shadow: 0 0 0 4px var(--color-forest-50);
+}
+.vsteps__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.vsteps__label {
+  font-weight: 600;
+  font-size: 0.84375rem;
+  line-height: 1.25;
+  color: var(--color-meta);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vsteps__step.is-done .vsteps__label,
+.vsteps__step.is-now .vsteps__label {
+  color: var(--color-forest-700);
+}
+.vsteps__hint {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  line-height: 1.4;
+}
+/* On a phone the hints are the first thing to go: three labels and three
+   markers still fit, three hints do not. */
+@media (max-width: 640px) {
+  .vsteps__hint {
+    display: none;
+  }
+  .vsteps__label {
+    font-size: 0.6875rem;
+  }
+}

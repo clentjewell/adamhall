@@ -5,6 +5,7 @@ import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Phone, TrendDown, TrendUp } from "@phosphor-icons/react";
 import { getInstantQuote, type QuotePayload } from "@/app/actions/quote";
+import ValuationSteps from "@/components/sell/ValuationSteps";
 import type { ValuationResult } from "@/lib/valuation";
 import { formatKm, formatPrice } from "@/lib/format";
 import {
@@ -254,7 +255,12 @@ export default function InstantQuote({
     : { duration: DUR.standard, ease: EASE_STANDARD };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+    <>
+      {/* The tool's own progress. Step three marks itself once a range
+          exists, so this tracks the state rather than decorating it. */}
+      <ValuationSteps current={result ? 3 : 2} />
+
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
       {/* ---- The car ------------------------------------------------- */}
       <form onSubmit={onSubmit} noValidate>
         <fieldset disabled={pending} className="disabled:opacity-60">
@@ -732,6 +738,7 @@ export default function InstantQuote({
           )}
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
