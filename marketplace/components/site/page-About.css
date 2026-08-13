@@ -1,6 +1,6 @@
 /* scoped port of pages/About.css */
 .ah-site .about-bio__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1.5rem;
 }
 .ah-site .about-bio p {
@@ -34,7 +34,7 @@
 }
 .ah-site .about-simplify__title {
   text-align: center;
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   max-width: 34rem;
   margin: 0 auto 3rem;
 }
@@ -59,7 +59,7 @@
   font-size: var(--fs-body);
 }
 .ah-site .about-numbers__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 2.5rem;
   color: var(--c-white);
 }
@@ -76,7 +76,7 @@
   aspect-ratio: 5 / 4;
 }
 .ah-site .about-values__content h3 {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1.8rem;
 }
 .ah-site .about-values__list {

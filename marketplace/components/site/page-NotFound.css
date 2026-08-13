@@ -23,7 +23,7 @@
   margin: 0;
 }
 .ah-site .nf h1 {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1rem;
 }
 .ah-site .nf__text {

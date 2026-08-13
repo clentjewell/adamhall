@@ -22,7 +22,7 @@
   padding: 1.15rem 0.25rem;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.15rem, 1.7vw, 1.5rem);
+  font-size: var(--fs-lead);
   color: var(--c-black);
 }
 .ah-site .accordion__chevron {

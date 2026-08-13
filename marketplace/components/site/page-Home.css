@@ -85,7 +85,7 @@
   margin-bottom: 0.9rem;
 }
 .ah-site .mp-hero__subtitle {
-  font-size: clamp(1.2rem, 1.7vw, 1.5rem);
+  font-size: var(--fs-lead);
   line-height: 1.35;
   color: rgba(255, 255, 255, 0.88);
   margin-bottom: 1.9rem;
@@ -163,7 +163,7 @@
   margin-bottom: 0.35rem;
 }
 .ah-site .mp-stock__title {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   margin: 0;
 }
 .ah-site .mp-stock--empty {
@@ -184,7 +184,7 @@
   gap: clamp(2rem, 6vw, 5rem);
 }
 .ah-site .mp-honest__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   line-height: 1.12;
   margin: 0;
 }
@@ -196,7 +196,7 @@
 .ah-site .mp-honest__list li {
   padding: 1.15rem 0;
   border-top: 1px solid rgba(255, 255, 255, 0.22);
-  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-size: var(--fs-body);
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -215,7 +215,7 @@
   text-align: center;
 }
 .ah-site .mp-close__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   line-height: 1.15;
   max-width: 22ch;
   margin: 0 auto 1.75rem;
@@ -284,7 +284,7 @@
   margin-bottom: 1.2rem;
 }
 .ah-site .home-intro__text {
-  font-size: var(--fs-body);
+  font-size: var(--fs-lead);
   color: var(--c-black);
   /* Measured in characters, like the FAQ panel, rather than the 44rem this
      used to carry: a third fixed width inside an 800px column drew a third
@@ -299,7 +299,7 @@
   gap: clamp(2.5rem, 7.2vw, 6.5rem);
 }
 .ah-site .home-split__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1.2rem;
   color: var(--c-black);
 }
@@ -371,7 +371,7 @@
 }
 .ah-site .mp-close-card__title {
   color: var(--c-white);
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   line-height: 1.15;
   max-width: 24ch;
   margin-bottom: 1rem;

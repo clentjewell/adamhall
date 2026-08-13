@@ -78,12 +78,12 @@
   padding-block: clamp(2.5rem, 5vw, 4.5rem);
 }
 .ah-site .bmc__title {
-  font-size: clamp(2.4rem, 5vw, 3.5rem);
+  font-size: var(--fs-hero);
   color: var(--c-white);
   margin-bottom: 1.2rem;
 }
 .ah-site .bmc__lead {
-  font-size: var(--fs-body);
+  font-size: var(--fs-lead);
   color: var(--c-white);
   margin-bottom: 1.8rem;
   max-width: 32rem;

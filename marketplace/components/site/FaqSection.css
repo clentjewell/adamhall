@@ -12,7 +12,7 @@
 
 .ah-site .faq__title {
   text-align: center;
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   font-weight: 700;
   letter-spacing: 0.1px;
   margin-bottom: 2.5rem;
@@ -42,7 +42,7 @@
   padding: 1.5rem 0;
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  font-size: var(--fs-lead);
   line-height: 1.25;
   color: var(--c-black);
   transition: color var(--transition);
@@ -65,7 +65,7 @@
 }
 .ah-site .faq__panel p {
   color: var(--c-dark);
-  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  font-size: var(--fs-body);
   line-height: 1.55;
 }
 @media (prefers-reduced-motion: reduce) {

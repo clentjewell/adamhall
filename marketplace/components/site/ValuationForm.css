@@ -16,7 +16,7 @@
 .ah-site .vform__field label {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: var(--fs-small);
   color: var(--c-black);
 }
 .ah-site .vform__req {
@@ -91,7 +91,7 @@
   font-family: var(--font-accent);
   font-weight: 600;
   letter-spacing: 0.04em;
-  font-size: 1.05rem;
+  font-size: var(--fs-body);
   padding: 1rem 1.5rem;
   transition: background var(--transition), transform var(--transition);
 }

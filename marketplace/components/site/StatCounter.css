@@ -31,7 +31,7 @@
 .ah-site .stat__number {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: clamp(2.4rem, 5vw, 3.75rem);
+  font-size: var(--fs-hero);
   line-height: 1;
   color: var(--c-white);
   margin-bottom: 0.5rem;

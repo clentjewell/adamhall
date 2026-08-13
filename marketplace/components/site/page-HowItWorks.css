@@ -7,11 +7,11 @@
   padding-top: 0;
 }
 .ah-site .hiw-lead__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1rem;
 }
 .ah-site .hiw-lead__text {
-  font-size: var(--fs-body);
+  font-size: var(--fs-lead);
   color: var(--c-black);
   max-width: 42rem;
   margin-inline: auto;
@@ -39,7 +39,7 @@
   pointer-events: none;
 }
 .ah-site .hiw-steps__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1.6rem;
 }
 .ah-site .hiw-band {
@@ -47,7 +47,7 @@
   text-align: center;
 }
 .ah-site .hiw-band__title {
-  font-size: var(--fs-h4);
+  font-size: var(--fs-h3);
   font-weight: 700;
   color: var(--c-black);
   margin-bottom: 1.8rem;
@@ -66,7 +66,7 @@
 }
 .ah-site .hiw-heading {
   text-align: center;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 2.5rem;
 }
 .ah-site .hiw-exhaust {
@@ -76,7 +76,7 @@
   gap: clamp(2rem, 5vw, 4.5rem);
 }
 .ah-site .hiw-exhaust__content h3 {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1.2rem;
 }
 .ah-site .hiw-exhaust__content > p {

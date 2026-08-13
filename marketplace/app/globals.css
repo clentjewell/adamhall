@@ -254,6 +254,17 @@ body {
    Price deliberately inherits its font family: figures set in whichever
    face their context uses, but always 800, tight, and tabular. */
 @layer components {
+  /* Display. The one size above Heading, and only a page's hero may take
+     it. Page heroes used to set their own 60px while the ported heroes set
+     62px and the stat counter 60px, which put three near-identical display
+     sizes on the site with nothing to tell them apart. */
+  .type-hero {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 4.6vw, 3.5rem); /* 40 -> 56px */
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
   .type-heading {
     font-family: var(--font-display);
     font-weight: 900;
