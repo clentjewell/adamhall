@@ -39,6 +39,12 @@ export default function CarsBrowser({
     years,
   } = useCarFilters(cars);
 
+  // Sold cars stay on the site for a month, because seeing what actually
+  // moved is part of the pitch. They do not belong in the same grid as the
+  // cars you can buy, though: mixed in, every third card is a dead end.
+  const forSale = filtered.filter((c) => c.status !== "sold");
+  const sold = filtered.filter((c) => c.status === "sold");
+
   const select = (
     label: string,
     key: string,
@@ -74,7 +80,8 @@ export default function CarsBrowser({
           Filters{activeCount > 0 ? ` (${activeCount})` : ""}
         </button>
         <p className="text-sm text-stone-500">
-          {filtered.length} car{filtered.length === 1 ? "" : "s"}
+          {forSale.length} car{forSale.length === 1 ? "" : "s"} for sale
+          {sold.length > 0 ? `, ${sold.length} recently sold` : ""}
         </p>
         {chips.map((chip) => (
           <button
@@ -130,9 +137,9 @@ export default function CarsBrowser({
         </aside>
 
         <div>
-          {filtered.length > 0 ? (
+          {forSale.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {filtered.map((car, i) => (
+              {forSale.map((car, i) => (
                 <CardReveal key={car.id} index={i}>
                   <div className="relative">
                     <CarCard car={car} priority={i < 3} />
@@ -143,7 +150,7 @@ export default function CarsBrowser({
             </div>
           ) : (
             <div className="card p-10 text-center">
-              <p className="font-display font-bold text-lg">Nothing matches those filters right now</p>
+              <p className="type-card-title">No cars for sale match those filters</p>
               <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
                 Stock turns over every week. Loosen a filter, or use the
                 watchlist below and we&apos;ll email you the moment the right
@@ -154,6 +161,26 @@ export default function CarsBrowser({
               </button>
             </div>
           )}
+          {sold.length > 0 && (
+            <section className="mt-12 border-t border-hairline pt-8">
+              <h2 className="type-subheading">Recently sold</h2>
+              <p className="mt-1.5 max-w-[52ch] text-stone-600">
+                These have gone. They stay up for a month so you can see what
+                moves and what it went for.
+              </p>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {sold.map((car, i) => (
+                  <CardReveal key={car.id} index={i}>
+                    <div className="relative">
+                      <CarCard car={car} />
+                      <SaveCompareButtons carId={car.id} variant="card" />
+                    </div>
+                  </CardReveal>
+                ))}
+              </div>
+            </section>
+          )}
+
           {watchPanel && <div className="mt-8">{watchPanel}</div>}
         </div>
       </div>
