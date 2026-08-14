@@ -7,6 +7,7 @@ import { nav, site } from "@/lib/site-data/site";
 import { parentSite, parentUrl } from "@/lib/brand";
 import BrandLockup from "@/components/BrandLockup";
 import GarageCount from "@/components/garage/GarageCount";
+import HeaderAccount from "@/components/account/HeaderAccount";
 import Button from "@/components/site/Button";
 import "@/components/site/site.css";
 
@@ -71,6 +72,10 @@ export default function Header() {
             {parentSite.headerLink}
           </a>
 
+          {/* Shares the crossing's divider rather than adding its own: both
+              are utilities beside the six pages, not a seventh and eighth. */}
+          <HeaderAccount />
+
           <Button
             href={site.phoneHref}
             variant="tan"
@@ -112,6 +117,11 @@ export default function Header() {
               >
                 {parentSite.headerLink}
               </a>
+            </li>
+            {/* No onClick needed to close: the menu already closes on route
+                change, and both branches here navigate. */}
+            <li>
+              <HeaderAccount mobile />
             </li>
           </ul>
         </nav>
