@@ -94,6 +94,21 @@ Cloudflare dashboard (Settings → Build):
 - **Deploy command:** `npx opennextjs-cloudflare deploy`
 - **Build variables:** `NEXT_PUBLIC_SUPABASE_URL`,
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL`
+
+  These have to be *build* variables, under Settings -> Build -> Variables
+  and secrets, not the runtime Variables and Secrets panel. Next inlines
+  every `NEXT_PUBLIC_*` value into the bundle during `next build`, so a
+  runtime variable arrives too late: the compiled code already reads
+  `undefined ?? "http://localhost:3000"`.
+
+  Setting one is not enough on its own. Nothing changes until something
+  rebuilds, and the build cache can serve compiled output from before the
+  change, so clear it if a rebuild still emits the old value.
+
+  `NEXT_PUBLIC_SITE_URL` unset is not a quiet failure. It puts
+  `http://localhost:3000` into `metadataBase` (canonical, OG and Twitter
+  tags), every sitemap URL, the robots sitemap line, the AutoDealer JSON-LD,
+  and the seller status links inside customer emails.
 - **Runtime secrets** (Settings → Variables and Secrets):
   `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`,
   `ADMIN_NOTIFY_EMAIL`
