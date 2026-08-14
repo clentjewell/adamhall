@@ -5,7 +5,7 @@ To: Adam Hall
 
 ---
 
-**Subject:** Car Marketplace update, and two things I need from you
+**Subject:** Car Marketplace update, and one thing I need from you
 
 Hi Adam,
 
@@ -72,14 +72,9 @@ when you want your own login and I will set one up in a minute.
 
 ---
 
-**Two things I need from you**
+**One thing I need from you**
 
-**1. The domain.** carmarketplace.com.au does not resolve yet. Everything you
-are looking at sits on a preview address, and Google will not index it while
-it does. Once you point the domain at us I need about half an hour to switch
-the settings over.
-
-**2. Where "Cars for Sale" should send people on your site.** Taking the page
+**Where "Cars for Sale" should send people on your site.** Taking the page
 off was right, but nothing on the Buy My Car preview links through to the
 Marketplace at the moment, so a seller who wants to look at cars has nowhere to
 go. My suggestion is a "Cars for sale" item in your nav pointing straight at
@@ -106,7 +101,11 @@ Checked before drafting:
   "Cars for Sale" nav item and points at
   `carmarketplace-domain-split-vgokd1-...workers.dev`, a branch preview that
   will disappear.
-- `carmarketplace.com.au` does not resolve.
+- `carmarketplace.com.au` is secured but does not resolve yet. The domain ask
+  has come out of the email on your instruction. Pointing it at the worker is
+  still a separate step, and when it happens I need to change the Cloudflare
+  build variable and the two Supabase URLs in the same sitting or the signup
+  and reset links keep sending people to the preview address.
 - All three console accounts share `bmc2026`. This draft hands Adam the
   ronnie@ login on your instruction rather than asking him to set his own.
   Two consequences worth holding: the console's record of who changed a price
