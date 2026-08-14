@@ -500,55 +500,62 @@ body {
    (it is reserved for the one action that matters, which on this page is
    the submit button, not the progress line).
 
-   The connecting line is drawn by the step itself rather than by separate
-   elements, so a step can never be out of sync with its own rule. */
+   Each step carries its own trailing connector as a flex filler, so the rule
+   takes whatever room is left after that step's words and stops before the
+   next marker. It used to be an absolutely positioned bar spanning the whole
+   column, which ran along behind the labels at the same height as their first
+   line and left the whole row looking crammed together. A filler cannot do
+   that: it only ever occupies empty space. */
 .vsteps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  margin: 0 0 2.25rem;
-  padding: 0;
-  list-style: none;
-  counter-reset: none;
-}
-.vsteps__step {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding-top: 0.25rem;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  list-style: none;
+}
+.vsteps__step {
+  /* Steps share the leftover width so the connectors stretch evenly. The
+     last one takes only what its words need — there is nothing after it to
+     reach towards. */
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
   min-width: 0;
 }
-/* The rule runs from each step back to the one before it. */
-.vsteps__step:not(:first-child)::before {
+.vsteps__step:last-child {
+  flex: 0 0 auto;
+}
+.vsteps__step::after {
   content: "";
-  position: absolute;
-  top: 1.3125rem;
-  right: 100%;
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 1.25rem;
   height: 2px;
+  margin-inline: 1.25rem;
   background: var(--color-hairline);
 }
-.vsteps__step.is-done::before,
-.vsteps__step.is-now::before {
+.vsteps__step:last-child::after {
+  content: none;
+}
+/* A step's trailing rule is green once that step is behind you. The current
+   step's rule stays grey, because the step it points at has not happened. */
+.vsteps__step.is-done::after {
   background: var(--color-forest-600);
 }
 .vsteps__marker {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 1.875rem;
-  height: 1.875rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 999px;
   border: 2px solid var(--color-hairline);
   background: #ffffff;
   color: var(--color-meta);
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.84375rem;
+  font-size: 0.875rem;
   line-height: 1;
-  position: relative;
-  z-index: 1;
 }
 .vsteps__step.is-done .vsteps__marker {
   background: var(--color-forest-600);
@@ -567,32 +574,68 @@ body {
 }
 .vsteps__label {
   font-weight: 600;
-  font-size: 0.84375rem;
-  line-height: 1.25;
+  /* Body size. At 13.5px this was a caption doing a label's job, and set
+     against an 11px hint the pair read as fine print rather than the state
+     of the thing you are filling in. */
+  font-size: 1rem;
+  line-height: 1.3;
   color: var(--color-meta);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .vsteps__step.is-done .vsteps__label,
 .vsteps__step.is-now .vsteps__label {
   color: var(--color-forest-700);
 }
 .vsteps__hint {
+  margin-top: 0.1875rem;
   font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-mute);
   line-height: 1.4;
+  white-space: nowrap;
 }
-/* On a phone the hints are the first thing to go: three labels and three
-   markers still fit, three hints do not. */
-@media (max-width: 640px) {
+/* Narrow screens: the hints go first, then the connectors tighten. Three
+   markers and three labels still fit; three hints do not. */
+@media (max-width: 767px) {
   .vsteps__hint {
     display: none;
   }
+  .vsteps__step::after {
+    min-width: 0.75rem;
+    margin-inline: 0.75rem;
+  }
+}
+/* On a phone only the step you are on is named. Three labels and three
+   markers together leave about a centimetre for each connector, which turns
+   the rule into a dash and the whole row back into the crammed thing this
+   was meant to stop being. One label has room to breathe, and the markers
+   still carry where you are in the three. */
+@media (max-width: 560px) {
+  .vsteps {
+    margin-bottom: 2rem;
+  }
+  /* Taken out of the layout, not out of the page: display:none would drop
+     these from the accessibility tree too, leaving a screen reader with
+     three steps and only one of them named. */
+  .vsteps__step:not(.is-now) .vsteps__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .vsteps__step {
+    gap: 0.625rem;
+  }
   .vsteps__label {
-    font-size: 0.6875rem;
+    font-size: 0.9375rem;
+  }
+  .vsteps__marker {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8125rem;
   }
 }
