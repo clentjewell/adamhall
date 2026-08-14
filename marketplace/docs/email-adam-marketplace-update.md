@@ -5,7 +5,7 @@ To: Adam Hall
 
 ---
 
-**Subject:** Car Marketplace update, and three things I need from you
+**Subject:** Car Marketplace update, and two things I need from you
 
 Hi Adam,
 
@@ -57,20 +57,29 @@ Two things about that are still open, and I have put them in the list below.
 
 ---
 
-**Three things I need from you**
+**Having a look at the dealer console**
 
-**1. The shared password.** You, Ronnie and I all sign in to the dealer console
-with the same one. That was fine to get us moving and it is not fine to keep,
-because the console records who changed a price and a shared password makes
-that record worthless. Pick your own and I will set it, or I can send you a
-reset link.
+The console is where the cars, the prices and the enquiries live. Use my login
+for now:
 
-**2. The domain.** carmarketplace.com.au does not resolve yet. Everything you
+    https://claude-carmarketplace-link-update-ccc0p2-adamhall-marketplace.clent.workers.dev/admin/login
+
+    ronnie@jewellprojects.com
+    bmc2026
+
+Anything you change will show against my name in the console record. Tell me
+when you want your own login and I will set one up in a minute.
+
+---
+
+**Two things I need from you**
+
+**1. The domain.** carmarketplace.com.au does not resolve yet. Everything you
 are looking at sits on a preview address, and Google will not index it while
 it does. Once you point the domain at us I need about half an hour to switch
 the settings over.
 
-**3. Where "Cars for Sale" should send people on your site.** Taking the page
+**2. Where "Cars for Sale" should send people on your site.** Taking the page
 off was right, but nothing on the Buy My Car preview links through to the
 Marketplace at the moment, so a seller who wants to look at cars has nowhere to
 go. My suggestion is a "Cars for sale" item in your nav pointing straight at
@@ -98,4 +107,9 @@ Checked before drafting:
   `carmarketplace-domain-split-vgokd1-...workers.dev`, a branch preview that
   will disappear.
 - `carmarketplace.com.au` does not resolve.
-- All three console accounts share `bmc2026`.
+- All three console accounts share `bmc2026`. This draft hands Adam the
+  ronnie@ login on your instruction rather than asking him to set his own.
+  Two consequences worth holding: the console's record of who changed a price
+  now cannot tell Adam's edits from Ronnie's, and the password travels in
+  plain email. Neither blocks anything today. Giving Adam his own account
+  closes both, and takes a minute whenever you want it done.
