@@ -3,7 +3,16 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "next-view-transitions";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Phone, TrendDown, TrendUp } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  Check,
+  Lock,
+  Phone,
+  ShieldCheck,
+  Tag,
+  TrendDown,
+  TrendUp,
+} from "@phosphor-icons/react";
 import { getInstantQuote, type QuotePayload } from "@/app/actions/quote";
 import ValuationSteps from "@/components/sell/ValuationSteps";
 import type { ValuationResult } from "@/lib/valuation";
@@ -15,13 +24,21 @@ import {
   EASE_STANDARD,
 } from "@/components/motion/Reveal";
 
+/** Worst to best, because the slider reads left to right. The four steps are
+    the four the estimate actually accepts — the control is a different shape
+    from the old radio cards, not a different question. */
 const CONDITIONS: { value: QuotePayload["condition"]; label: string; hint: string }[] =
   [
-    { value: "excellent", label: "Excellent", hint: "Looks near new, no marks" },
-    { value: "very_good", label: "Very good", hint: "Tidy, a couple of small marks" },
-    { value: "good", label: "Good", hint: "Honest car, some wear" },
     { value: "fair", label: "Fair", hint: "Needs a bit of work" },
+    { value: "good", label: "Good", hint: "Honest car, some wear" },
+    { value: "very_good", label: "Very good", hint: "Tidy, a couple of small marks" },
+    { value: "excellent", label: "Excellent", hint: "Looks near new, no marks" },
   ];
+
+/** Where the thumb rests before anyone has touched it. Middle of the scale so
+    the control does not suggest an answer: parked at one end it would read as
+    a claim about the car nobody has made yet. */
+const CONDITION_START = 1;
 
 const SERVICE: { value: QuotePayload["service_history"]; label: string }[] = [
   { value: "full", label: "Full book" },
@@ -262,6 +279,15 @@ export default function InstantQuote({
 
   const sliderKm = Math.min(Number(form.odometer_km) || 0, SLIDER_MAX_KM);
 
+  // The condition slider. `conditionStep` is null until the seller has moved
+  // it, which is what lets the label read "Not set" while the thumb still has
+  // somewhere to sit.
+  const conditionStep =
+    CONDITIONS.find((c) => c.value === form.condition) ?? null;
+  const conditionIndex = conditionStep
+    ? CONDITIONS.indexOf(conditionStep)
+    : CONDITION_START;
+
   // Standard token for state changes between two on-screen states
   // (identity section 13). Instant under reduced motion.
   const t = reduce
@@ -291,9 +317,12 @@ export default function InstantQuote({
           exists, so this tracks the state rather than decorating it. */}
       <ValuationSteps current={result ? 3 : 2} />
 
-      <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+      <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr] lg:items-start lg:gap-8">
       {/* ---- The car ------------------------------------------------- */}
-      <form onSubmit={onSubmit} noValidate>
+      {/* In a card, like the panel beside it. Bare on the page background the
+          form read as unfinished next to a bordered panel, and the two halves
+          of one tool looked like two different things. */}
+      <form onSubmit={onSubmit} noValidate className="card p-6 sm:p-8">
         <fieldset disabled={pending} className="disabled:opacity-60">
           <legend className="sr-only">Your car&apos;s details</legend>
 
@@ -353,67 +382,57 @@ export default function InstantQuote({
                 }
                 placeholder="86000"
               />
-              {/* The same number as a slider, so the odometer can be wound
-                  up and down and the range panel answers as it moves. */}
-              <input
-                type="range"
-                aria-label="Kilometres, slider"
-                className="mt-2 w-full accent-forest-600"
-                min={0}
-                max={SLIDER_MAX_KM}
-                step={1000}
-                value={sliderKm}
-                onChange={(e) => set({ odometer_km: e.target.value })}
-              />
-              <p className="helper !mt-0 tabular">
-                {form.odometer_km ? formatKm(Number(form.odometer_km)) : "Slide or type"}
-              </p>
             </div>
           </div>
 
-          <div className="mt-6" hidden={!carAnswered}>
-            <span className="label" id="q-condition-label">
-              Condition
-            </span>
-            <div
-              className="grid gap-2 sm:grid-cols-2"
-              role="group"
-              aria-labelledby="q-condition-label"
-            >
-              {CONDITIONS.map((c) => {
-                const active = form.condition === c.value;
-                return (
-                  <label
-                    key={c.value}
-                    className={`relative flex cursor-pointer items-start gap-3 rounded-lg border p-3 ${
-                      active
-                        ? "border-transparent"
-                        : "border-stone-300 hover:bg-stone-50"
-                    }`}
-                  >
-                    {active && (
-                      <motion.span
-                        layoutId="iq-condition-active"
-                        className="absolute inset-0 rounded-lg border-2 border-forest-600 bg-forest-50"
-                        transition={t}
-                        aria-hidden="true"
-                      />
-                    )}
-                    <input
-                      type="radio"
-                      name="condition"
-                      className="relative mt-1 accent-forest-600"
-                      checked={active}
-                      onChange={() => set({ condition: c.value })}
-                    />
-                    <span className="relative">
-                      <span className="block font-semibold">{c.label}</span>
-                      <span className="block text-sm text-meta">{c.hint}</span>
-                    </span>
-                  </label>
-                );
-              })}
+          {/* Condition as one slider rather than four cards. Four cards each
+              carrying a heading and a hint took more vertical room than the
+              rest of the car put together, for a question with one axis.
+              The scale is the same four steps; only the control changed.
+
+              It starts uncommitted. The thumb has to sit somewhere, so it
+              sits mid-scale, but nothing is selected until the seller moves
+              it — a control that arrives pre-answered is a form filling
+              itself in, and on the honest end of a valuation that matters. */}
+          <div className="mt-6">
+            <div className="flex items-baseline justify-between gap-3">
+              <label className="label !mb-0" htmlFor="q-condition">
+                Condition
+              </label>
+              <span
+                className={`text-sm font-semibold ${
+                  form.condition ? "text-forest-700" : "text-meta"
+                }`}
+                aria-hidden="true"
+              >
+                {conditionStep ? conditionStep.label : "Not set"}
+              </span>
             </div>
+            <input
+              id="q-condition"
+              type="range"
+              min={0}
+              max={CONDITIONS.length - 1}
+              step={1}
+              value={conditionIndex}
+              onChange={(e) =>
+                set({ condition: CONDITIONS[Number(e.target.value)].value })
+              }
+              // Grey until it has been set. The browser fills the track up to
+              // the thumb whatever we do, and in green that filled bar reads
+              // as an answer while the label still says "Not set".
+              className={`mt-3 w-full ${
+                form.condition ? "accent-forest-600" : "accent-stone-400"
+              }`}
+              aria-valuetext={conditionStep ? conditionStep.label : "Not set"}
+            />
+            <div className="mt-1 flex justify-between type-caption text-meta">
+              <span>{CONDITIONS[0].label}</span>
+              <span>{CONDITIONS[CONDITIONS.length - 1].label}</span>
+            </div>
+            <p className="helper">
+              {conditionStep ? conditionStep.hint : "Slide to set how it is looking."}
+            </p>
           </div>
 
           <div className="mt-6" hidden={!conditionAnswered}>
@@ -505,10 +524,13 @@ export default function InstantQuote({
                 autoComplete="address-level2"
               />
             </div>
+            {/* Belongs to the accident question, so it appears with it. Sitting
+                outside the group it stayed on screen on its own, explaining an
+                answer to a question that had not been asked yet. */}
+            <p className="helper sm:col-span-2 !mt-0">
+              Repaired damage is fine, and telling us now saves a surprise later.
+            </p>
           </div>
-          <p className="helper">
-            Repaired damage is fine, and telling us now saves a surprise later.
-          </p>
 
           {error && (
             <p className="error-text" role="alert">
@@ -516,39 +538,82 @@ export default function InstantQuote({
             </p>
           )}
 
-          <button type="submit" className="btn-cta mt-6 w-full sm:w-auto" hidden={!serviceAnswered}>
-            {pending
-              ? "Working it out"
-              : stale
-                ? "Price this car instead"
-                : "See what it is worth"}
-            {!pending && <ArrowRight size={18} weight="bold" />}
-          </button>
+          {/* The button is on screen from the start rather than appearing at
+              the end. It is the goal, not a field, and a form whose finish
+              line is hidden reads as one with no end to it. Submitting early
+              names the next unanswered question, and that question is always
+              one that is already visible. */}
+          <div className="mt-7">
+            <button type="submit" className="btn-primary w-full">
+              {pending
+                ? "Working it out"
+                : stale
+                  ? "Price this car instead"
+                  : "Show my range"}
+              {!pending && <ArrowRight size={18} weight="bold" />}
+            </button>
+            {/* What this promise can honestly say. Every quote is logged to
+                quote_requests — the car, not the person — so "we don't save
+                your details" would be untrue. No contact details are asked
+                for, and that is the part worth promising. */}
+            <p className="helper mt-3 flex items-center justify-center gap-1.5">
+              <Lock size={13} weight="fill" aria-hidden="true" />
+              No account, no contact details. Just the number.
+            </p>
+          </div>
         </fieldset>
       </form>
 
       {/* ---- The number --------------------------------------------- */}
       <div className="lg:pl-2">
         <div className="lg:sticky lg:top-24">
+          {/* Before there is a number, the panel says how the number gets
+              made. Three claims, each one true of what the estimator actually
+              does: it reads Adam's own book, corrects for the car, and answers
+              on this page. */}
           {!result && !pending && (
-            <div className="card h-full p-6">
-              <p className="type-lead text-meta">
-                Fill in the car on the left and we will show you the range it
-                sits in, straight away. No account, no contact details, just the
-                range.
-              </p>
-              {/* A ghost of the range bar, so the panel promises the exact
-                  thing it is about to draw. */}
-              <div
-                className="mt-6 h-2.5 overflow-hidden rounded-full bg-stone-200"
-                aria-hidden="true"
-              >
-                <div className="ml-[30%] h-full w-[40%] bg-stone-300" />
+            <div className="card p-6 sm:p-8">
+              <div className="flex items-center gap-3">
+                <span
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-forest-600 text-white"
+                  aria-hidden="true"
+                >
+                  <Tag size={20} weight="fill" />
+                </span>
+                <h2 className="type-card-title">Here&apos;s what happens next</h2>
               </div>
-              <p className="mt-4 text-sm text-meta">
-                We work from cars Adam has bought and sold himself. If we have
-                not seen one like yours recently, we say so instead of guessing.
-              </p>
+
+              <ul className="mt-5 space-y-3.5">
+                {[
+                  "We start with cars Adam has bought and sold himself.",
+                  "We correct for your year, kilometres and condition.",
+                  "Your range appears here, straight away.",
+                ].map((line) => (
+                  <li key={line} className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-forest-50 text-forest-700"
+                      aria-hidden="true"
+                    >
+                      <Check size={12} weight="bold" />
+                    </span>
+                    <span className="text-stone-600">{line}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-6 flex items-start gap-3 border-t border-hairline pt-6">
+                <span
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-sand text-ink"
+                  aria-hidden="true"
+                >
+                  <ShieldCheck size={17} weight="fill" />
+                </span>
+                <p className="type-caption text-meta">
+                  We never ask for your name or your number to show you this.
+                  We keep a note of the car so Adam knows what people are
+                  asking about, and that is all.
+                </p>
+              </div>
             </div>
           )}
 
@@ -704,10 +769,34 @@ export default function InstantQuote({
 
                     <p className="text-ink">{result.basis}</p>
 
-                    <p className="rounded-lg bg-forest-50 p-3 text-sm text-ink">
-                      Change the condition or wind the kays up and down on the
-                      left, and the range follows as you go.
-                    </p>
+                    {/* The odometer, moved here from the entry form. As a
+                        field among fields it was one more thing to fill in;
+                        beside the number it moves, it is the reason to stay
+                        on the page. The range follows as it slides. */}
+                    <div className="rounded-lg bg-forest-50 p-4">
+                      <div className="flex items-baseline justify-between gap-3">
+                        <label className="label !mb-0" htmlFor="q-km-slider">
+                          Wind the kilometres
+                        </label>
+                        <span className="tabular text-sm font-semibold text-forest-700">
+                          {formatKm(Number(form.odometer_km) || 0)}
+                        </span>
+                      </div>
+                      <input
+                        id="q-km-slider"
+                        type="range"
+                        className="mt-2.5 w-full accent-forest-600"
+                        min={0}
+                        max={SLIDER_MAX_KM}
+                        step={1000}
+                        value={sliderKm}
+                        onChange={(e) => set({ odometer_km: e.target.value })}
+                      />
+                      <p className="type-caption mt-1 text-meta">
+                        Move it, or change the condition, and the range answers
+                        as you go.
+                      </p>
+                    </div>
 
                     {result.confidence === "low" && (
                       <p className="text-sm text-ink">
