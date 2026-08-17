@@ -1,5 +1,10 @@
 -- Buyer intent, and a public availability state for a car.
 --
+-- Numbered 0010 because 0009 is taken by the buyer-account work
+-- (0008_saved_cars.sql, 0009_buyer_profiles.sql). Nothing here touches those
+-- tables, so the order between them does not matter — the number only has to
+-- be unique.
+--
 -- Two separate jobs that arrived together:
 --
 -- 1. Enquiries now carry how the buyer wants to be answered, and whether they
