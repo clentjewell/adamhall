@@ -6,11 +6,14 @@ import { signInBuyer, type AccountActionState } from "@/app/actions/account";
 
 const initial: AccountActionState = { ok: false };
 
-export default function SignInForm() {
+export default function SignInForm({ next }: { next?: string }) {
   const [state, action, pending] = useActionState(signInBuyer, initial);
 
   return (
     <form action={action} className="space-y-4">
+      {/* Set when something bounced the visitor here, so signing in returns
+          them to it rather than always landing on the shortlist. */}
+      {next && <input type="hidden" name="next" value={next} />}
       <div>
         <label className="label" htmlFor="s-email">Email</label>
         <input

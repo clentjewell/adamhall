@@ -61,6 +61,12 @@ export async function middleware(request: NextRequest) {
 // the route would sit outside the signed-out redirect. The guard below is
 // `pathname.startsWith("/admin")`, which already covers it, and every admin
 // page still calls requireAdmin() server-side regardless.
+//
+// `/account/:path*` is here to refresh the buyer's session cookie, not to
+// guard anything: the redirect above only fires for `/admin`, and every
+// account page calls requireBuyer() server-side itself. Without it a buyer's
+// token would go stale on exactly the pages that read it, and the account
+// hub would bounce a signed-in person to the sign-in form.
 export const config = {
-  matcher: ["/admin/:path*", "/admin2/:path*"],
+  matcher: ["/admin/:path*", "/admin2/:path*", "/account/:path*"],
 };

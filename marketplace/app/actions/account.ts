@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -19,6 +20,17 @@ async function requestOrigin(): Promise<string> {
   const host = h.get("x-forwarded-host") ?? h.get("host");
   const proto = h.get("x-forwarded-proto") ?? "https";
   return host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_SITE_URL ?? "");
+}
+
+/**
+ * Where to land after signing in. It arrives from a query string, so it is
+ * attacker-controlled: only same-site paths are honoured, and anything
+ * absolute or protocol-relative ("//evil.example") falls back to the default.
+ */
+function safeNext(raw: FormDataEntryValue | null, fallback = "/saved"): string {
+  const value = typeof raw === "string" ? raw.trim() : "";
+  if (!value.startsWith("/") || value.startsWith("//")) return fallback;
+  return value;
 }
 
 /** The set the buyer_profiles check constraint allows. Kept in step with
@@ -101,7 +113,92 @@ export async function signInBuyer(
   // no account: saying which would let anyone test whether a given person
   // has an account here.
   if (error) return { ok: false, error: "Wrong email or password." };
-  redirect("/saved");
+  // Back to whatever sent them here — /account when they tried to open the
+  // account page signed out — and the shortlist otherwise.
+  redirect(safeNext(formData.get("next")));
+}
+
+/**
+ * Edits the buyer's own profile. RLS restricts the update to their own row,
+ * so this cannot be turned into a way to edit anyone else's.
+ *
+ * Email is deliberately not editable here: changing it means re-confirming
+ * the address through Supabase, which is a different flow with its own
+ * emails, not a field on a details form.
+ */
+export async function updateBuyerProfile(
+  _prev: AccountActionState,
+  formData: FormData,
+): Promise<AccountActionState> {
+  const value = (k: string) => String(formData.get(k) ?? "").trim();
+
+  const fullName = value("full_name");
+  const heardAbout = value("heard_about");
+  if (!fullName) return { ok: false, error: "What should we call you?" };
+  if (heardAbout && !HEARD_ABOUT.includes(heardAbout as (typeof HEARD_ABOUT)[number])) {
+    return { ok: false, error: "Pick one of the options for how you found us." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "You're signed out. Sign in and try again." };
+
+  const { error } = await supabase
+    .from("buyer_profiles")
+    .update({
+      full_name: fullName,
+      phone: value("phone") || null,
+      suburb: value("suburb") || null,
+      postcode: value("postcode") || null,
+      heard_about: heardAbout || null,
+    })
+    .eq("id", user.id);
+  if (error) {
+    console.error("updateBuyerProfile:", error.message);
+    return { ok: false, error: "Couldn't save that. Please try again." };
+  }
+
+  // The header greets people from the auth record rather than the profile
+  // table, so it has to be updated too or the name goes stale up there.
+  await supabase.auth.updateUser({ data: { full_name: fullName } });
+
+  revalidatePath("/account");
+  return { ok: true };
+}
+
+/**
+ * Changes the password of the signed-in buyer.
+ *
+ * There is no "current password" field: Supabase authenticates the change
+ * with the session itself, and asking for a password we then cannot verify
+ * would be theatre. The account's own sign-in is what protects this.
+ */
+export async function updateBuyerPassword(
+  _prev: AccountActionState,
+  formData: FormData,
+): Promise<AccountActionState> {
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  // The same 10 characters registerBuyer asks for, so the rule does not
+  // change depending on which form you are standing in front of.
+  if (password.length < 10) {
+    return { ok: false, error: "Use at least 10 characters." };
+  }
+  if (password !== confirm) {
+    return { ok: false, error: "The two passwords do not match." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "You're signed out. Sign in and try again." };
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
 }
 
 export async function signOutBuyer(): Promise<void> {

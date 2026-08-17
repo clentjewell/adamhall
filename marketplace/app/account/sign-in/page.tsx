@@ -10,15 +10,19 @@ export const metadata: Metadata = {
 };
 
 interface Props {
-  searchParams: Promise<{ expired?: string }>;
+  searchParams: Promise<{ expired?: string; next?: string }>;
 }
 
 export default async function SignInPage({ searchParams }: Props) {
-  const { expired } = await searchParams;
+  const { expired, next } = await searchParams;
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4">
-      <div className="card p-8 w-full max-w-sm">
+    // page-shell + section-y, the same wrapper the register and confirm pages
+    // use, so the card sits in the site's vertical rhythm. It previously
+    // centred inside min-h-[70vh] with no padding of its own, which left it
+    // pinned against the header and footer on a short viewport.
+    <div className="page-shell section-y">
+      <div className="card p-8 w-full max-w-sm mx-auto">
         <div className="mb-3">
           <BrandLockup href={null} size="sm" />
         </div>
@@ -32,7 +36,7 @@ export default async function SignInPage({ searchParams }: Props) {
             if the address still needs confirming we&apos;ll send a new one.
           </p>
         )}
-        <SignInForm />
+        <SignInForm next={next} />
         <Link href="/cars" className="btn-ghost text-sm mt-6 !px-0">
           <ArrowLeft size={16} weight="bold" />
           Back to the Marketplace

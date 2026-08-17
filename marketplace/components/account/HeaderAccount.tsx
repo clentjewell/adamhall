@@ -58,7 +58,10 @@ export default function HeaderAccount({ mobile = false }: { mobile?: boolean }) 
 
   return (
     <span className={`${cls} ${cls}--in`}>
-      <Link href="/saved" className={`${cls}-name`}>
+      {/* The name goes to the account hub, not straight to the shortlist:
+          the hub is where everything the account holds is listed, and Saved
+          already has its own item in the nav. */}
+      <Link href="/account" className={`${cls}-name`}>
         {firstName}
       </Link>
       {/* A server action, so signing out clears the cookie server-side rather
