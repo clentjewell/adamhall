@@ -88,6 +88,19 @@ export function getCompare(): string[] {
   return readList(COMPARE_KEY);
 }
 
+/** How many cars the comparison table holds. Exported so the account sync
+    trims a merged list to the same limit the UI enforces. */
+export const COMPARE_LIMIT = COMPARE_MAX;
+
+/**
+ * Overwrites the comparison wholesale, trimmed to the limit. Used by the
+ * account sync when reconciling this device against the signed-in buyer's
+ * stored comparison, and to empty it on sign-out.
+ */
+export function replaceCompare(ids: string[]): void {
+  writeList(COMPARE_KEY, [...new Set(ids)].slice(0, COMPARE_MAX));
+}
+
 export function isCompared(id: string): boolean {
   return getCompare().includes(id);
 }

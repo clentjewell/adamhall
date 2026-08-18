@@ -2,8 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { onGarageChange, replaceSaved } from "@/lib/garage";
-import { adoptAndPull, pushLocalChanges, resetMirror } from "@/lib/garage-sync";
+import { onGarageChange } from "@/lib/garage";
+import {
+  adoptAndPull,
+  clearLocalLists,
+  pushLocalChanges,
+  resetMirror,
+} from "@/lib/garage-sync";
 
 /**
  * Keeps the saved-cars list and the signed-in buyer's account in step.
@@ -49,10 +54,10 @@ export default function GarageSync() {
       }
 
       // Signed out. The cars are on the account; clearing here stops the next
-      // person on a shared computer inheriting the last one's shortlist.
+      // person on a shared computer inheriting the last one's lists.
       if (!userId && previous) {
         resetMirror();
-        replaceSaved([]);
+        clearLocalLists();
       }
 
       // TOKEN_REFRESHED and the like arrive with the same user and need

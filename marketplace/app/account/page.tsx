@@ -3,6 +3,7 @@ import { Link } from "next-view-transitions";
 import {
   ArrowSquareOut,
   Bank,
+  ChatCircleText,
   Heart,
   Lock,
   Phone,
@@ -59,6 +60,12 @@ export default async function AccountPage() {
       icon: Scales,
       title: "Compare cars",
       body: "Put up to three side by side and see where they actually differ.",
+    },
+    {
+      href: "/account/enquiries",
+      icon: ChatCircleText,
+      title: "Your enquiries",
+      body: "The cars you have asked about, and where each one got to.",
     },
     {
       href: "/account/details",
