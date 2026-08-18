@@ -55,12 +55,12 @@ export async function middleware(request: NextRequest) {
   return response;
 }
 
-// `/admin2` is the redesigned dashboard preview. It must be listed
-// explicitly: `/admin/:path*` matches `/admin` and `/admin/...` but NOT
-// `/admin2`, so without this entry the middleware would never run for it and
-// the route would sit outside the signed-out redirect. The guard below is
-// `pathname.startsWith("/admin")`, which already covers it, and every admin
-// page still calls requireAdmin() server-side regardless.
+// `/admin-old` is the previous console, kept for comparison. It has to be
+// listed explicitly: `/admin/:path*` matches `/admin` and `/admin/...` but
+// NOT `/admin-old`, so without this entry the middleware would never run for
+// it and the route would sit outside the signed-out redirect. The guard above
+// is `pathname.startsWith("/admin")`, which already covers it, and every
+// admin page still calls requireAdmin() server-side regardless.
 //
 // `/account/:path*` is here to refresh the buyer's session cookie, not to
 // guard anything: the redirect above only fires for `/admin`, and every
@@ -68,5 +68,5 @@ export async function middleware(request: NextRequest) {
 // token would go stale on exactly the pages that read it, and the account
 // hub would bounce a signed-in person to the sign-in form.
 export const config = {
-  matcher: ["/admin/:path*", "/admin2/:path*", "/account/:path*"],
+  matcher: ["/admin/:path*", "/admin-old/:path*", "/account/:path*"],
 };

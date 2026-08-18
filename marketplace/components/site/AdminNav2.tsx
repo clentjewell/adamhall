@@ -6,12 +6,11 @@ import { signOut } from "@/app/actions/admin";
 import { ADMIN_NAV } from "@/components/admin/AdminNav";
 
 /**
- * Console sidebar for the redesigned dashboard (artifact frame 1l).
+ * The console sidebar (artifact frame 1l).
  *
- * The item list and the sign-out action are imported from the existing nav,
- * so the two cannot list different pages. Every destination is the real admin
- * route — only the dashboard itself has a redesigned twin, so this is a
- * preview of the shell, not a second console.
+ * The item list and the sign-out action are imported from the older nav, so
+ * the two cannot list different pages — that nav is still what /admin-old
+ * renders, kept for side-by-side comparison.
  */
 export default function AdminNav2({ adminName }: { adminName: string }) {
   const pathname = usePathname();
@@ -26,11 +25,11 @@ export default function AdminNav2({ adminName }: { adminName: string }) {
       <p className="mp2-console__who">Signed in as {adminName}</p>
 
       <nav className="mp2-console__links" aria-label="Admin">
-        {/* The redesigned dashboard is this route; everything else points at
-            the working admin pages. */}
+        {/* Dashboard is an exact match so it does not stay lit on every
+            sub-page; the rest are prefix matches below. */}
         <Link
-          href="/admin2"
-          className={`mp2-console__link${pathname === "/admin2" ? " is-on" : ""}`}
+          href="/admin"
+          className={`mp2-console__link${pathname === "/admin" ? " is-on" : ""}`}
         >
           Dashboard
         </Link>
