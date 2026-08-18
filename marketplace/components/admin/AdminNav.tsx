@@ -14,6 +14,7 @@ import {
   SignOut,
   Sparkle,
   Tray,
+  Users,
 } from "@phosphor-icons/react";
 import { signOut } from "@/app/actions/admin";
 
@@ -25,6 +26,7 @@ export const ADMIN_NAV = [
   { href: "/admin/submissions", label: "Submissions", icon: Tray, exact: false },
   { href: "/admin/inventory", label: "Inventory", icon: Garage, exact: false },
   { href: "/admin/enquiries", label: "Enquiries", icon: ChatCircleDots, exact: false },
+  { href: "/admin/buyers", label: "Buyers", icon: Users, exact: false },
   { href: "/admin/finance", label: "Finance", icon: Bank, exact: false },
   { href: "/admin/content", label: "Site copy", icon: PencilSimpleLine, exact: false },
   { href: "/admin/analytics", label: "Analytics", icon: ChartBar, exact: false },

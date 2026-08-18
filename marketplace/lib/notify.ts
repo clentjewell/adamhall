@@ -175,6 +175,54 @@ export const emailTemplates = {
         }`),
     };
   },
+  /**
+   * Tells Adam somebody made an account. Registration was the only form on
+   * the site that landed silently — enquiries, finance, test drives and
+   * sell-my-car all reach him, so this closes that gap.
+   *
+   * It is a heads-up, not a job: a signup is not a lead yet, so there is no
+   * "call them" instruction, just who they are and where to see the rest.
+   */
+  buyerRegistered(e: {
+    adminEmail: string;
+    name: string;
+    email: string;
+    phone?: string | null;
+    suburb?: string | null;
+    postcode?: string | null;
+    heardAbout?: string | null;
+    buyersUrl?: string;
+  }) {
+    const where = [e.suburb, e.postcode].filter(Boolean).join(" ");
+    const heard: Record<string, string> = {
+      radio: "heard you on the radio",
+      google: "found you on Google",
+      social: "came from social media",
+      friend: "was told about you by a friend",
+      returning: "has dealt with you before",
+      other: "came from somewhere else",
+    };
+    const rows = [
+      e.phone ? `Phone: <strong>${esc(e.phone)}</strong>` : null,
+      where ? `Where: ${esc(where)}` : null,
+      e.heardAbout && heard[e.heardAbout] ? `How: ${heard[e.heardAbout]}` : null,
+    ].filter(Boolean);
+
+    return {
+      to: e.adminEmail,
+      subject: `New account: ${e.name}`,
+      html: wrap(`
+        <p><strong>${esc(e.name)}</strong> (${esc(e.email)}) made an account on the Marketplace.</p>
+        ${rows.length ? `<p style="margin:12px 0">${rows.join("<br>")}</p>` : ""}
+        <p>Nothing to do yet — they can now save cars and their shortlist follows
+           them between devices. You'll hear from them properly if they enquire.</p>
+        ${
+          e.buyersUrl
+            ? `<p><a href="${esc(e.buyersUrl)}" style="color:#1e5c41;font-weight:600">See everyone who has registered</a></p>`
+            : ""
+        }`),
+    };
+  },
   watchlistMatch(email: string, carName: string, price: string, url: string) {
     return {
       subject: `Just in: ${carName}`,

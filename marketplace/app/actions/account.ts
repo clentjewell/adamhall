@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { notifier, emailTemplates } from "@/lib/notify";
 
 export interface AccountActionState {
   ok: boolean;
@@ -88,6 +89,33 @@ export async function registerBuyer(
     // too weak", "Unable to validate email address"), so it is passed
     // through rather than flattened into one message.
     return { ok: false, error: error.message };
+  }
+
+  // Adam hears about every other form on the site; registration used to be
+  // the one that landed silently. Sent before the redirect below, because
+  // redirect() throws and nothing after it runs.
+  //
+  // Wrapped so it can never fail the signup: the account already exists by
+  // this point, and a mail provider having a bad morning must not show the
+  // buyer an error for something that worked.
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
+  if (adminEmail) {
+    try {
+      const origin = await requestOrigin();
+      const t = emailTemplates.buyerRegistered({
+        adminEmail,
+        name: fullName,
+        email,
+        phone: value("phone") || null,
+        suburb: value("suburb") || null,
+        postcode: value("postcode") || null,
+        heardAbout: heardAbout || null,
+        buyersUrl: origin ? `${origin}/admin/buyers` : undefined,
+      });
+      await notifier.sendEmail({ to: t.to, subject: t.subject, html: t.html });
+    } catch (err) {
+      console.error("registerBuyer: admin notify failed:", err);
+    }
   }
 
   // With email confirmation on, signUp returns a user but no session. Saying
