@@ -185,7 +185,7 @@ export default function ComparePageClientV2() {
             Tap the scales icon on any car to add it here. Pick up to three to
             line them up side by side.
           </p>
-          <Link href="/cars2" className="btn btn--tan">
+          <Link href="/cars" className="btn btn--tan">
             Browse cars
           </Link>
         </div>
@@ -245,7 +245,7 @@ export default function ComparePageClientV2() {
                 >
                   ✕
                 </button>
-                <Link href={`/cars2/${car.slug}`} className="mp2-cmp__carlink">
+                <Link href={`/cars/${car.slug}`} className="mp2-cmp__carlink">
                   <div className="mp2-cmp__photo">
                     {car.photos[0] ? (
                       <Image
@@ -301,7 +301,7 @@ export default function ComparePageClientV2() {
             {orderedCars.map((car, i) => (
               <div key={car.id} className="mp2-cmp__action">
                 <Link
-                  href={`/cars2/${car.slug}`}
+                  href={`/cars/${car.slug}`}
                   className={`btn ${i === 0 ? "btn--green" : "btn--outline-green"}`}
                 >
                   Enquire

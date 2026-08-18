@@ -27,7 +27,7 @@ export default function CrossSiteBand() {
           <strong>{parentSite.crossing.heading}</strong> {parentSite.crossing.body}
         </p>
 
-        <Button href={parentUrl("/", "marketplace-footer-band")} variant="tan" arrow>
+        <Button href={parentUrl("/", "marketplace-footer-band")} variant="tan" arrow newTab>
           {parentSite.crossing.cta}
         </Button>
 

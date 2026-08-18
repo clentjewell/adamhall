@@ -19,7 +19,7 @@ import { getRecent, getSaved, toggleSaved, onGarageChange } from "@/lib/garage";
  */
 export default function SavedPageClientV2({
   watchPanel,
-  basePath = "/cars2",
+  basePath = "/cars",
 }: {
   watchPanel?: ReactNode;
   basePath?: string;

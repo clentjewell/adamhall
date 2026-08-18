@@ -37,7 +37,7 @@ export default function Footer() {
   // home pages, which carry their own valuation CTA after the stock section.
   const showValuationCta =
     pathname !== "/" &&
-    pathname !== "/home2" &&
+    pathname !== "/home-old" &&
     pathname !== "/car-valuations" &&
     !pathname?.startsWith("/sell");
 

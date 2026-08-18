@@ -1,25 +1,33 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
-import { ArrowsLeftRight, Play } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
 import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
-import { availabilityBadge } from "@/lib/car-flags";
+import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 import CarGallery from "@/components/CarGallery";
 import TrustBlock from "@/components/TrustBlock";
+import MobileActionBar from "@/components/MobileActionBar";
 import EnquiryForm from "@/components/EnquiryForm";
 import InterestedButton from "@/components/InterestedButton";
 import TestDriveForm from "@/components/TestDriveForm";
-import MobileActionBar from "@/components/MobileActionBar";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import CarCard from "@/components/CarCard";
+import ListingCard from "@/components/site/ListingCard";
 import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
 import RecentViewTracker from "@/components/garage/RecentViewTracker";
-import { Reveal, CardReveal } from "@/components/motion/Reveal";
+import SiteReveal from "@/components/site/SiteReveal";
 
+/**
+ * The car page (route: /cars/[slug]), built to the "Carmarketplace UI
+ * mockups" artifact, frames 1e (desktop) and 1f (mobile).
+ *
+ * A layout re-cut of app/cars/[slug]/page.tsx. Everything that does work is
+ * reused as-is: the gallery, the trust block, both enquiry forms, the garage
+ * buttons, the recent-view tracker, the mobile action bar and the Vehicle
+ * JSON-LD. The artifact's "Ask a question / Book a look" toggle is not built
+ * here — EnquiryForm already ships exactly that control.
+ */
 export const revalidate = 60;
 
 interface Props {
@@ -38,11 +46,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
-    openGraph: {
-      title,
-      description,
-      images: car.photos[0] ? [{ url: car.photos[0].url }] : [],
-    },
   };
 }
 
@@ -54,22 +57,16 @@ function embedUrl(url: string): string | null {
   return null;
 }
 
-export default async function CarDetailPage({ params }: Props) {
+export default async function Car2DetailPage({ params }: Props) {
   const { slug } = await params;
   const car = await fetchCarBySlug(slug);
   if (!car) notFound();
 
   const title = carTitle(car);
   const sold = car.status === "sold";
-  // null when the car is sold or plainly available — the shared precedence
-  // rule, so this page and the listing grid can never disagree.
-  const availability = availabilityBadge(car);
   const video = car.video_url ? embedUrl(car.video_url) : null;
-  // Sand carries the "just in" flag for a car's first week, as on the card.
-  const justIn =
-    !sold &&
-    car.published_at != null &&
-    Date.now() - new Date(car.published_at).getTime() < 7 * 24 * 60 * 60 * 1000;
+  const justIn = isJustIn(car);
+  const availability = availabilityBadge(car);
 
   const specs: [string, string][] = [
     ["Year", String(car.year)],
@@ -115,32 +112,24 @@ export default async function CarDetailPage({ params }: Props) {
     .slice(0, 3);
 
   return (
-    <>
+    <div className="ah-site mp-car2">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
+      <SiteReveal />
       <RecentViewTracker carId={car.id} />
 
-      <div className="page-shell pt-6 pb-24 md:pb-10">
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-          <Breadcrumbs
-            items={[
-              { label: "Home", href: "/" },
-              { label: "Cars for sale", href: "/cars" },
-              { label: title },
-            ]}
-          />
-          <SaveCompareButtons carId={car.id} variant="detail" />
-        </div>
+      <div className="container container--wide mp2-car__back">
+        <Link href="/cars" className="mp2-backlink">
+          &larr; All cars
+        </Link>
+      </div>
 
-        {/* Mockup layout: boxed gallery and facts on the left, the buying
-            rail (name, price, trust, enquiry) on the right. On mobile the
-            rail follows the gallery, so the price is never below the fold
-            of the description. */}
-        <div className="grid gap-10 lg:grid-cols-[1fr_400px]">
-          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+      <div className="container container--wide mp2-car">
+        {/* Left: the photographs and everything you read. */}
+        <div className="mp2-car__main">
+          <div className="mp2-car__gallery">
             <CarGallery
               photos={car.photos}
               title={title}
@@ -149,176 +138,159 @@ export default async function CarDetailPage({ params }: Props) {
             />
           </div>
 
-          <aside className="space-y-6 self-start lg:sticky lg:top-24 lg:col-start-2 lg:row-start-1 lg:row-span-2">
-            <div>
-              {/* Availability leads: "Reserved" changes what the buyer should
-                  do, "Just in" only tells them how long it has been here.
-                  availabilityBadge() returns null when the car is sold, so the
-                  Sold treatment below is never doubled up on. */}
-              {(availability || justIn) && (
-                <div className="flex flex-wrap items-center gap-2">
-                  {availability && (
-                    <span className="type-label inline-block rounded-full bg-amber-soft px-3 py-1.5 text-[#8a5a1e]">
-                      {availability}
-                    </span>
-                  )}
-                  {justIn && (
-                    <span className="type-label inline-block rounded-full bg-sand px-3 py-1.5 text-ink">
-                      Just in
-                    </span>
-                  )}
-                </div>
-              )}
-              <h1 className={`type-subheading ${availability || justIn ? "mt-3" : ""}`}>{title}</h1>
-              {sold ? (
-                <p className="type-price-lg mt-3 text-mute">Sold</p>
-              ) : (
-                <>
-                  <p className="mt-3">
-                    <span className="type-price-lg text-forest-700">
-                      {formatPrice(car.price)}
-                    </span>
-                    <span className="ml-2 text-sm font-semibold text-stone-500">
-                      drive away
-                    </span>
-                  </p>
-                  <p className="mt-2 text-sm text-stone-600">
-                    Approx.{" "}
-                    <strong className="tabular">
-                      {formatPrice(estimateWeekly(car.price))}/week
-                    </strong>{" "}
-                    on finance ·{" "}
-                    <Link
-                      href={`/finance?price=${car.price}`}
-                      className="font-semibold text-forest-700 underline underline-offset-2 hover:text-forest-600"
-                    >
-                      estimate yours
-                    </Link>
-                  </p>
-                </>
-              )}
+          {sold && (
+            <div className="mp2-car__soldnote">
+              <p className="mp2-car__soldnote-title">
+                Sold {car.sold_at ? formatDate(car.sold_at) : ""}. This one
+                found its owner.
+              </p>
+              <p>
+                The cars below are still available, or jump on the watchlist on
+                the cars page and we&apos;ll tell you when the next one lands.
+              </p>
             </div>
+          )}
 
-            {/* The one action Adam wants, directly under the price. Save sits
-                up beside the breadcrumb as a quiet bookmark; this is the
-                active one and looks it. */}
-            {!sold && <InterestedButton />}
-
-            <TrustBlock car={car} showQuote={false} />
-            {!sold && (
-              <>
-                <EnquiryForm carId={car.id} carName={title} />
-                <TestDriveForm carId={car.id} carName={title} />
-                <a
-                  href={parentUrl("/buy-my-car", "marketplace-tradein")}
-                  className="card p-5 flex items-center gap-4 hover:border-forest-200 hover:-translate-y-0.5 transition-[translate,border-color] duration-200 group"
-                >
-                  <ArrowsLeftRight size={26} className="text-forest-600 shrink-0" weight="bold" />
-                  <div>
-                    <p className="font-bold group-hover:text-forest-700 transition-colors duration-[120ms]">
-                      Have a car to trade?
-                    </p>
-                    <p className="text-sm text-stone-600">
-                      Send us yours and Adam will price both sides of the deal at once.
-                    </p>
-                  </div>
-                </a>
-              </>
-            )}
-          </aside>
-
-          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
-            {sold && (
-              <div className="card p-5 mb-8 bg-amber-soft !border-amber-accent/30">
-                <p className="font-bold">
-                  Sold {car.sold_at ? formatDate(car.sold_at) : ""}. This one found its owner.
-                </p>
-                <p className="text-sm text-stone-600 mt-1">
-                  The cars below are still available, or jump on the watchlist
-                  on the cars page and we&apos;ll tell you when the next one lands.
-                </p>
+          <h2 className="mp2-car__h2">The details</h2>
+          <dl className="mp2-specs">
+            {specs.map(([k, v]) => (
+              <div key={k} className="mp2-specs__cell">
+                <dt>{k}</dt>
+                <dd>{v}</dd>
               </div>
-            )}
+            ))}
+          </dl>
 
-            <Reveal>
-              <h2 className="type-subheading mb-3">The details</h2>
-              <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-stone-200 rounded-2xl overflow-hidden">
-                {specs.map(([k, v]) => (
-                  <div key={k} className="bg-white p-4">
-                    <dt className="text-xs font-semibold text-stone-500">{k}</dt>
-                    <dd className="font-bold mt-0.5">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
+          {video && (
+            <>
+              <h2 className="mp2-car__h2">Walk-around with Adam</h2>
+              <div className="mp2-car__video">
+                <iframe
+                  src={video}
+                  title={`Walk-around video: ${title}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </>
+          )}
 
-            {/* The identity's section-transition device: the gauge at fine
-                scale, once, separating the facts from the description. */}
-            <div className="gauge-fine mt-10" aria-hidden="true" />
+          {car.description && (
+            <>
+              <h2 className="mp2-car__h2">About this car</h2>
+              <p className="mp2-car__body">{car.description}</p>
+            </>
+          )}
 
-            {video && (
-              <Reveal className="mt-10">
-                <h2 className="type-subheading mb-3 flex items-center gap-2">
-                  <Play size={20} weight="fill" className="text-forest-600" />
-                  Walk-around with Adam
-                </h2>
-                <div className="aspect-video rounded-2xl overflow-hidden bg-ink">
-                  <iframe
-                    src={video}
-                    title={`Walk-around video: ${title}`}
-                    className="w-full h-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </Reveal>
-            )}
-
-            {car.description && (
-              <Reveal className="mt-10">
-                <h2 className="type-subheading mb-3">About this car</h2>
-                <p className="text-stone-700 leading-relaxed whitespace-pre-line max-w-[68ch]">
-                  {car.description}
-                </p>
-              </Reveal>
-            )}
-
-            {/* Adam's line on the car, as the mockup sets it: a dark card in
-                the reading flow, the one voice on the page that is a person. */}
-            {car.adams_take && (
-              <Reveal className="mt-10">
-                <figure className="rounded-2xl bg-forest-800 p-6 sm:p-8">
-                  <blockquote className="type-lead text-white">
-                    &ldquo;{car.adams_take}&rdquo;
-                  </blockquote>
-                  <figcaption className="type-label mt-4 text-white/70">
-                    Adam Hall · 27 years in the trade
-                  </figcaption>
-                </figure>
-              </Reveal>
-            )}
-          </div>
+          {/* Adam's line on the car: the one voice on the page that is a
+              person, set as the artifact's dark card. */}
+          {car.adams_take && (
+            <figure className="mp2-take">
+              <blockquote>&ldquo;{car.adams_take}&rdquo;</blockquote>
+              <figcaption>Adam Hall &mdash; 27 years in the trade</figcaption>
+            </figure>
+          )}
         </div>
 
-        {others.length > 0 && (
-          <section className="mt-16">
-            <Reveal>
-              <h2 className="type-subheading mb-6">
-                {sold ? "Still available" : "Also in stock"}
-              </h2>
-            </Reveal>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {others.map((c, i) => (
-                <CardReveal key={c.id} index={i}>
-                  <CarCard car={c} />
-                </CardReveal>
-              ))}
-            </div>
-          </section>
-        )}
+        {/* Right: the buying rail. */}
+        <aside className="mp2-rail">
+          <div>
+            {/* Availability first: it changes what the buyer should do.
+                availabilityBadge() returns null on a sold car, so the Sold
+                price treatment below is never doubled up on. */}
+            {(availability || justIn) && (
+              <div className="mp2-rail__flags">
+                {availability && (
+                  <span className="mp2-rail__flag is-status">{availability}</span>
+                )}
+                {justIn && <span className="mp2-rail__flag">Just in</span>}
+              </div>
+            )}
+            <h1 className="mp2-rail__title">{title}</h1>
+            {sold ? (
+              <p className="mp2-rail__price is-sold">Sold</p>
+            ) : (
+              <>
+                <div className="mp2-rail__pricerow">
+                  <p className="mp2-rail__price">{formatPrice(car.price)}</p>
+                  <p className="mp2-rail__qualifier">drive away</p>
+                </div>
+                <p className="mp2-rail__finance">
+                  Approx.{" "}
+                  <strong className="tabular">
+                    {formatPrice(estimateWeekly(car.price))}/week
+                  </strong>{" "}
+                  on finance &middot;{" "}
+                  <Link href={`/finance?price=${car.price}`}>estimate yours</Link>
+                </p>
+              </>
+            )}
+          </div>
+
+          {/* The active CTA, directly under the price. Save/Compare sit above
+              the gallery as quiet bookmarks; this is the one Adam wants. */}
+          {!sold && <InterestedButton className="btn btn--tan mp2-rail__interested" />}
+
+          <div className="mp2-rail__trust">
+            <TrustBlock car={car} showQuote={false} />
+          </div>
+
+          {!sold && (
+            <>
+              {/* EnquiryForm already carries the artifact's own
+                  "Ask a question / Book a look" toggle — it switches the
+                  `kind` on a single server action — so it is used directly
+                  rather than wrapped in a second set of tabs.
+                  TestDriveForm stays as its own card: booking a specific
+                  viewing window is a different job from sending a question,
+                  and the artifact simply did not draw it. */}
+              <div className="mp2-rail__form">
+                <EnquiryForm carId={car.id} carName={title} />
+              </div>
+              <div className="mp2-rail__form">
+                <TestDriveForm carId={car.id} carName={title} />
+              </div>
+              <a
+                href={parentUrl("/buy-my-car", "marketplace-tradein")}
+                target="_blank"
+                rel="noopener"
+                className="mp2-rail__trade"
+              >
+                <strong>Have a car to trade?</strong>
+                <span>
+                  Send us yours and Adam will price both sides of the deal at
+                  once.
+                </span>
+              </a>
+            </>
+          )}
+
+          <div className="mp2-rail__garage">
+            <SaveCompareButtons carId={car.id} variant="detail" />
+          </div>
+        </aside>
       </div>
 
-      <MobileActionBar phoneHref={(await getContent()).phone.tel} carId={car.id} sold={sold} />
-    </>
+      {others.length > 0 && (
+        <section className="mp2-also">
+          <div className="container container--wide">
+            <h2 className="mp2-also__title">
+              {sold ? "Still available" : "Also in stock"}
+            </h2>
+            <div className="mp2-also__grid">
+              {others.map((c) => (
+                <ListingCard key={c.id} car={c} basePath="/cars" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <MobileActionBar
+        phoneHref={(await getContent()).phone.tel}
+        carId={car.id}
+        sold={sold}
+      />
+    </div>
   );
 }

@@ -67,6 +67,8 @@ export default function Header() {
               cross-sell, and visually separate from the nav list. */}
           <a
             href={parentUrl("/", "marketplace-header")}
+            target="_blank"
+            rel="noopener"
             className="site-header__crossing"
           >
             {parentSite.headerLink}
@@ -112,6 +114,8 @@ export default function Header() {
             <li>
               <a
                 href={parentUrl("/", "marketplace-mobile-menu")}
+                target="_blank"
+                rel="noopener"
                 onClick={() => setOpen(false)}
                 className="mobile-menu__crossing"
               >

@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
-import { ChatText, HandCoins, PenNib } from "@phosphor-icons/react/dist/ssr";
 import { getContent } from "@/lib/content";
-import FinanceCalculator from "@/components/FinanceCalculator";
+import FinanceCalculatorV2 from "@/components/site/FinanceCalculatorV2";
 import FinanceEnquiryForm from "@/components/FinanceEnquiryForm";
-import { Reveal } from "@/components/motion/Reveal";
+import SiteReveal from "@/components/site/SiteReveal";
 
+/**
+ * The finance page (route: /finance), built to the "Carmarketplace UI
+ * mockups" artifact, frame 1g.
+ *
+ * Copy stays CMS-editable through getContent (same data-edit hooks as
+ * /finance), the repayment maths stays in lib/finance.ts, and the real
+ * FinanceEnquiryForm — with its server action — is kept below the calculator
+ * so "Get a real quote" still leads somewhere.
+ */
 export const metadata: Metadata = {
   title: "Finance",
   description:
     "Work out a repayment estimate and get finance sorted before you shop. No hype, no approval claims, just the numbers.",
 };
 
-const STEP_ICONS = [ChatText, HandCoins, PenNib];
-
-export default async function FinancePage({
+export default async function Finance2Page({
   searchParams,
 }: {
   searchParams: Promise<{ price?: string }>;
@@ -28,64 +34,73 @@ export default async function FinancePage({
       : undefined;
 
   return (
-    <>
-      {/* Typographic header, per the mockup: hero media stays on the home
-          page, and this page opens on the calculator. */}
-      <header className="page-shell pt-10">
-        <p className="type-label text-forest-600">Finance</p>
-        <h1 data-edit="financePage.title" className="type-heading mt-2">
-          {content.financePage.title}
-        </h1>
-        <p data-edit="financePage.sub" className="mt-3 max-w-[52ch] text-stone-600">
-          {content.financePage.sub}
-        </p>
-      </header>
+    <div className="ah-site mp-finance2">
+      <SiteReveal />
 
-      <div className="page-shell section-y">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <Reveal>
-            <FinanceCalculator defaultPrice={defaultPrice} />
-          </Reveal>
-          <Reveal delay={0.08}>
-            <FinanceEnquiryForm />
-          </Reveal>
+      {/* Dark band, per the artifact: the page states what it is, then the
+          calculator card rides up over the join. */}
+      <section className="mp2-fin-hero">
+        <div className="container container--wide">
+          <p className="eyebrow">Finance</p>
+          <h1 data-edit="financePage.title" className="mp2-fin-hero__title">
+            {content.financePage.title}
+          </h1>
+          <p data-edit="financePage.sub" className="mp2-fin-hero__sub">
+            {content.financePage.sub}
+          </p>
         </div>
+      </section>
 
-        {/* Section transition: the gauge at fine scale (identity section 12). */}
-        <div className="gauge-fine mt-16" aria-hidden="true" />
-
-        <div className="mt-10">
-          <h2 className="type-heading text-center mb-8">How it works</h2>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {content.financePage.steps.map((step, i) => {
-              const Icon = STEP_ICONS[i % STEP_ICONS.length];
-              return (
-                <Reveal key={step.title + i} delay={i * 0.08}>
-                  <div className="text-center">
-                    <Icon size={32} className="text-forest-600 mx-auto" weight="duotone" />
-                    <p data-edit={`financePage.steps.${i}.title`} className="font-bold mt-3">
-                      {step.title}
-                    </p>
-                    <p
-                      data-edit={`financePage.steps.${i}.body`}
-                      className="text-sm text-stone-600 mt-1 leading-relaxed"
-                    >
-                      {step.body}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-
-        <p className="helper mx-auto mt-16 max-w-[var(--measure-text)] text-center leading-relaxed">
-          Figures on this page are estimates only, not an offer or approval
-          of finance. Actual rates, fees and approval depend on assessment
-          by the lender. Comparison rate warning:{" "}
-          [legal review required for jurisdiction wording].
-        </p>
+      <div className="container container--wide mp2-fin-calc">
+        <FinanceCalculatorV2 defaultPrice={defaultPrice} />
       </div>
-    </>
+
+      {/* How it works — three numbered cards from the CMS steps. */}
+      <section className="container container--wide mp2-fin-steps">
+        <div className="mp2-fin-steps__grid">
+          {content.financePage.steps.map((step, i) => (
+            <div key={step.title + i} className="mp2-fin-step">
+              <p className="mp2-fin-step__num">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3
+                data-edit={`financePage.steps.${i}.title`}
+                className="mp2-fin-step__title"
+              >
+                {step.title}
+              </h3>
+              <p
+                data-edit={`financePage.steps.${i}.body`}
+                className="mp2-fin-step__body"
+              >
+                {step.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* The actual lead. The artifact's "Get a real quote" button targets
+          this, so the CTA is not a dead end. */}
+      <section className="container container--wide mp2-fin-quote" id="finance-quote">
+        <div className="mp2-fin-quote__inner">
+          <div className="mp2-fin-quote__intro">
+            <h2 className="mp2-fin-quote__title">Get a real quote</h2>
+            <p>
+              Send the numbers through and we&rsquo;ll come back with a rate a
+              lender will actually stand behind. No credit check until you say
+              go.
+            </p>
+          </div>
+          <FinanceEnquiryForm defaultAmount={defaultPrice} />
+        </div>
+        <p className="mp2-fin-legal">
+          Figures on this page are estimates only, not an offer or approval of
+          finance. Actual rates, fees and approval depend on assessment by the
+          lender. Comparison rate warning: [legal review required for
+          jurisdiction wording].
+        </p>
+      </section>
+    </div>
   );
 }

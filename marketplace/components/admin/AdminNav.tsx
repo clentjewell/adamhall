@@ -17,6 +17,7 @@ import {
   Users,
 } from "@phosphor-icons/react";
 import { signOut } from "@/app/actions/admin";
+import BrandLockup from "@/components/BrandLockup";
 
 /** Shared with the redesigned dashboard preview so the two navs cannot
     drift apart. */
@@ -37,10 +38,14 @@ export default function AdminNav({ adminName }: { adminName: string }) {
   const pathname = usePathname();
   return (
     <aside>
-      {/* Homepage logo + back-to-site */}
-      <Link href="/" className="hidden md:flex items-center px-3 mb-3" aria-label="Adam Hall — Buy My Car home">
-        <img src="/assets/logos/logo-black.svg" alt="Adam Hall — Buy My Car" className="h-8 w-auto" />
-      </Link>
+      {/* The Car Marketplace lockup, not the parent brand's. This console
+          administers the marketplace, so it signs itself with the
+          marketplace's own mark — it previously carried the Adam Hall Buy My
+          Car artwork, which is the other site. BrandLockup reads lib/brand.ts,
+          so the logo path stays in the one place the identity allows. */}
+      <div className="hidden md:block px-3 mb-3">
+        <BrandLockup size="sm" />
+      </div>
       <Link
         href="/"
         className="flex items-center gap-2.5 px-3 py-2.5 mb-3 rounded-lg text-sm font-semibold text-forest-700 bg-forest-50 hover:bg-forest-100 transition-colors"

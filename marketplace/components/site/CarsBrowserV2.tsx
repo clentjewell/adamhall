@@ -17,7 +17,7 @@ import { useCarFilters, PRICE_STEPS, KM_STEPS } from "@/components/useCarFilters
 export default function CarsBrowserV2({
   cars,
   watchPanel,
-  basePath = "/cars2",
+  basePath = "/cars",
 }: {
   cars: Car[];
   /** The watchlist form, passed in so the server page keeps ownership of it. */

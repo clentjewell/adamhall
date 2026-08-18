@@ -1,9 +1,20 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
-import CarsBrowser from "@/components/CarsBrowser";
+import CarsBrowserV2 from "@/components/site/CarsBrowserV2";
 import WatchlistForm from "@/components/WatchlistForm";
+import SiteReveal from "@/components/site/SiteReveal";
 
+/**
+ * The cars page (route: /cars), built to the "Carmarketplace UI
+ * mockups" artifact, frames 1c (desktop) and 1d (mobile).
+ *
+ * Same data and the same machinery as /cars — fetchPublicCars for stock,
+ * getContent for the CMS-editable header, the URL-driven filters via
+ * useCarFilters, and the real WatchlistForm with its server action. Only the
+ * arrangement is new.
+ */
 export const metadata: Metadata = {
   title: "Cars for sale",
   description:
@@ -12,31 +23,42 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
-export default async function CarsPage() {
+export default async function Cars2Page() {
   const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
   const makes = [...new Set(cars.map((c) => c.make))].sort();
-
   const inStock = cars.filter((c) => c.status === "published").length;
 
   return (
-    <>
-      {/* Typographic header, per the mockup: hero media belongs to the home
-          page only; here the cars themselves are the picture. */}
-      <header className="page-shell pt-10">
-        <p className="type-label text-forest-600">
-          {inStock} car{inStock === 1 ? "" : "s"} in stock
-        </p>
-        <h1 data-edit="carsHero.title" className="type-heading mt-2">
-          {content.carsHero.title}
-        </h1>
-        <p data-edit="carsHero.sub" className="mt-3 max-w-[60ch] text-stone-600">
-          {content.carsHero.sub}
-        </p>
+    <div className="ah-site mp-cars2">
+      <SiteReveal />
+
+      {/* Typographic header on a white band, per the artifact: hero media
+          belongs to the home page, and here the cars themselves are the
+          picture. */}
+      <header className="mp2-pagehead">
+        <div className="container container--wide">
+          <p className="eyebrow">
+            {inStock} car{inStock === 1 ? "" : "s"} in stock
+          </p>
+          <h1 data-edit="carsHero.title" className="mp2-pagehead__title">
+            {content.carsHero.title}
+          </h1>
+          <p data-edit="carsHero.sub" className="mp2-pagehead__sub">
+            {content.carsHero.sub}
+          </p>
+        </div>
       </header>
 
-      <div className="page-shell section-y">
-        <CarsBrowser cars={cars} watchPanel={<WatchlistForm makes={makes} />} />
-      </div>
-    </>
+      {/* The browser reads its filters from the URL via useSearchParams, so
+          it needs a Suspense boundary: without one, any render of this page
+          that isn't already dynamic fails to prerender. */}
+      <Suspense fallback={<div className="mp2-browser-fallback" aria-hidden="true" />}>
+        <CarsBrowserV2
+          cars={cars}
+          basePath="/cars"
+          watchPanel={<WatchlistForm makes={makes} />}
+        />
+      </Suspense>
+    </div>
   );
 }
