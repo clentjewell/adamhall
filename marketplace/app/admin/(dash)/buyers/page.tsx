@@ -62,6 +62,18 @@ export default async function BuyersPage() {
     savedCount.set(row.user_id, (savedCount.get(row.user_id) ?? 0) + 1);
   }
 
+  // Enquiries sent from a signed-in account. The far more useful signal than
+  // a shortlist: this person has actually asked about a car.
+  const { data: enquiries } = await supabase
+    .from("enquiries")
+    .select("user_id")
+    .not("user_id", "is", null)
+    .returns<{ user_id: string }[]>();
+  const enquiryCount = new Map<string, number>();
+  for (const row of enquiries ?? []) {
+    enquiryCount.set(row.user_id, (enquiryCount.get(row.user_id) ?? 0) + 1);
+  }
+
   // Emails and last-seen live on auth.users. listUsers is paginated; one page
   // of 1000 covers this yard many times over, and the fallback below means a
   // buyer past that still lists, just without an address.
@@ -78,16 +90,18 @@ export default async function BuyersPage() {
     console.error("BuyersPage: could not read auth users:", err);
   }
 
-  return BuyersList({ buyers, savedCount, details });
+  return BuyersList({ buyers, savedCount, enquiryCount, details });
 }
 
 function BuyersList({
   buyers,
   savedCount,
+  enquiryCount,
   details,
 }: {
   buyers: ProfileRow[];
   savedCount: Map<string, number>;
+  enquiryCount: Map<string, number>;
   details: Map<string, { email: string; lastSignInAt: string | null }>;
 }) {
   return (
@@ -114,6 +128,7 @@ function BuyersList({
             const d = details.get(b.id);
             const where = [b.suburb, b.postcode].filter(Boolean).join(" ");
             const count = savedCount.get(b.id) ?? 0;
+            const asked = enquiryCount.get(b.id) ?? 0;
             return (
               <div key={b.id} className="p-4 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <div className="min-w-0 flex-1">
@@ -142,15 +157,25 @@ function BuyersList({
                     {d?.lastSignInAt ? ` · last seen ${formatDateTime(d.lastSignInAt)}` : ""}
                   </p>
                 </div>
-                {/* The one number worth seeing at a glance: somebody with cars
-                    saved is further along than somebody who just signed up. */}
-                {count > 0 ? (
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700">
-                    {count === 1 ? "1 car saved" : `${count} cars saved`}
-                  </span>
-                ) : (
-                  <span className="text-xs text-stone-400">Nothing saved yet</span>
-                )}
+                {/* Enquiries first: somebody who has asked about a car is
+                    further along than somebody with a shortlist, who in turn
+                    is further along than somebody who just signed up. */}
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {asked > 0 && (
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-soft text-[#8a5a1e]">
+                      {asked === 1 ? "1 enquiry" : `${asked} enquiries`}
+                    </span>
+                  )}
+                  {count > 0 ? (
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700">
+                      {count === 1 ? "1 car saved" : `${count} cars saved`}
+                    </span>
+                  ) : (
+                    asked === 0 && (
+                      <span className="text-xs text-stone-400">Nothing saved yet</span>
+                    )
+                  )}
+                </div>
               </div>
             );
           })}

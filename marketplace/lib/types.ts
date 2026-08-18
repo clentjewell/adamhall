@@ -117,6 +117,9 @@ export interface Enquiry {
   preferred_contact_method: EnquiryContactMethod;
   financing_interest: boolean;
   trade_in_interest: boolean;
+  /** The buyer account that sent it, when they were signed in. Null is the
+      ordinary case — enquiring never requires an account. */
+  user_id: string | null;
   status: EnquiryStatus;
   created_at: string;
   cars?: Pick<Car, "slug" | "make" | "model" | "year" | "badge">;

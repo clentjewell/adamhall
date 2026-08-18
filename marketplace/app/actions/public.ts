@@ -47,11 +47,21 @@ export async function submitEnquiry(
   }
 
   const supabase = await createClient();
+
+  // Attribute the enquiry to the sender's account if they happen to be signed
+  // in. Read from the session, never from the form: the client does not get
+  // to say whose enquiry this is. Null is the ordinary case — most people who
+  // ask about a car have no account, and enquiring never requires one.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { error } = await supabase.from("enquiries").insert({
     ...parsed.data,
     email: parsed.data.email || null,
     preferred_time: parsed.data.preferred_time ?? null,
     message: parsed.data.message ?? null,
+    user_id: user?.id ?? null,
   });
   if (error) {
     console.error("submitEnquiry:", error.message);

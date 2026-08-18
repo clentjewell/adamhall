@@ -1,9 +1,16 @@
 "use client";
 
 // Guest-first localStorage store for saved vehicles, comparison, and
-// recently-viewed. No accounts, no server round-trip — every mutation is
-// synchronous and broadcasts a window event so any mounted UI (nav badge,
-// card buttons, detail buttons) can re-read state and stay in sync.
+// recently-viewed. Every mutation is synchronous and broadcasts a window
+// event so any mounted UI (nav badge, card buttons, detail buttons) can
+// re-read state and stay in sync.
+//
+// This stays the store the UI reads and writes, signed in or not, so nothing
+// here has to become async. When somebody is signed in, GarageSync mirrors
+// the saved list to their account in the background — see lib/garage-sync.ts.
+// Compare and recently-viewed are deliberately not mirrored: both are
+// working state for the current visit, not something worth carrying between
+// devices.
 
 const SAVED_KEY = "ah-saved-v1";
 const COMPARE_KEY = "ah-compare-v1";
@@ -58,6 +65,19 @@ export function toggleSaved(id: string): boolean {
   const next = already ? list.filter((v) => v !== id) : [...list, id];
   writeList(SAVED_KEY, next);
   return !already;
+}
+
+/**
+ * Overwrites the saved list wholesale. Used by the account sync when it
+ * reconciles this device against the signed-in buyer's stored shortlist, and
+ * to empty the list on sign-out so the next person on a shared computer does
+ * not inherit it.
+ *
+ * Everything else still goes through toggleSaved. This exists because a
+ * merge is one write, not a run of toggles, each of which would broadcast.
+ */
+export function replaceSaved(ids: string[]): void {
+  writeList(SAVED_KEY, [...new Set(ids)]);
 }
 
 // ---------------------------------------------------------------------------

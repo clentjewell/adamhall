@@ -197,6 +197,32 @@ export async function updateBuyerProfile(
 }
 
 /**
+ * Emails a buyer a link to set a new password.
+ *
+ * The outcome is deliberately not reported: answering differently for an
+ * address that has an account would turn this form into a way to test whether
+ * a given person is a customer here. Supabase replies the same either way,
+ * and so does the page.
+ *
+ * The link lands on /auth/confirm, which signs them in and forwards them to
+ * the ordinary change-password page — the same one a signed-in buyer uses, so
+ * there is one form rather than two that drift apart.
+ */
+export async function requestBuyerPasswordReset(
+  _prev: AccountActionState,
+  formData: FormData,
+): Promise<AccountActionState> {
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) return { ok: false, error: "Enter your email address." };
+
+  const supabase = await createClient();
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${await requestOrigin()}/auth/confirm?next=/account/password`,
+  });
+  return { ok: true };
+}
+
+/**
  * Changes the password of the signed-in buyer.
  *
  * There is no "current password" field: Supabase authenticates the change

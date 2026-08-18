@@ -48,6 +48,11 @@ export default function SignInForm({ next }: { next?: string }) {
         No account yet?{" "}
         <Link href="/account/register" className="underline">Create one</Link>.
       </p>
+      <p className="helper">
+        <Link href="/account/forgot-password" className="underline">
+          Forgot your password?
+        </Link>
+      </p>
     </form>
   );
 }

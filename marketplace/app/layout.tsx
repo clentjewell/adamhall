@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
 import EditModeBridge from "@/components/EditModeBridge";
+import GarageSync from "@/components/garage/GarageSync";
 import SiteJsonLd from "@/components/SiteJsonLd";
 import { brand } from "@/lib/brand";
 import "./globals.css";
@@ -47,6 +48,9 @@ export default function RootLayout({
         <SiteJsonLd />
         <TopLoader />
         <EditModeBridge />
+        {/* Mirrors the saved list to the buyer's account. Renders nothing;
+            sits at the root because the list can change on any page. */}
+        <GarageSync />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

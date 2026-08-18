@@ -49,6 +49,17 @@ export default async function EnquiriesPage() {
           )}
           {" · "}
           {CONTACT_METHOD_LABELS[e.preferred_contact_method] ?? "Prefers a call"}
+          {/* Most enquiries come from people with no account, so the marker
+              only appears when there is one — worth knowing, because it means
+              you can see their shortlist under Buyers. */}
+          {e.user_id && (
+            <>
+              {" · "}
+              <Link href="/admin/buyers" className="font-semibold text-forest-700 underline">
+                has an account
+              </Link>
+            </>
+          )}
           {e.preferred_time ? ` · ${e.preferred_time}` : ""}
         </p>
         {/* Only the ticked ones. Two more grey chips on every row would make
