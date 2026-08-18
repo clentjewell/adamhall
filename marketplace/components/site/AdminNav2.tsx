@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "@/app/actions/admin";
 import { ADMIN_NAV } from "@/components/admin/AdminNav";
+import BrandLockup from "@/components/BrandLockup";
 
 /**
  * The console sidebar (artifact frame 1l).
@@ -17,10 +18,13 @@ export default function AdminNav2({ adminName }: { adminName: string }) {
 
   return (
     <aside className="mp2-console__nav">
-      <Link href="/" className="mp2-console__logo">
-        <b>CAR MARKETPLACE</b>
+      {/* The real lockup rather than the wordmark set in type. BrandLockup
+          reads lib/brand.ts, so the console signs itself the same way every
+          other surface does and the artwork lives in one place. */}
+      <div className="mp2-console__logo">
+        <BrandLockup size="sm" />
         <span>DEALER CONSOLE</span>
-      </Link>
+      </div>
 
       <p className="mp2-console__who">Signed in as {adminName}</p>
 

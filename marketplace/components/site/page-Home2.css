@@ -134,8 +134,12 @@
    artifact. (The current home page runs the heading *below* the cards;
    this redesign puts it back on top, so source order and visual order
    agree and the card h3s sit under their own h2 with no CSS reordering.) */
+/* Bottom padding matters as much as top: the valuation band below is a
+   full-bleed change of ground with no margin of its own, so without it the
+   last row of cards is cut off flush against the green edge. */
 .ah-site .mp2-stock {
   padding-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
 }
 .ah-site .mp2-stock__head {
   display: flex;

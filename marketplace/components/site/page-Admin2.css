@@ -26,20 +26,12 @@
   display: flex;
   flex-direction: column;
 }
+/* Holds the BrandLockup artwork with the console label beneath it. The
+   wordmark used to be set in type here; it is the real lockup now, so this
+   only has to position it. */
 .ah-site .mp2-console__logo {
   padding: 0.375rem 0.5rem;
-  text-decoration: none;
   display: block;
-  min-height: 44px;
-}
-.ah-site .mp2-console__logo b {
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  color: var(--c-black);
-  line-height: 1.1;
 }
 .ah-site .mp2-console__logo span {
   display: block;
