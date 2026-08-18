@@ -58,7 +58,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1.25rem;
+  font-size: var(--fs-lead);
   color: var(--c-white);
 }
 .ah-site .contact-hero__phone span {

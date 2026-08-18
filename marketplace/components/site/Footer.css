@@ -105,13 +105,13 @@
   width: auto;
   margin-bottom: 1.5rem;
 }
-/* The strapline stays the largest thing in the footer, because it is the
-   one sentence that says what this business is — but 24px was reading as a
-   heading rather than as supporting copy. */
+/* The strapline is the one sentence that says what this business is, so it
+   sits on the body step in the heading face at weight 400 — supporting copy
+   given presence by family, not by being scaled up into a heading. */
 .ah-site .site-footer__brand p {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 1.125rem;
+  font-size: var(--fs-body);
   line-height: 1.45;
   max-width: 24rem;
   color: var(--c-white);
@@ -133,20 +133,19 @@
   flex-direction: column;
   gap: 0.7rem;
 }
-/* 20px. Sized for how this renders in Mr Eaves Modern, NOT in the fallback
-   stack — the body face has an unusually small x-height, so it looks
-   materially smaller than Helvetica or Arial at the same pixel size. Judge
-   any change to this with the Typekit fonts actually loaded; in the fallback
-   it will look a step too big, and that is expected.
+/* The body step, like every other run of sentence-case text on the site.
+   This used to be a standalone 20px because the footer links were the one
+   place the old 16px body was obviously too small; now that the body step
+   itself is set for Mr Eaves Modern's x-height, the exception is gone.
 
-   History, so this does not get "corrected" back down: 24px read slightly
-   heavy, 16px and 18px both read too small once the webfont arrived. The
-   header nav gets away with 16px because it is uppercase with tracking,
-   which occupies far more visual height than this sentence case. Weight 500
-   holds the line up against the dark green ground. */
+   Judge any change to this with the Typekit fonts actually loaded, not in
+   the fallback stack: the body face has an unusually small x-height (0.341
+   against Arial's 0.519), so in the fallback it will look a step too big,
+   and that is expected. Weight 500 holds the line up against the dark
+   green ground. */
 .ah-site .site-footer__col a {
   color: var(--c-white);
-  font-size: 1.25rem;
+  font-size: var(--fs-body);
   font-weight: 500;
   line-height: 1.35;
   display: inline-block;

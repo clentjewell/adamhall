@@ -30,7 +30,7 @@
   max-width: 30rem;
   margin: 0 auto 2rem;
   color: var(--c-black);
-  font-size: 1.1rem;
+  font-size: var(--fs-body);
 }
 .ah-site .nf__actions {
   display: flex;

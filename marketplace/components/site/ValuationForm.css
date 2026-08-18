@@ -51,7 +51,7 @@
 }
 .ah-site .vform__error {
   color: #d64545;
-  font-size: 0.82rem;
+  font-size: var(--fs-small);
 }
 .ah-site .vform__step {
   font-size: var(--fs-small);

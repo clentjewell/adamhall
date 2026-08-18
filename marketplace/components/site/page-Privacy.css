@@ -23,7 +23,7 @@
   margin-top: 0;
 }
 .ah-site .privacy-body p {
-  font-size: 1.25rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--c-black);
   margin-bottom: 1.1rem;

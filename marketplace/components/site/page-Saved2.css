@@ -65,7 +65,7 @@
   padding: 0.3125rem 0.6875rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.625rem;
+  font-size: var(--fs-label);
   letter-spacing: 0.08em;
   line-height: 1;
 }
@@ -73,7 +73,7 @@
   padding: 1rem;
 }
 .ah-site .mp2-scard__title {
-  font-size: 1.0625rem;
+  font-size: var(--fs-body);
   line-height: 1.25;
   margin: 0;
 }
@@ -91,7 +91,7 @@
   color: var(--color-mute);
 }
 .ah-site .mp2-scard__note {
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   color: var(--c-text);
   margin: 0.5rem 0 0;
   line-height: 1.45;
@@ -115,7 +115,7 @@
   border-radius: 50%;
   background: var(--c-green);
   color: var(--c-white);
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   line-height: 1;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -145,11 +145,11 @@
 .ah-site .mp2-slot__title {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.0625rem;
+  font-size: var(--fs-body);
   margin: 0.75rem 0 0;
 }
 .ah-site .mp2-slot__body {
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
   color: var(--c-text);
   margin: 0.5rem 0 1.125rem;
   max-width: 26ch;
@@ -217,7 +217,7 @@
 }
 .ah-site .mp2-recent__name {
   margin: 0.5rem 0 0;
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   line-height: 1.3;
   overflow: hidden;
@@ -226,7 +226,7 @@
 }
 .ah-site .mp2-recent__price {
   margin: 0.125rem 0 0;
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
   font-weight: 700;
   color: var(--c-green-deep);
 }

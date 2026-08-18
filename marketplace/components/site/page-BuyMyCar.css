@@ -59,7 +59,7 @@
   font-family: var(--font-accent);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  font-size: 0.7rem;
+  font-size: var(--fs-label);
   color: var(--c-white);
 }
 /* The asset is already the white 4CRB mark; the filter existed only to knock

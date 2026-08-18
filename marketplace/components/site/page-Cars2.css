@@ -27,7 +27,7 @@
 }
 .ah-site .mp2-pagehead__sub {
   color: var(--c-text-dark);
-  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   max-width: 60ch;
   margin: 0.75rem 0 0;
@@ -52,7 +52,7 @@
   flex-wrap: wrap;
 }
 .ah-site .mp2-filterbar__count {
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   color: var(--c-text);
   margin: 0;
   white-space: nowrap;
@@ -69,7 +69,7 @@
   padding: 0.5rem 1rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   color: var(--c-text-dark);
   cursor: pointer;
   min-height: 40px;
@@ -88,7 +88,7 @@
   padding: 0.4375rem 0.8125rem;
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   line-height: 1.2;
   border: 1px solid var(--c-border);
   background: var(--c-white);
@@ -112,7 +112,7 @@
   padding: 0.25rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   color: var(--c-text);
   cursor: pointer;
   text-decoration: underline;
@@ -128,7 +128,7 @@
   gap: 0.625rem;
 }
 .ah-site .mp2-sort__label {
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   color: var(--c-text);
 }
 
@@ -137,7 +137,7 @@
   display: block;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.6875rem;
+  font-size: var(--fs-label);
   letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--c-text);
@@ -150,7 +150,7 @@
   background: var(--c-white);
   padding: 0.5rem 2rem 0.5rem 0.75rem;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
   color: var(--c-text-dark);
   min-height: 40px;
   /* Native arrow removed for a token-coloured one, so the control matches
@@ -189,7 +189,7 @@
 .ah-site .mp2-sidebar__title {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   margin: 0 0 1rem;
 }
 .ah-site .mp2-sidebar__fields {
@@ -206,7 +206,7 @@
   margin: 1.25rem 0 0;
   padding-top: 1.125rem;
   border-top: 1px solid var(--c-border);
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   line-height: 1.5;
   color: var(--c-text);
 }
@@ -254,7 +254,7 @@
   align-items: center;
   justify-content: center;
   color: var(--c-text);
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
 }
 .ah-site .mp2-lcard__badge {
   position: absolute;
@@ -264,7 +264,7 @@
   padding: 0.3125rem 0.6875rem;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 0.625rem;
+  font-size: var(--fs-label);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1;
@@ -287,7 +287,7 @@
   padding: 1rem;
 }
 .ah-site .mp2-lcard__title {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin: 0;
@@ -316,7 +316,7 @@
   margin: 0.75rem 0 0;
   padding-top: 0.75rem;
   border-top: 1px solid var(--c-border);
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   color: var(--c-text);
 }
 .ah-site .mp2-lcard__spec span + span::before {
@@ -425,7 +425,7 @@
     min-width: 0;
   }
   .ah-site .mp2-lcard__title {
-    font-size: 0.9375rem;
+    font-size: var(--fs-small);
     min-height: 0;
   }
   .ah-site .mp2-lcard__price {
@@ -433,7 +433,7 @@
     margin-top: 0.375rem;
   }
   .ah-site .mp2-lcard__spec {
-    font-size: 0.6875rem;
+    font-size: var(--fs-label);
     gap: 0.375rem;
     margin-top: 0.625rem;
     padding-top: 0.625rem;
@@ -441,7 +441,7 @@
   .ah-site .mp2-lcard__badge {
     top: 0.5rem;
     left: 0.5rem;
-    font-size: 0.5625rem;
+    font-size: var(--fs-label);
     padding: 0.25rem 0.5rem;
   }
 }

@@ -20,6 +20,28 @@
   ===========================================================================
 */
 @theme {
+  /* --- Type scale ------------------------------------------------------
+     Shifted up for Mr Eaves Modern. Its x-height ratio is 0.341 against
+     Arial's 0.519, measured off the font file, so it draws about a third
+     smaller than most faces at the same px value — Tailwind's stock 16px
+     base was reading like 11px of a normal font.
+
+     These are the raw text-* utilities, kept in step with the --fs-* tokens
+     the public pages use and the type-* classes above, so the same words are
+     the same size whichever of the three a component happens to reach for.
+     That mismatch is what made the site look like it had no scale at all.
+
+     Each one lands exactly on a --fs-* step, so a component reaching for
+     text-sm and one reaching for --fs-small end up the same size instead of
+     a pixel apart. text-sm and text-xs still move less than the base: they
+     are the console's working sizes, and dragging a dense list of enquiries
+     up to the body step would cost more than it gained. */
+  --text-xs: 0.8125rem; /* 13px, was 12 — the Label step */
+  --text-sm: 1.0625rem; /* 17px, was 14 — the Caption step */
+  --text-base: 1.3125rem; /* 21px, was 16 — the body step */
+  --text-lg: 1.5rem; /* 24px, was 18 — the Lead step */
+  --text-xl: 1.625rem; /* 26px, was 20 — the Price step */
+
   /* --- Inherited, locked --------------------------------------------- */
   /* Green leads everywhere: header, footer, hero, every dark band. PMS 3308 C. */
   --color-forest-600: #004438;
@@ -217,6 +239,9 @@ body {
 
 body {
   @apply bg-paper text-ink font-body antialiased;
+  /* The body step, so text with no size class of its own is the same size
+     as text that asks for it. */
+  font-size: var(--text-base);
   /* The Adobe kit ships 400–700 only. Never fake a heavier or lighter cut:
      let the browser fall to the nearest real weight instead. */
   font-synthesis: none;
@@ -290,17 +315,17 @@ body {
   }
   .type-lead {
     font-weight: 300;
-    font-size: 1.1875rem; /* 19px mobile */
+    font-size: 1.375rem; /* 22px mobile */
     line-height: 1.55;
   }
   .type-caption {
     font-weight: 500;
-    font-size: 0.84375rem; /* 13.5px — never smaller than 13 */
+    font-size: 1.0625rem; /* 17px — the Caption step, sized for Mr Eaves */
     line-height: 1.5;
   }
   .type-label {
     font-weight: 700;
-    font-size: 0.6875rem; /* 11px */
+    font-size: 0.8125rem; /* 13px */
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.14em;
@@ -346,7 +371,7 @@ body {
       font-size: 1.75rem; /* 28px */
     }
     .type-lead {
-      font-size: 1.3125rem; /* 21px */
+      font-size: 1.5rem; /* 24px */
     }
     .type-price-lg {
       font-size: 2.125rem; /* 34px */
@@ -574,10 +599,11 @@ body {
 }
 .vsteps__label {
   font-weight: 600;
-  /* Body size. At 13.5px this was a caption doing a label's job, and set
-     against an 11px hint the pair read as fine print rather than the state
-     of the thing you are filling in. */
-  font-size: 1rem;
+  /* The Caption step rather than full body: three of these sit in a nowrap
+     row with their markers and connectors, and the body step would push the
+     row past a phone's width. Still a real size — at 13.5px this was a
+     caption doing a label's job. */
+  font-size: 1.0625rem;
   line-height: 1.3;
   color: var(--color-meta);
   white-space: nowrap;

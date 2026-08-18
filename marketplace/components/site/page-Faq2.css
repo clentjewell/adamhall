@@ -25,7 +25,7 @@
 }
 .ah-site .mp2-faq__sub {
   color: var(--c-text-dark);
-  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   max-width: 56ch;
   margin: 0.875rem 0 0;
@@ -84,7 +84,7 @@
   margin: 0;
   padding-bottom: 1.5rem;
   color: var(--c-text-dark);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.7;
   max-width: 62ch;
   text-wrap: pretty;
@@ -107,7 +107,7 @@
 }
 .ah-site .mp2-faq__card p {
   color: var(--c-text-dark);
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   line-height: 1.6;
   margin: 0;
 }

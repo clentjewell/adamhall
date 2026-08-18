@@ -25,7 +25,7 @@
 }
 .ah-site .mp2-contact__sub {
   color: var(--c-text-dark);
-  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+  font-size: var(--fs-body);
   line-height: 1.6;
   max-width: 46ch;
   margin: 1rem 0 0;
@@ -63,14 +63,14 @@
   border-top: 1px solid var(--c-border);
 }
 .ah-site .mp2-contact__facts p:not(.eyebrow) {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--c-text-dark);
   margin: 0.375rem 0 0;
 }
 .ah-site .mp2-contact__more {
   margin: 2rem 0 0;
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   line-height: 1.6;
   color: var(--c-text);
 }
@@ -95,12 +95,12 @@
 }
 .ah-site .mp2-contact__panel-sub {
   color: var(--c-text-dark);
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   line-height: 1.55;
   margin: 0.5rem 0 1.5rem;
 }
 .ah-site .mp2-contact__privacy {
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   line-height: 1.5;
   color: var(--c-text);
   margin: 0.875rem 0 0;

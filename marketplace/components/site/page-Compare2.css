@@ -42,7 +42,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   color: var(--c-text-dark);
   cursor: pointer;
@@ -90,7 +90,7 @@
 .ah-site .mp2-cmp__label {
   padding: 0.875rem 1.125rem;
   font-family: var(--font-heading);
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -101,7 +101,7 @@
 .ah-site .mp2-cmp__cell {
   padding: 0.875rem 1.25rem;
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: var(--fs-small);
   color: var(--c-text-dark);
   border-right: 1px solid var(--c-border);
   display: flex;
@@ -145,7 +145,7 @@
   object-fit: cover;
 }
 .ah-site .mp2-cmp__name {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.25;
   margin: 0.75rem 0 0;
 }
@@ -174,7 +174,7 @@
   background: rgba(255, 255, 255, 0.94);
   box-shadow: var(--shadow-sm);
   color: var(--c-text-dark);
-  font-size: 0.75rem;
+  font-size: var(--fs-label);
   line-height: 1;
   cursor: pointer;
 }
@@ -194,7 +194,7 @@
 .ah-site .mp2-cmp__action .btn {
   width: 100%;
   padding: 0.625rem 1rem;
-  font-size: 0.875rem;
+  font-size: var(--fs-small);
 }
 .ah-site .mp2-cmp__same {
   padding: 2rem 1.25rem;
@@ -206,7 +206,7 @@
 /* --- Legend ----------------------------------------------------------- */
 .ah-site .mp2-cmp__legend {
   margin: 0.875rem 0 0;
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   line-height: 1.6;
   color: var(--c-text);
   max-width: 78ch;
