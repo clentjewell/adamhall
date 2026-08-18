@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { requireBuyer } from "@/lib/buyer";
 import { createClient } from "@/lib/supabase/server";
 import { formatDateTime } from "@/lib/format";
-import { site } from "@/lib/site-data/site";
 import type { EnquiryContactMethod } from "@/lib/types";
 
 export const metadata: Metadata = {
@@ -54,20 +52,15 @@ export default async function AccountEnquiriesPage() {
   const rows = data ?? [];
 
   return (
-    <div className="page-shell section-y">
-      <div className="mx-auto max-w-2xl">
-        <Link href="/account" className="btn-ghost text-sm -ml-3 mb-3">
-          <ArrowLeft size={16} weight="bold" />
-          Your account
-        </Link>
-        <h1 className="type-hero">Your enquiries</h1>
-        <p className="type-lead mt-3 text-stone-600">
-          Cars you have asked about since you signed in. Anything you sent
-          before making an account is with Adam too, it just is not listed
-          here.
-        </p>
+    <section>
+      <h2 className="type-card-title">Your enquiries</h2>
+      <p className="text-sm text-stone-600 mt-1.5 max-w-[52ch]">
+        Cars you have asked about since you signed in. Anything you sent
+        before making an account is with Adam too, it just is not listed
+        here.
+      </p>
 
-        {rows.length === 0 ? (
+      {rows.length === 0 ? (
           <div className="card p-8 mt-8 text-center">
             <p className="font-semibold">Nothing yet</p>
             <p className="text-sm text-stone-600 mt-1">
@@ -78,7 +71,7 @@ export default async function AccountEnquiriesPage() {
               Browse the cars
             </Link>
           </div>
-        ) : (
+      ) : (
           <ul className="card divide-y divide-stone-100 mt-8 list-none p-0">
             {rows.map((r) => {
               const extras = [
@@ -124,16 +117,8 @@ export default async function AccountEnquiriesPage() {
               );
             })}
           </ul>
-        )}
+      )}
 
-        <p className="helper mt-6">
-          Waiting on something?{" "}
-          <a href={site.phoneHref} className="font-bold text-forest-700">
-            {site.phoneDisplay}
-          </a>{" "}
-          goes straight to Adam.
-        </p>
-      </div>
-    </div>
+    </section>
   );
 }
