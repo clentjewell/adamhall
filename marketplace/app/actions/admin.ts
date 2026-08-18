@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { requireAdmin } from "@/lib/admin";
 import { notifier, emailTemplates } from "@/lib/notify";
 import { carTitle, formatPrice, slugify } from "@/lib/format";
@@ -106,7 +107,7 @@ export async function updatePassword(
 
 async function logEvent(
   supabase: Awaited<ReturnType<typeof createClient>>,
-  entityType: "submission" | "car" | "enquiry",
+  entityType: "submission" | "car" | "enquiry" | "buyer",
   entityId: string,
   fromStatus: string | null,
   toStatus: string,
@@ -664,5 +665,111 @@ export async function setEnquiryStatus(
     .eq("id", enquiryId);
   if (error) return { ok: false, error: error.message };
   revalidatePath("/admin/enquiries");
+  // The same enquiries are listed on a buyer's profile.
+  revalidatePath("/admin/buyers", "layout");
   return { ok: true };
+}
+
+// ── Buyer accounts ──────────────────────────────────────────────────
+//
+// These three reach for the service role, because changing a password,
+// suspending an account or deleting one are Auth admin operations and
+// auth.users is not reachable through the ordinary client. requireAdmin()
+// runs first every time, so the elevated key sits behind the same door as
+// the rest of the console.
+
+/**
+ * Refuses to act on anyone holding console access.
+ *
+ * Without this, the buyers list would be a way to change Adam's own password
+ * or delete his login: an admin who also registered as a buyer appears in
+ * both tables, and nothing else here distinguishes them. Dealer accounts are
+ * managed by hand in Supabase, which is where that belongs.
+ */
+async function assertNotAdmin(
+  admin: Awaited<ReturnType<typeof requireAdmin>>,
+  userId: string,
+): Promise<string | null> {
+  const { data } = await admin.supabase
+    .from("admin_users")
+    .select("id")
+    .eq("id", userId)
+    .maybeSingle();
+  return data ? "That account has console access. Dealer logins are managed in Supabase, not here." : null;
+}
+
+export async function setBuyerPassword(
+  userId: string,
+  password: string,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+  // The same floor the buyer's own form enforces, so a password set here
+  // cannot be weaker than one they could set themselves.
+  if (password.length < 10) return { ok: false, error: "Use at least 10 characters." };
+
+  const { error } = await createServiceClient().auth.admin.updateUserById(userId, {
+    password,
+  });
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(admin.supabase, "buyer", userId, null, "password_reset", admin.name);
+  revalidatePath(`/admin/buyers/${userId}`);
+  return { ok: true };
+}
+
+/**
+ * Suspends or restores an account. Uses Supabase's own ban, so the session is
+ * refused at the auth layer rather than by a flag the app has to remember to
+ * check on every route.
+ */
+export async function setBuyerSuspended(
+  userId: string,
+  suspended: boolean,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+
+  const { error } = await createServiceClient().auth.admin.updateUserById(userId, {
+    // Supabase takes a duration string; "none" lifts it. A hundred years is
+    // the documented way to say "until somebody undoes this".
+    ban_duration: suspended ? "876000h" : "none",
+  });
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(
+    admin.supabase,
+    "buyer",
+    userId,
+    null,
+    suspended ? "suspended" : "restored",
+    admin.name,
+  );
+  revalidatePath(`/admin/buyers/${userId}`);
+  revalidatePath("/admin/buyers");
+  return { ok: true };
+}
+
+/**
+ * Deletes the account and everything keyed to it: profile, shortlist and
+ * comparison all cascade.
+ *
+ * Their enquiries deliberately survive. enquiries.user_id is `on delete set
+ * null`, so what they asked about is still in Adam's inbox and still his to
+ * act on — deleting an account should not quietly erase a conversation he
+ * may be halfway through.
+ */
+export async function deleteBuyer(userId: string): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+
+  const { error } = await createServiceClient().auth.admin.deleteUser(userId);
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(admin.supabase, "buyer", userId, null, "deleted", admin.name);
+  revalidatePath("/admin/buyers");
+  redirect("/admin/buyers");
 }

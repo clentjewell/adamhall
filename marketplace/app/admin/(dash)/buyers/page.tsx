@@ -8,8 +8,9 @@ import { formatDate, formatDateTime } from "@/lib/format";
  *
  * Accounts were invisible from the console until this page: Adam could see
  * enquiries and submissions but had no way to know who had registered. A
- * registration is not a lead on its own, so this is a list to look down
- * rather than a queue to work through — no statuses, no actions.
+ * registration is not a lead on its own, so this stays a list to look down
+ * rather than a queue to work through; anything you can do to an account
+ * lives one level in, on the profile.
  *
  * Reads go through the admin's own session wherever RLS allows it (the
  * "admins can read profiles" and "admins can read saved cars" policies).
@@ -77,14 +78,22 @@ export default async function BuyersPage() {
   // Emails and last-seen live on auth.users. listUsers is paginated; one page
   // of 1000 covers this yard many times over, and the fallback below means a
   // buyer past that still lists, just without an address.
-  const details = new Map<string, { email: string; lastSignInAt: string | null }>();
+  const details = new Map<
+    string,
+    { email: string; lastSignInAt: string | null; suspended: boolean }
+  >();
   try {
     const { data: authUsers } = await createServiceClient().auth.admin.listUsers({
       page: 1,
       perPage: 1000,
     });
     for (const u of authUsers?.users ?? []) {
-      details.set(u.id, { email: u.email ?? "", lastSignInAt: u.last_sign_in_at ?? null });
+      const bannedUntil = (u as { banned_until?: string }).banned_until;
+      details.set(u.id, {
+        email: u.email ?? "",
+        lastSignInAt: u.last_sign_in_at ?? null,
+        suspended: Boolean(bannedUntil && new Date(bannedUntil) > new Date()),
+      });
     }
   } catch (err) {
     console.error("BuyersPage: could not read auth users:", err);
@@ -102,7 +111,7 @@ function BuyersList({
   buyers: ProfileRow[];
   savedCount: Map<string, number>;
   enquiryCount: Map<string, number>;
-  details: Map<string, { email: string; lastSignInAt: string | null }>;
+  details: Map<string, { email: string; lastSignInAt: string | null; suspended: boolean }>;
 }) {
   return (
     <div>
@@ -133,7 +142,12 @@ function BuyersList({
               <div key={b.id} className="p-4 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold">
-                    {b.full_name ?? "No name given"}
+                    <Link
+                      href={`/admin/buyers/${b.id}`}
+                      className="hover:text-forest-700 underline decoration-stone-300 underline-offset-2"
+                    >
+                      {b.full_name ?? "No name given"}
+                    </Link>
                     {b.phone && (
                       <a href={`tel:${b.phone}`} className="ml-2 text-forest-700 text-sm font-bold">
                         {b.phone}
@@ -161,6 +175,11 @@ function BuyersList({
                     further along than somebody with a shortlist, who in turn
                     is further along than somebody who just signed up. */}
                 <div className="flex flex-wrap items-center gap-1.5">
+                  {details.get(b.id)?.suspended && (
+                    <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-soft text-[#8a5a1e]">
+                      Suspended
+                    </span>
+                  )}
                   {asked > 0 && (
                     <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-soft text-[#8a5a1e]">
                       {asked === 1 ? "1 enquiry" : `${asked} enquiries`}
@@ -175,6 +194,12 @@ function BuyersList({
                       <span className="text-xs text-stone-400">Nothing saved yet</span>
                     )
                   )}
+                  <Link
+                    href={`/admin/buyers/${b.id}`}
+                    className="btn-secondary !py-1.5 !px-3 text-xs"
+                  >
+                    View profile
+                  </Link>
                 </div>
               </div>
             );

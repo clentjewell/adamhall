@@ -155,7 +155,7 @@ export interface SettlementChecklist {
 
 export interface StatusEvent {
   id: string;
-  entity_type: "submission" | "car" | "enquiry";
+  entity_type: "submission" | "car" | "enquiry" | "buyer";
   entity_id: string;
   from_status: string | null;
   to_status: string;
