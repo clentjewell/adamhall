@@ -92,12 +92,18 @@ export default function AccountTabs({ sellUrl }: { sellUrl: string }) {
           external ? (
             <li key={href} className="shrink-0">
               {/* Another domain, so it gets its own tab and the account is
-                  still here when they come back. noopener because the opened
-                  page must not get a handle on this one. */}
+                  still here when they come back.
+                  noopener but deliberately NOT noreferrer: this goes to
+                  Adam's own site, and noreferrer would strip the Referer
+                  header so his analytics could not see the marketplace
+                  sending traffic across. parentUrl() stamps UTM parameters
+                  on top, but the referrer is worth keeping in its own right.
+                  noopener stays because it costs nothing and is what
+                  target="_blank" implies in current browsers anyway. */}
               <a
                 href={href}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
                 className={`${base} whitespace-nowrap text-stone-600 hover:bg-forest-50 hover:text-forest-700`}
               >
                 <Icon size={18} />
