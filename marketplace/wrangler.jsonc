@@ -1,6 +1,11 @@
 {
   // Cloudflare Workers config for the adamhall-marketplace service.
   // Built via @opennextjs/cloudflare — see README "Deploying".
+  //
+  // This service shares a repo with the `adamhall` service at the root, and
+  // both rebuild on every push unless build watch paths are set. Set this
+  // one's Include to `marketplace/*` in the dashboard; the reasoning and the
+  // matching settings for the other service are in the root wrangler.jsonc.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adamhall-marketplace",
   "main": ".open-next/worker.js",

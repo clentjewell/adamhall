@@ -15,6 +15,29 @@
   //
   // The marketplace app is a SEPARATE service (`adamhall-marketplace`,
   // root directory `marketplace`) and is untouched by this config.
+  //
+  // BUILD WATCH PATHS — set these in the dashboard, they cannot live here.
+  // Both services are git-connected to this one repo and both rebuild on
+  // every push to every branch, so each push costs two builds. Measured on
+  // the carmarketplace branch: twelve consecutive commits touched
+  // `marketplace/` and not one touched `adamhall-site/`, so this service
+  // rebuilt twelve times for nothing.
+  //
+  // Cloudflare dashboard -> Workers -> adamhall -> Settings -> Build ->
+  // Build watch paths -> Include:
+  //
+  //     adamhall-site/*
+  //     wrangler.jsonc
+  //
+  // and on adamhall-marketplace, Include:
+  //
+  //     marketplace/*
+  //
+  // Excludes are applied first, then includes; a push matching nothing is
+  // skipped. Wildcards are a single `*` at the start or end of a rule, so
+  // `marketplace/*` is the whole subtree. Cloudflare builds anyway, watch
+  // paths or not, when a push has zero changed files, 3000+ changed files,
+  // or 20+ commits — so a big rebase will still run both.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adamhall",
   "compatibility_date": "2025-05-05",
