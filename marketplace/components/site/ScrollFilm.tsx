@@ -42,6 +42,7 @@ import "@/components/site/ScrollFilm.css";
 
 type Beat = { eyebrow: string; body: string };
 
+
 export default function ScrollFilm({
   src,
   poster,
@@ -60,6 +61,9 @@ export default function ScrollFilm({
   const outerRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  /** Mirrors `ready` for the scroll handler, which must not re-subscribe
+      every time the state changes. */
+  const readyRef = useRef(false);
   const [beat, setBeat] = useState(0);
   const [ready, setReady] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -116,19 +120,51 @@ export default function ScrollFilm({
     const video = videoRef.current;
     if (!outer || !panel || !video) return;
 
-    // Safari will not seek a video it has never played. Priming it muted and
-    // pausing on the same tick makes the whole timeline seekable without
-    // anything ever appearing to play by itself.
-    video.play().then(() => video.pause()).catch(() => {});
+    // Fresh element, fresh film: nothing is scrubbable until this run's own
+    // fetch has landed.
+    readyRef.current = false;
+    setReady(false);
 
-    // preload="auto" on a file already in cache decodes its first frame before
-    // React has attached anything, so the onLoadedData prop never fires and the
-    // poster stays over the film for good — the film scrubs, invisibly, behind
-    // a still. Reading readyState here catches the frame that has already
-    // arrived; the listener catches the one that has not.
-    const onData = () => setReady(true);
-    if (video.readyState >= 2) onData();
-    video.addEventListener("loadeddata", onData);
+    // The film is fetched and handed to the element as a blob, rather than
+    // pointed at with a src, and that is the whole reason this works.
+    //
+    // Scrubbing means seeking, and a browser will only seek within what the
+    // server told it it can ask for. Cloudflare's asset server does not answer
+    // byte-range requests — a Range header comes back as the whole file with a
+    // 200 — so Chromium reports the film as seekable across [0, 0] and refuses
+    // every seek, even once the entire thing has downloaded and readyState is
+    // 4. Measured, not assumed. A src straight at /brand would give us a film
+    // on screen that will not move.
+    //
+    // A blob URL has no server behind it to ask, so the whole timeline is
+    // seekable the moment it exists. The cost is that the film cannot start
+    // until all of it has arrived, which the poster covers: it holds the panel,
+    // with the words on it, exactly as it does for anyone who never gets the
+    // film at all.
+    let url = "";
+    let dead = false;
+    fetch(src)
+      .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
+      .then((blob) => {
+        if (dead) return;
+        url = URL.createObjectURL(blob);
+        video.src = url;
+      })
+      // Nothing to do but leave the poster up, which is a complete treatment
+      // in its own right.
+      .catch(() => {});
+
+    const check = () => {
+      if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+      // Safari will not seek a video it has never played. Priming it muted and
+      // pausing on the same tick makes the timeline seekable without anything
+      // ever appearing to play by itself.
+      video.play().then(() => video.pause()).catch(() => {});
+      readyRef.current = true;
+      setReady(true);
+      onScroll();
+      video.removeEventListener("loadeddata", check);
+    };
 
     let frame = 0;
     let wanted = 0;
@@ -162,10 +198,14 @@ export default function ScrollFilm({
           // Seeking is the expensive part, so it happens once per painted
           // frame rather than once per scroll event, and only when the target
           // has actually moved.
-          if (Math.abs(video.currentTime - wanted) > 0.01) video.currentTime = wanted;
+          if (readyRef.current && Math.abs(video.currentTime - wanted) > 0.01) {
+            video.currentTime = wanted;
+          }
         });
       }
     };
+
+    video.addEventListener("loadeddata", check);
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -179,7 +219,9 @@ export default function ScrollFilm({
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       video.removeEventListener("loadedmetadata", onScroll);
-      video.removeEventListener("loadeddata", onData);
+      video.removeEventListener("loadeddata", check);
+      dead = true;
+      if (url) URL.revokeObjectURL(url);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [showFilm, beats.length]);
@@ -252,13 +294,10 @@ export default function ScrollFilm({
         {showFilm && (
           <video
             ref={videoRef}
-            src={src}
+            /* No src: the effect fetches the film and assigns a blob URL. See
+               the note there for why a plain src cannot be scrubbed here. */
             muted
             playsInline
-            /* auto rather than metadata: a seek into an unbuffered stretch
-               stalls, and the whole point here is that every scroll position
-               is already there. */
-            preload="auto"
             tabIndex={-1}
             aria-hidden="true"
             className={`sfilm__media${ready ? " is-ready" : ""}`}
