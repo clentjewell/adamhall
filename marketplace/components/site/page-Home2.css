@@ -28,6 +28,12 @@
 }
 
 /* --- Hero ------------------------------------------------------------
+   Kept, and currently unused: ScrollFilm replaced this block in
+   app/page.tsx at Adam's direction, and restoring these three elements is
+   the whole reversal if the scroll treatment does not survive its review
+   against the identity. Delete this section and .mp2-hero__* once that is
+   settled either way.
+
    A banded film rather than the full-viewport hero of the current page:
    the artifact gives it a fixed 560px on desktop, 420px on mobile, and
    lets the trust strip and the stock grid arrive above the fold on a

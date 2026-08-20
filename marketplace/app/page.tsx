@@ -5,9 +5,9 @@ import { fetchPublicCars } from "@/lib/cars";
 import StockCard from "@/components/site/StockCard";
 import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
-import HeroVideo from "@/components/HeroVideo";
+import ScrollFilm from "@/components/site/ScrollFilm";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
-import { pageHeroImages, pageHeroVideos, heroImages } from "@/lib/heroes";
+import { homeScrollFilm, heroImages } from "@/lib/heroes";
 
 /**
  * The home page, built to the "Carmarketplace UI mockups" artifact
@@ -40,40 +40,21 @@ export default async function Home2Page() {
     <div className="ah-site mp-home2">
       <SiteReveal />
 
-      {/* --- Hero ---------------------------------------------------------
-          The same film and poster as the live page. HeroVideo keeps the
-          poster up for reduced-motion and save-data users, so this reads as
-          a still hero for them.
-          The signature and radio-segment badge stay absent: both were the
-          parent brand's assets, not this one's. */}
-      <section className="mp2-hero">
-        <HeroVideo
-          src={pageHeroVideos.home}
-          poster={pageHeroImages.home}
-          posterAlt="A row of cars ready for sale"
-        />
-        <div className="mp2-hero__scrim" />
-        <div className="container container--wide mp2-hero__inner">
-          <div className="mp2-hero__content">
-            <span className="eyebrow">
-              Gold Coast &middot; Brisbane &middot; Northern Rivers
-            </span>
-            <h1 className="mp2-hero__title">Cars worth putting our name on</h1>
-            <p className="mp2-hero__sub">
-              Every car here is one we decided was worth buying. What the
-              listing says is what you get.
-            </p>
-            <div className="mp2-hero__actions">
-              <Button to="/cars" variant="tan" arrow>
-                See the cars
-              </Button>
-              <Button href={site.phoneHref} variant="outline-white">
-                Call {site.phoneDisplay}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* --- Hero ----------------------------------------------------------
+          One film, moved frame by frame by the scroll rather than played.
+          Adam asked for it directly; it is a departure from the identity,
+          which rules out scroll motion outright, and he is taking that back
+          to Liz so the edition gets updated rather than quietly contradicted.
+          ScrollFilm carries the reasoning and the reversal.
+
+          The stock count goes in so the middle beat states the range rather
+          than describing it, and the same number already drives the "view
+          all" label below. */}
+      <ScrollFilm
+        src={homeScrollFilm.src}
+        poster={homeScrollFilm.poster}
+        inStock={inStock}
+      />
 
       {/* --- Trust strip --------------------------------------------------
           Driven by buyerTrustBar rather than retyped: these are the buy

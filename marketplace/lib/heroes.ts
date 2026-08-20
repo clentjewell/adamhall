@@ -24,6 +24,18 @@ export const pageHeroVideos = {
   sell: "/brand/sell-head.mp4",
 } as const;
 
+// The home page's scroll film: four generated clips joined by short dissolves
+// into one continuous move — an approach to a row of cars, a track along it,
+// a pass over the detail, and out onto the road. Encoded all-intra (every
+// frame a keyframe) so a scroll seek never has to decode forward from a
+// distant one, at 12fps because the frame rate the reader perceives comes
+// from their own scroll speed rather than the file. Its poster is cut from
+// its own first frame, so the handover lands on the identical pixel.
+export const homeScrollFilm = {
+  src: "/brand/home-scroll.mp4",
+  poster: "/brand/home-scroll-poster.jpg",
+} as const;
+
 // The films behind the page header bands, one per page, generated to the same
 // brief as the home film: near-still motion, Australian light, cars and no
 // people. Each is its own scene so a visitor moving between pages is not shown

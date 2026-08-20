@@ -72,6 +72,19 @@ Anything touching money, customer ID, finance owing (PPSR), ownership, rego tran
 
 All outputs sit at Draft v01, pre-validation. The proposal is with Adam for sign-off.
 
+## Brand Identity – open departure (scroll motion)
+
+Brand Identity Edition 1 rules out scroll-driven motion in absolute terms: "anything on scroll: never — no parallax, no fade-up-on-scroll, no counters triggering in the viewport". The marketplace build complied with that throughout, which is why its Reveal component renders its children statically rather than animating them in.
+
+On 20 August Adam asked for the carmarketplace.com.au home page to open on a film that moves frame by frame as the reader scrolls. It is built and shipped on the branch preview. This is a deliberate exception, not an oversight, and it is the only place on either site where anything is tied to the scroll.
+
+Two things follow from that:
+
+- Adam is taking the treatment to Liz so Edition 1 can be amended rather than quietly contradicted. Until she rules, the identity document and the built site disagree on this one point, and the site is the departure.
+- If the answer is no, the reversal is contained: delete `marketplace/components/site/ScrollFilm.tsx` and its stylesheet and restore the `mp2-hero` block in `marketplace/app/page.tsx`. The CSS for that block has been kept in place for exactly this reason.
+
+The treatment itself holds the rest of the identity: the durations are the identity's own steps, nothing plays on its own, and readers on reduced motion or save-data get a single still frame with no pinning and no film downloaded at all.
+
 ## Open Items / Pending
 
 Valuation inputs and decision rules; the payment-to-settlement sequence (high-control); hours per deal and the true monthly ceiling; lead source mix; the referral mechanism; a numeric sale-readiness definition; team roles and handoffs; the brand naming decision (does the brand carry Adam's personal name); marketing spend actuals; radio archive rights; and the second-buyer identity.
