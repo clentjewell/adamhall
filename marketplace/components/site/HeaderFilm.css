@@ -66,10 +66,15 @@
 }
 
 /* --- The band itself -------------------------------------------------------
-   A page header carrying a film. Sized so the page's own content still
-   starts within the first screen: this is a header, not a second home page
-   hero, and on /cars in particular the filters and the first row of stock
-   have to stay reachable without scrolling past a full viewport of film. */
+   A page header carrying a film, run full page at Adam's direction: every
+   page now opens on a screen of film the way the home page does, and the
+   page's own content begins below the fold.
+
+   Full page means the viewport less the header, which holds its own space.
+   A plain 100dvh would push the header out and put a scrollbar on a page
+   nobody had scrolled yet; the extra pixel is the header's bottom hairline,
+   which sits outside its 64px inner height. dvh rather than vh so a phone's
+   collapsing address bar cannot crop the frame. */
 /* Doubled class on purpose: page-Cars2.css sets .ah-site .mp2-pagehead to a
    white ground, and at equal specificity the later file would win. This band
    has to be dark for white type to sit on it. */
@@ -77,6 +82,9 @@
 .mp2-pagehead--film {
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: calc(100dvh - 4rem - 1px);
   background: var(--color-forest-700, #003a30);
   border-bottom: 0;
   padding-block: clamp(2.75rem, 6vw, 4.5rem);
@@ -87,6 +95,7 @@
 .mp2-pagehead--film > .container {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 /* Each ported page sets its own .ah-site.mp-xxx .eyebrow colour, which ties
    with a two-class selector here and wins on file order. The doubled class

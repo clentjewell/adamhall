@@ -27,16 +27,15 @@ export default async function CarValuationsPage() {
 
   return (
     <>
-      {/* A band, not the sitewide full-height hero. This page is a tool, and
-          a 100dvh hero put every field of it below the fold — the visitor had
-          to scroll before they could start the thing they came to do. The
-          photo still sets the scene; it just does not hold the door shut. */}
-      <section className="relative isolate overflow-hidden bg-forest-700">
+      {/* Full page, like every other header film. This page is a tool, so the
+          form now begins below the fold: that is the trade Adam asked for
+          when he asked for the films to run full page. */}
+      <section className="relative isolate flex min-h-[calc(100dvh-4rem-1px)] items-center overflow-hidden bg-forest-700">
         {/* The same film band every other page opens on. It replaces the
             still that used to sit here, and carries its own scrim, so the
             heading keeps the ground it was drawn for. */}
         <HeaderFilm src={headerFilms.valuation} />
-        <div className="page-shell relative py-12 sm:py-16">
+        <div className="page-shell relative w-full py-12 sm:py-16">
           <h1 className="type-hero text-white">What&apos;s my car worth?</h1>
           <p className="type-lead mt-3 max-w-[46ch] text-stone-200">
             Tell us about the car and see the range it sits in, straight away.
