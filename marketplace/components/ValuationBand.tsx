@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { heroImages } from "@/lib/heroes";
 import { Link } from "next-view-transitions";
 import { ArrowRight } from "@phosphor-icons/react";
 
@@ -39,8 +40,8 @@ export default function ValuationBand({
           photograph shows the exact thing the button offers. */}
       <div className="relative hidden lg:block">
         <Image
-          src="/assets/images/valuing-a-car.jpg"
-          alt="Valuing a car with its owner in their driveway"
+          src={heroImages.sell}
+          alt="Handing over the keys after a sale"
           fill
           sizes="28rem"
           className="object-cover"

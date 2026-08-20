@@ -7,7 +7,7 @@ import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
 import HeroVideo from "@/components/HeroVideo";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
+import { pageHeroImages, pageHeroVideos, heroImages } from "@/lib/heroes";
 
 /**
  * The home page, built to the "Carmarketplace UI mockups" artifact
@@ -50,7 +50,7 @@ export default async function Home2Page() {
         <HeroVideo
           src={pageHeroVideos.home}
           poster={pageHeroImages.home}
-          posterAlt="A customer shaking hands with the dealer beside the car he has just bought"
+          posterAlt="A row of cars ready for sale"
         />
         <div className="mp2-hero__scrim" />
         <div className="container container--wide mp2-hero__inner">
@@ -149,8 +149,8 @@ export default async function Home2Page() {
       <section className="mp2-valuation" aria-label="Instant car valuation">
         <div className="mp2-valuation__media">
           <img
-            src="/assets/images/valuing-a-car.jpg"
-            alt="Valuing a car with its owner in their driveway"
+            src={heroImages.sell}
+            alt="Handing over the keys after a sale"
             loading="lazy"
             width={640}
             height={427}
@@ -206,8 +206,8 @@ export default async function Home2Page() {
           </div>
           <div className="mp2-split__media reveal-right">
             <img
-              src="/assets/images/looking-over-a-car.jpg"
-              alt="Looking over a car in a driveway"
+              src={heroImages.home}
+              alt="The yard at dusk with the stock lined up"
               loading="lazy"
               width={640}
               height={533}

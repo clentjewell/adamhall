@@ -378,7 +378,7 @@ export default function ContentEditor({ initial }: { initial: SiteContent }) {
         <div className="rounded-2xl bg-ink p-6 text-stone-300 grid gap-6 sm:grid-cols-2">
           <div className="space-y-2">
             <img
-              src="/assets/logos/logo-white.svg"
+              src="/brand/car-marketplace-cart-white.svg"
               alt="Car Marketplace"
               className="h-8 w-auto"
             />
