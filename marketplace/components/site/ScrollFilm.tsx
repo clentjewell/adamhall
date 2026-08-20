@@ -40,7 +40,7 @@ import "@/components/site/ScrollFilm.css";
  *   - If the film never decodes, the panel keeps its poster and its words.
  */
 
-type Beat = { eyebrow: string; body: string };
+type Beat = { eyebrow: string; title: string; body: string };
 
 
 export default function ScrollFilm({
@@ -88,26 +88,35 @@ export default function ScrollFilm({
   // claims: the trust bar, the stock count and the footer strapline. The film
   // moves from an approach, along the row, into the detail, and out onto the
   // road, and the words follow it.
+  // The headlines are one sentence told in four parts — worth, chosen,
+  // checked, waiting — so each one carries the last forward instead of
+  // restarting the pitch. Read end to end they are the whole proposition:
+  // cars worth our name, chosen one at a time, checked before you see them,
+  // waiting on the lot.
   const beats: Beat[] = [
     {
       eyebrow: "Gold Coast · Brisbane · Northern Rivers",
+      title: "Cars worth putting our name on",
       body:
         "Every car here is one we decided was worth buying. What the listing says is what you get.",
     },
     {
       eyebrow: "On the lot now",
+      title: "Chosen one at a time",
       body:
         inStock > 0
           ? `${inStock} car${inStock === 1 ? "" : "s"} in the range right now. A short list, not a classifieds wall.`
           : "A short, hand-picked range rather than a classifieds wall.",
     },
     {
-      eyebrow: "Before anything is listed",
+      eyebrow: "Nothing left out",
+      title: "Checked before you see them",
       body:
         "PPSR checked, the books gone through, and any fault named in the description.",
     },
     {
       eyebrow: "Twenty-seven years picking cars",
+      title: "Waiting for you on the lot",
       body:
         "Have a look at what is on the lot, or call and we will talk it through.",
     },
@@ -163,11 +172,54 @@ export default function ScrollFilm({
       readyRef.current = true;
       setReady(true);
       onScroll();
+      // Land on the right frame rather than easing up to it. Someone who
+      // reloaded half way down the page should not watch the film sweep from
+      // the beginning to catch them up; the easing is for scrolling, not for
+      // arriving.
+      shown = target;
+      video.currentTime = shown;
       video.removeEventListener("loadeddata", check);
     };
 
     let frame = 0;
-    let wanted = 0;
+    /** Where the scroll says the film should be. */
+    let target = 0;
+    /** Where the film actually is, easing toward the target. */
+    let shown = 0;
+
+    // Easing the film toward the scroll, rather than pinning it to the scroll,
+    // is what makes this read as motion instead of stepping.
+    //
+    // Scroll events do not arrive smoothly: they come in bursts, at whatever
+    // rate the device feels like, and a wheel notch delivers a large jump in
+    // one event. A film pinned straight to that inherits every bit of the
+    // jitter, which is what made the first version feel steppy. Following the
+    // target by a fixed fraction of the remaining distance each painted frame
+    // turns a burst of events into one continuous move, and keeps the film
+    // going for a few frames after the reader stops, which is the part that
+    // actually reads as smooth.
+    //
+    // 0.18 a frame settles ~95% inside about 300ms at 60Hz: within the
+    // identity's longest step, and tight enough that it still feels like
+    // direct control of the film rather than the film drifting on its own.
+    const EASE = 0.18;
+    // Seeking by less than half a frame is work the viewer cannot see. At
+    // 24fps a frame is 41ms, so anything under 20ms is skipped.
+    const MIN_SEEK = 0.02;
+
+    const step = () => {
+      frame = 0;
+      const diff = target - shown;
+      if (Math.abs(diff) < 0.006) {
+        shown = target; // land exactly, then let the loop stop
+      } else {
+        shown += diff * EASE;
+        frame = requestAnimationFrame(step);
+      }
+      if (readyRef.current && Math.abs(video.currentTime - shown) > MIN_SEEK) {
+        video.currentTime = shown;
+      }
+    };
 
     const onScroll = () => {
       // Everything is measured rather than hardcoded, so a change to the
@@ -185,24 +237,15 @@ export default function ScrollFilm({
       if (Number.isFinite(duration) && duration > 0) {
         // Held a hair inside the end: seeking to exactly duration parks some
         // browsers on a blank frame.
-        wanted = Math.min(progress * duration, duration - 0.05);
+        target = Math.min(progress * duration, duration - 0.05);
       }
 
-      // Beats are evenly spaced, so the words change on the quarters of the
-      // film rather than at points that have to be kept in step with it.
+      // The words track the scroll directly rather than the eased film, so
+      // they answer the reader immediately. Tying them to the easing instead
+      // would make every caption arrive a beat late.
       setBeat(Math.min(Math.floor(progress * beats.length), beats.length - 1));
 
-      if (!frame) {
-        frame = requestAnimationFrame(() => {
-          frame = 0;
-          // Seeking is the expensive part, so it happens once per painted
-          // frame rather than once per scroll event, and only when the target
-          // has actually moved.
-          if (readyRef.current && Math.abs(video.currentTime - wanted) > 0.01) {
-            video.currentTime = wanted;
-          }
-        });
-      }
+      if (!frame) frame = requestAnimationFrame(step);
     };
 
     video.addEventListener("loadeddata", check);
@@ -243,7 +286,30 @@ export default function ScrollFilm({
           ))}
         </div>
 
-        <h1 className="sfilm__title">Cars worth putting our name on</h1>
+        {/* The headline changes with the film, but only the first one is an
+            h1. The other three are paragraphs wearing the same type, so the
+            document keeps exactly one heading no matter where the reader has
+            scrolled to, and a crawler still finds the page's real headline in
+            the markup. */}
+        <div className="sfilm__stack sfilm__stack--title">
+          {beats.map((b, i) =>
+            i === 0 ? (
+              <h1
+                key={b.title}
+                className={`sfilm__title${i === beat ? " is-on" : ""}`}
+              >
+                {b.title}
+              </h1>
+            ) : (
+              <p
+                key={b.title}
+                className={`sfilm__title${i === beat ? " is-on" : ""}`}
+              >
+                {b.title}
+              </p>
+            ),
+          )}
+        </div>
 
         <div className="sfilm__stack sfilm__stack--sub">
           {beats.map((b, i) => (
