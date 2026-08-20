@@ -6,6 +6,14 @@
   // both rebuild on every push unless build watch paths are set. Set this
   // one's Include to `marketplace/*` in the dashboard; the reasoning and the
   // matching settings for the other service are in the root wrangler.jsonc.
+  //
+  // BUILD CACHING — also dashboard-only, same Settings -> Builds panel, and a
+  // bigger win than the watch paths on this service. Every build currently
+  // installs node_modules cold (970MB, 248 packages) and runs `next build`
+  // against an empty compiler cache that reaches 449MB locally. Caching keeps
+  // both between builds. It caches inputs, not results: the build still runs
+  // in full, still typechecks, still prerenders every page, so nothing about
+  // what ships changes.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adamhall-marketplace",
   "main": ".open-next/worker.js",

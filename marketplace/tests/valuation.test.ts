@@ -63,8 +63,12 @@ describe("estimateValuation — guard rails", () => {
     assert.equal(r.ok, false);
     if (!r.ok) {
       assert.equal(r.reason, "no_comparables");
-      // The seller is told why, and given the real next step.
-      assert.match(r.message, /Adam will come back to you/);
+      // The seller is told why, and given the real next step. Matched on the
+      // promise rather than on who makes it: the copy said "Adam will come
+      // back to you" until the independence rebrand took his name off the
+      // site, and this assertion was left behind asserting a name the brand
+      // no longer uses.
+      assert.match(r.message, /come back to you/);
     }
   });
 
