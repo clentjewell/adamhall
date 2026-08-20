@@ -5,9 +5,9 @@ import SiteReveal from "@/components/site/SiteReveal";
 import { site } from "@/lib/site-data/site";
 
 export const metadata: Metadata = {
-  title: "Contact Adam Hall",
+  title: "Contact us",
   description:
-    "Get in touch with Adam Hall for a free, obligation-free car valuation. Servicing the Gold Coast, Brisbane & Northern Rivers. Call 0404 290 617.",
+    "Get in touch for a free, obligation-free car valuation. Servicing the Gold Coast, Brisbane & Northern Rivers. Call 0404 290 617.",
 };
 
 /**
@@ -28,11 +28,11 @@ export default function ContactUs2Page() {
         <div className="mp2-contact__intro">
           <p className="eyebrow">Contact</p>
           <h1 className="mp2-contact__title">
-            The number goes straight to Adam
+            The number goes straight to the yard
           </h1>
           <p className="mp2-contact__sub">
-            No call centre, no ticket number. If he&rsquo;s under a car
-            he&rsquo;ll ring you back.
+            No call centre, no ticket number. If we&rsquo;re under a car
+            we&rsquo;ll ring you back.
           </p>
 
           <a href={site.phoneHref} className="mp2-contact__phonelink">

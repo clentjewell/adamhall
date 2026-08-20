@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { nav, site } from "@/lib/site-data/site";
-import { parentSite, parentUrl } from "@/lib/brand";
 import BrandLockup from "@/components/BrandLockup";
 import GarageCount from "@/components/garage/GarageCount";
 import HeaderAccount from "@/components/account/HeaderAccount";
@@ -12,11 +11,7 @@ import Button from "@/components/site/Button";
 import "@/components/site/site.css";
 
 /**
- * Public site header. Six buy-side items, the Car Marketplace lockup, and the
- * crossing to Adam set apart from the nav rather than dropped in as a seventh
- * link — the identity is explicit that the crossing must be named, not buried
- * in a list. The phone number is shared with the parent brand on purpose: one
- * number, one person, both sites, and the strongest proof it is one business.
+ * Public site header. Six buy-side items and the Car Marketplace lockup.
  */
 export default function Header() {
   const pathname = usePathname();
@@ -33,8 +28,8 @@ export default function Header() {
   // Close the mobile menu on route change.
   useEffect(() => setOpen(false), [pathname]);
 
-  // Admin has its own chrome; the standalone Buy My Car landing brings its own.
-  if (pathname?.startsWith("/admin") || pathname === "/buy-my-car") return null;
+  // Admin has its own chrome.
+  if (pathname?.startsWith("/admin")) return null;
 
   const isActive = (to: string) =>
     pathname === to || pathname?.startsWith(to + "/");
@@ -63,19 +58,6 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* The crossing, worded as a service to the seller rather than a
-              cross-sell, and visually separate from the nav list. */}
-          <a
-            href={parentUrl("/", "marketplace-header")}
-            target="_blank"
-            rel="noopener"
-            className="site-header__crossing"
-          >
-            {parentSite.headerLink}
-          </a>
-
-          {/* Shares the crossing's divider rather than adding its own: both
-              are utilities beside the six pages, not a seventh and eighth. */}
           <HeaderAccount />
 
           <Button
@@ -112,19 +94,6 @@ export default function Header() {
               </li>
             ))}
             <li>
-              <a
-                href={parentUrl("/", "marketplace-mobile-menu")}
-                target="_blank"
-                rel="noopener"
-                onClick={() => setOpen(false)}
-                className="mobile-menu__crossing"
-              >
-                {parentSite.headerLink}
-              </a>
-            </li>
-            {/* No onClick needed to close: the menu already closes on route
-                change, and both branches here navigate. */}
-            <li>
               <HeaderAccount mobile />
             </li>
           </ul>
@@ -134,7 +103,7 @@ export default function Header() {
           variant="tan"
           className="mobile-menu__call"
         >
-          Call Adam {site.phoneDisplay}
+          Call {site.phoneDisplay}
         </Button>
       </div>
     </header>

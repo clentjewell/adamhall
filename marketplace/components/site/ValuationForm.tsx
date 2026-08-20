@@ -232,7 +232,7 @@ export default function ValuationForm() {
             type="submit"
             disabled={status === "submitting"}
           >
-            Send to Adam
+            Send it through
           </button>
         )}
       </div>

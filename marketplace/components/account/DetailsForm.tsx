@@ -13,7 +13,7 @@ const HEARD_ABOUT: { value: string; label: string }[] = [
   { value: "google", label: "Google" },
   { value: "social", label: "Social media" },
   { value: "friend", label: "A friend told me" },
-  { value: "returning", label: "I've dealt with Adam before" },
+  { value: "returning", label: "I have bought or sold here before" },
   { value: "other", label: "Somewhere else" },
 ];
 
@@ -41,7 +41,7 @@ export default function DetailsForm({ buyer }: { buyer: Buyer }) {
         <label className="label" htmlFor="d-email">Email</label>
         <input id="d-email" value={buyer.email} disabled className="input" />
         <p className="helper">
-          Ring Adam if this needs changing.
+          Ring us if this needs changing.
         </p>
       </div>
 
@@ -57,7 +57,7 @@ export default function DetailsForm({ buyer }: { buyer: Buyer }) {
           autoComplete="tel"
           className="input"
         />
-        <p className="helper">So Adam can call you back about a car you enquire on.</p>
+        <p className="helper">So we can call you back about a car you enquire on.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">

@@ -4,7 +4,7 @@ import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Adam Hall Buy My Car collects, stores and uses your information.",
+  description: "How Car Marketplace collects, stores and uses your information.",
 };
 
 // Tiny local renderer: lines starting "## " become headings, other

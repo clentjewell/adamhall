@@ -4,7 +4,7 @@ import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
-  description: "The terms that apply to using the Adam Hall Buy My Car website.",
+  description: "The terms that apply to using the Car Marketplace website.",
 };
 
 // Tiny local renderer: lines starting "## " become headings, other

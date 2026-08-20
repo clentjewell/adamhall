@@ -3,7 +3,6 @@ import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { fetchCarBySlug, fetchPublicCars } from "@/lib/cars";
 import { getContent } from "@/lib/content";
-import { parentUrl } from "@/lib/brand";
 import { carTitle, formatDate, formatKm, formatPrice } from "@/lib/format";
 import { estimateWeekly } from "@/lib/finance";
 import { availabilityBadge, isJustIn } from "@/lib/car-flags";
@@ -41,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = carTitle(car);
   const description =
     car.status === "sold"
-      ? `${title}: sold. See what else is in stock at Adam Hall Buy My Car.`
+      ? `${title}: sold. See what else is in stock at Car Marketplace.`
       : `${title} for ${formatPrice(car.price)}. ${formatKm(car.odometer_km)}, ${car.transmission}, ${car.fuel}. PPSR checked and honestly described.`;
   return {
     title,
@@ -103,7 +102,7 @@ export default async function Car2DetailPage({ params }: Props) {
       availability: sold
         ? "https://schema.org/SoldOut"
         : "https://schema.org/InStock",
-      seller: { "@type": "AutoDealer", name: "Adam Hall Buy My Car" },
+      seller: { "@type": "AutoDealer", name: "Car Marketplace" },
     },
   };
 
@@ -163,7 +162,7 @@ export default async function Car2DetailPage({ params }: Props) {
 
           {video && (
             <>
-              <h2 className="mp2-car__h2">Walk-around with Adam</h2>
+              <h2 className="mp2-car__h2">Walk-around video</h2>
               <div className="mp2-car__video">
                 <iframe
                   src={video}
@@ -182,12 +181,12 @@ export default async function Car2DetailPage({ params }: Props) {
             </>
           )}
 
-          {/* Adam's line on the car: the one voice on the page that is a
+          {/* Our line on the car: the one voice on the page that reads as a
               person, set as the artifact's dark card. */}
           {car.adams_take && (
             <figure className="mp2-take">
               <blockquote>&ldquo;{car.adams_take}&rdquo;</blockquote>
-              <figcaption>Adam Hall &mdash; 27 years in the trade</figcaption>
+              <figcaption>Our take, twenty-seven years in the trade</figcaption>
             </figure>
           )}
         </div>
@@ -228,7 +227,7 @@ export default async function Car2DetailPage({ params }: Props) {
           </div>
 
           {/* The active CTA, directly under the price. Save/Compare sit above
-              the gallery as quiet bookmarks; this is the one Adam wants. */}
+              the gallery as quiet bookmarks; this is the one we want taken. */}
           {!sold && <InterestedButton className="btn btn--tan mp2-rail__interested" />}
 
           <div className="mp2-rail__trust">
@@ -250,18 +249,9 @@ export default async function Car2DetailPage({ params }: Props) {
               <div className="mp2-rail__form">
                 <TestDriveForm carId={car.id} carName={title} />
               </div>
-              <a
-                href={parentUrl("/buy-my-car", "marketplace-tradein")}
-                target="_blank"
-                rel="noopener"
-                className="mp2-rail__trade"
-              >
-                <strong>Have a car to trade?</strong>
-                <span>
-                  Send us yours and Adam will price both sides of the deal at
-                  once.
-                </span>
-              </a>
+              <Link href="/car-valuations" className="mp2-rail__trade">
+                Selling yours? Get an instant range.
+              </Link>
             </>
           )}
 

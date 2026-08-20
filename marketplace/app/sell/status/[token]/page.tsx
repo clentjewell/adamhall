@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 // Public pipeline view. Declined shows as a kind close-out, not a red X.
 const PIPELINE = [
   { status: "new", label: "Received", blurb: "Your car is in the queue." },
-  { status: "reviewing", label: "Adam's reviewing it", blurb: "He's looking at your photos and the numbers." },
+  { status: "reviewing", label: "We're reviewing it", blurb: "We're looking at your photos and the numbers." },
   { status: "offer_made", label: "Offer made", blurb: "Check your email. The number is there." },
   { status: "accepted", label: "Deal agreed", blurb: "We're organising inspection and paperwork." },
   { status: "settled", label: "Settled", blurb: "Money moved. Done." },
@@ -33,7 +33,7 @@ export default async function StatusPage({ params }: Props) {
         <h1 className="type-heading">Status tracking is warming up</h1>
         <p className="text-stone-600 mt-3">
           This page isn&apos;t wired up in this environment yet. Your submission
-          is safe. Adam will be in touch within 1 business day.
+          is safe. We will be in touch within 1 business day.
         </p>
       </div>
     );
@@ -128,8 +128,7 @@ export default async function StatusPage({ params }: Props) {
       <div className="card p-5 mt-10 flex items-center gap-4">
         <Phone size={24} className="text-forest-600 shrink-0" weight="duotone" />
         <p className="text-sm text-stone-600">
-          Questions while you wait? Call us. A human answers, and it&apos;s
-          usually Adam.
+          Questions while you wait? Call us. A human answers.
         </p>
       </div>
 

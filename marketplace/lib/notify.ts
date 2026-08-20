@@ -29,7 +29,7 @@ class ResendNotifier implements Notifier {
     const { Resend } = await import("resend");
     const resend = new Resend(key);
     const { error } = await resend.emails.send({
-      from: process.env.EMAIL_FROM ?? "Adam Hall <onboarding@resend.dev>",
+      from: process.env.EMAIL_FROM ?? "Car Marketplace <onboarding@resend.dev>",
       to: msg.to,
       subject: msg.subject,
       html: msg.html,
@@ -47,7 +47,7 @@ export const notifier: Notifier = new ResendNotifier();
 
 const wrap = (inner: string) => `
   <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#16211b">
-    <p style="font-size:18px;font-weight:700;color:#1e5c41;margin:0 0 16px">Adam Hall — Buy My Car</p>
+    <p style="font-size:18px;font-weight:700;color:#1e5c41;margin:0 0 16px">Car Marketplace</p>
     ${inner}
     <p style="color:#78716c;font-size:13px;margin-top:32px">Straight answers, fast settlements. Reply to this email any time.</p>
   </div>`;
@@ -64,10 +64,10 @@ const esc = (s: string) =>
 export const emailTemplates = {
   submissionReceived(name: string, statusUrl: string) {
     return {
-      subject: "Got it — Adam will look at your car personally",
+      subject: "Got it, we will look at your car personally",
       html: wrap(`
         <p>Hi ${name},</p>
-        <p>Thanks for sending your car through. Adam personally reviews every car — you'll hear back within 1 business day, usually sooner.</p>
+        <p>Thanks for sending your car through. We personally review every car — you'll hear back within 1 business day, usually sooner.</p>
         <p>You can watch your submission move through review here:</p>
         <p><a href="${statusUrl}" style="color:#1e5c41;font-weight:600">${statusUrl}</a></p>`),
     };
@@ -77,7 +77,7 @@ export const emailTemplates = {
       subject: `Our offer on your ${carName}`,
       html: wrap(`
         <p>Hi ${name},</p>
-        <p>Adam has looked over your ${carName} and we're ready to make you an offer:</p>
+        <p>We have looked over your ${carName} and we're ready to make you an offer:</p>
         <p style="font-size:28px;font-weight:800;color:#1e5c41;margin:16px 0">${amount}</p>
         <p>That's the number we'll pay — no last-minute haggling at handover. If you're happy with it, reply to this email or give us a call and we'll organise inspection and same-day settlement.</p>
         <p><a href="${statusUrl}" style="color:#1e5c41;font-weight:600">View your submission status</a></p>`),
@@ -164,8 +164,8 @@ export const emailTemplates = {
           e.carUrl
             ? `<a href="${esc(e.carUrl)}" style="color:#1e5c41;font-weight:600">${esc(e.carName)}</a>`
             : esc(e.carName)
-        }. Adam will be in touch shortly.</p>
-        <p style="margin:16px 0">If you'd rather not wait, call him direct on
+        }. We will be in touch shortly.</p>
+        <p style="margin:16px 0">If you'd rather not wait, call us direct on
           <a href="tel:${e.phoneDisplay.replace(/\s/g, "")}" style="color:#1e5c41;font-weight:700">${e.phoneDisplay}</a>.</p>
         ${
           e.financeUrl

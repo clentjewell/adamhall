@@ -6,7 +6,7 @@ import { Check } from "@phosphor-icons/react";
  * The three steps of getting a range, with the one you are on marked.
  *
  * Step one is genuinely complete by the time this renders: every route to
- * this page is a choice between the instant range and calling Adam, and the
+ * this page is a choice between the instant range and calling us, and the
  * visitor took the first. That is what the tick claims and no more. A
  * stepper that opened on step two while step one had not happened would be
  * telling the visitor they had done something they had not.

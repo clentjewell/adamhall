@@ -29,7 +29,7 @@ export default async function AdminLoginPage({ searchParams }: Props) {
         <p className="text-sm font-semibold text-forest-600 mb-6">Dealer console</p>
         {denied && (
           <p className="error-text mb-4" role="alert">
-            That account isn&apos;t on the admin list. Talk to Adam if it should be.
+            That account isn&apos;t on the admin list. Talk to the site owner if it should be.
           </p>
         )}
         <LoginForm />
@@ -40,7 +40,7 @@ export default async function AdminLoginPage({ searchParams }: Props) {
           Forgot your password?
         </Link>
         <p className="helper mt-6">
-          No public signups here. Accounts are added by Adam only.
+          No public signups here. Accounts are added by the site owner only.
         </p>
         <Link href="/" className="btn-ghost text-sm mt-4 !px-0">
           <ArrowLeft size={16} weight="bold" />

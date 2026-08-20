@@ -13,7 +13,7 @@ export default function TrustBlock({
   showQuote = true,
 }: {
   car: Car;
-  /** The car page renders Adam's take as its own dark card in the reading
+  /** The car page renders our take as its own dark card in the reading
       flow, so its rail passes false to avoid saying it twice. */
   showQuote?: boolean;
 }) {
@@ -57,7 +57,7 @@ export default function TrustBlock({
                 {car.adams_take}
               </blockquote>
               <figcaption className="mt-2 text-sm font-semibold text-forest-700">
-                Adam Hall
+                Our take
               </figcaption>
             </div>
           </div>

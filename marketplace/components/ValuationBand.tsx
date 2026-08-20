@@ -35,12 +35,12 @@ export default function ValuationBand({
       aria-label="Instant car valuation"
       className="grid bg-forest-700 lg:grid-cols-[minmax(0,28rem)_1fr]"
     >
-      {/* Flush to the left edge of the window, full height of the band. Adam
-          is doing the exact thing the button offers. */}
+      {/* Flush to the left edge of the window, full height of the band. The
+          photograph shows the exact thing the button offers. */}
       <div className="relative hidden lg:block">
         <Image
-          src="/assets/images/Adam-Hall-Value-My-Car.jpg"
-          alt="Adam Hall valuing a car with its owner in their driveway"
+          src="/assets/images/valuing-a-car.jpg"
+          alt="Valuing a car with its owner in their driveway"
           fill
           sizes="28rem"
           className="object-cover"

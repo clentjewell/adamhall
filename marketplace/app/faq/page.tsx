@@ -57,8 +57,8 @@ export default async function Faq2Page() {
           <div className="mp2-faq__card">
             <h2 className="mp2-faq__card-title">Still not sure?</h2>
             <p>
-              Ring Adam. He answers his own phone, and he&rsquo;d rather talk it
-              through than have you guess.
+              Give us a ring. You will get a person who knows the cars, not a
+              call centre.
             </p>
             <a href={site.phoneHref} className="btn btn--green mp2-faq__cta">
               {site.phoneDisplay}

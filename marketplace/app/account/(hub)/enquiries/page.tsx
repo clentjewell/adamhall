@@ -26,11 +26,11 @@ interface Row {
 }
 
 // Deliberately buyer-facing wording. The console calls these "new /
-// contacted / closed", which is Adam's pipeline, not something to show the
+// contacted / closed", which is our pipeline, not something to show the
 // person waiting for a call.
 const STATUS_LABELS: Record<Row["status"], string> = {
-  new: "Waiting on Adam",
-  contacted: "Adam has been in touch",
+  new: "Waiting on us",
+  contacted: "We have been in touch",
   closed: "Wrapped up",
 };
 
@@ -56,7 +56,7 @@ export default async function AccountEnquiriesPage() {
       <h2 className="type-card-title">Your enquiries</h2>
       <p className="text-sm text-stone-600 mt-1.5 max-w-[52ch]">
         Cars you have asked about since you signed in. Anything you sent
-        before making an account is with Adam too, it just is not listed
+        before making an account is with us too, it just is not listed
         here.
       </p>
 

@@ -569,7 +569,7 @@ export default function InstantQuote({
         <div className="lg:sticky lg:top-24">
           {/* Before there is a number, the panel says how the number gets
               made. Three claims, each one true of what the estimator actually
-              does: it reads Adam's own book, corrects for the car, and answers
+              does: it reads our own book, corrects for the car, and answers
               on this page. */}
           {!result && !pending && (
             <div className="card p-6 sm:p-8">
@@ -585,7 +585,7 @@ export default function InstantQuote({
 
               <ul className="mt-5 space-y-3.5">
                 {[
-                  "We start with cars Adam has bought and sold himself.",
+                  "We start with cars we have bought and sold ourselves.",
                   "We correct for your year, kilometres and condition.",
                   "Your range appears here, straight away.",
                 ].map((line) => (
@@ -610,7 +610,7 @@ export default function InstantQuote({
                 </span>
                 <p className="type-caption text-meta">
                   We never ask for your name or your number to show you this.
-                  We keep a note of the car so Adam knows what people are
+                  We keep a note of the car so we know what people are
                   asking about, and that is all.
                 </p>
               </div>
@@ -800,20 +800,20 @@ export default function InstantQuote({
 
                     {result.confidence === "low" && (
                       <p className="text-sm text-ink">
-                        Treat this one as a wide guide. Adam will tighten it once
-                        he has seen the car.
+                        Treat this one as a wide guide. We will tighten it once
+                        we have seen the car.
                       </p>
                     )}
 
                     <p className="text-sm text-meta">
                       This is an estimate, not an offer. The real number comes
-                      after Adam looks the car over, and it can move either way.
-                      Nothing here commits you or him to anything.
+                      after we look the car over, and it can move either way.
+                      Nothing here commits you or us to anything.
                     </p>
 
                     <div className="flex flex-col gap-3 pt-2 sm:flex-row">
                       <Link href={sellHref(form)} className="btn-cta">
-                        Get Adam&apos;s real offer
+                        Get our real offer
                         <ArrowRight size={18} weight="bold" />
                       </Link>
                       <a href={phone.tel} className="btn-secondary">
@@ -822,8 +822,8 @@ export default function InstantQuote({
                       </a>
                     </div>
                     <p className="text-sm text-meta">
-                      The full form takes about five minutes. Adam looks over
-                      every car himself.
+                      The full form takes about five minutes. We look over
+                      every car ourselves.
                     </p>
                   </div>
                 </>

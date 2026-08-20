@@ -65,7 +65,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
   hero: {
     headline: "Good cars. Straight answers. Money that moves fast.",
     subtext:
-      "Every car here is one Adam picked, checked and priced himself. What we say about it is what you get.",
+      "Every car here is one we picked, checked and priced ourselves. What we say about it is what you get.",
     ctaPrimary: "Browse the cars",
     ctaSecondary: "Sell your car",
   },
@@ -84,8 +84,8 @@ export const CONTENT_DEFAULTS: SiteContent = {
     },
   ],
   sellBand: {
-    heading: "Selling? Adam will look at it today.",
-    body: "Five minutes on your phone: rego, a few photos, done. Adam personally reviews every car and comes back with a real number within one business day.",
+    heading: "Selling? We will look at it today.",
+    body: "Five minutes on your phone: rego, a few photos, done. We personally review every car and come back with a real number within one business day.",
     cta: "Start with your rego",
   },
   carsHero: {
@@ -112,23 +112,23 @@ export const CONTENT_DEFAULTS: SiteContent = {
     quotes: googleReviews.quotes,
   },
   about: {
-    title: "The bloke behind the cars",
-    sub: "No sales team. No head office. Just one person who buys the cars, checks them and stands behind what he says about them.",
+    title: "The people behind the cars",
+    sub: "No sales team, no head office. Just the people who buy the cars, check them and stand behind what we say about them.",
     sections: [
       {
-        heading: "How Adam works",
-        body: "Every car that comes onto this yard has been picked, checked and priced by Adam personally. Not a buyer somewhere else in the business, not an algorithm. If a car isn't worth putting his name on, it doesn't go up for sale. What we say about a car in the listing is what you get when you turn up to look at it.",
+        heading: "How we work",
+        body: "Every car that comes onto this yard is picked, checked and priced by us personally. Not a buyer somewhere else in the business, not an algorithm. If a car isn't worth putting our name on, it doesn't go up for sale. What we say about a car in the listing is what you get when you turn up to look at it.",
       },
       {
         heading: "Selling a car?",
-        body: "Same rules apply the other way round. Send through the rego and a few photos, Adam looks at it himself and comes back with a real number within one business day. No listing fees, no strangers traipsing through your driveway.",
+        body: "Same rules apply the other way round. Send through the rego and a few photos, we look at it ourselves and come back with a real number within one business day. No listing fees, no strangers traipsing through your driveway.",
       },
     ],
   },
   contact: {
     title: "Talk to a human",
-    sub: "No call centre, no ticket number. Ring or drop by and you'll get Adam or someone who actually knows the cars.",
-    email: "adam@carmarketplace.com.au",
+    sub: "No call centre, no ticket number. Ring or drop by and you will get someone who actually knows the cars.",
+    email: "hello@carmarketplace.com.au",
     address: "[street address to be confirmed]\nServing the Gold Coast, Brisbane & Northern Rivers",
     hours: [
       { days: "Monday – Friday", hours: "8:30am – 5:30pm" },
@@ -173,12 +173,12 @@ export const CONTENT_DEFAULTS: SiteContent = {
       {
         group: "Selling",
         q: "Can I sell my car without buying one?",
-        a: "Yes. Plenty of people just want to sell and walk away with cash, no trade needed. Send through your rego and a few photos and Adam will look at it the same way either way.",
+        a: "Yes. Plenty of people just want to sell and walk away with cash, no trade needed. Send through your rego and a few photos and we will look at it the same way either way.",
       },
       {
         group: "Selling",
         q: "How fast will I actually get paid?",
-        a: "Adam personally reviews every car and comes back with a real offer within one business day. If you accept, settlement happens the same day the paperwork clears, usually that day or the next.",
+        a: "We personally review every car and come back with a real offer within one business day. If you accept, settlement happens the same day the paperwork clears, usually that day or the next.",
       },
       {
         group: "Selling",
@@ -231,7 +231,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
     ],
   },
   legal: {
-    privacy: `Adam Hall Buy My Car respects your privacy. This policy explains what information we collect through this website, why we collect it, and what you can do if you want it changed or removed.
+    privacy: `Car Marketplace respects your privacy. This policy explains what information we collect through this website, why we collect it, and what you can do if you want it changed or removed.
 
 ## What we collect
 We collect the information you give us directly, through the forms on this site:
@@ -244,7 +244,7 @@ We collect the information you give us directly, through the forms on this site:
 We use this information to respond to your enquiry, make an offer on a car you're selling, arrange a viewing or test drive, and to keep you updated on stock if you've asked to be. We don't use it for anything beyond running the dealership.
 
 ## Where it's stored
-Website form data is stored using Supabase, hosted in an Australian (AU) data region. Access is limited to Adam and the systems that run this site.
+Website form data is stored using Supabase, hosted in an Australian (AU) data region. Access is limited to the dealership and the systems that run this site.
 
 ## We don't sell your data
 We don't sell, rent or trade your personal information to anyone. It's used to run this dealership and nothing else.
@@ -254,7 +254,7 @@ You can ask what information we hold about you, ask us to correct it, or ask us 
     terms: `These terms cover your use of this website. By browsing the site or submitting a form, you're agreeing to them.
 
 ## Using this site
-This website is provided so you can browse current stock, sell a car, and get in touch with Adam Hall Buy My Car. You agree to use it only for those purposes, and not to interfere with how it runs or misuse any form on it.
+This website is provided so you can browse current stock, sell a car, and get in touch with Car Marketplace. You agree to use it only for those purposes, and not to interfere with how it runs or misuse any form on it.
 
 ## Listing accuracy
 Every listing is written and checked in good faith, and we make every reasonable effort to describe each car accurately, including any known faults. Details such as specifications, odometer readings and availability can change without notice, and small errors can occur. Always confirm the details that matter to you in person before you buy.
@@ -286,20 +286,20 @@ Photos on individual car listings are of the actual vehicle for sale. Some other
 We take reasonable care to keep this site accurate and current, but errors, outdated details and omissions can happen. If something looks wrong, tell us and we'll fix it. Nothing on this site should be relied on as the final word on a car's condition or a page's content without confirming it with us directly.
 
 ## Limitation
-To the extent permitted by law, Adam Hall Buy My Car isn't liable for loss arising from reliance on information on this site that turns out to be incomplete or incorrect. This doesn't affect any rights you have under the Australian Consumer Law that can't be excluded.`,
+To the extent permitted by law, Car Marketplace isn't liable for loss arising from reliance on information on this site that turns out to be incomplete or incorrect. This doesn't affect any rights you have under the Australian Consumer Law that can't be excluded.`,
     complaints: `Most problems get sorted with a phone call. Here's how to raise one, and what your options are if it doesn't get resolved.
 
-## Talk to Adam first
-This is a one-person dealership, so any concern goes straight to the person who can actually fix it. Call or email through the Contact page and explain what's happened. Most issues are resolved this way, quickly and without fuss.
+## Talk to us first
+Any concern goes straight to someone who can actually fix it. Call or email through the Contact page and explain what's happened. Most issues are resolved this way, quickly and without fuss.
 
 ## If it isn't resolved
-If you've spoken with Adam and the matter still isn't sorted to your satisfaction, you can raise it with the relevant consumer affairs body in your state.
+If you have spoken with us and the matter still isn't sorted to your satisfaction, you can raise it with the relevant consumer affairs body in your state.
 
 - NSW Fair Trading: [phone / website placeholder]
 - Queensland Office of Fair Trading: [phone / website placeholder]
 
 ## Motor dealer licence
-Adam Hall Buy My Car operates under motor dealer licence number [licence number pending]. This licence is what allows a complaint to be escalated to the relevant fair trading authority if it can't be resolved directly with us.`,
+Car Marketplace operates under motor dealer licence number [licence number pending]. This licence is what allows a complaint to be escalated to the relevant fair trading authority if it can't be resolved directly with us.`,
   },
 };
 

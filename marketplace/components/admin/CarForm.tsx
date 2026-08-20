@@ -228,7 +228,7 @@ export default function CarForm({ car }: { car: Car | null }) {
           {field("inspection_summary", "Inspection summary (shown on listing)", { placeholder: "Fresh service done. Tyres at 80%…" }, car?.inspection_summary)}
         </div>
         <div className="mt-4">
-          <label htmlFor="car-take" className="label">Adam&apos;s take (two honest sentences)</label>
+          <label htmlFor="car-take" className="label">Our take (two honest sentences)</label>
           <textarea
             id="car-take"
             name="adams_take"

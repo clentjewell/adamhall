@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
   title: "What's my car worth?",
   description:
-    "Get an instant indicative range on your car, worked out from cars Adam Hall has actually bought and sold. No account and no phone number needed to see the number.",
+    "Get an instant indicative range on your car, worked out from cars we have actually bought and sold. No account and no phone number needed to see the number.",
 };
 
 export default async function CarValuationsPage() {
@@ -51,7 +51,7 @@ export default async function CarValuationsPage() {
           <h1 className="type-hero text-white">What&apos;s my car worth?</h1>
           <p className="type-lead mt-3 max-w-[46ch] text-stone-200">
             Tell us about the car and see the range it sits in, straight away.
-            The real offer comes from Adam
+            The real offer comes from us
             {stat ? `, usually ${stat.label}` : ""}.
           </p>
         </div>
@@ -82,8 +82,8 @@ export default async function CarValuationsPage() {
             {[
               {
                 Icon: BookOpen,
-                title: "Adam's own book",
-                body: "We start with cars Adam has bought and sold himself, not a national average.",
+                title: "Our own book",
+                body: "We start with cars we have bought and sold ourselves, not a national average.",
               },
               {
                 Icon: ChartLineUp,
@@ -111,7 +111,7 @@ export default async function CarValuationsPage() {
 
           <p className="mx-auto mt-8 max-w-[65ch] text-pretty text-center text-stone-600">
             We quote a range rather than one figure because two cars of the same
-            year and odometer can be thousands apart once Adam has looked at the
+            year and odometer can be thousands apart once we have looked at the
             tyres, the book and the panels. The narrower the range, the more cars
             like yours we have to go on.
           </p>
@@ -126,8 +126,7 @@ export default async function CarValuationsPage() {
                   by hand — same result, one more number nobody can find later. */}
               <h2 className="type-subheading">Rather just talk it through?</h2>
               <p className="mt-2 max-w-[52ch] text-stone-600">
-                One number, one person. Adam has valued more than 10,000 cars on
-                air, so a call often beats a form.
+                One number, one person on the phone. A call often beats a form.
               </p>
             </div>
             <div className="flex shrink-0 flex-col gap-3 sm:flex-row">

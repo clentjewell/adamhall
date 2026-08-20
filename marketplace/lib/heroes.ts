@@ -9,7 +9,7 @@ export const heroImages = {
 };
 
 // Every public page opens on a looping film rather than a still. Each one is
-// Adam's own brand photography animated with near-still motion (Higgsfield):
+// brand photography animated with near-still motion (Higgsfield):
 // a slow push-in, a breath of wind in the background, nothing that asks to be
 // watched. Hero motion should go unnoticed — see the design-motion-principles
 // skill; anything more energetic competes with the headline sitting over it.
@@ -25,9 +25,6 @@ export const pageHeroVideos = {
   finance: "/brand/finance-hero.mp4",
   contact: "/brand/contact-hero.mp4",
   faq: "/brand/faq-hero.mp4",
-  about: "/brand/about-hero.mp4",
-  howItWorks: "/brand/how-it-works-hero.mp4",
-  buyMyCar: "/brand/buy-my-car-hero.mp4",
 } as const;
 
 export const pageHeroImages = {
@@ -37,7 +34,4 @@ export const pageHeroImages = {
   finance: "/brand/finance-hero.jpg",
   contact: "/brand/contact-hero.jpg",
   faq: "/brand/faq-hero.jpg",
-  about: "/brand/about-hero.jpg",
-  howItWorks: "/brand/how-it-works-hero.jpg",
-  buyMyCar: "/brand/buy-my-car-hero.jpg",
 } as const;

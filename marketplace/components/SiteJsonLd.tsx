@@ -1,19 +1,16 @@
 import { getContent } from "@/lib/content";
-import { brand, parentSite } from "@/lib/brand";
+import { brand } from "@/lib/brand";
 
 // Sitewide AutoDealer structured data. Drives the local rich result —
 // business name, contact, opening hours and the review stars — in Google.
 // Placeholder content (unconfirmed address/email) is skipped so we never
 // publish bracketed junk into schema.
 //
-// Identity: this is the buy side's own brand, endorsed by the parent, not the
-// parent itself. So the dealer is named Car Marketplace by Adam Hall and the
-// relationship to Adam Hall Buy My Car is declared rather than implied. One
-// business, one phone number, two brands.
+// Car Marketplace is standalone: the dealer is named Car Marketplace and no
+// relationship to another organisation is declared.
 //
 // `logo` is deliberately absent. There is no approved Car Marketplace mark yet
-// (placeholder artwork, no vector master), and pointing this at the parent's
-// logo would teach Google to render Adam's mark for this brand.
+// (placeholder artwork, no vector master).
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -113,11 +110,6 @@ export default async function SiteJsonLd() {
       "Hand-picked used cars across the Gold Coast, Brisbane and Northern Rivers. Every one PPSR checked, honestly described and priced to sell.",
     url: siteUrl,
     image: `${siteUrl}/brand/home-hero.jpg`,
-    parentOrganization: {
-      "@type": "Organization",
-      name: parentSite.name,
-      url: parentSite.url,
-    },
     ...(telephone ? { telephone } : {}),
     ...(email ? { email } : {}),
     priceRange: "$$",

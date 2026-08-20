@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
   title: "Sell your car",
   description:
-    "Sell your car to Adam Hall in about five minutes. Rego, a few photos, done. Adam personally reviews every car and makes a real offer within 1 business day.",
+    "Sell your car to us in about five minutes. Rego, a few photos, done. We personally review every car and make a real offer within 1 business day.",
 };
 
 interface Props {
@@ -80,7 +80,7 @@ export default async function SellPage({ searchParams }: Props) {
       <PageHero
         image={pageHeroImages.sell}
         video={pageHeroVideos.sell}
-        imageAlt="Adam checking over a car's engine"
+        imageAlt="Checking over a car's engine"
         title={content.sellHero.title}
         titleEditPath="sellHero.title"
       >

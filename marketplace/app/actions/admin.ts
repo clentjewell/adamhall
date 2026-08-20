@@ -251,7 +251,7 @@ export async function sendOffer(
   await notifier.sendEmail({ to: sub.email, subject: t.subject, html: t.html });
   await notifier.sendSms({
     to: sub.phone,
-    body: `Adam Hall here — our offer on your ${carTitle(sub)} is ${formatPrice(amount)}. Details in your email. Any questions, just call.`,
+    body: `Car Marketplace here. Our offer on your ${carTitle(sub)} is ${formatPrice(amount)}. Details in your email. Any questions, just call.`,
   });
 
   revalidatePath("/admin", "layout");

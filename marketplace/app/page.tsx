@@ -7,7 +7,6 @@ import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
 import HeroVideo from "@/components/HeroVideo";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
-import { parentSite, parentUrl } from "@/lib/brand";
 import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 /**
@@ -18,8 +17,8 @@ import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
  * page-Home.css stay exactly as they were so the two can be compared side by
  * side. Everything here reads from the same sources as the live page —
  * fetchPublicCars for stock, site-data for the trust claims and the phone
- * number, lib/brand for the crossing back to Adam — so nothing on the page is
- * a static stand-in for something that already works.
+ * number — so nothing on the page is a static stand-in for something that
+ * already works.
  */
 export const metadata: Metadata = {
   title: "Hand-picked used cars on the Gold Coast",
@@ -45,14 +44,13 @@ export default async function Home2Page() {
           The same film and poster as the live page. HeroVideo keeps the
           poster up for reduced-motion and save-data users, so this reads as
           a still hero for them.
-          Adam's signature and the 4CRB badge stay absent: both are the parent
-          brand's assets, and the radio segment is his credential rather than
-          the Marketplace's. */}
+          The signature and radio-segment badge stay absent: both were the
+          parent brand's assets, not this one's. */}
       <section className="mp2-hero">
         <HeroVideo
           src={pageHeroVideos.home}
           poster={pageHeroImages.home}
-          posterAlt="A customer shaking hands with Adam Hall beside the car he has just bought"
+          posterAlt="A customer shaking hands with the dealer beside the car he has just bought"
         />
         <div className="mp2-hero__scrim" />
         <div className="container container--wide mp2-hero__inner">
@@ -62,7 +60,7 @@ export default async function Home2Page() {
             </span>
             <h1 className="mp2-hero__title">Cars worth putting our name on</h1>
             <p className="mp2-hero__sub">
-              Every car here is one Adam decided was worth buying. What the
+              Every car here is one we decided was worth buying. What the
               listing says is what you get.
             </p>
             <div className="mp2-hero__actions">
@@ -144,15 +142,15 @@ export default async function Home2Page() {
           The crossing to the valuation tool, first thing after the stock, as
           it is on the live home page. A full-bleed band rather than a card in
           the container, so it reads as a change of ground between the white
-          stock section and the story splits below. Adam is in the photograph
-          doing the exact thing the button offers.
+          stock section and the story splits below. The photograph shows the
+          exact thing the button offers.
           The footer's valuation band stands down on this route, so the pitch
           is made once. */}
       <section className="mp2-valuation" aria-label="Instant car valuation">
         <div className="mp2-valuation__media">
           <img
-            src="/assets/images/Adam-Hall-Value-My-Car.jpg"
-            alt="Adam Hall valuing a car with its owner in their driveway"
+            src="/assets/images/valuing-a-car.jpg"
+            alt="Valuing a car with its owner in their driveway"
             loading="lazy"
             width={640}
             height={427}
@@ -196,8 +194,8 @@ export default async function Home2Page() {
               that made the cut.
             </p>
             <ul className="mp2-list">
-              <li>Adam picks, checks and prices every car himself</li>
-              <li>If he wouldn&rsquo;t put his name on it, it isn&rsquo;t listed</li>
+              <li>We pick, check and price every car ourselves</li>
+              <li>If we wouldn&rsquo;t put our name on it, it isn&rsquo;t listed</li>
               <li>The price on the car is the price you pay</li>
             </ul>
             <div className="mp2-split__actions">
@@ -208,8 +206,8 @@ export default async function Home2Page() {
           </div>
           <div className="mp2-split__media reveal-right">
             <img
-              src="/assets/images/Adam-Hall-Value-My-Car-2.jpg"
-              alt="Adam Hall looking over a car in a driveway"
+              src="/assets/images/looking-over-a-car.jpg"
+              alt="Looking over a car in a driveway"
               loading="lazy"
               width={640}
               height={533}
@@ -249,8 +247,8 @@ export default async function Home2Page() {
             </div>
             <div className="mp2-split__media reveal-left">
               <img
-                src="/assets/images/Adam-Hall-Car-Buying-Gold-Coast-1.jpg"
-                alt="Adam Hall talking a buyer through a car"
+                src="/assets/images/talking-a-buyer-through-a-car.jpg"
+                alt="Talking a buyer through a car"
                 loading="lazy"
                 width={640}
                 height={533}
@@ -262,8 +260,7 @@ export default async function Home2Page() {
 
       {/* --- Closing call to action ----------------------------------------
           A rounded green card floating on the cream rather than a full-bleed
-          band, with the trust line inside it. The crossing to Adam is named
-          underneath, worded from lib/brand so both sites say the same thing. */}
+          band, with the trust line inside it. */}
       <section className="section">
         <div className="container container--wide">
           <div className="mp2-close reveal">
@@ -281,16 +278,6 @@ export default async function Home2Page() {
               Cars for sale
             </Button>
           </div>
-          <p className="mp2-crossing">
-            {parentSite.crossing.heading} {parentSite.crossing.body}{" "}
-            <a
-              href={parentUrl("/", "marketplace-home2-close")}
-              target="_blank"
-              rel="noopener"
-            >
-              {parentSite.crossing.cta} &rarr;
-            </a>
-          </p>
         </div>
       </section>
     </div>

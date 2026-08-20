@@ -1,5 +1,4 @@
 import { requireBuyer } from "@/lib/buyer";
-import { parentUrl } from "@/lib/brand";
 import { site } from "@/lib/site-data/site";
 import { signOutBuyer } from "@/app/actions/account";
 import AccountTabs from "@/components/account/AccountTabs";
@@ -40,7 +39,7 @@ export default async function AccountHubLayout({
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[240px_minmax(0,1fr)]">
-        <AccountTabs sellUrl={parentUrl("/buy-my-car", "marketplace-account")} />
+        <AccountTabs sellUrl="/car-valuations" />
         <div className="min-w-0">{children}</div>
       </div>
 
@@ -49,7 +48,7 @@ export default async function AccountHubLayout({
       <div className="card mt-8 flex flex-wrap items-center justify-between gap-4 p-5">
         <p className="flex items-center gap-3 text-sm text-stone-600">
           <Phone size={22} weight="bold" className="shrink-0 text-forest-600" />
-          Something not right, or a question about a car? Ring Adam direct.
+          Something not right, or a question about a car? Ring us direct.
         </p>
         {/* Not target="_blank": a tel: link hands off to the phone app, and on
             a desktop a new tab would just sit there empty. */}

@@ -18,7 +18,7 @@ import SiteReveal from "@/components/site/SiteReveal";
 export const metadata: Metadata = {
   title: "Cars for sale",
   description:
-    "Browse Adam Hall's current stock of hand-picked used cars. Every car PPSR checked, honestly described and priced to sell.",
+    "Browse our current stock of hand-picked used cars. Every car PPSR checked, honestly described and priced to sell.",
 };
 
 export const revalidate = 60;

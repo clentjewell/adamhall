@@ -9,11 +9,11 @@ const initial: AccountActionState = { ok: false };
 /** The options the buyer_profiles check constraint allows, with the wording
     a person actually recognises. Keys are stored, labels are shown. */
 const HEARD_ABOUT = [
-  { value: "radio", label: "Adam on 4CRB" },
+  { value: "radio", label: "On the radio" },
   { value: "google", label: "Google" },
   { value: "social", label: "Facebook or Instagram" },
   { value: "friend", label: "Someone told me" },
-  { value: "returning", label: "I have dealt with Adam before" },
+  { value: "returning", label: "I have bought or sold here before" },
   { value: "other", label: "Something else" },
 ];
 

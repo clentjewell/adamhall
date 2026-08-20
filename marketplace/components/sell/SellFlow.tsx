@@ -250,10 +250,10 @@ export default function SellFlow({
       <div className="card p-8 text-center max-w-xl mx-auto" role="status">
         <CheckCircle size={56} weight="fill" className="text-forest-600 mx-auto" />
         <h2 className="type-subheading mt-4">
-          Done. Adam has your car.
+          Done. We have your car.
         </h2>
         <p className="text-stone-600 mt-3 leading-relaxed">
-          He personally reviews every car that comes through here. You&apos;ll
+          We personally review every car that comes through here. You&apos;ll
           hear back within 1 business day, usually much sooner. We&apos;ve
           emailed you a link, or watch it move here:
         </p>
@@ -292,7 +292,7 @@ export default function SellFlow({
         <div className="card p-4 mb-6 !bg-amber-soft !border-amber-accent/30 text-sm">
           <p className="font-bold">Trading against the {tradeTarget.title}</p>
           <p className="text-stone-600 mt-0.5">
-            Adam will price your car and the changeover together, so you see
+            We will price your car and the changeover together, so you see
             one clean number.
           </p>
         </div>
@@ -525,7 +525,7 @@ export default function SellFlow({
             <h2 className="type-subheading">Show us the car</h2>
             <p className="text-stone-600 mt-1">
               Four to twelve photos, phone camera is perfect. This shot list is
-              what Adam looks at first:
+              what we look at first:
             </p>
           </div>
           <ul className="card p-4 space-y-2">
@@ -608,7 +608,7 @@ export default function SellFlow({
           <div>
             <h2 className="type-subheading">Where do we send the offer?</h2>
             <p className="text-stone-600 mt-1">
-              Adam calls with the number, then confirms it in writing. No
+              We call with the number, then confirm it in writing. No
               lowball-by-text here.
             </p>
           </div>
@@ -683,7 +683,7 @@ export default function SellFlow({
           </button>
         ) : (
           <button type="button" className="btn-cta" onClick={submit} disabled={submitting}>
-            {submitting ? "Sending to Adam…" : "Send it to Adam"}
+            {submitting ? "Sending…" : "Send it through"}
           </button>
         )}
       </div>

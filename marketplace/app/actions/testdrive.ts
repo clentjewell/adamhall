@@ -96,7 +96,7 @@ export async function bookTestDrive(
     const carName = car ? `${car.year} ${car.make} ${car.model}` : "a listed car";
     const html = `
       <div style="font-family:system-ui,sans-serif;max-width:560px;margin:0 auto;padding:24px;color:#16211b">
-        <p style="font-size:18px;font-weight:700;color:#1e5c41;margin:0 0 16px">Adam Hall — Buy My Car</p>
+        <p style="font-size:18px;font-weight:700;color:#1e5c41;margin:0 0 16px">Car Marketplace</p>
         <p><strong>${name}</strong> (${phone}) wants to test drive the ${carName}.</p>
         <p>Preferred: ${preferred_date} — ${time_window}</p>
         ${message ? `<p>Message: ${message}</p>` : ""}

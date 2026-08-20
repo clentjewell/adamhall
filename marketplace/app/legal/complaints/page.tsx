@@ -4,7 +4,7 @@ import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Complaints",
-  description: "How to raise a concern with Adam Hall Buy My Car, and what to do if it isn't resolved.",
+  description: "How to raise a concern with Car Marketplace, and what to do if it isn't resolved.",
 };
 
 // Tiny local renderer: lines starting "## " become headings, other

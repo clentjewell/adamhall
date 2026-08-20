@@ -36,11 +36,11 @@ export default function EnquiryForm({ carId, carName }: { carId: string; carName
     return (
       <div className="card p-6 text-center" role="status">
         <p className="font-display font-bold text-lg text-forest-700">
-          Got it. Adam will be in touch shortly.
+          Got it. We will be in touch shortly.
         </p>
         <p className="text-stone-600 mt-1 text-sm">
           Usually within a couple of hours during the day. If it&apos;s urgent,
-          call him direct on{" "}
+          call us direct on{" "}
           <a href={site.phoneHref} className="font-bold text-forest-700 whitespace-nowrap">
             {site.phoneDisplay}
           </a>
@@ -94,8 +94,7 @@ export default function EnquiryForm({ carId, carName }: { carId: string; carName
           </label>
           <input id="enq-email" name="email" type="email" className="input" autoComplete="email" />
           <p className="helper">
-            Worth adding — we&apos;ll send you a copy of this with Adam&apos;s
-            direct number.
+            Worth adding, we&apos;ll send you a copy of this with our answers.
           </p>
         </div>
         <div>

@@ -30,8 +30,6 @@ interface Item {
   href: string;
   label: string;
   icon: React.ComponentType<{ size?: number; weight?: "bold" | "fill" | "regular" }>;
-  /** Cross-domain, so it opens in its own tab. */
-  external?: boolean;
 }
 
 export default function AccountTabs({ sellUrl }: { sellUrl: string }) {
@@ -47,7 +45,7 @@ export default function AccountTabs({ sellUrl }: { sellUrl: string }) {
     { href: "/saved", label: "Saved cars", icon: Heart },
     { href: "/compare", label: "Compare cars", icon: Scales },
     { href: "/finance", label: "Finance calculator", icon: Bank },
-    { href: sellUrl, label: "Sell your car", icon: ArrowSquareOut, external: true },
+    { href: sellUrl, label: "Sell your car", icon: ArrowSquareOut },
   ];
 
   const base =
@@ -88,41 +86,17 @@ export default function AccountTabs({ sellUrl }: { sellUrl: string }) {
         Elsewhere
       </p>
       <ul className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible list-none p-0 mt-2 lg:mt-0 pb-1 lg:pb-0">
-        {elsewhere.map(({ href, label, icon: Icon, external }) =>
-          external ? (
-            <li key={href} className="shrink-0">
-              {/* Another domain, so it gets its own tab and the account is
-                  still here when they come back.
-                  noopener but deliberately NOT noreferrer: this goes to
-                  Adam's own site, and noreferrer would strip the Referer
-                  header so his analytics could not see the marketplace
-                  sending traffic across. parentUrl() stamps UTM parameters
-                  on top, but the referrer is worth keeping in its own right.
-                  noopener stays because it costs nothing and is what
-                  target="_blank" implies in current browsers anyway. */}
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener"
-                className={`${base} whitespace-nowrap text-stone-600 hover:bg-forest-50 hover:text-forest-700`}
-              >
-                <Icon size={18} />
-                {label}
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            </li>
-          ) : (
-            <li key={href} className="shrink-0">
-              <Link
-                href={href}
-                className={`${base} whitespace-nowrap text-stone-600 hover:bg-forest-50 hover:text-forest-700`}
-              >
-                <Icon size={18} />
-                {label}
-              </Link>
-            </li>
-          ),
-        )}
+        {elsewhere.map(({ href, label, icon: Icon }) => (
+          <li key={href} className="shrink-0">
+            <Link
+              href={href}
+              className={`${base} whitespace-nowrap text-stone-600 hover:bg-forest-50 hover:text-forest-700`}
+            >
+              <Icon size={18} />
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );
