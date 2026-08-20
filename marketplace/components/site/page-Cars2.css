@@ -463,3 +463,29 @@
   min-width: 40px;
   min-height: 40px;
 }
+
+/* --- Recently sold ---------------------------------------------------------
+   Sold cars stay up for a month. They sit below the live stock behind a rule
+   rather than mixed into the same grid, where every third card would be a
+   dead end for someone shopping. */
+.ah-site .mp2-sold {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--c-border);
+}
+.ah-site .mp2-sold__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  color: var(--c-black);
+}
+.ah-site .mp2-sold__sub {
+  margin-top: 0.375rem;
+  max-width: 52ch;
+  font-size: var(--fs-body);
+  color: var(--c-text);
+}
+.ah-site .mp2-grid--sold {
+  margin-top: 1.5rem;
+}

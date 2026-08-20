@@ -4,6 +4,8 @@ import { getContent } from "@/lib/content";
 import { site } from "@/lib/site-data/site";
 import FaqAccordionV2 from "@/components/site/FaqAccordionV2";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -41,15 +43,23 @@ export default async function Faq2Page() {
     <div className="ah-site mp-faq2">
       <SiteReveal />
 
-      <div className="container container--wide mp2-faq">
-        <div className="mp2-faq__main">
+      {/* The page title moves into a film band so every page opens the same
+          way. The questions keep their own column below it. */}
+      <header className="mp2-pagehead mp2-pagehead--film">
+        <HeaderFilm src={headerFilms.faq} />
+        <div className="container container--wide">
           <p className="eyebrow">Questions &amp; answers</p>
-          <h1 data-edit="faq.title" className="mp2-faq__title">
+          <h1 data-edit="faq.title" className="mp2-pagehead__title">
             {content.faq.title}
           </h1>
-          <p data-edit="faq.sub" className="mp2-faq__sub">
+          <p data-edit="faq.sub" className="mp2-pagehead__sub">
             {content.faq.sub}
           </p>
+        </div>
+      </header>
+
+      <div className="container container--wide mp2-faq">
+        <div className="mp2-faq__main">
           <FaqAccordionV2 items={items} />
         </div>
 

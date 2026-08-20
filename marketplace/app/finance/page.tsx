@@ -3,6 +3,8 @@ import { getContent } from "@/lib/content";
 import FinanceCalculatorV2 from "@/components/site/FinanceCalculatorV2";
 import FinanceEnquiryForm from "@/components/FinanceEnquiryForm";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 
 /**
  * The finance page (route: /finance), built to the "Carmarketplace UI
@@ -40,6 +42,7 @@ export default async function Finance2Page({
       {/* Dark band, per the artifact: the page states what it is, then the
           calculator card rides up over the join. */}
       <section className="mp2-fin-hero">
+        <HeaderFilm src={headerFilms.finance} />
         <div className="container container--wide">
           <p className="eyebrow">Finance</p>
           <h1 data-edit="financePage.title" className="mp2-fin-hero__title">

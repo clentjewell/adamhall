@@ -1,0 +1,106 @@
+/* ============================================================
+   Page header film.
+
+   Deliberately unscoped rather than sitting under .ah-site: the same band is
+   used by the ported pages and by the Tailwind-built valuation page, and one
+   set of rules for both is what keeps them looking like the same site.
+
+   The film is a background layer. It never carries meaning, so it is
+   aria-hidden in the component and its container is inert here: nothing in
+   this file can receive a pointer or a focus ring.
+   ============================================================ */
+.mp2-headfilm {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* The ground under the film, and what the band shows on its own when the
+     film is refused: reduced motion, save-data, or autoplay declined. The
+     headings were drawn for white-on-green, so the band reads correctly with
+     no film at all. */
+  background: var(--color-forest-700, #003a30);
+}
+.mp2-headfilm video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /* 400ms is the identity's longest step, used here because this is a fade of
+     a background rather than a change the eye is following. */
+  transition: opacity 400ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+.mp2-headfilm video.is-playing {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mp2-headfilm video {
+    display: none;
+  }
+}
+/* Heavy at the left where the words sit, clearing towards the right so the
+   film is actually visible rather than a green wash with a shape in it. The
+   same gradient the valuation band uses, so the two read as one device. */
+.mp2-headfilm__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 51, 43, 0.92) 0%,
+    rgba(0, 51, 43, 0.82) 42%,
+    rgba(0, 51, 43, 0.35) 100%
+  );
+}
+@media (max-width: 700px) {
+  /* On a phone the copy sits over the middle of the frame, so the wash turns
+     vertical and deepens: a left-to-right gradient leaves the last lines of a
+     wrapped heading sitting on bare film. */
+  .mp2-headfilm__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 51, 43, 0.72) 0%,
+      rgba(0, 51, 43, 0.9) 100%
+    );
+  }
+}
+
+/* --- The band itself -------------------------------------------------------
+   A page header carrying a film. Sized so the page's own content still
+   starts within the first screen: this is a header, not a second home page
+   hero, and on /cars in particular the filters and the first row of stock
+   have to stay reachable without scrolling past a full viewport of film. */
+/* Doubled class on purpose: page-Cars2.css sets .ah-site .mp2-pagehead to a
+   white ground, and at equal specificity the later file would win. This band
+   has to be dark for white type to sit on it. */
+.ah-site .mp2-pagehead.mp2-pagehead--film,
+.mp2-pagehead--film {
+  position: relative;
+  isolation: isolate;
+  background: var(--color-forest-700, #003a30);
+  border-bottom: 0;
+  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+}
+/* Only the content column is lifted above the film. A blanket `> *` also hit
+   the film's own wrapper and replaced its position:absolute with relative,
+   which collapsed it to nothing and left the band empty. */
+.mp2-pagehead--film > .container {
+  position: relative;
+  z-index: 1;
+}
+/* Each ported page sets its own .ah-site.mp-xxx .eyebrow colour, which ties
+   with a two-class selector here and wins on file order. The doubled class
+   lifts this above them so the eyebrow is legible on the dark band. */
+.ah-site .mp2-pagehead.mp2-pagehead--film .eyebrow,
+.mp2-pagehead--film .eyebrow {
+  color: var(--c-sand, #f3dcb3);
+}
+.ah-site .mp2-pagehead.mp2-pagehead--film .mp2-pagehead__title,
+.mp2-pagehead--film .mp2-pagehead__title {
+  color: #ffffff;
+}
+.ah-site .mp2-pagehead.mp2-pagehead--film .mp2-pagehead__sub,
+.mp2-pagehead--film .mp2-pagehead__sub {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 54ch;
+}

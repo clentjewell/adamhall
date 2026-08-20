@@ -5,6 +5,8 @@ import { getContent } from "@/lib/content";
 import CarsBrowserV2 from "@/components/site/CarsBrowserV2";
 import WatchlistForm from "@/components/WatchlistForm";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 
 /**
  * The cars page (route: /cars), built to the "Carmarketplace UI
@@ -32,10 +34,12 @@ export default async function Cars2Page() {
     <div className="ah-site mp-cars2">
       <SiteReveal />
 
-      {/* Typographic header on a white band, per the artifact: hero media
-          belongs to the home page, and here the cars themselves are the
-          picture. */}
-      <header className="mp2-pagehead">
+      {/* The header carries its own film: a slow pass along a row of cars,
+          which is the page's subject. It is a band rather than a full screen
+          so the filters and the first row of stock still land inside the
+          first viewport. */}
+      <header className="mp2-pagehead mp2-pagehead--film">
+        <HeaderFilm src={headerFilms.cars} />
         <div className="container container--wide">
           <p className="eyebrow">
             {inStock} car{inStock === 1 ? "" : "s"} in stock

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Link } from "next-view-transitions";
 import {
   ArrowRight,
@@ -9,8 +8,9 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { getContent } from "@/lib/content";
 import { getResponseStat } from "@/lib/stats";
-import { pageHeroImages } from "@/lib/heroes";
+import { headerFilms } from "@/lib/heroes";
 import InstantQuote from "@/components/sell/InstantQuote";
+import HeaderFilm from "@/components/site/HeaderFilm";
 
 export const metadata: Metadata = {
   // Seller-side, like /sell. Held out of the index so it does not compete
@@ -32,21 +32,10 @@ export default async function CarValuationsPage() {
           to scroll before they could start the thing they came to do. The
           photo still sets the scene; it just does not hold the door shut. */}
       <section className="relative isolate overflow-hidden bg-forest-700">
-        <Image
-          src={pageHeroImages.sell}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[68%_42%]"
-        />
-        {/* Heavy on the left where the words sit, clearing to nothing on the
-            right so the photograph is actually visible rather than a green
-            wash with a shape in it. */}
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-forest-800 via-forest-800/85 to-forest-800/20"
-          aria-hidden="true"
-        />
+        {/* The same film band every other page opens on. It replaces the
+            still that used to sit here, and carries its own scrim, so the
+            heading keeps the ground it was drawn for. */}
+        <HeaderFilm src={headerFilms.valuation} />
         <div className="page-shell relative py-12 sm:py-16">
           <h1 className="type-hero text-white">What&apos;s my car worth?</h1>
           <p className="type-lead mt-3 max-w-[46ch] text-stone-200">

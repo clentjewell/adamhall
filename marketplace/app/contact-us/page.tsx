@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
 import ContactForm from "@/components/site/ContactForm";
 import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 import { site } from "@/lib/site-data/site";
 
 export const metadata: Metadata = {
@@ -24,17 +26,25 @@ export default function ContactUs2Page() {
     <div className="ah-site mp-contact2">
       <SiteReveal />
 
-      <div className="container container--wide mp2-contact">
-        <div className="mp2-contact__intro">
+      {/* Title in a film band, like every other page. The phone number and
+          the facts stay in the column below, where they are the first thing
+          a visitor reaches for. */}
+      <header className="mp2-pagehead mp2-pagehead--film">
+        <HeaderFilm src={headerFilms.contact} />
+        <div className="container container--wide">
           <p className="eyebrow">Contact</p>
-          <h1 className="mp2-contact__title">
+          <h1 className="mp2-pagehead__title">
             The number goes straight to the yard
           </h1>
-          <p className="mp2-contact__sub">
+          <p className="mp2-pagehead__sub">
             No call centre, no ticket number. If we&rsquo;re under a car
             we&rsquo;ll ring you back.
           </p>
+        </div>
+      </header>
 
+      <div className="container container--wide mp2-contact">
+        <div className="mp2-contact__intro">
           <a href={site.phoneHref} className="mp2-contact__phonelink">
             <span className="eyebrow">Phone</span>
             <span className="mp2-contact__phone">{site.phoneDisplay}</span>

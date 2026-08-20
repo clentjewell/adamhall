@@ -21,6 +21,21 @@ export const heroImages = {
 export const pageHeroVideos = {
   home: "/brand/cars-hero.mp4",
   cars: "/brand/cars-hero.mp4",
+  sell: "/brand/sell-head.mp4",
+} as const;
+
+// The films behind the page header bands, one per page, generated to the same
+// brief as the home film: near-still motion, Australian light, cars and no
+// people. Each is its own scene so a visitor moving between pages is not shown
+// the same loop twice. HeaderFilm plays them; they carry no poster because
+// they are a background over a green ground that stands on its own.
+export const headerFilms = {
+  cars: "/brand/cars-head.mp4",
+  sell: "/brand/sell-head.mp4",
+  finance: "/brand/finance-head.mp4",
+  faq: "/brand/faq-head.mp4",
+  contact: "/brand/contact-head.mp4",
+  valuation: "/brand/valuation-head.mp4",
 } as const;
 
 export const pageHeroImages = {

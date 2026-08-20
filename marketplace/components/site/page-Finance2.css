@@ -18,8 +18,16 @@
 
 /* --- Hero band -------------------------------------------------------- */
 .ah-site .mp2-fin-hero {
+  /* position + isolation so the header film sits behind this band's words
+     rather than over them, and cannot escape its own stacking context. */
+  position: relative;
+  isolation: isolate;
   background: var(--c-green-deep);
   padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(3.5rem, 6vw, 5rem);
+}
+.ah-site .mp2-fin-hero > .container {
+  position: relative;
+  z-index: 1;
 }
 .ah-site .mp2-fin-hero__title {
   color: var(--c-white);

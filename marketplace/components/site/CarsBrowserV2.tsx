@@ -40,6 +40,12 @@ export default function CarsBrowserV2({
     years,
   } = useCarFilters(cars);
 
+  // Sold cars stay up for a month, because seeing what actually moved is part
+  // of the pitch. They do not belong in the same grid as the cars you can buy:
+  // mixed in, every third card is a dead end for someone shopping.
+  const forSale = filtered.filter((c) => c.status !== "sold");
+  const sold = filtered.filter((c) => c.status === "sold");
+
   const select = (
     label: string,
     key: string,
@@ -102,7 +108,8 @@ export default function CarsBrowserV2({
           </button>
 
           <p className="mp2-filterbar__count">
-            {filtered.length} car{filtered.length === 1 ? "" : "s"}
+            {forSale.length} car{forSale.length === 1 ? "" : "s"} for sale
+            {sold.length > 0 ? `, ${sold.length} recently sold` : ""}
           </p>
 
           {chips.map((chip) => (
@@ -160,9 +167,9 @@ export default function CarsBrowserV2({
         </aside>
 
         <div className="mp2-cars__results">
-          {filtered.length > 0 ? (
+          {forSale.length > 0 ? (
             <div className="mp2-grid">
-              {filtered.map((car, i) => (
+              {forSale.map((car, i) => (
                 <ListingCard
                   key={car.id}
                   car={car}
@@ -174,7 +181,7 @@ export default function CarsBrowserV2({
           ) : (
             <div className="mp2-empty">
               <p className="mp2-empty__title">
-                Nothing matches those filters right now
+                No cars for sale match those filters
               </p>
               <p className="mp2-empty__body">
                 Stock turns over every week. Loosen a filter, or use the
@@ -185,6 +192,21 @@ export default function CarsBrowserV2({
                 Clear filters
               </button>
             </div>
+          )}
+
+          {sold.length > 0 && (
+            <section className="mp2-sold">
+              <h2 className="mp2-sold__title">Recently sold</h2>
+              <p className="mp2-sold__sub">
+                These have gone. They stay up for a month so you can see what
+                moves and what it went for.
+              </p>
+              <div className="mp2-grid mp2-grid--sold">
+                {sold.map((car) => (
+                  <ListingCard key={car.id} car={car} basePath={basePath} />
+                ))}
+              </div>
+            </section>
           )}
 
           {watchPanel && <div className="mp2-watch">{watchPanel}</div>}
