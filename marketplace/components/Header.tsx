@@ -82,6 +82,8 @@ export default function Header() {
     }
     let last = window.scrollY;
     let frame = 0;
+    let hideTimer: ReturnType<typeof setTimeout>;
+    let pendingHide = false;
     const onScroll = () => {
       if (frame) return;
       frame = requestAnimationFrame(() => {
@@ -99,15 +101,36 @@ export default function Header() {
         // deliberately not updated below the threshold, so slow deliberate
         // scrolling still accumulates and counts.
         if (Math.abs(dy) < 6) return;
-        // Near the top there is nothing to reclaim, and the header belongs
-        // over the hero.
-        setHidden(y > 96 && dy > 0);
         last = y;
+
+        // Coming back up is immediate: reaching for the nav should not be
+        // met with a wait.
+        if (dy < 0 || y <= 96) {
+          clearTimeout(hideTimer);
+          pendingHide = false;
+          setHidden(false);
+          return;
+        }
+
+        // Going down, it holds its ground for a moment first. Without the
+        // pause the header vanishes on the first flick of the wheel, which
+        // reads as twitchy — and it takes the nav away from someone who was
+        // only nudging the page. The timer is armed once and left to run, so
+        // a continuous scroll hides it 220ms after it started rather than
+        // 220ms after it stops.
+        if (!pendingHide) {
+          pendingHide = true;
+          hideTimer = setTimeout(() => {
+            pendingHide = false;
+            setHidden(true);
+          }, 220);
+        }
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
+      clearTimeout(hideTimer);
       if (frame) cancelAnimationFrame(frame);
     };
   }, [open]);

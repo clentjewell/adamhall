@@ -105,41 +105,99 @@
   text-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* --- Trust strip -----------------------------------------------------
-   Five facts across a white band, divided by hairlines. The 1px grid gap
-   over a hairline-coloured ground draws the rules, so there is no border
-   bookkeeping per cell. Below 1024px the row becomes a scrollable set of
-   pills, which is the artifact's own mobile treatment — nothing is
-   dropped, it just scrolls. */
-.ah-site .mp2-trust {
+/* --- What this is ----------------------------------------------------
+   The plain statement that replaced the five-claim strip. Everything here
+   sits on the existing tokens: --rhythm-section for the block, the type
+   scale for the headings, so it inherits any future change to either
+   rather than carrying its own numbers. */
+.ah-site .mp2-intro {
   background: var(--c-white);
+  padding-block: var(--rhythm-section);
   border-bottom: 1px solid var(--c-border);
 }
-.ah-site .mp2-trust__grid {
+/* The Subheading step. This is a section of the page introducing the page,
+   not a second title competing with the hero's h1. */
+.ah-site .mp2-intro__title {
+  font-size: var(--fs-section-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-intro__lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--c-text-dark);
+  max-width: 62ch;
+  margin: 1rem 0 0;
+  text-wrap: pretty;
+}
+
+/* Two jobs, side by side, because the site does both and the old strip
+   said neither. They collapse to one column below the tablet break. */
+.ah-site .mp2-intro__paths {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1px;
-  background: var(--c-border);
-  list-style: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: var(--rhythm-band);
+}
+.ah-site .mp2-intro__path {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  background: var(--c-cream);
+  border: 1px solid var(--c-border);
+  border-radius: 1rem;
+}
+.ah-site .mp2-intro__path-title {
+  font-size: var(--fs-h4, 1.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
   margin: 0;
+}
+.ah-site .mp2-intro__path-text {
+  color: var(--c-text-dark);
+  margin: 0;
+  max-width: 44ch;
+  text-wrap: pretty;
+}
+/* Pushed to the foot of the card so the two actions sit on one line however
+   many lines the copy above them runs to. Without this the buttons step down
+   with the text and the pair reads as misaligned. */
+.ah-site .mp2-intro__path .btn {
+  margin-top: auto;
+}
+
+/* The five claims, kept but demoted: they support the statement above
+   rather than standing in for it. A wrapping row rather than a five-column
+   grid, so nothing is left stranded in an empty cell at a width the grid
+   did not anticipate. */
+.ah-site .mp2-intro__claims {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+  list-style: none;
+  margin: var(--rhythm-band) 0 0;
   padding: 0;
 }
-.ah-site .mp2-trust__item {
-  background: var(--c-white);
-  padding: 1.375rem 1.25rem;
+.ah-site .mp2-intro__claims li {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--fs-small);
-  line-height: 1.35;
-  color: var(--c-black);
+  color: var(--c-text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-/* The first and last cells lose their outer padding so the row lines up
-   with the container edge rather than sitting inset from it. */
-.ah-site .mp2-trust__item:first-child {
-  padding-left: 0;
-}
-.ah-site .mp2-trust__item:last-child {
-  padding-right: 0;
+.ah-site .mp2-intro__claims li::before {
+  content: "";
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: var(--c-green);
+  flex: none;
 }
 
 /* --- Stock -----------------------------------------------------------
@@ -151,8 +209,10 @@
    full-bleed change of ground with no margin of its own, so without it the
    last row of cards is cut off flush against the green edge. */
 .ah-site .mp2-stock {
-  padding-top: clamp(2.5rem, 6vw, 4.5rem);
-  padding-bottom: clamp(2.5rem, 6vw, 4.5rem);
+  /* The shared section rhythm, not a private clamp. This block used to run
+     40-72px against the 64-96px every other section uses, which is why the
+     page read as unevenly spaced from one band to the next. */
+  padding-block: var(--rhythm-section);
 }
 .ah-site .mp2-stock__head {
   display: flex;
@@ -163,7 +223,7 @@
   margin-bottom: 1.75rem;
 }
 .ah-site .mp2-stock__title {
-  font-size: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px */
+  font-size: var(--fs-section-title);
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.5rem 0 0;
@@ -344,10 +404,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 3.5rem;
   align-items: center;
-  padding-block: clamp(2.75rem, 6.5vw, 5rem);
+  /* Same rhythm as every other section; was 44-80px on its own scale. */
+  padding-block: var(--rhythm-section);
 }
 .ah-site .mp2-split__title {
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem); /* 28 -> 40px */
+  font-size: var(--fs-section-title);
   line-height: 1.1;
   letter-spacing: -0.02em;
   max-width: 16ch;
@@ -442,7 +503,7 @@
 }
 .ah-site .mp2-valuation__title {
   color: var(--c-white);
-  font-size: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px, as the stock title */
+  font-size: var(--fs-section-title);
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.5rem 0 0;
@@ -516,7 +577,7 @@
 }
 .ah-site .mp2-close__title {
   color: var(--c-white);
-  font-size: clamp(1.625rem, 2.9vw, 2.25rem); /* 26 -> 36px */
+  font-size: var(--fs-section-title);
   line-height: 1.15;
   letter-spacing: -0.02em;
   max-width: 18ch;
@@ -548,32 +609,11 @@
    carries tablets, and below 640 everything stacks.
    --------------------------------------------------------------------- */
 
-/* Tablet and below: the five-across trust row becomes a scrollable set of
-   pills. Nothing is dropped; the row scrolls under the thumb. */
+/* Tablet and below. */
 @media (max-width: 1023px) {
-  .ah-site .mp2-trust__grid {
-    display: flex;
-    gap: 0.5rem;
-    background: transparent;
-    padding: 0.875rem 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .ah-site .mp2-trust__grid::-webkit-scrollbar {
-    display: none;
-  }
-  .ah-site .mp2-trust__item {
-    flex: 0 0 auto;
-    padding: 0.5rem 0.875rem;
-    border: 1px solid var(--c-border);
-    border-radius: var(--radius-pill);
-    font-size: var(--fs-small);
-    background: var(--c-cream);
-  }
-  .ah-site .mp2-trust__item:first-child,
-  .ah-site .mp2-trust__item:last-child {
-    padding-inline: 0.875rem;
+  /* One job at a time rather than two abreast. */
+  .ah-site .mp2-intro__paths {
+    grid-template-columns: 1fr;
   }
 
   /* Two cards abreast rather than three. */

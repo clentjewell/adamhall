@@ -56,17 +56,59 @@ export default async function Home2Page() {
         inStock={inStock}
       />
 
-      {/* --- Trust strip --------------------------------------------------
-          Driven by buyerTrustBar rather than retyped: these are the buy
-          side's five claims, and they change in one place. Icons are dropped
-          here because the artifact sets this band as type only. */}
-      <section className="mp2-trust" aria-label="Why buy from Car Marketplace">
+      {/* --- What this is --------------------------------------------------
+          Replaces the five-claim strip that used to sit here. The strip
+          asserted things about the business without ever saying what the
+          business was, so a reader arriving cold went from a film straight
+          to a grid of cars with no idea whether this was a classifieds
+          board, an aggregator or a dealer.
+
+          It says the plain thing first, then splits into the two jobs the
+          site actually does, which the old strip did not hint at either: you
+          can buy a car from us, and you can sell us yours. The five claims
+          are kept rather than lost — they still come from buyerTrustBar, so
+          they change in one place — but they now sit under a statement that
+          gives them something to attach to. */}
+      <section className="mp2-intro" aria-labelledby="mp2-intro-title">
         <div className="container container--wide">
-          <ul className="mp2-trust__grid">
+          <p className="eyebrow">What this is</p>
+          <h2 id="mp2-intro-title" className="mp2-intro__title">
+            A dealer&apos;s own lot, not a classifieds board
+          </h2>
+          <p className="mp2-intro__lead">
+            We buy cars across the Gold Coast, Brisbane and the Northern
+            Rivers, check them properly, and list the ones worth selling.
+            Every car on this site is one we own and put our name to.
+          </p>
+
+          <div className="mp2-intro__paths">
+            <div className="mp2-intro__path">
+              <h3 className="mp2-intro__path-title">If you are buying</h3>
+              <p className="mp2-intro__path-text">
+                {inStock > 0
+                  ? `${inStock} car${inStock === 1 ? "" : "s"} on the lot right now, every one PPSR checked with any fault named in the description.`
+                  : "A short, hand-picked range, every one PPSR checked with any fault named in the description."}
+              </p>
+              <Button to="/cars" variant="green" arrow>
+                See the cars
+              </Button>
+            </div>
+
+            <div className="mp2-intro__path">
+              <h3 className="mp2-intro__path-title">If you are selling</h3>
+              <p className="mp2-intro__path-text">
+                Tell us about your car and see the range it sits in straight
+                away. No account and no phone number needed for the number.
+              </p>
+              <Button to="/car-valuations" variant="outline-green" arrow>
+                What is mine worth?
+              </Button>
+            </div>
+          </div>
+
+          <ul className="mp2-intro__claims">
             {buyerTrustBar.map((item) => (
-              <li key={item.label} className="mp2-trust__item">
-                {item.label}
-              </li>
+              <li key={item.label}>{item.label}</li>
             ))}
           </ul>
         </div>

@@ -189,6 +189,13 @@ html {
   --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
   --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
 
+  /* One step for every section heading on the site. Five classes were each
+     carrying their own clamp and landing on 36px, 38px and 40px at 1440 —
+     three sizes doing one job, which reads as drift rather than hierarchy
+     because nobody can perceive two pixels as intent. Measured, then
+     collapsed onto the 38px the majority already used. */
+  --fs-section-title: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px */
+
   /* Shape. These name the rule already locked at the top of this file:
      pill for anything you press, 16px for cards and media, 8px for inputs
      and small chrome. The public pages had drifted to 6 and 12px as well,
