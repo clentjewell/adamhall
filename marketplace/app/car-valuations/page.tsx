@@ -38,7 +38,7 @@ export default async function CarValuationsPage() {
           .mp2-pagehead--film class, so it has to say so itself. */}
       <section
         data-header-tone="dark"
-        className="relative isolate -mt-[calc(4rem+1px)] flex min-h-dvh items-center overflow-hidden bg-forest-700 pt-[calc(4rem+1px)]"
+        className="relative isolate -mt-16 flex min-h-dvh items-center overflow-hidden bg-forest-700 pt-16"
       >
         {/* The same film band every other page opens on. It replaces the
             still that used to sit here, and carries its own scrim, so the

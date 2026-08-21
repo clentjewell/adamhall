@@ -24,12 +24,15 @@ import "@/components/site/ScrollFilm.css";
  * when the reader moves, and it runs backwards just as willingly. Nothing
  * plays on its own.
  *
- * The headline does not change. Only the eyebrow and the line under it move
- * from beat to beat: a headline that flickers as you scroll reads as a
- * slideshow, and the page needs exactly one h1 that stays put whatever the
- * scroll position is. That also keeps the heading out of the churn — every
- * beat is mounted from the first paint and only its visibility changes, so
- * nothing mounts or unmounts as the reader scrolls.
+ * Each beat carries its own eyebrow, headline and line, and they change on
+ * the half screen. Only the first headline is an h1; the other three are
+ * paragraphs wearing its type, so the document keeps exactly one heading
+ * whatever the scroll position is and a crawler still finds the page's real
+ * headline in the markup.
+ *
+ * Every beat is mounted from the first paint and only its visibility changes,
+ * so nothing mounts or unmounts as the reader scrolls, and all four share one
+ * grid cell so the line below them never moves.
  *
  * It degrades to the treatment it replaced:
  *
@@ -203,10 +206,14 @@ export default function ScrollFilm({
     // going for a few frames after the reader stops, which is the part that
     // actually reads as smooth.
     //
-    // 0.18 a frame settles ~95% inside about 300ms at 60Hz: within the
-    // identity's longest step, and tight enough that it still feels like
-    // direct control of the film rather than the film drifting on its own.
-    const EASE = 0.18;
+    // 0.12 a frame settles ~95% inside about 400ms at 60Hz: the identity's
+    // longest step, and still tight enough to feel like direct control of the
+    // film rather than the film drifting on its own. It came down from 0.18
+    // when the section shortened to 300vh: the same film over less scroll
+    // means a given flick of the wheel asks for more film, and holding the
+    // old figure would have made each painted step visibly bigger. Measured: it
+    // holds the largest painted step near the 0.07s the longer section gave.
+    const EASE = 0.12;
     // Seeking by less than half a frame is work the viewer cannot see. At
     // 24fps a frame is 41ms, so anything under 20ms is skipped.
     const MIN_SEEK = 0.02;

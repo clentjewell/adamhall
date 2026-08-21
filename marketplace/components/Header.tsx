@@ -36,8 +36,8 @@ const DARK_GROUNDS = [
 /** A band only counts as the header's ground if it spans the screen. */
 const FULL_BLEED = 0.92;
 
-/** The header's own height plus its hairline. */
-const HEADER_H = 65;
+/** The header's own height. There is no hairline under it. */
+const HEADER_H = 64;
 
 /**
  * Public site header. Six buy-side items and the Car Marketplace lockup.

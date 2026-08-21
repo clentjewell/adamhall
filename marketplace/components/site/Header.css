@@ -15,7 +15,9 @@
   top: 0;
   z-index: 50;
   background: var(--c-cream);
-  border-bottom: 1px solid var(--c-border);
+  /* No hairline under the header, at Adam's request. Everything that used to
+     subtract it — the film bands' pull-up and their padding, and the tone
+     observer's detection line — is back to a flat 4rem. */
   /* 200ms for the move, which is the identity's step for a change of state.
      The tone takes 320ms because it is a change of colour under type rather
      than a movement, and snapping it draws the eye to the header at the

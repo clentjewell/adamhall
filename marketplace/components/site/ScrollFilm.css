@@ -12,9 +12,15 @@
    tracking as the shared one; one fewer thing to collide with.
    ============================================================ */
 
-/* The outer section is nothing but scroll distance. Four screens for four
-   beats: a screen of reading each, and any shorter and the film runs out
-   before the words have been read.
+/* The outer section is nothing but scroll distance. Half a screen of scroll
+   per beat, at Adam's direction: the panel takes one screen and the four
+   beats take two between them, so the section is three.
+
+   The arithmetic matters if this is ever changed again. Scroll distance is
+   the section less the pinned panel, so 300vh gives 200vh of travel and four
+   beats land on 50vh each. Shortening it also speeds the film up against the
+   scroll — the same 18.83s now runs over two screens instead of three — which
+   is why the easing in ScrollFilm.tsx came down to match.
 
    vh rather than dvh on purpose. The panel is dvh so it always fills what is
    actually visible, but a dvh outer would change the document's height every
@@ -22,14 +28,14 @@
    the reader's thumb mid-film. The scroll maths measures both at read time,
    so mixing the two units costs nothing. */
 .ah-site .sfilm {
-  height: 400vh;
+  height: 300vh;
   background: var(--c-green);
   /* Pulled up behind the header, which now hides on the way down. If the film
      started below the header instead, hiding it would open a strip of bare
      green across the top of a pinned frame. Running the film the full height
      of the viewport means there is nothing behind the header to expose, and
      the header simply floats on the frame. */
-  margin-top: calc(-4rem - 1px);
+  margin-top: -4rem;
 }
 
 /* The still fallback is one screen, not four: no pinning, nothing tied to
@@ -52,7 +58,7 @@
      adding to it — so this is exactly 100dvh whether the header is showing
      or not, and hiding it moves nothing. */
   height: 100dvh;
-  padding-top: calc(4rem + 1px);
+  padding-top: 4rem;
 }
 
 /* Sticks directly under the header, which is itself sticky at top:0, so the

@@ -29,10 +29,10 @@
      landing on that pale strip. See HeaderFilm.css. */
   display: flex;
   align-items: center;
-  margin-top: calc(-4rem - 1px);
+  margin-top: -4rem;
   min-height: 100dvh;
   background: var(--c-green-deep);
-  padding-block: calc(clamp(2.5rem, 5vw, 3.5rem) + 4rem + 1px)
+  padding-block: calc(clamp(2.5rem, 5vw, 3.5rem) + 4rem)
     clamp(3.5rem, 6vw, 5rem);
 }
 .ah-site .mp2-fin-hero > .container {
