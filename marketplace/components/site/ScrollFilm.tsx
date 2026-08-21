@@ -150,6 +150,10 @@ export default function ScrollFilm({
     // until all of it has arrived, which the poster covers: it holds the panel,
     // with the words on it, exactly as it does for anyone who never gets the
     // film at all.
+    //
+    // That the whole file is in memory before the first seek is also why the
+    // film no longer has to be all-intra. See lib/heroes.ts — dropping that
+    // requirement is what paid for the picture quality.
     let url = "";
     let dead = false;
     fetch(src)

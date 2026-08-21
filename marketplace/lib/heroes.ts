@@ -26,11 +26,22 @@ export const pageHeroVideos = {
 
 // The home page's scroll film: four generated clips joined by short dissolves
 // into one continuous move — an approach to a row of cars, a track along it,
-// a pass over the detail, and out onto the road. Encoded all-intra (every
-// frame a keyframe) so a scroll seek never has to decode forward from a
-// distant one, at 12fps because the frame rate the reader perceives comes
-// from their own scroll speed rather than the file. Its poster is cut from
-// its own first frame, so the handover lands on the identical pixel.
+// a pass over the detail, and out onto the road. The clips were generated at
+// 720p and put through a 4K upscale, then brought back down to 1920, so the
+// detail is reconstructed rather than merely stretched.
+//
+// Half-second keyframe interval, not all-intra. The first version was
+// all-intra, on the reasoning that Cloudflare answers no byte-range requests
+// so a seek could not fetch a distant keyframe. That stopped being true the
+// moment ScrollFilm switched to fetching the film and scrubbing it from a
+// blob: the whole file is in memory before the first seek, so a short GOP
+// seeks just as well and costs a fraction of the bitrate. Keeping all-intra
+// after that change was what made the film look blocky — it forced a CRF of
+// 37 to hold the size down. The same budget now buys CRF 30 at 1920 instead
+// of CRF 37 at 1280.
+//
+// Its poster is cut from its own first frame, so the handover lands on the
+// identical pixel.
 export const homeScrollFilm = {
   src: "/brand/home-scroll.mp4",
   poster: "/brand/home-scroll-poster.jpg",
