@@ -22,13 +22,18 @@
      rather than over them, and cannot escape its own stacking context. */
   position: relative;
   isolation: isolate;
-  /* Full page, matching every other header film. See HeaderFilm.css for why
-     the header's height and its hairline come off the viewport. */
+  /* Full page and pulled up behind the header, matching every other film
+     band. It used to stop short of the header instead, which left a strip of
+     pale page between the two: harmless while the header was solid cream,
+     but the header now turns white over this band, and white type was
+     landing on that pale strip. See HeaderFilm.css. */
   display: flex;
   align-items: center;
-  min-height: calc(100dvh - 4rem - 1px);
+  margin-top: calc(-4rem - 1px);
+  min-height: 100dvh;
   background: var(--c-green-deep);
-  padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(3.5rem, 6vw, 5rem);
+  padding-block: calc(clamp(2.5rem, 5vw, 3.5rem) + 4rem + 1px)
+    clamp(3.5rem, 6vw, 5rem);
 }
 .ah-site .mp2-fin-hero > .container {
   position: relative;

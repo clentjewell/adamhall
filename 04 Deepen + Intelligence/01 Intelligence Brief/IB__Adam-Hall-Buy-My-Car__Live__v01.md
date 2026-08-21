@@ -76,7 +76,9 @@ All outputs sit at Draft v01, pre-validation. The proposal is with Adam for sign
 
 Brand Identity Edition 1 rules out scroll-driven motion in absolute terms: "anything on scroll: never — no parallax, no fade-up-on-scroll, no counters triggering in the viewport". The marketplace build complied with that throughout, which is why its Reveal component renders its children statically rather than animating them in.
 
-On 20 August Adam asked for the carmarketplace.com.au home page to open on a film that moves frame by frame as the reader scrolls. It is built and shipped on the branch preview. This is a deliberate exception, not an oversight, and it is the only place on either site where anything is tied to the scroll.
+On 20 August Adam asked for the carmarketplace.com.au home page to open on a film that moves frame by frame as the reader scrolls. It is built and shipped on the branch preview. This is a deliberate exception, not an oversight.
+
+Two more followed on 21 August, both scroll-driven and both on the same footing: the header now hides as you scroll down and returns as you scroll up, and it reads the ground beneath it and inverts, running white over the films, the green bands and the footer and reverting to cream over the pale pages. The header's own stylesheet previously recorded the opposite position in writing, "always visible (no scroll hide/show, no tone logic)", so this reverses a decision that was made deliberately the first time.
 
 Two things follow from that:
 

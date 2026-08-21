@@ -1,8 +1,14 @@
 /* ============================================================
-   Public site header — solid cream, always visible (no scroll
-   hide/show, no tone logic). Kept at 64px + sticky so the rest of
-   the marketplace's full-bleed heroes (which pull up with -mt-16
-   behind a 64px header) stay pixel-correct. Scoped under .ah-site.
+   Public site header — 64px, sticky, and as of Adam's direction it now both
+   hides on the way down and inverts over dark ground. This file used to say
+   "always visible (no scroll hide/show, no tone logic)"; that was the
+   position until he asked for the change, and like the home page's scroll
+   film it is a departure from an identity that rules out scroll motion.
+   Header.tsx carries the reasoning and the Intelligence Brief carries the
+   record.
+
+   Kept at 64px so the marketplace's full-bleed heroes, which pull up behind
+   it, stay pixel-correct. Scoped under .ah-site.
    ============================================================ */
 .ah-site.site-header {
   position: sticky;
@@ -10,6 +16,53 @@
   z-index: 50;
   background: var(--c-cream);
   border-bottom: 1px solid var(--c-border);
+  /* 200ms for the move, which is the identity's step for a change of state.
+     The tone takes 320ms because it is a change of colour under type rather
+     than a movement, and snapping it draws the eye to the header at the
+     exact moment the reader is looking at something else. */
+  transition:
+    transform 200ms cubic-bezier(0.2, 0, 0.2, 1),
+    background-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
+    border-color 320ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+/* Out of the way. Sticky keeps its slot in the flow, so nothing below moves
+   when this happens — the header simply is not drawn. */
+.ah-site.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* --- Over dark ground ------------------------------------------------
+   Not a flat transparent header: the films are bright at the top in places,
+   and white type over a lit sky is unreadable. A short wash from the top
+   edge guarantees the contrast without reading as a bar. */
+.ah-site.site-header.is-on-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.28) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-bottom-color: transparent;
+}
+.ah-site.site-header.is-on-dark .site-header__nav a,
+.ah-site.site-header.is-on-dark .site-header__account,
+.ah-site.site-header.is-on-dark .site-header__account-name,
+.ah-site.site-header.is-on-dark .site-header__account-out {
+  color: #ffffff;
+}
+/* The underline the nav draws on hover and for the current page has to come
+   with it, or the active item loses its marker on the dark ground. */
+.ah-site.site-header.is-on-dark .site-header__nav a::after {
+  background: var(--c-sand);
+}
+.ah-site.site-header.is-on-dark .burger span {
+  background: #ffffff;
+}
+/* Reduced motion keeps both states, and simply arrives at them. */
+@media (prefers-reduced-motion: reduce) {
+  .ah-site.site-header {
+    transition: none;
+  }
 }
 
 .ah-site .site-header__inner {

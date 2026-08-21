@@ -30,7 +30,16 @@ export default async function CarValuationsPage() {
       {/* Full page, like every other header film. This page is a tool, so the
           form now begins below the fold: that is the trade Adam asked for
           when he asked for the films to run full page. */}
-      <section className="relative isolate flex min-h-[calc(100dvh-4rem-1px)] items-center overflow-hidden bg-forest-700">
+      {/* Pulled up behind the header and run to the full viewport, like every
+          other film band: the header hides on the way down now, and a band
+          that started below it would leave a strip of bare green when it
+          went. data-header-tone tells the header to invert over this one —
+          it is the only band built from utilities rather than the shared
+          .mp2-pagehead--film class, so it has to say so itself. */}
+      <section
+        data-header-tone="dark"
+        className="relative isolate -mt-[calc(4rem+1px)] flex min-h-dvh items-center overflow-hidden bg-forest-700 pt-[calc(4rem+1px)]"
+      >
         {/* The same film band every other page opens on. It replaces the
             still that used to sit here, and carries its own scrim, so the
             heading keeps the ground it was drawn for. */}

@@ -84,10 +84,16 @@
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: calc(100dvh - 4rem - 1px);
+  /* The whole viewport, pulled up behind the header. The header now hides on
+     the way down, and a band that started below it would leave a strip of
+     bare green across the top when it went. The extra top padding is what
+     keeps the heading clear of the header while it is showing. */
+  margin-top: calc(-4rem - 1px);
+  min-height: 100dvh;
   background: var(--color-forest-700, #003a30);
   border-bottom: 0;
-  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+  padding-block: calc(clamp(2.75rem, 6vw, 4.5rem) + 4rem + 1px)
+    clamp(2.75rem, 6vw, 4.5rem);
 }
 /* Only the content column is lifted above the film. A blanket `> *` also hit
    the film's own wrapper and replaced its position:absolute with relative,

@@ -24,6 +24,12 @@
 .ah-site .sfilm {
   height: 400vh;
   background: var(--c-green);
+  /* Pulled up behind the header, which now hides on the way down. If the film
+     started below the header instead, hiding it would open a strip of bare
+     green across the top of a pinned frame. Running the film the full height
+     of the viewport means there is nothing behind the header to expose, and
+     the header simply floats on the frame. */
+  margin-top: calc(-4rem - 1px);
 }
 
 /* The still fallback is one screen, not four: no pinning, nothing tied to
@@ -39,9 +45,14 @@
   overflow: hidden;
   isolation: isolate;
   background: var(--c-green);
-  /* The viewport less the sticky header, which holds its own space. The extra
-     pixel is the header's bottom hairline, outside its 64px inner height. */
-  height: calc(100dvh - 4rem - 1px);
+  /* The whole viewport now, not the viewport less the header: the section is
+     pulled up behind the header, so the film fills the screen and the header
+     sits on it. The padding is what keeps the words clear of the header, and
+     because the box is border-box it comes out of the height rather than
+     adding to it — so this is exactly 100dvh whether the header is showing
+     or not, and hiding it moves nothing. */
+  height: 100dvh;
+  padding-top: calc(4rem + 1px);
 }
 
 /* Sticks directly under the header, which is itself sticky at top:0, so the
@@ -50,7 +61,7 @@
    still works. */
 .ah-site .sfilm__panel--sticky {
   position: sticky;
-  top: calc(4rem + 1px);
+  top: 0;
 }
 
 .ah-site .sfilm__media {
@@ -268,7 +279,6 @@
   }
   .ah-site .sfilm__panel--sticky {
     position: relative;
-    top: 0;
   }
   .ah-site .sfilm__poster,
   .ah-site .sfilm__stack > *,
