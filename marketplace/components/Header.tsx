@@ -36,8 +36,14 @@ const DARK_GROUNDS = [
 /** A band only counts as the header's ground if it spans the screen. */
 const FULL_BLEED = 0.92;
 
-/** The header's own height. There is no hairline under it. */
-const HEADER_H = 64;
+/** The header's own height, measured rather than declared. It is set in one
+    place, --header-h in globals.css, and reading it back off the element
+    means this cannot fall out of step with it the next time that changes —
+    which it already did once, when the header grew from 64px to 80px. */
+function headerHeight() {
+  const el = document.querySelector(".site-header");
+  return el ? Math.round(el.getBoundingClientRect().height) : 64;
+}
 
 /**
  * Public site header. Six buy-side items and the Car Marketplace lockup.
@@ -154,8 +160,9 @@ export default function Header() {
     // element only counts as the header's ground while it is crossing that
     // line, which is what makes the switch happen exactly as the band passes
     // under rather than when it happens to enter the viewport.
-    const build = () =>
-      new IntersectionObserver(
+    const build = () => {
+      const h = headerHeight();
+      return new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
             if (e.isIntersecting) dark.add(e.target);
@@ -164,12 +171,13 @@ export default function Header() {
           setOnDark(dark.size > 0);
         },
         {
-          rootMargin: `-${HEADER_H - 1}px 0px -${Math.max(
-            window.innerHeight - HEADER_H,
+          rootMargin: `-${h - 1}px 0px -${Math.max(
+            window.innerHeight - h,
             0,
           )}px 0px`,
         },
       );
+    };
     const dark = new Set<Element>();
     let io = build();
     grounds.forEach((g) => io.observe(g));

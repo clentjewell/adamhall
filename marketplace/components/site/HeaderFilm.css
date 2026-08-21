@@ -70,11 +70,11 @@
    page now opens on a screen of film the way the home page does, and the
    page's own content begins below the fold.
 
-   Full page means the viewport less the header, which holds its own space.
-   A plain 100dvh would push the header out and put a scrollbar on a page
-   nobody had scrolled yet; the extra pixel is the header's bottom hairline,
-   which sits outside its 64px inner height. dvh rather than vh so a phone's
-   collapsing address bar cannot crop the frame. */
+   The band runs the full viewport and pulls up behind the header, so there
+   is nothing to expose when the header hides. Both the pull-up and the top
+   padding read --header-h rather than repeating a number, so the band keeps
+   its relationship to the header whatever height the header is. dvh rather
+   than vh so a phone's collapsing address bar cannot crop the frame. */
 /* Doubled class on purpose: page-Cars2.css sets .ah-site .mp2-pagehead to a
    white ground, and at equal specificity the later file would win. This band
    has to be dark for white type to sit on it. */
@@ -88,11 +88,11 @@
      the way down, and a band that started below it would leave a strip of
      bare green across the top when it went. The extra top padding is what
      keeps the heading clear of the header while it is showing. */
-  margin-top: -4rem;
+  margin-top: calc(var(--site-header-h) * -1);
   min-height: 100dvh;
   background: var(--color-forest-700, #003a30);
   border-bottom: 0;
-  padding-block: calc(clamp(2.75rem, 6vw, 4.5rem) + 4rem)
+  padding-block: calc(clamp(2.75rem, 6vw, 4.5rem) + var(--site-header-h))
     clamp(2.75rem, 6vw, 4.5rem);
 }
 /* Only the content column is lifted above the film. A blanket `> *` also hit

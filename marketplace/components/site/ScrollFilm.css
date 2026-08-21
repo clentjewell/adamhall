@@ -35,7 +35,7 @@
      green across the top of a pinned frame. Running the film the full height
      of the viewport means there is nothing behind the header to expose, and
      the header simply floats on the frame. */
-  margin-top: -4rem;
+  margin-top: calc(var(--site-header-h) * -1);
 }
 
 /* The still fallback is one screen, not four: no pinning, nothing tied to
@@ -58,7 +58,7 @@
      adding to it — so this is exactly 100dvh whether the header is showing
      or not, and hiding it moves nothing. */
   height: 100dvh;
-  padding-top: 4rem;
+  padding-top: var(--site-header-h);
 }
 
 /* Sticks directly under the header, which is itself sticky at top:0, so the

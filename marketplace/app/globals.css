@@ -185,6 +185,20 @@ html {
   /* Vertical rhythm. Three named steps, in place of the 44/64/96/100.8/144/
      224px that had accumulated: band for strips and bars, section for the
      ordinary case, lg for the moments that open or close a page. */
+  /* The header's height, in one place. Everything that has to clear it or
+     pull up behind it reads this rather than repeating 4rem: the home film,
+     the page-head film bands, the finance hero and the valuation band. It
+     went from 64px to 80px because at 64 the lockup sat almost against the
+     top edge of the screen with nothing above it, which read as cramped at
+     the one moment the page is trying to look composed.
+
+     Named --site-header-h and not --header-h, which is already taken twice
+     over by the parent brand's stylesheets: 150px in tokens.css for the old
+     header, and 0.5rem in base.css under .ah-site. Using that name collapsed
+     this header to 8px, because .ah-site's 0.5rem is the one that wins here.
+     page-Home.css already carried a warning about the same trap. */
+  --site-header-h: 5rem; /* 80px */
+
   --rhythm-band: clamp(2rem, 3vw, 2.75rem); /* 32 -> 44px, strips and bars */
   --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
   --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
