@@ -205,11 +205,86 @@
 }
 
 /* Right side: nav items and phone pill on one row */
-.ah-site .site-header__right {
+.ah-site .site-header__actions {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1.4rem;
+}
+
+/* --- The three pods, and how they draw together ----------------------
+   The mark, the nav and the actions sit at the two edges and the middle of
+   a full-width row. Once the page leaves the top, the row itself narrows
+   and the outer two slide in towards the nav, each taking its own pill of
+   ground while the bar behind them goes away.
+
+   The row's max-width is what animates, rather than the pods being moved
+   individually: space-between then does the work, so the three stay in
+   their own relationship to each other at every width and there is no
+   per-viewport arithmetic to keep in step. */
+.ah-site .site-header__pod {
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition:
+    background-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
+    border-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
+    box-shadow 320ms cubic-bezier(0.2, 0, 0.2, 1),
+    padding 320ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+.ah-site .site-header__inner {
+  transition: max-width 320ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+@media (min-width: 1101px) {
+  /* At rest the row spans the screen, so the mark sits at the left edge and
+     the actions at the right. That is the position they travel from.
+
+     How far they can travel is set by the row's own content, not by taste:
+     the nav is six uppercase items and measures 753px on its own, so the
+     three pods and their gaps need about 1250px however they are arranged.
+     Condensing to that width is therefore the whole of the available
+     movement — 96px a side on a 1440 screen, 336px on a 1920 one. It reads
+     clearly on a wide monitor and is modest on a laptop, and there is no way
+     to make it larger without shortening the nav itself. The min() keeps a
+     narrow desktop from clipping rather than converging. */
+  .ah-site .site-header__inner {
+    max-width: none;
+  }
+  .ah-site.site-header.is-condensed .site-header__inner {
+    max-width: min(78rem, 100% - 2rem);
+    padding-inline: 1rem;
+  }
+  .ah-site.site-header.is-condensed .site-header__pod {
+    padding-inline: 0.875rem;
+    padding-block: 0.5rem;
+    background: var(--c-cream);
+    border-color: var(--c-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+  /* The mark comes down a step as it draws in, so the pod around it reads at
+     the same height as the other two rather than towering over them. */
+  .ah-site.site-header.is-condensed .site-header__logo img {
+    height: 34px;
+    transition: height 320ms cubic-bezier(0.2, 0, 0.2, 1);
+  }
+  /* The bar itself is no longer needed once each pod carries its own ground,
+     and losing it is what makes them read as floating on the page. */
+  .ah-site.site-header.is-condensed {
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+  /* Over film and the green bands the pods go dark and translucent instead,
+     which is a firmer guarantee of contrast than the wash the un-condensed
+     header uses: the type sits on a known ground rather than on whatever the
+     frame happens to be doing. */
+  .ah-site.site-header.is-condensed.is-on-dark .site-header__pod {
+    background: rgba(0, 26, 21, 0.62);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: none;
+    backdrop-filter: blur(10px);
+  }
 }
 .ah-site .site-header__nav ul {
   display: flex;
@@ -327,7 +402,8 @@
 }
 
 @media (max-width: 1200px) {
-  .ah-site .site-header__right {
+  .ah-site .site-header__nav,
+  .ah-site .site-header__actions {
     display: none;
   }
   .ah-site .site-header__logo img {

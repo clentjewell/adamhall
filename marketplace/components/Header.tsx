@@ -59,6 +59,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [onDark, setOnDark] = useState(false);
+  const [condensed, setCondensed] = useState(false);
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -87,6 +88,11 @@ export default function Header() {
         frame = 0;
         const y = window.scrollY;
         const dy = y - last;
+        // Off the top of the page, the row draws its three pods in towards
+        // the middle and each takes its own ground. Not tied to the six-pixel
+        // hysteresis below, which is about direction: this only cares whether
+        // the page has left the top at all.
+        setCondensed(y > 24);
         // A trackpad settling sends a run of one and two pixel events. Waiting
         // for six pixels of travel in one direction stops the header flickering
         // on a hand that has not actually decided to go anywhere. `last` is
@@ -168,31 +174,37 @@ export default function Header() {
     <header
       className={`ah-site site-header vt-site-header${
         hidden ? " is-hidden" : ""
-      }${onDark ? " is-on-dark" : ""}`}
+      }${onDark ? " is-on-dark" : ""}${condensed ? " is-condensed" : ""}`}
     >
       <div className="site-header__inner">
-        <div className="site-header__logo" onClick={() => setOpen(false)}>
+        <div
+          className="site-header__logo site-header__pod"
+          onClick={() => setOpen(false)}
+        >
           {/* The lockup has a white cut for exactly this. */}
           <BrandLockup reverse={onDark} />
         </div>
 
-        <div className="site-header__right">
-          <nav className="site-header__nav" aria-label="Primary">
-            <ul>
-              {nav.map((item) => (
-                <li key={item.to}>
-                  <Link
-                    href={item.to}
-                    className={isActive(item.to) ? "is-active" : undefined}
-                  >
-                    {item.label}
-                    {item.garage && <GarageCount kind={item.garage} />}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        {/* Three pods rather than one right-hand group: the mark, the nav and
+            the actions each hold their own ground, and the row draws them in
+            towards the middle once the page has been scrolled. */}
+        <nav className="site-header__nav site-header__pod" aria-label="Primary">
+          <ul>
+            {nav.map((item) => (
+              <li key={item.to}>
+                <Link
+                  href={item.to}
+                  className={isActive(item.to) ? "is-active" : undefined}
+                >
+                  {item.label}
+                  {item.garage && <GarageCount kind={item.garage} />}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
+        <div className="site-header__actions site-header__pod">
           <HeaderAccount />
 
           <Button
