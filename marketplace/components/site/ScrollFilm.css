@@ -217,29 +217,6 @@
   margin-top: 2rem;
 }
 
-/* --- Where you are in it ---------------------------------------------
-   Four marks, one per beat. A pinned screen that does not move when you
-   scroll reads as a stuck page; these say plainly that there are four
-   things here and which one you are on. Decoration only, so the component
-   marks the whole strip aria-hidden. */
-.ah-site .sfilm__dots {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1.75rem;
-  display: flex;
-  gap: 0.5rem;
-}
-.ah-site .sfilm__dots > span {
-  width: 1.5rem;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.28);
-  transition: background 200ms cubic-bezier(0.2, 0, 0.2, 1);
-}
-.ah-site .sfilm__dots > .is-on {
-  background: var(--c-sand);
-}
 
 @media (max-width: 639px) {
   /* Same as the hero it replaces: the wash turns vertical and the copy sits
@@ -256,8 +233,7 @@
     );
   }
   .ah-site .sfilm__inner {
-    /* Clear of the dots, which sit on the same edge. */
-    padding-bottom: 3.5rem;
+    padding-bottom: 1.625rem;
   }
   .ah-site .sfilm__title,
   .ah-site .sfilm__sub {
@@ -287,8 +263,7 @@
     position: relative;
   }
   .ah-site .sfilm__poster,
-  .ah-site .sfilm__stack > *,
-  .ah-site .sfilm__dots > span {
+  .ah-site .sfilm__stack > * {
     transition: none;
   }
 }

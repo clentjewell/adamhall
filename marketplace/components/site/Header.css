@@ -10,6 +10,15 @@
    Kept at 64px so the marketplace's full-bleed heroes, which pull up behind
    it, stay pixel-correct. Scoped under .ah-site.
    ============================================================ */
+.ah-site {
+  /* Even in-out, not a front-loaded ease. The first attempt at "slower" used
+     cubic-bezier(0.32, 0.72, 0, 1), which covers 90% of the distance in 69ms
+     of a 480ms transition and then creeps — measured, and it reads as fast
+     followed by a crawl, which is exactly the complaint. This spreads the
+     movement across the whole duration, so the header takes as long as it
+     says it does. */
+  --header-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
 .ah-site.site-header {
   position: sticky;
   top: 0;
@@ -18,14 +27,24 @@
   /* No hairline under the header, at Adam's request. Everything that used to
      subtract it — the film bands' pull-up and their padding, and the tone
      observer's detection line — is back to a flat 4rem. */
-  /* 200ms for the move, which is the identity's step for a change of state.
-     The tone takes 320ms because it is a change of colour under type rather
-     than a movement, and snapping it draws the eye to the header at the
-     exact moment the reader is looking at something else. */
+  /* Slowed at Adam's request: the first pass ran the move at 200ms and
+     everything else at 320ms, which read as a snap rather than a movement.
+
+     The move is 360ms and the tone and the convergence are 480ms. 480 is
+     past the identity's 400ms ceiling, so it is a departure in its own right
+     and is recorded with the others in the Intelligence Brief. The reasoning
+     for allowing it: 400ms is the ceiling for a change of state the reader
+     is waiting on, and none of this is — the header is moving in the corner
+     of the eye while the reader is reading something else, and at that
+     distance a slower move is less distracting rather than more.
+
+     The curve carries most of the "smoother". A long tail means the header
+     covers most of the distance early and then settles, so the eye reads one
+     glide instead of a start and a stop. */
   transition:
-    transform 200ms cubic-bezier(0.2, 0, 0.2, 1),
-    background-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
-    border-color 320ms cubic-bezier(0.2, 0, 0.2, 1);
+    transform 360ms var(--header-ease),
+    background-color 480ms var(--header-ease),
+    border-color 480ms var(--header-ease);
 }
 /* Out of the way. Sticky keeps its slot in the flow, so nothing below moves
    when this happens — the header simply is not drawn. */
@@ -230,13 +249,13 @@
   border: 1px solid transparent;
   border-radius: 999px;
   transition:
-    background-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
-    border-color 320ms cubic-bezier(0.2, 0, 0.2, 1),
-    box-shadow 320ms cubic-bezier(0.2, 0, 0.2, 1),
-    padding 320ms cubic-bezier(0.2, 0, 0.2, 1);
+    background-color 480ms var(--header-ease),
+    border-color 480ms var(--header-ease),
+    box-shadow 480ms var(--header-ease),
+    padding 480ms var(--header-ease);
 }
 .ah-site .site-header__inner {
-  transition: max-width 320ms cubic-bezier(0.2, 0, 0.2, 1);
+  transition: max-width 480ms var(--header-ease);
 }
 
 @media (min-width: 1101px) {
@@ -252,7 +271,11 @@
      to make it larger without shortening the nav itself. The min() keeps a
      narrow desktop from clipping rather than converging. */
   .ah-site .site-header__inner {
-    max-width: none;
+    /* 100%, not none. `none` is not an interpolable value, so animating from
+       it to a length does nothing at all and the row simply teleports to its
+       condensed width — measured, 90% of the travel inside 71ms of a 480ms
+       transition. Two lengths interpolate. */
+    max-width: 100%;
   }
   .ah-site.site-header.is-condensed .site-header__inner {
     max-width: min(78rem, 100% - 2rem);
@@ -269,7 +292,7 @@
      the same height as the other two rather than towering over them. */
   .ah-site.site-header.is-condensed .site-header__logo img {
     height: 34px;
-    transition: height 320ms cubic-bezier(0.2, 0, 0.2, 1);
+    transition: height 480ms var(--header-ease);
   }
   /* The bar itself is no longer needed once each pod carries its own ground,
      and losing it is what makes them read as floating on the page. */

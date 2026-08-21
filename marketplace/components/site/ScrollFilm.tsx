@@ -382,11 +382,6 @@ export default function ScrollFilm({
         )}
         <span className="sfilm__scrim" />
         {words}
-        <span className="sfilm__dots" aria-hidden="true">
-          {beats.map((b, i) => (
-            <span key={b.eyebrow} className={i === beat ? "is-on" : undefined} />
-          ))}
-        </span>
       </div>
     </section>
   );
