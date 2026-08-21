@@ -706,3 +706,46 @@ body {
     font-size: 0.8125rem;
   }
 }
+
+/* ============================================================
+   Mobile touch targets.
+
+   Nothing here changes what the site can do — every control is the same
+   control, reachable in the same place. It changes how big the thing your
+   thumb has to find is. Measured at 390px before this block: a 16px range
+   input on the valuation tool, 40px chips on finance, 40px save and compare
+   buttons on a listing card, a 24px text button on the sell flow and 28px
+   links in the footer. The floor for a touch target is 44px.
+
+   Scoped to a phone width so the desktop pointer sizes are untouched.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* A 16px slider is not draggable with a thumb. The track and the handle
+     are drawn by their own pseudo-elements, so growing the input grows the
+     area you can grab without changing what the control looks like.
+     Doubled class because page-Finance2.css sets an explicit height at the
+     same specificity and would otherwise win on file order. */
+  .ah-site .mp2-range.mp2-range,
+  input[type="range"] {
+    height: 44px;
+  }
+
+  /* Chips, selects and the listing-card icon buttons are raised in
+     page-Cars2.css and page-Finance2.css instead: those files are imported
+     after this one, so a rule here loses the tie at equal specificity. */
+
+  /* Footer links sit in a dense list, so they get the height through
+     padding rather than a min-height that would space the list out twice. */
+  .ah-site .site-footer a {
+    display: inline-block;
+    padding-block: 0.5625rem;
+  }
+
+  /* The lockup is the way home from every page. It was a 36px target in an
+     80px header. */
+  .ah-site .site-header__logo a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

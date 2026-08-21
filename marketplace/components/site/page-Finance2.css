@@ -359,3 +359,14 @@
     height: 22px;
   }
 }
+
+
+/* --- Phone touch targets ---------------------------------------------------
+   The term and frequency chips and the text inputs were 40px at 390px. See
+   the same block in page-Cars2.css for why it lives here. */
+@media (max-width: 767px) {
+  .ah-site .mp2-calc__chips .mp2-chip,
+  .ah-site .mp2-input {
+    min-height: 44px;
+  }
+}

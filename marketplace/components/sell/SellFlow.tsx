@@ -386,7 +386,7 @@ export default function SellFlow({
               </div>
               <button
                 type="button"
-                className="text-sm font-semibold text-forest-700 underline underline-offset-2"
+                className="inline-flex min-h-11 items-center py-2 text-sm font-semibold text-forest-700 underline underline-offset-2"
                 onClick={() => set({ manual: true })}
               >
                 No rego handy? Enter the car manually
