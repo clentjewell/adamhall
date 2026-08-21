@@ -90,11 +90,17 @@ export default function Header() {
         frame = 0;
         const y = window.scrollY;
         const dy = y - last;
-        // Off the top of the page, the row draws its three pods in towards
-        // the middle and each takes its own ground. Not tied to the six-pixel
-        // hysteresis below, which is about direction: this only cares whether
-        // the page has left the top at all.
-        setCondensed(y > 24);
+        // Two stages, and they are deliberately spaced apart so they read as
+        // two things rather than one. Half a screen of scroll draws the three
+        // pods in to the middle, and the header then holds there — condensed
+        // and fully visible — for another quarter screen before it will
+        // consider going anywhere. Both are measured against the viewport
+        // rather than fixed pixels, so the sequence keeps its proportions on
+        // a laptop and on a phone.
+        const vh = window.innerHeight;
+        const condenseAt = vh * 0.5;
+        const hideAt = condenseAt + vh * 0.25;
+        setCondensed(y > condenseAt);
         // A trackpad settling sends a run of one and two pixel events. Waiting
         // for six pixels of travel in one direction stops the header flickering
         // on a hand that has not actually decided to go anywhere. `last` is
@@ -104,20 +110,20 @@ export default function Header() {
         last = y;
 
         // Coming back up is immediate: reaching for the nav should not be
-        // met with a wait.
-        if (dy < 0 || y <= 96) {
+        // met with a wait. Above the hide line it also simply stays.
+        if (dy < 0 || y <= hideAt) {
           clearTimeout(hideTimer);
           pendingHide = false;
           setHidden(false);
           return;
         }
 
-        // Going down, it holds its ground for a moment first. Without the
-        // pause the header vanishes on the first flick of the wheel, which
-        // reads as twitchy — and it takes the nav away from someone who was
-        // only nudging the page. The timer is armed once and left to run, so
-        // a continuous scroll hides it 220ms after it started rather than
-        // 220ms after it stops.
+        // Past the hide line and still going down, it waits a moment more.
+        // Without that wait the header vanishes on the first flick of the
+        // wheel, which reads as twitchy and takes the nav away from someone
+        // who was only nudging the page. The timer is armed once and left to
+        // run, so a continuous scroll hides it 220ms after it started rather
+        // than 220ms after it stops.
         if (!pendingHide) {
           pendingHide = true;
           hideTimer = setTimeout(() => {

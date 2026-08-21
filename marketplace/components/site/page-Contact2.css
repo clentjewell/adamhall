@@ -17,7 +17,7 @@
   padding-block: clamp(2rem, 4.5vw, 3.5rem) clamp(3rem, 6vw, 5rem);
 }
 .ah-site .mp2-contact__title {
-  font-size: clamp(2rem, 3.6vw, 2.75rem);
+  font-size: var(--fs-page-title);
   line-height: 1.08;
   letter-spacing: -0.02em;
   max-width: 16ch;

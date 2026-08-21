@@ -20,7 +20,7 @@
   padding-block: clamp(1.625rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.25rem);
 }
 .ah-site .mp2-pagehead__title {
-  font-size: clamp(2rem, 3.7vw, 2.875rem); /* 32 -> 46px */
+  font-size: var(--fs-page-title);
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin: 0.5rem 0 0;

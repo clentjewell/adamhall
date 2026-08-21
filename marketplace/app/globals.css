@@ -196,6 +196,18 @@ html {
      collapsed onto the 38px the majority already used. */
   --fs-section-title: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px */
 
+  /* The page's own h1 on the inner pages. Six classes carried their own
+     clamp and landed on 42px, 44px and 46px — one role, three sizes, none
+     of them distinguishable as intent. The hero h1 on the home page is a
+     different role and keeps the Display step. */
+  --fs-page-title: clamp(2rem, 3.7vw, 2.875rem); /* 32 -> 46px */
+
+  /* The step below a section heading, for headings inside a section: the
+     car page's rail and "also looking at", and the finance quote panel.
+     They were 30px, 30px and 32px, which is the same drift one step down.
+     28px is the identity's Subheading. */
+  --fs-subsection-title: clamp(1.5rem, 2.4vw, 1.75rem); /* 24 -> 28px */
+
   /* Shape. These name the rule already locked at the top of this file:
      pill for anything you press, 16px for cards and media, 8px for inputs
      and small chrome. The public pages had drifted to 6 and 12px as well,
@@ -300,10 +312,16 @@ body {
      it. Page heroes used to set their own 60px while the ported heroes set
      62px and the stat counter 60px, which put three near-identical display
      sizes on the site with nothing to tell them apart. */
+  /* Now the same token the ported page heads use. This utility was 56px
+     while .mp2-pagehead__title and friends were 46px, which put the inner
+     pages' h1 on two sizes depending on whether the page had been ported or
+     built from utilities — the two scales this file was meant to have
+     collapsed. Five pages were already on 46, so 46 it is. The home hero is
+     a different role and keeps its own Display step. */
   .type-hero {
     font-family: var(--font-display);
     font-weight: 900;
-    font-size: clamp(2.5rem, 4.6vw, 3.5rem); /* 40 -> 56px */
+    font-size: var(--fs-page-title);
     line-height: 1.08;
     letter-spacing: -0.03em;
   }
@@ -372,7 +390,9 @@ body {
   }
   @media (min-width: 640px) {
     .type-heading {
-      font-size: 2.5rem; /* 40px */
+      /* Same story: 40px here against the ported section headings' 38px.
+         Two pixels apart is not hierarchy, it is two systems. */
+      font-size: var(--fs-section-title);
     }
     .type-subheading {
       font-size: 1.75rem; /* 28px */
