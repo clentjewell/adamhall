@@ -60,6 +60,15 @@
 /* --- Calculator card, riding up over the band ------------------------- */
 .ah-site .mp2-fin-calc {
   margin-top: -2rem;
+  /* The ride-up only works if the card paints above the band. The hero is
+     position:relative (so the header film stays behind its words), and a
+     positioned box paints over a static one whatever the document order —
+     so without this the card's top 2rem slid UNDER the band: no rounded
+     corners, no shadow, and the CAR PRICE row crammed against the seam as
+     if the band were a rule inside the card. Positioning the wrapper puts
+     the two in document order again, and the overlap reads as intended. */
+  position: relative;
+  z-index: 1;
 }
 .ah-site .mp2-calc {
   display: grid;
