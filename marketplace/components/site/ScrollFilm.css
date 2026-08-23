@@ -98,17 +98,21 @@
   opacity: 1;
 }
 
-/* Same wash as the rest of the site's film bands: heavy where the words sit,
-   clearing to the right so the frame is actually visible rather than a green
-   flood with a shape in it. */
+/* The same forest wash as every other film band on the site — HeaderFilm and
+   the valuation band carry these exact stops, and HeaderFilm's comment names
+   the gradient as the one device. This used to be the same shape in pure
+   black, which made the home hero the only dark band on a site whose identity
+   says green leads every dark band: the opener read as a different site to
+   the pages it opened. Heavy where the words sit, clearing to the right so
+   the frame is visible rather than a green flood with a shape in it. */
 .ah-site .sfilm__scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0.86) 0%,
-    rgba(0, 0, 0, 0.68) 42%,
-    rgba(0, 0, 0, 0.15) 100%
+    rgba(0, 51, 43, 0.92) 0%,
+    rgba(0, 51, 43, 0.82) 42%,
+    rgba(0, 51, 43, 0.35) 100%
   );
 }
 
@@ -165,17 +169,21 @@
   align-self: end;
 }
 
-/* Identical to the hero it replaces, so the page's opening line is the same
-   size it has always been. Four of these now share one grid cell — the h1 and
-   three paragraphs wearing its type — so the rule has to sit on the class
-   rather than the element. */
+/* The identity's Display step — the one size the scale allows above Heading,
+   and the same token .type-hero resolves to. This carried its own clamp to
+   68px, which was the last private type size on the site: 12px above the
+   Display ceiling, against inner-page titles at 46, so the opener looked
+   like another site's headline. Spacing and declared weight follow the
+   display style too (900 renders in the kit's real 700 via font-synthesis).
+   Four of these share one grid cell — the h1 and three paragraphs wearing
+   its type — so the rule has to sit on the class rather than the element. */
 .ah-site .sfilm__title {
   color: var(--c-white);
-  font-size: clamp(2.25rem, 5.3vw, 4.25rem); /* 36 -> 68px */
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-hero); /* 40 -> 56px, the Display step */
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   max-width: 14ch;
-  font-weight: 700;
+  font-weight: 900;
   /* Four headlines of different lengths through one measure leaves orphans —
      "Chosen one at a / time". Balance evens the lines out without changing
      how many there are, so the shared grid cell keeps its height and nothing
@@ -204,10 +212,14 @@
 .ah-site .sfilm__stack--sub {
   margin-top: 1.25rem;
 }
-/* Text over moving footage needs more separation than text on a flat panel. */
-.ah-site .sfilm__title,
-.ah-site .sfilm__sub {
-  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
+/* One word per headline in sand — the device the valuation band and the
+   stock flags already use: the accent marks the thing that matters, not the
+   whole line. Sand eyebrow, sand word and sand button in one view is the
+   valuation band's own stacking, so it breaks no rule.
+   No text-shadow here on purpose: nothing else on the site shadows type, and
+   the forest wash at .92 carries the contrast where the words sit. */
+.ah-site .sfilm__accent {
+  color: var(--c-sand);
 }
 
 .ah-site .sfilm__actions {
@@ -215,6 +227,36 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 2rem;
+}
+/* The second action changes with the last beat: the phone for the three
+   buy-side beats, the valuation tool once the film has landed on the lot —
+   so the hero hands off into the two-path section it unpins onto rather
+   than pitching one job on a site that does two. The wrapper is a stack, so
+   the buttons swap with the same fade the words use; visibility takes the
+   hidden one out of the accessibility tree and off the pointer on its own. */
+.ah-site .sfilm__stack--cta {
+  justify-items: start;
+}
+
+/* Four quiet ticks for four beats. A pinned screen gives no hint that there
+   are three more beats behind it; these say so in the identity's smallest
+   voice — the current beat in sand, the rest ghosted white. Decorative only
+   (aria-hidden): a reader hears one beat at a time already. */
+.ah-site .sfilm__progress {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+.ah-site .sfilm__progress span {
+  width: 1.75rem;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.3);
+  /* The identity's arrival step, same as the words' fade-in. */
+  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+.ah-site .sfilm__progress span.is-on {
+  background: var(--c-sand);
 }
 
 
@@ -228,8 +270,8 @@
   .ah-site .sfilm__scrim {
     background: linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.35) 0%,
-      rgba(0, 0, 0, 0.86) 62%
+      rgba(0, 51, 43, 0.35) 0%,
+      rgba(0, 51, 43, 0.9) 62%
     );
   }
   .ah-site .sfilm__inner {
@@ -246,9 +288,14 @@
     margin-top: 1.125rem;
   }
   /* Both actions go full width and stack: on a phone these are the only two
-     things to do on the screen. */
-  .ah-site .sfilm__actions .btn {
+     things to do on the screen. The swap stack has to widen with them or its
+     grid cell would hold the buttons at their natural width. */
+  .ah-site .sfilm__actions .btn,
+  .ah-site .sfilm__stack--cta {
     width: 100%;
+  }
+  .ah-site .sfilm__progress {
+    margin-top: 1.25rem;
   }
 }
 

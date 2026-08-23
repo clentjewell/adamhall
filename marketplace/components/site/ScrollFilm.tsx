@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useReducedMotion } from "motion/react";
 import Button from "@/components/site/Button";
 import { site } from "@/lib/site-data/site";
@@ -43,7 +43,12 @@ import "@/components/site/ScrollFilm.css";
  *   - If the film never decodes, the panel keeps its poster and its words.
  */
 
-type Beat = { eyebrow: string; title: string; body: string };
+/* The title is a node, not a string: each one carries a single sand word —
+   the accent device the valuation band and the stock flags already use, where
+   the accent marks the thing that matters rather than the whole line. The
+   eyebrow is the key everywhere below, since it is the beat's one unique
+   string. */
+type Beat = { eyebrow: string; title: ReactNode; body: string };
 
 
 export default function ScrollFilm({
@@ -99,13 +104,21 @@ export default function ScrollFilm({
   const beats: Beat[] = [
     {
       eyebrow: "Gold Coast · Brisbane · Northern Rivers",
-      title: "Cars worth putting our name on",
+      title: (
+        <>
+          Cars worth putting our <span className="sfilm__accent">name</span> on
+        </>
+      ),
       body:
         "Every car here is one we decided was worth buying. What the listing says is what you get.",
     },
     {
       eyebrow: "On the lot now",
-      title: "Chosen one at a time",
+      title: (
+        <>
+          Chosen <span className="sfilm__accent">one at a time</span>
+        </>
+      ),
       body:
         inStock > 0
           ? `${inStock} car${inStock === 1 ? "" : "s"} in the range right now. A short list, not a classifieds wall.`
@@ -113,15 +126,27 @@ export default function ScrollFilm({
     },
     {
       eyebrow: "Nothing left out",
-      title: "Checked before you see them",
+      title: (
+        <>
+          <span className="sfilm__accent">Checked</span> before you see them
+        </>
+      ),
       body:
         "PPSR checked, the books gone through, and any fault named in the description.",
     },
     {
+      // The film lands on the lot, and the words turn to face both jobs the
+      // site does: the body offers the trade-in path and the second button
+      // below swaps from the phone to the valuation tool on this beat, so the
+      // hero unpins straight into the buying/selling split it sits above.
       eyebrow: "Twenty-seven years picking cars",
-      title: "Waiting for you on the lot",
+      title: (
+        <>
+          Waiting for you on the <span className="sfilm__accent">lot</span>
+        </>
+      ),
       body:
-        "Have a look at what is on the lot, or call and we will talk it through.",
+        "Have a look at what is on the lot, or see what yours is worth if you are trading in.",
     },
   ];
 
@@ -306,14 +331,14 @@ export default function ScrollFilm({
           {beats.map((b, i) =>
             i === 0 ? (
               <h1
-                key={b.title}
+                key={b.eyebrow}
                 className={`sfilm__title${i === beat ? " is-on" : ""}`}
               >
                 {b.title}
               </h1>
             ) : (
               <p
-                key={b.title}
+                key={b.eyebrow}
                 className={`sfilm__title${i === beat ? " is-on" : ""}`}
               >
                 {b.title}
@@ -334,10 +359,41 @@ export default function ScrollFilm({
           <Button to="/cars" variant="tan" arrow>
             See the cars
           </Button>
-          <Button href={site.phoneHref} variant="outline-white">
-            Call {site.phoneDisplay}
-          </Button>
+          {/* The second action is a stack like the words: the phone for the
+              buy-side beats, the valuation tool once the film lands on the
+              lot. Both are mounted from first paint; visibility swaps them
+              with the beats' own fade and keeps only one in the
+              accessibility tree. */}
+          <span className="sfilm__stack sfilm__stack--cta">
+            <Button
+              href={site.phoneHref}
+              variant="outline-white"
+              className={beat < beats.length - 1 ? "is-on" : ""}
+            >
+              Call {site.phoneDisplay}
+            </Button>
+            <Button
+              to="/car-valuations"
+              variant="outline-white"
+              arrow
+              className={beat === beats.length - 1 ? "is-on" : ""}
+            >
+              What&rsquo;s my car worth?
+            </Button>
+          </span>
         </div>
+
+        {/* Four ticks for four beats, so a pinned screen says there is more
+            film behind it. Decorative: the words already read one beat at a
+            time. Hidden in the still treatment, where there is no sequence
+            to mark. */}
+        {scrub && (
+          <div className="sfilm__progress" aria-hidden="true">
+            {beats.map((b, i) => (
+              <span key={b.eyebrow} className={i === beat ? "is-on" : ""} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
