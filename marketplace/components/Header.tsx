@@ -23,7 +23,7 @@ import "@/components/site/site.css";
     the header must not flip it. Only elements that actually span the screen
     are treated as the header's ground. */
 const DARK_GROUNDS = [
-  ".sfilm__panel",
+  ".hfilm__panel",
   ".mp2-pagehead--film",
   ".mp2-fin-hero",
   ".mp2-valuation",
@@ -49,11 +49,12 @@ function headerHeight() {
  * Public site header. Six buy-side items and the Car Marketplace lockup.
  *
  * Two scroll behaviours, both added at Adam's direction and both departures
- * from the identity, which rules out scroll-driven motion outright. They join
- * the home page's scroll film as things Liz is being asked to rule on, and
- * they are recorded together in the Intelligence Brief. This file previously
- * said "always visible (no scroll hide/show, no tone logic)", which was the
- * position before that call.
+ * from the identity, which rules out scroll-driven motion outright. They are
+ * recorded in the Intelligence Brief and are what Liz is being asked to rule
+ * on. They used to be the smaller two of three: the home page's scroll film
+ * was the other, and it has since been replaced by a plain looping film, so
+ * these two now stand alone. This file previously said "always visible (no
+ * scroll hide/show, no tone logic)", which was the position before that call.
  *
  *   - It gets out of the way going down and comes back the moment you go up,
  *     so reading reclaims the top of the screen without losing the nav.

@@ -5,9 +5,9 @@ import { fetchPublicCars } from "@/lib/cars";
 import StockCard from "@/components/site/StockCard";
 import Button from "@/components/site/Button";
 import SiteReveal from "@/components/site/SiteReveal";
-import ScrollFilm from "@/components/site/ScrollFilm";
+import HeroFilm from "@/components/site/HeroFilm";
 import { site, buyerTrustBar } from "@/lib/site-data/site";
-import { homeScrollFilm, heroImages } from "@/lib/heroes";
+import { homeHeroFilm, heroImages } from "@/lib/heroes";
 
 /**
  * The home page, built to the "Carmarketplace UI mockups" artifact
@@ -60,19 +60,18 @@ export default async function Home2Page() {
       <SiteReveal />
 
       {/* --- Hero ----------------------------------------------------------
-          One film, moved frame by frame by the scroll rather than played.
-          Adam asked for it directly; it is a departure from the identity,
-          which rules out scroll motion outright, and he is taking that back
-          to Liz so the edition gets updated rather than quietly contradicted.
-          ScrollFilm carries the reasoning and the reversal.
+          One film, looping quietly behind the words and the marketplace's own
+          search panel. It was a scroll-scrubbed film through four beats; Adam
+          asked for the scrubbing to go, which also puts the opener back inside
+          the identity rather than in a departure Liz was being asked to rule
+          on. HeroFilm carries the reasoning, and lib/heroes.ts carries why the
+          looping film is a different file to the scrubbed one.
 
-          The stock count goes in so the middle beat states the range rather
-          than describing it, and the same number already drives the "view
-          all" label below. */}
-      <ScrollFilm
-        src={homeScrollFilm.src}
-        poster={homeScrollFilm.poster}
-        inStock={inStock}
+          The stock count no longer comes in here — the search panel's own head
+          states the size of the range, from the same list. */}
+      <HeroFilm
+        src={homeHeroFilm.src}
+        poster={homeHeroFilm.poster}
         cars={searchCars}
       />
 

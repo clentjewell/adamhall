@@ -28,11 +28,12 @@
 }
 
 /* --- Hero ------------------------------------------------------------
-   Kept, and currently unused: ScrollFilm replaced this block in
-   app/page.tsx at Adam's direction, and restoring these three elements is
-   the whole reversal if the scroll treatment does not survive its review
-   against the identity. Delete this section and .mp2-hero__* once that is
-   settled either way.
+   Kept, and currently unused: the home page has opened on a film since
+   ScrollFilm replaced this block, and now on HeroFilm's plain loop. Restoring
+   these three elements is still the whole reversal to a static hero if that is
+   ever wanted. The scroll treatment it was held against is gone, so the one
+   reason to keep it is that reversal — delete this section and .mp2-hero__*
+   whenever Adam is happy the film stays.
 
    A banded film rather than the full-viewport hero of the current page:
    the artifact gives it a fixed 560px on desktop, 420px on mobile, and

@@ -24,27 +24,27 @@ export const pageHeroVideos = {
   sell: "/brand/sell-head.mp4",
 } as const;
 
-// The home page's scroll film: four generated clips joined by short dissolves
-// into one continuous move — an approach to a row of cars, a track along it,
-// a pass over the detail, and out onto the road. The clips were generated at
-// 720p and put through a 4K upscale, then brought back down to 1920, so the
-// detail is reconstructed rather than merely stretched.
+// The home page's hero film: a short loop of the yard, playing in the
+// background behind the opening words.
 //
-// Half-second keyframe interval, not all-intra. The first version was
-// all-intra, on the reasoning that Cloudflare answers no byte-range requests
-// so a seek could not fetch a distant keyframe. That stopped being true the
-// moment ScrollFilm switched to fetching the film and scrubbing it from a
-// blob: the whole file is in memory before the first seek, so a short GOP
-// seeks just as well and costs a fraction of the bitrate. Keeping all-intra
-// after that change was what made the film look blocky — it forced a CRF of
-// 37 to hold the size down. The same budget now buys CRF 30 at 1920 instead
-// of CRF 37 at 1280.
+// This is the film the page used before the scroll treatment, and it is back
+// because Adam asked for the scrubbing to go and a plain loop to take its
+// place. It is the right file for that job rather than a convenient one:
+// five seconds of near-still motion built to come back round on itself,
+// 1600x900, and 352KB against the scroll film's 4.9MB. Weight matters far
+// more now than it did then — a scrubbed film only ever downloaded for the
+// readers who were going to scrub it, and this one starts on every visit.
 //
-// Its poster is cut from its own first frame, so the handover lands on the
-// identical pixel.
-export const homeScrollFilm = {
-  src: "/brand/home-scroll.mp4",
-  poster: "/brand/home-scroll-poster.jpg",
+// Its poster is cut from its own first frame, so the still and the loop start
+// on the same pixel. HeroFilm cross-fades between them anyway, so nothing
+// jumps even if the two ever drift apart.
+//
+// home-scroll.mp4 and its poster are left in /brand rather than deleted: they
+// are the whole of the scroll treatment's picture, and reverting this needs
+// them. Nothing references them now, so nothing downloads them.
+export const homeHeroFilm = {
+  src: "/brand/cars-hero.mp4",
+  poster: "/brand/cars-hero.jpg",
 } as const;
 
 // The films behind the page header bands, one per page, generated to the same

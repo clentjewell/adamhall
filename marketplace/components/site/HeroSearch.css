@@ -382,7 +382,7 @@
    at -99px.
 
    So on a phone the card rises over the film instead. The words reserve the
-   head's height (see ScrollFilm.css) and nothing moves when it opens; the card
+   head's height (see HeroFilm.css) and nothing moves when it opens; the card
    grows upward over the frame it is searching, which is also the honest
    reading of the gesture. */
 @media (max-width: 899px) {
