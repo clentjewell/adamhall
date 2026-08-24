@@ -3,44 +3,43 @@
 
    Scoped under .ah-site with the rest of the ported system, and built from
    the same tokens as the /cars filter bar it leads to: hairline borders,
-   --radius-sm controls, uppercase 13px labels, one body size. The point is
-   that arriving on /cars should feel like the same object continuing, not a
-   second design.
+   --radius-sm controls, uppercase 13px labels, one body size. Arriving on
+   /cars should feel like the same object continuing, not a second design.
 
-   Where it deliberately parts company with the reference (carsales' white
-   floating panel) is colour and edge. This card is CREAM, not white: cream is
-   the marketplace's own ground, so the panel reads as the site surfacing on
-   top of the film rather than a widget dropped on it. The one sand rule along
-   its top edge is the site's accent device — the same one the valuation band
-   and the hero's accent word use — and it is what stops a plain rounded
-   rectangle looking like a form.
+   Where it parts company with the reference (carsales' white panel of four
+   dropdowns) is in what it is made of. The tiles are PHOTOGRAPHS OF THE
+   ACTUAL STOCK rather than stock silhouettes, because a six-car lot can do
+   that and a two-hundred-thousand-car site cannot — which makes the tile row
+   the snapshot of the marketplace as well as the way into it. And the card is
+   cream under a SAND CAP rather than white throughout: cream is the
+   marketplace's own ground, so the panel reads as the site surfacing on top of
+   the film, and the sand head is the same warm block as the phone button in
+   the header above it.
    ============================================================ */
 
 .ah-site {
-  /* The collapsed bar's height, reserved by the hero's words on a phone so
-     that opening the card moves nothing. Measured, not guessed: 0.9375rem of
-     padding either side of one 21px line at 1.2. */
-  --hsearch-bar: 3.625rem;
+  /* The collapsed head's height, reserved by the hero's words on a phone so
+     that opening the card moves nothing. Measured, not guessed — see the
+     short-frame override, which cuts the head down and this with it. */
+  --hsearch-bar: 5.375rem;
 }
 
 .ah-site .hsearch {
   display: block;
   background: var(--c-cream);
-  border-radius: var(--radius);
-  /* The accent, and the only ornament on the card. */
-  border-top: 3px solid var(--c-sand);
-  /* Lifts it off the film. Deeper than --shadow because it is floating on a
+  /* The identity's large-surface radius. This is one of the two feature
+     surfaces on the page, which is what that step is for. */
+  border-radius: var(--radius-lg);
+  /* Lifts it off the film. Deeper than --shadow because it floats on a
      photograph rather than on cream: the site's usual 8% shadow is invisible
      against film and the card's edge would read as a cut-out. */
   box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.55);
-  /* Clips the toggle row's own background to the radius. */
+  /* Clips the sand head and the tile photographs to the radius. */
   overflow: hidden;
   /* The floor under every frame. The film's panel is exactly 100dvh and it
-     clips, so a card taller than the frame loses its bottom rows rather than
-     overflowing them — measured at 1024x600, where the narrow column wraps
-     the quick picks to three rows and the card ran 24px past the foot of the
-     screen. Capped, the card scrolls inside itself instead. Nothing on a
-     normal viewport reaches this; it is here so no viewport can cut the
+     clips, so a card taller than the frame would lose its bottom rows rather
+     than overflow them. Capped, it scrolls inside itself instead. Nothing on
+     an ordinary viewport reaches this; it is here so no viewport can cut the
      button off. */
   max-height: calc(100dvh - var(--site-header-h) - 2rem);
   overflow-y: auto;
@@ -49,49 +48,68 @@
   overscroll-behavior: contain;
 }
 
-/* --- The collapsed state (phones and small tablets) -------------------
-   The card cannot simply be tall on a phone: the film's panel is exactly
-   100dvh and clips, so a full card under the words would push the buttons
-   and the beat ticks off the bottom of a pinned screen. Collapsed it costs
-   one row, and opening it is the reader's choice. Above 900px this row is
-   display:none — out of the accessibility tree with it — and the body is
-   simply always open. */
-.ah-site .hsearch__toggle {
+/* --- The sand head ---------------------------------------------------
+   A heading above the split and a real button below it, where it is also the
+   card's entire collapsed state — which is why the count sits in it: closed,
+   it is the only thing there is to read. */
+.ah-site .hsearch__head {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.75rem;
   width: 100%;
-  padding: 0.9375rem 1.125rem;
-  background: none;
+  margin: 0;
+  padding: 1rem 1.25rem;
+  background: var(--c-sand);
   border: 0;
-  cursor: pointer;
   text-align: left;
+  color: var(--c-green-deep);
+}
+/* Only the button form is interactive; above the split the head is a
+   heading. */
+.ah-site button.hsearch__head {
+  cursor: pointer;
+}
+.ah-site .hsearch__headtext {
+  display: block;
+  min-width: 0;
+}
+.ah-site .hsearch__title {
+  display: block;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: var(--fs-h5);
-  line-height: 1.2;
-  color: var(--c-green);
+  font-size: var(--fs-h4);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
-.ah-site .hsearch__togglen {
-  margin-left: auto;
-  font-family: var(--font-body);
-  font-weight: 400;
+/* The snapshot line: the size of the range, stated rather than described. */
+.ah-site .hsearch__snap {
+  display: block;
+  margin-top: 0.125rem;
   font-size: var(--fs-small);
-  color: var(--c-text);
+  line-height: 1.35;
+  color: rgba(0, 51, 43, 0.72);
 }
-/* A chevron drawn from a border, so there is no icon to load and it takes
-   the token colour. */
+.ah-site .hsearch__headcount {
+  margin-left: auto;
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: rgba(0, 51, 43, 0.72);
+}
+/* A chevron drawn from a border, so there is no icon to load and it takes the
+   token colour. */
 .ah-site .hsearch__chev {
+  flex: 0 0 auto;
   width: 0.5rem;
   height: 0.5rem;
-  border-right: 2px solid var(--c-green);
-  border-bottom: 2px solid var(--c-green);
+  border-right: 2px solid var(--c-green-deep);
+  border-bottom: 2px solid var(--c-green-deep);
   transform: rotate(45deg);
   transform-origin: 60% 60%;
   /* The identity's arrival step. One transform, no loop. */
   transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
 }
-.ah-site .hsearch__toggle.is-open .hsearch__chev {
+.ah-site .hsearch.is-open .hsearch__chev {
   transform: rotate(-135deg);
 }
 
@@ -99,44 +117,145 @@
   padding: 1.25rem;
 }
 
-/* --- Head ------------------------------------------------------------- */
-.ah-site .hsearch__title {
-  margin: 0;
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: var(--fs-h5);
-  line-height: 1.2;
-  color: var(--c-green);
+/* --- Type tiles ------------------------------------------------------
+   The point of the panel. Each tile is a body type on the lot with the lead
+   photograph of a car of that type behind its name, so the row shows what the
+   range actually consists of before anyone has scrolled or clicked. They
+   select rather than navigate: everything else here counts live, and a tile
+   that jumped straight to /cars would be a second mechanism arguing with the
+   first. */
+.ah-site .hsearch__types {
+  margin-bottom: 1.125rem;
 }
-/* The snapshot line: the size of the range, stated rather than described. */
-.ah-site .hsearch__snap {
-  margin: 0.25rem 0 0;
+.ah-site .hsearch__tiles {
+  display: grid;
+  /* Three types on the lot today, but the row is built for what it is given:
+     auto-fit keeps the tiles a sensible size whether there are two or five. */
+  grid-template-columns: repeat(auto-fit, minmax(5.25rem, 1fr));
+  gap: 0.5rem;
+}
+.ah-site .hsearch__tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--c-green);
+  cursor: pointer;
+  /* Border and shadow only. The photograph moves on its own — see below —
+     because scaling the whole tile would push its neighbours' edges. */
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.ah-site .hsearch__tileimg {
+  position: absolute;
+  inset: 0;
+  background: var(--c-green);
+}
+.ah-site .hsearch__tilephoto {
+  object-fit: cover;
+  transition: transform 320ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+/* The wash that makes the name legible on any photograph. Forest rather than
+   black, like every other film band on the site, and weighted to the bottom
+   third: the tile is only worth having if the car in it can be seen, so the
+   top of the frame stays almost clear and the gradient does its work under
+   the name. */
+.ah-site .hsearch__tileimg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 51, 43, 0) 0%,
+    rgba(0, 51, 43, 0.12) 44%,
+    rgba(0, 51, 43, 0.82) 100%
+  );
+}
+/* Name and count share one baseline at the foot of the tile. They were a name
+   and a white pill in the top corner, which read as an app notification
+   badge rather than a count — and put two objects on a 117px frame that
+   already had a car in it. */
+.ah-site .hsearch__tileline {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.4375rem;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3125rem;
+  font-family: var(--font-heading);
+  line-height: 1;
+}
+.ah-site .hsearch__tilename {
+  font-weight: 800;
   font-size: var(--fs-small);
-  line-height: 1.4;
-  color: var(--c-text);
+  color: var(--c-white);
+}
+/* Sand, the same accent that marks the count everywhere else on the site. */
+.ah-site .hsearch__tilen {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  color: var(--c-sand);
+}
+.ah-site .hsearch__tile:hover .hsearch__tilephoto {
+  transform: scale(1.06);
+}
+.ah-site .hsearch__tile.is-on {
+  border-color: var(--c-sand);
+  box-shadow: 0 0 0 1px var(--c-sand);
+}
+.ah-site .hsearch__tile.is-on .hsearch__tileimg::after {
+  /* The selected tile's car comes forward: the wash lifts and the sand ring
+     around it does the marking instead. */
+  background: linear-gradient(
+    180deg,
+    rgba(0, 51, 43, 0) 0%,
+    rgba(0, 51, 43, 0.72) 100%
+  );
+}
+/* Ruled out by the make or the price above it. Flat and inert rather than
+   hidden, so the reader can see the type is there and why it is not
+   available — the same reasoning as the (0) in the dropdowns. */
+.ah-site .hsearch__tile.is-dead {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+.ah-site .hsearch__tile.is-dead:hover .hsearch__tilephoto {
+  transform: none;
+}
+.ah-site .hsearch__tile:focus-visible {
+  outline: 2px solid var(--c-green);
+  outline-offset: 2px;
 }
 
-/* --- Fields ----------------------------------------------------------- */
+/* --- Fields ----------------------------------------------------------
+   Two, not three: the tiles are the body-type control, so a dropdown for it
+   would be the same choice twice. */
 .ah-site .hsearch__fields {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
   gap: 0.75rem;
-  margin-top: 1.125rem;
 }
 .ah-site .hsearch__field {
   display: block;
+  min-width: 0;
 }
 .ah-site .hsearch__label {
   display: block;
+  margin: 0 0 0.375rem;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--fs-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--c-text);
-  margin-bottom: 0.375rem;
 }
-/* Same control as .mp2-select on /cars, down to the drawn arrow: a reader
-   who searches here and lands there meets the identical field. */
+/* Same control as .mp2-select on /cars, down to the drawn arrow: a reader who
+   searches here and lands there meets the identical field. */
 .ah-site .hsearch__select {
   width: 100%;
   border: 1px solid var(--c-border);
@@ -161,10 +280,9 @@
 }
 
 /* --- The count button -------------------------------------------------
-   Forest, not sand. Sand is the hero's own accent — it is already on the
-   card's top edge, on the eyebrow and on the accent word — and a sand button
-   inside a cream card has almost no contrast against it. Forest is the
-   buy-side primary everywhere else on cream (see .btn--green). */
+   Forest, not sand. Sand is on the card's own head two inches above it, and a
+   sand button under a sand block has almost nothing to hold it apart. Forest
+   is the buy-side primary everywhere else on cream (see .btn--green). */
 .ah-site .hsearch__go {
   display: flex;
   align-items: center;
@@ -200,10 +318,10 @@
   transform: translateX(3px);
 }
 /* No combination on this lot can reach zero on its own — every option is
-   counted first and a dead one is never offered — but the state exists
-   rather than being assumed away: stock changes under the panel, and a
-   button that says "show 0 cars" and links to an empty page would be the
-   one dishonest thing on it. */
+   counted first, and a dead one is greyed or withheld — but the state exists
+   rather than being assumed away: stock changes under the panel, and a button
+   that said "show 0 cars" and linked to an empty page would be the one
+   dishonest thing on it. */
 .ah-site .hsearch__btn.is-empty {
   background: transparent;
   border: 1px dashed var(--c-border);
@@ -227,54 +345,15 @@
   color: var(--c-green);
 }
 
-/* --- Quick picks ------------------------------------------------------
-   Real slices of the lot with their real sizes, so the row doubles as the
-   snapshot: a reader can see there are three utes and one hatch without
-   opening a single dropdown. Separated by a hairline because they are a
-   different kind of thing to the fields above — one click, straight out. */
-.ah-site .hsearch__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.125rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--c-border);
-}
-.ah-site .hsearch__chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4375rem;
-  padding: 0.375rem 0.75rem;
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-pill);
-  background: var(--c-white);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: var(--fs-label);
-  line-height: 1.2;
-  color: var(--c-text-dark);
-  text-decoration: none;
-  transition: background-color var(--transition), border-color var(--transition),
-    color var(--transition);
-}
-.ah-site .hsearch__chip:hover {
-  background: var(--c-green);
-  border-color: var(--c-green);
-  color: var(--c-white);
-}
-.ah-site .hsearch__chipn {
-  font-family: var(--font-body);
-  font-weight: 400;
-  color: var(--c-text);
-}
-.ah-site .hsearch__chip:hover .hsearch__chipn {
-  color: rgba(255, 255, 255, 0.75);
-}
-
 /* --- Wide: always open, no toggle ------------------------------------- */
 @media (min-width: 900px) {
-  .ah-site .hsearch__toggle {
+  .ah-site .hsearch__headcount,
+  .ah-site .hsearch__chev {
+    /* Nothing to expand, and the button below already carries the count. */
     display: none;
+  }
+  .ah-site .hsearch__head {
+    padding: 1.125rem 1.5rem;
   }
   .ah-site .hsearch__body {
     padding: 1.5rem;
@@ -282,42 +361,36 @@
 }
 
 /* Split, but not much height to split — a laptop at 600px, a half-height
-   browser window. The quick picks stand down before anything else, because
-   they are the one part of the card that duplicates what the fields above
-   them already do: every chip is a body type, a fuel or a price the
-   dropdowns can reach. Measured at 1024x600: 568px of card into 472px of
-   frame, and 428 without them. */
+   browser window. The tiles hold and the type label goes: the tiles name
+   themselves, so the label is the one line in the card that carries nothing
+   the reader cannot already see. */
 @media (min-width: 900px) and (max-height: 760px) {
-  .ah-site .hsearch__chips {
+  .ah-site .hsearch__types .hsearch__label {
     display: none;
+  }
+  .ah-site .hsearch__types {
+    margin-bottom: 1rem;
   }
 }
 
-/* --- Narrow: the toggle governs --------------------------------------- */
-@media (max-width: 899px) {
-  /* Anchored to the foot of the frame rather than sitting in the flow of it.
-     In flow, opening the card pushed the hero's words up by the height of
-     everything inside it — 484px against 738px of usable frame at 390 — and
-     the film's panel clips, so the eyebrow and the top of the headline went
-     off the top of the screen. Measured before this rule went in: the card's
-     top landed at -99px.
+/* --- Narrow: the head governs ----------------------------------------
+   Anchored to the foot of the frame rather than sitting in the flow of it. In
+   flow, opening the card pushed the hero's words up by the height of
+   everything inside it — 484px against 738px of usable frame at 390 — and the
+   film's panel clips, so the eyebrow and the top of the headline went off the
+   top of the screen. Measured before this rule went in: the card's top landed
+   at -99px.
 
-     So on a phone the card rises over the film instead. The words reserve the
-     collapsed bar's height (see ScrollFilm.css) and nothing moves when it
-     opens; the card simply grows upward over the frame it is searching, which
-     is also the honest reading of the gesture. The max-height is the floor
-     under all of it: on a viewport too short even for that, the card scrolls
-     inside itself rather than climbing under the header. */
+   So on a phone the card rises over the film instead. The words reserve the
+   head's height (see ScrollFilm.css) and nothing moves when it opens; the card
+   grows upward over the frame it is searching, which is also the honest
+   reading of the gesture. */
+@media (max-width: 899px) {
   .ah-site .hsearch {
     position: absolute;
     left: var(--gutter);
     right: var(--gutter);
     bottom: 1.625rem;
-  }
-  .ah-site .hsearch__head {
-    /* The toggle row is the title on a phone; two of them would be a
-       stutter. */
-    display: none;
   }
   .ah-site .hsearch__body {
     display: none;
@@ -326,8 +399,27 @@
   .ah-site .hsearch__body.is-open {
     display: block;
   }
-  .ah-site .hsearch__fields {
-    margin-top: 0;
+  .ah-site .hsearch__head {
+    padding: 0.875rem 1.125rem;
+  }
+  .ah-site .hsearch__types {
+    margin: 1rem 0;
+  }
+}
+
+/* Short frames, still narrow: an older phone, a phone in landscape. The head
+   gives up its second line — the count beside it says how many cars there are,
+   which is the half of that line worth keeping — and the reserve above the
+   card comes down with it. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .ah-site {
+    --hsearch-bar: 3.5rem;
+  }
+  .ah-site .hsearch__snap {
+    display: none;
+  }
+  .ah-site .hsearch__head {
+    padding: 0.75rem 1.125rem;
   }
 }
 
@@ -335,7 +427,11 @@
   .ah-site .hsearch__chev,
   .ah-site .hsearch__arrow,
   .ah-site .hsearch__btn,
-  .ah-site .hsearch__chip {
+  .ah-site .hsearch__tile,
+  .ah-site .hsearch__tilephoto {
     transition: none;
+  }
+  .ah-site .hsearch__tile:hover .hsearch__tilephoto {
+    transform: none;
   }
 }

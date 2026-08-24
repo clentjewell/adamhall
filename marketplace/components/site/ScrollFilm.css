@@ -270,7 +270,9 @@
    film's sake; the card simply sits in the half it was clearing.
 
    The column is a clamp rather than a fixed width so the card narrows with
-   the viewport instead of eating the headline's measure at 900px. Words and
+   the viewport instead of eating the headline's measure at 900px. It widened
+   to 26rem when the type tiles went in: three photographs need room to read as
+   photographs, and at 23rem they were 96px wide. Words and
    card are centred against each other: the card is shorter than the beats
    column plus its buttons, and hanging it from the top would leave it
    floating above nothing. */
@@ -367,7 +369,7 @@
 @media (min-width: 900px) {
   .ah-site .sfilm__inner--split {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(19rem, 26vw, 23rem);
+    grid-template-columns: minmax(0, 1fr) clamp(20rem, 30vw, 26rem);
     gap: clamp(2rem, 4vw, 3.5rem);
     align-items: center;
   }

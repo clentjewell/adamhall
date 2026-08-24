@@ -49,6 +49,10 @@ export default async function Home2Page() {
     transmission: c.transmission,
     fuel: c.fuel,
     odometer_km: c.odometer_km,
+    // The one photograph per car the type tiles draw on: the panel picks the
+    // lead shot of a car of each body type, so the tiles are the actual stock
+    // rather than stock silhouettes.
+    photo: c.photos[0]?.url ?? null,
   }));
 
   return (
