@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useReducedMotion } from "motion/react";
 import Button from "@/components/site/Button";
+import HeroSearch, { type HeroSearchCar } from "@/components/site/HeroSearch";
 import { site } from "@/lib/site-data/site";
 import "@/components/site/ScrollFilm.css";
 
@@ -55,6 +56,7 @@ export default function ScrollFilm({
   src,
   poster,
   inStock,
+  cars,
 }: {
   src: string;
   /** First frame of the film. Carries the panel until the film decodes, and
@@ -63,6 +65,11 @@ export default function ScrollFilm({
   /** Live count of published cars, so the middle beat states the range
       rather than describing it. */
   inStock: number;
+  /** The lot itself, projected down to the fields filtering reads, for the
+      search panel on the frame. Adam asked for the marketplace to be visible
+      and searchable from the hero rather than a scroll away; the panel is
+      what does that, and it needs the real stock to count against. */
+  cars: HeroSearchCar[];
 }) {
   const reduce = useReducedMotion();
   const [saveData, setSaveData] = useState(false);
@@ -306,7 +313,14 @@ export default function ScrollFilm({
   }, [showFilm, beats.length]);
 
   const words = (
-    <div className="container container--wide sfilm__inner">
+    // Two columns once there is room: the beats on the left, the search panel
+    // on the right, where the wash is lightest and the frame is still
+    // visible behind it. One column when the panel has nothing to search.
+    <div
+      className={`container container--wide sfilm__inner${
+        cars.length > 0 ? " sfilm__inner--split" : ""
+      }`}
+    >
       <div className="sfilm__content">
         {/* Both stacks keep every beat mounted and swap which one is visible.
             visibility:hidden takes the others out of the accessibility tree
@@ -356,7 +370,11 @@ export default function ScrollFilm({
         </div>
 
         <div className="sfilm__actions">
-          <Button to="/cars" variant="tan" arrow>
+          {/* Stands down above 900px, where the search panel beside these
+              words carries its own button to /cars and two primaries in one
+              frame would be a stutter. On a phone the panel is collapsed to
+              one row, so this is the direct way through and stays. */}
+          <Button to="/cars" variant="tan" arrow className="sfilm__cta-cars">
             See the cars
           </Button>
           {/* The second action is a stack like the words: the phone for the
@@ -395,6 +413,12 @@ export default function ScrollFilm({
           </div>
         )}
       </div>
+
+      {/* The marketplace, on the frame: the range's size, three fields
+          counted against real stock, and one button that says how many cars
+          it will show. See HeroSearch for why it is not a copy of the
+          reference's four dropdowns. */}
+      <HeroSearch cars={cars} />
     </div>
   );
 

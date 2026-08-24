@@ -15,7 +15,27 @@ export interface CarFilters {
   sort?: "newest" | "price-asc" | "price-desc";
 }
 
-export function applyFilters(cars: Car[], f: CarFilters): Car[] {
+/**
+ * The fields filtering actually reads. Named so callers can pass a projection
+ * rather than whole cars: the hero's search panel runs this in the browser
+ * over every published car, and shipping the descriptions and photo lists to
+ * do it would put the whole catalogue in the page's payload for the sake of
+ * eight numbers. A full Car satisfies this, so every existing caller is
+ * unchanged.
+ */
+export type Filterable = Pick<
+  Car,
+  | "make"
+  | "model"
+  | "year"
+  | "price"
+  | "body_type"
+  | "transmission"
+  | "fuel"
+  | "odometer_km"
+>;
+
+export function applyFilters<T extends Filterable>(cars: T[], f: CarFilters): T[] {
   let out = cars.filter((c) => {
     if (f.make && c.make !== f.make) return false;
     if (f.model && c.model !== f.model) return false;

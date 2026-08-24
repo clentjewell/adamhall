@@ -260,22 +260,137 @@
 }
 
 
-@media (max-width: 639px) {
-  /* Same as the hero it replaces: the wash turns vertical and the copy sits
-     at the foot of the frame. A left-to-right gradient leaves the last lines
-     of a wrapped heading sitting on bare film. */
+/* --- The frame's two columns -----------------------------------------
+   Adam asked for the marketplace itself to be on the hero — the range's size
+   and a way into it — rather than a screen of film with the cars a scroll
+   away. So above 900px the frame splits: the beats keep the left, where the
+   forest wash is at .92 and type is at its most legible, and the search panel
+   takes the right, where the wash clears to .35 and the photograph is still
+   visible behind the card. The gradient was already built that way for the
+   film's sake; the card simply sits in the half it was clearing.
+
+   The column is a clamp rather than a fixed width so the card narrows with
+   the viewport instead of eating the headline's measure at 900px. Words and
+   card are centred against each other: the card is shorter than the beats
+   column plus its buttons, and hanging it from the top would leave it
+   floating above nothing. */
+/* Below the split the frame reads bottom-up: the card pinned to the foot of
+   it, the words stacked above. The card is positioned rather than stacked —
+   see HeroSearch.css for the measurement that forced that — so the words
+   reserve exactly the collapsed bar's height plus a gap, and opening the card
+   moves nothing: it grows upward over the film.
+
+   Bottom-aligning the panel is what gives the card a fixed home to grow from.
+   It was already the treatment below 640px, where a left-to-right wash leaves
+   the last lines of a wrapped heading on bare film; carrying it up to the
+   split means one composition for every width that is not two columns,
+   rather than a third arrangement in between. */
+@media (max-width: 899px) {
   .ah-site .sfilm__panel {
     align-items: flex-end;
   }
+  .ah-site .sfilm__inner {
+    padding-bottom: 1.625rem;
+  }
+  .ah-site .sfilm__inner--split .sfilm__content {
+    margin-bottom: calc(var(--hsearch-bar) + 1rem);
+    /* Coming back when the card closes. The beats' own arrival step. */
+    transition: opacity 200ms cubic-bezier(0, 0, 0.2, 1) 120ms,
+      visibility 0s 120ms;
+  }
+  /* While the card is open it IS the frame. The words go rather than being
+     half-covered: the card grows up from the foot and, on a phone, stops 7px
+     short of the eyebrow, so a sliver of it showed above the top edge and
+     read as a mistake rather than a layer. A reader who has opened the search
+     is looking at the search; the beats come back the moment it closes.
+
+     :has() rather than a class on the wrapper because the state belongs to
+     the card, which is the later sibling. Where it is not supported the words
+     simply stay, which is the sliver — a worse frame, not a broken one. */
+  .ah-site .sfilm__inner--split:has(.hsearch.is-open) .sfilm__content {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 120ms cubic-bezier(0.4, 0, 1, 1), visibility 0s 120ms;
+  }
+}
+
+/* Short frames, below the split. A 100dvh panel that clips has a fixed
+   budget, and the card's collapsed bar spends 58px of it. On anything from
+   about 700px of viewport down — an older phone, a phone in landscape, a
+   small browser window — that was enough to slide the eyebrow and the top of
+   the headline up behind the header. Measured at 320x568: the eyebrow sat at
+   8px against an 80px header.
+
+   So the frame gives up its least load-bearing parts rather than its
+   headline. The ticks go first: they are decorative and the words already
+   read one beat at a time. Then the sand button, because the card's own
+   button is the same destination and the bar for it is directly below. What
+   is left is the beat, the line under it, one call button and the search
+   card — which is the whole proposition on a screen with room for nothing
+   else. */
+@media (max-width: 899px) and (max-height: 700px) {
+  .ah-site .sfilm__inner--split .sfilm__progress,
+  .ah-site .sfilm__inner--split .sfilm__cta-cars {
+    display: none;
+  }
+  .ah-site .sfilm__inner--split .sfilm__stack--sub {
+    margin-top: 0.75rem;
+  }
+  .ah-site .sfilm__inner--split .sfilm__actions {
+    margin-top: 0.875rem;
+  }
+}
+
+/* Landscape on a phone, and nothing else reaches this: 390px of frame, 80 of
+   it header. Measured at 844x390 with the rule above already applied, the
+   eyebrow still sat at 23px, behind the header. Two more things stand down,
+   in the same order of least load-bearing first: the location line, which the
+   footer and every page header also carry, and the headline's Display size,
+   which is a size for a screen and not for a letterbox. The beat, its line,
+   a call button and the card all survive at a readable size, which is the
+   point. */
+@media (max-width: 899px) and (max-height: 480px) {
+  .ah-site .sfilm__inner--split .sfilm__stack--eyebrow {
+    display: none;
+  }
+  .ah-site .sfilm__inner--split .sfilm__title {
+    font-size: var(--fs-h3);
+  }
+  .ah-site .sfilm__inner--split .sfilm__stack--title {
+    margin-top: 0;
+  }
+  .ah-site .sfilm__inner--split {
+    padding-bottom: 1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .ah-site .sfilm__inner--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(19rem, 26vw, 23rem);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
+  }
+  /* The panel's own button goes to /cars with whatever has been chosen, so
+     the sand button beside it is the same destination twice in one frame.
+     It stands down here and stays on phones, where the panel is one
+     collapsed row and this is the direct way through. */
+  .ah-site .sfilm__cta-cars {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  /* Same as the hero it replaces: the wash turns vertical. A left-to-right
+     gradient leaves the last lines of a wrapped heading sitting on bare film.
+     The copy already sits at the foot of the frame by this width — that moved
+     up to the 900px block with the search card. */
   .ah-site .sfilm__scrim {
     background: linear-gradient(
       180deg,
       rgba(0, 51, 43, 0.35) 0%,
       rgba(0, 51, 43, 0.9) 62%
     );
-  }
-  .ah-site .sfilm__inner {
-    padding-bottom: 1.625rem;
   }
   .ah-site .sfilm__title,
   .ah-site .sfilm__sub {
@@ -310,6 +425,7 @@
     position: relative;
   }
   .ah-site .sfilm__poster,
+  .ah-site .sfilm__content,
   .ah-site .sfilm__stack > * {
     transition: none;
   }

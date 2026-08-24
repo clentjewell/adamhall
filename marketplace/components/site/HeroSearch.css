@@ -1,0 +1,341 @@
+/* ============================================================
+   Hero search panel — HeroSearch.tsx.
+
+   Scoped under .ah-site with the rest of the ported system, and built from
+   the same tokens as the /cars filter bar it leads to: hairline borders,
+   --radius-sm controls, uppercase 13px labels, one body size. The point is
+   that arriving on /cars should feel like the same object continuing, not a
+   second design.
+
+   Where it deliberately parts company with the reference (carsales' white
+   floating panel) is colour and edge. This card is CREAM, not white: cream is
+   the marketplace's own ground, so the panel reads as the site surfacing on
+   top of the film rather than a widget dropped on it. The one sand rule along
+   its top edge is the site's accent device — the same one the valuation band
+   and the hero's accent word use — and it is what stops a plain rounded
+   rectangle looking like a form.
+   ============================================================ */
+
+.ah-site {
+  /* The collapsed bar's height, reserved by the hero's words on a phone so
+     that opening the card moves nothing. Measured, not guessed: 0.9375rem of
+     padding either side of one 21px line at 1.2. */
+  --hsearch-bar: 3.625rem;
+}
+
+.ah-site .hsearch {
+  display: block;
+  background: var(--c-cream);
+  border-radius: var(--radius);
+  /* The accent, and the only ornament on the card. */
+  border-top: 3px solid var(--c-sand);
+  /* Lifts it off the film. Deeper than --shadow because it is floating on a
+     photograph rather than on cream: the site's usual 8% shadow is invisible
+     against film and the card's edge would read as a cut-out. */
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.55);
+  /* Clips the toggle row's own background to the radius. */
+  overflow: hidden;
+  /* The floor under every frame. The film's panel is exactly 100dvh and it
+     clips, so a card taller than the frame loses its bottom rows rather than
+     overflowing them — measured at 1024x600, where the narrow column wraps
+     the quick picks to three rows and the card ran 24px past the foot of the
+     screen. Capped, the card scrolls inside itself instead. Nothing on a
+     normal viewport reaches this; it is here so no viewport can cut the
+     button off. */
+  max-height: calc(100dvh - var(--site-header-h) - 2rem);
+  overflow-y: auto;
+  /* Overscrolling the card must not start scrolling the page behind it, which
+     on a pinned film would run the beats. */
+  overscroll-behavior: contain;
+}
+
+/* --- The collapsed state (phones and small tablets) -------------------
+   The card cannot simply be tall on a phone: the film's panel is exactly
+   100dvh and clips, so a full card under the words would push the buttons
+   and the beat ticks off the bottom of a pinned screen. Collapsed it costs
+   one row, and opening it is the reader's choice. Above 900px this row is
+   display:none — out of the accessibility tree with it — and the body is
+   simply always open. */
+.ah-site .hsearch__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.9375rem 1.125rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--fs-h5);
+  line-height: 1.2;
+  color: var(--c-green);
+}
+.ah-site .hsearch__togglen {
+  margin-left: auto;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-small);
+  color: var(--c-text);
+}
+/* A chevron drawn from a border, so there is no icon to load and it takes
+   the token colour. */
+.ah-site .hsearch__chev {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--c-green);
+  border-bottom: 2px solid var(--c-green);
+  transform: rotate(45deg);
+  transform-origin: 60% 60%;
+  /* The identity's arrival step. One transform, no loop. */
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+.ah-site .hsearch__toggle.is-open .hsearch__chev {
+  transform: rotate(-135deg);
+}
+
+.ah-site .hsearch__body {
+  padding: 1.25rem;
+}
+
+/* --- Head ------------------------------------------------------------- */
+.ah-site .hsearch__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--fs-h5);
+  line-height: 1.2;
+  color: var(--c-green);
+}
+/* The snapshot line: the size of the range, stated rather than described. */
+.ah-site .hsearch__snap {
+  margin: 0.25rem 0 0;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+  color: var(--c-text);
+}
+
+/* --- Fields ----------------------------------------------------------- */
+.ah-site .hsearch__fields {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.125rem;
+}
+.ah-site .hsearch__field {
+  display: block;
+}
+.ah-site .hsearch__label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-text);
+  margin-bottom: 0.375rem;
+}
+/* Same control as .mp2-select on /cars, down to the drawn arrow: a reader
+   who searches here and lands there meets the identical field. */
+.ah-site .hsearch__select {
+  width: 100%;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-white);
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--c-text-dark);
+  min-height: 44px;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 1rem center, right 0.7rem center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.ah-site .hsearch__select:focus-visible {
+  border-color: var(--c-green);
+  outline: 2px solid var(--c-green);
+  outline-offset: 2px;
+}
+
+/* --- The count button -------------------------------------------------
+   Forest, not sand. Sand is the hero's own accent — it is already on the
+   card's top edge, on the eyebrow and on the accent word — and a sand button
+   inside a cream card has almost no contrast against it. Forest is the
+   buy-side primary everywhere else on cream (see .btn--green). */
+.ah-site .hsearch__go {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.125rem;
+}
+.ah-site .hsearch__btn {
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-pill);
+  background: var(--c-green);
+  color: var(--c-white);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color var(--transition);
+}
+.ah-site .hsearch__btn:hover {
+  background: var(--c-green-deep);
+}
+.ah-site .hsearch__arrow {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+.ah-site .hsearch__btn:hover .hsearch__arrow {
+  transform: translateX(3px);
+}
+/* No combination on this lot can reach zero on its own — every option is
+   counted first and a dead one is never offered — but the state exists
+   rather than being assumed away: stock changes under the panel, and a
+   button that says "show 0 cars" and links to an empty page would be the
+   one dishonest thing on it. */
+.ah-site .hsearch__btn.is-empty {
+  background: transparent;
+  border: 1px dashed var(--c-border);
+  color: var(--c-text);
+  cursor: default;
+}
+.ah-site .hsearch__clear {
+  flex: 0 0 auto;
+  background: none;
+  border: 0;
+  padding: 0.25rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--c-text);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.ah-site .hsearch__clear:hover {
+  color: var(--c-green);
+}
+
+/* --- Quick picks ------------------------------------------------------
+   Real slices of the lot with their real sizes, so the row doubles as the
+   snapshot: a reader can see there are three utes and one hatch without
+   opening a single dropdown. Separated by a hairline because they are a
+   different kind of thing to the fields above — one click, straight out. */
+.ah-site .hsearch__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-border);
+}
+.ah-site .hsearch__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4375rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-pill);
+  background: var(--c-white);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  line-height: 1.2;
+  color: var(--c-text-dark);
+  text-decoration: none;
+  transition: background-color var(--transition), border-color var(--transition),
+    color var(--transition);
+}
+.ah-site .hsearch__chip:hover {
+  background: var(--c-green);
+  border-color: var(--c-green);
+  color: var(--c-white);
+}
+.ah-site .hsearch__chipn {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--c-text);
+}
+.ah-site .hsearch__chip:hover .hsearch__chipn {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* --- Wide: always open, no toggle ------------------------------------- */
+@media (min-width: 900px) {
+  .ah-site .hsearch__toggle {
+    display: none;
+  }
+  .ah-site .hsearch__body {
+    padding: 1.5rem;
+  }
+}
+
+/* Split, but not much height to split — a laptop at 600px, a half-height
+   browser window. The quick picks stand down before anything else, because
+   they are the one part of the card that duplicates what the fields above
+   them already do: every chip is a body type, a fuel or a price the
+   dropdowns can reach. Measured at 1024x600: 568px of card into 472px of
+   frame, and 428 without them. */
+@media (min-width: 900px) and (max-height: 760px) {
+  .ah-site .hsearch__chips {
+    display: none;
+  }
+}
+
+/* --- Narrow: the toggle governs --------------------------------------- */
+@media (max-width: 899px) {
+  /* Anchored to the foot of the frame rather than sitting in the flow of it.
+     In flow, opening the card pushed the hero's words up by the height of
+     everything inside it — 484px against 738px of usable frame at 390 — and
+     the film's panel clips, so the eyebrow and the top of the headline went
+     off the top of the screen. Measured before this rule went in: the card's
+     top landed at -99px.
+
+     So on a phone the card rises over the film instead. The words reserve the
+     collapsed bar's height (see ScrollFilm.css) and nothing moves when it
+     opens; the card simply grows upward over the frame it is searching, which
+     is also the honest reading of the gesture. The max-height is the floor
+     under all of it: on a viewport too short even for that, the card scrolls
+     inside itself rather than climbing under the header. */
+  .ah-site .hsearch {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 1.625rem;
+  }
+  .ah-site .hsearch__head {
+    /* The toggle row is the title on a phone; two of them would be a
+       stutter. */
+    display: none;
+  }
+  .ah-site .hsearch__body {
+    display: none;
+    padding: 0 1.125rem 1.125rem;
+  }
+  .ah-site .hsearch__body.is-open {
+    display: block;
+  }
+  .ah-site .hsearch__fields {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-site .hsearch__chev,
+  .ah-site .hsearch__arrow,
+  .ah-site .hsearch__btn,
+  .ah-site .hsearch__chip {
+    transition: none;
+  }
+}

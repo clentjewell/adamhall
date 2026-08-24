@@ -35,6 +35,21 @@ export default async function Home2Page() {
   const latest = published.slice(0, 3);
   const inStock = published.length;
   const viewAllLabel = `View all ${inStock} car${inStock === 1 ? "" : "s"}`;
+  // The lot as the hero's search panel needs it, and nothing else. The panel
+  // counts in the browser, so whatever it is handed rides along in the page's
+  // payload — passing whole cars would put every description, photo list and
+  // inspection note in the HTML to produce eight numbers. These are exactly
+  // the fields applyFilters reads (see Filterable).
+  const searchCars = published.map((c) => ({
+    make: c.make,
+    model: c.model,
+    year: c.year,
+    price: c.price,
+    body_type: c.body_type,
+    transmission: c.transmission,
+    fuel: c.fuel,
+    odometer_km: c.odometer_km,
+  }));
 
   return (
     <div className="ah-site mp-home2">
@@ -54,6 +69,7 @@ export default async function Home2Page() {
         src={homeScrollFilm.src}
         poster={homeScrollFilm.poster}
         inStock={inStock}
+        cars={searchCars}
       />
 
       {/* --- What this is --------------------------------------------------
