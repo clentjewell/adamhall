@@ -17,7 +17,7 @@ ap-southeast-2, Jewell Org).
 
 | Surface | Routes | What it does |
 | --- | --- | --- |
-| Public marketplace | `/`, `/cars`, `/cars/[slug]` | Filterable inventory (URL-synced filters), car detail with gallery, trust block (PPSR badge, inspection, service history, "Adam's take"), walk-around video slot, enquire / book-a-look forms, SOLD cars visible 30 days then auto-archived, per-car OG tags + `Vehicle` JSON-LD + sitemap |
+| Public marketplace | `/`, `/cars`, `/cars/[slug]` | Filterable inventory (URL-synced filters), car detail with gallery, trust block (PPSR badge, inspection, service history, "Adam's take"), walk-around video slot, enquire / book-a-look forms, SOLD cars visible 90 days then auto-archived, per-car OG tags + `Vehicle` JSON-LD + sitemap |
 | Sell your car | `/sell`, `/sell/status/[token]` | 4-step conversational form (rego → condition → photos → contact), direct-to-Storage uploads with on-device compression, localStorage save-and-resume, tokenised status page (no account), live "typical response" stat from real audit events, trade-in bridge from any car page (`/sell?trade=slug`) |
 | Admin | `/admin/*` | Supabase Auth with email allowlist (no signup), dashboard counts, submissions queue with `New → Reviewing → Offer made → Accepted → Declined → Settled` pipeline, valuation worksheet (offer / expected retail / recon, auto margin, private notes), one-click templated offer + kind decline emails, inventory manager with convert-to-listing, enquiries inbox, settlement checklist (PPSR, payout letter, ID, rego transfer, funds — each tick stamped with who + when), full audit trail |
 
@@ -47,13 +47,15 @@ Schema lives in `supabase/migrations/` (already applied to the live project):
   `valuations`, `enquiries`, `settlement_checklists`, `status_events`,
   `admin_users`, `watchlist_alerts`), RLS policies, storage buckets
 - `0002_submission_audit_trigger.sql` — auto-log `new` events on submission
-- `0003_sold_auto_archive.sql` — pg_cron nightly archive of 30-day-old solds
+- `0003_sold_auto_archive.sql` — pg_cron nightly archive of stale solds
+- `0004_sold_window_90_days.sql` — widens the sold window from 30 to 90 days,
+  in the RLS policy and the archive job together
 
 `supabase/seed.sql` holds the demo data: 8 realistic cars (one sold) and
 3 submissions mid-pipeline with a filled valuation worksheet.
 
 **RLS in one paragraph:** anon can read published cars (plus sold ones for
-30 days), insert submissions/photos/enquiries/watchlist rows, and nothing
+90 days), insert submissions/photos/enquiries/watchlist rows, and nothing
 else. Sellers never read their submission via the API — the status page
 resolves the token server-side with the service role. Admins (rows in
 `admin_users`) get full access via the `is_admin()` helper. Submission

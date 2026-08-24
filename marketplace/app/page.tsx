@@ -260,7 +260,7 @@ export default async function Home2Page() {
               <ul className="mp2-list">
                 <li>A PPSR check before anything goes up</li>
                 <li>Full service history and condition, written out</li>
-                <li>Sold cars stay up a month so you can see what moves</li>
+                <li>Sold cars stay up three months so you can see what moves</li>
               </ul>
               <div className="mp2-split__actions">
                 <Button to="/faq" variant="outline-green" arrow>

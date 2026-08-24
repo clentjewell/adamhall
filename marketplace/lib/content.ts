@@ -90,7 +90,7 @@ export const CONTENT_DEFAULTS: SiteContent = {
   },
   carsHero: {
     title: "The Marketplace",
-    sub: "The good ones don't hang about here, so it's worth checking back. Sold cars stay up for a month so you can see what moves.",
+    sub: "The good ones don't hang about here, so it's worth checking back. Sold cars stay up for three months so you can see what moves.",
   },
   sellHero: {
     title: "Sell your car without the circus",

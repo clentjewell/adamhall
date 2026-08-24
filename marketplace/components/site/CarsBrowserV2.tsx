@@ -40,8 +40,10 @@ export default function CarsBrowserV2({
     years,
   } = useCarFilters(cars);
 
-  // Sold cars stay up for a month, because seeing what actually moved is part
-  // of the pitch. They do not belong in the same grid as the cars you can buy:
+  // Sold cars stay up for three months, because seeing what actually moved is
+  // part of the pitch. The window is set in the database, not here — see
+  // migration 0004, which has to move the RLS policy and the nightly archive
+  // job together. They do not belong in the same grid as the cars you can buy:
   // mixed in, every third card is a dead end for someone shopping.
   const forSale = filtered.filter((c) => c.status !== "sold");
   const sold = filtered.filter((c) => c.status === "sold");
@@ -198,8 +200,8 @@ export default function CarsBrowserV2({
             <section className="mp2-sold">
               <h2 className="mp2-sold__title">Recently sold</h2>
               <p className="mp2-sold__sub">
-                These have gone. They stay up for a month so you can see what
-                moves and what it went for.
+                These have gone. They stay up for three months so you can see
+                what moves and what it went for.
               </p>
               <div className="mp2-grid mp2-grid--sold">
                 {sold.map((car) => (
