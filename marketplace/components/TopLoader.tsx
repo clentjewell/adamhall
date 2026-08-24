@@ -170,7 +170,7 @@ function TopLoaderInner() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 right-0 top-0 z-50 h-[2.5px] bg-transparent"
+      className="pointer-events-none fixed left-0 right-0 top-0 z-[70] h-[2.5px] bg-transparent"
       style={{
         opacity: visible ? (fading ? 0 : 1) : 0,
         transition: `opacity ${FADE_MS}ms ease-out`,

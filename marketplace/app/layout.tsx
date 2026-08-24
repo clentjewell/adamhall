@@ -3,6 +3,7 @@ import { ViewTransitions } from "next-view-transitions";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TopLoader from "@/components/TopLoader";
+import NavLoader from "@/components/NavLoader";
 import EditModeBridge from "@/components/EditModeBridge";
 import GarageSync from "@/components/garage/GarageSync";
 import SiteJsonLd from "@/components/SiteJsonLd";
@@ -46,6 +47,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-dvh flex flex-col">
         <SiteJsonLd />
+        {/* Two indicators, one system: the bar covers every navigation, the
+            screen only the ones slow enough to be worth covering. The bar is
+            mounted after the screen deliberately — see its z-index. */}
+        <NavLoader />
         <TopLoader />
         <EditModeBridge />
         {/* Mirrors the saved list to the buyer's account. Renders nothing;

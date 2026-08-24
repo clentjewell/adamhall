@@ -247,6 +247,10 @@ html {
   --tracking-label: 0.14em;
   --tracking-nav: 0.03em;
 
+  /* How far the navigation screen's rule runs while it waits. Short of the
+     end on purpose: the last of it belongs to the page arriving. */
+  --nav-rule-wait: 0.72;
+
   /* Where a sticky element below the header should park.
      The header is --site-header-h tall and sticky at top:0, but it also
      HIDES on the way down (Header.tsx), so this cannot be a constant. Every
@@ -324,6 +328,51 @@ body {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Navigation screen ---------------------------------------------------
+   The between-pages screen (NavLoader) and the rule under its mark.
+
+   No CSS animations here, deliberately, and the reason is worth keeping. Both
+   the screen's fade and the rule's travel were animations at first, and both
+   held their `from` frame indefinitely wherever the renderer was not producing
+   animation frames — measured in a headless browser mid-navigation, where the
+   animation reported playState "running" with currentTime pinned at 0 for
+   seconds. A running animation overrides the base style for its whole active
+   duration, fill mode or not, so a frozen one does not fall through to the
+   settled value: the rule sat at scaleX(0) and the screen would have sat at
+   opacity 0 — invisible.
+
+   So the settled state is plain CSS that needs no frames, and the movement is
+   a transition driven by a state change in the component. A transition that
+   never gets frames simply lands on its target, which is the right answer.
+   The screen has no entrance: after a 400ms wait it is more useful arriving at
+   once than spending another quarter second becoming visible. */
+.nav-screen {
+  opacity: 1;
+}
+.nav-screen.is-leaving {
+  opacity: 0;
+  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scaled from the left, so the rule never lays out. It runs to
+   --nav-rule-wait while waiting and to full when the page lands; the component
+   sets which. No loop: this is a screen nobody chose to look at, and a pulsing
+   indicator on it would be an attention device rather than information. */
+.nav-rule {
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* The page is here. Shorter, because the screen is fading out over it. */
+.nav-rule.is-done {
+  transition-duration: 220ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-screen.is-leaving,
+  .nav-rule {
+    transition: none;
   }
 }
 
