@@ -93,7 +93,7 @@
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--fs-label);
-  letter-spacing: 0.07em;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--c-text);
   margin: 0 0 0.5rem;

@@ -5,7 +5,11 @@
 .ah-site .prefooter {
   background: var(--c-green);
   color: var(--c-white);
-  padding-top: 2.5rem;
+  /* Symmetrical padding. The strip used to close with the gauge — a tick
+     rule that carried the space below the claims — and removing that left
+     the claims sitting hard against the crossing band's own padding. This
+     is the space the gauge used to occupy, without the rule. */
+  padding-block: 2.5rem;
 }
 .ah-site .prefooter__items {
   list-style: none;
@@ -29,27 +33,12 @@
   color: var(--c-sand);
   flex-shrink: 0;
 }
-/* The gauge, the identity's one pattern device (section 12): fine vertical
-   ticks on a baseline, every fifth one taller. "Counted, checked, measured",
-   which is the promise the brand makes. Generated from three gradients rather
-   than an SVG, so it needs no vector master and cannot go stale in an asset
-   folder. Medium scale, sand on green, as the identity specifies for the
-   footer band. Proportions per the identity: short tick 45% of the tall tick,
-   tall tick every fifth position, tick gap eight times the tick weight. */
-.ah-site .prefooter__gauge {
-  display: block;
-  width: 100%;
-  height: 15px;
-  margin-top: 2rem;
-  background-image:
-    linear-gradient(var(--c-sand), var(--c-sand)),
-    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 18px),
-    repeating-linear-gradient(90deg, var(--c-sand) 0 2px, transparent 2px 90px);
-  background-repeat: repeat-x;
-  background-position: left bottom;
-  background-size: 100% 2px, 18px 6px, 90px 13px;
-  opacity: 0.85;
-}
+/* The gauge that used to close this strip — the identity's tick-rule pattern
+   device (section 12), sand on green — is gone at Adam's direction. Worth
+   knowing if it ever comes back: it was three repeating gradients rather than
+   an SVG, so there is no asset to restore, and .gauge-fine in globals.css
+   still holds the same device at fine scale. */
+
 /* The crossing to the parent site. Continues the green block started by the
    trust strip, so it carries no background of its own. Centred to match the
    strip, with the button under the line rather than beside it. */
@@ -105,25 +94,33 @@
   width: auto;
   margin-bottom: 1.5rem;
 }
-/* The strapline is the one sentence that says what this business is, so it
-   sits on the body step in the heading face at weight 400 — supporting copy
-   given presence by family, not by being scaled up into a heading. */
+/* The strapline is the one sentence that says what this business is. It used
+   to take the heading face at weight 400 to give it presence by family rather
+   than by size, which made it the only run of sentence-case prose on the site
+   not in the body face — and it sat directly beside the footer links, which
+   are. Uniformity wins here: same face as every other paragraph, and the
+   remaining reversal is one line if the presence is wanted back. */
 .ah-site .site-footer__brand p {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--fs-body);
   line-height: 1.45;
   max-width: 24rem;
   color: var(--c-white);
 }
+/* On the Label step, like every other uppercase label on the site. These
+   column headings were the odd ones out on all three counts — 17px against
+   the Label's 13, weight 600 against 700, and tracking in px — which put
+   the footer's labels at a different size and weight to the eyebrows on
+   every page above it. */
 .ah-site .site-footer__col h6 {
   /* Sand, not lilac. Lilac is the parent's accent and steps back on the buy
      side. One accent per view. */
   color: var(--c-sand);
   text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: var(--fs-small);
-  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  font-size: var(--fs-label);
+  font-weight: 700;
   font-family: var(--font-heading);
   margin-bottom: 0.9rem;
 }

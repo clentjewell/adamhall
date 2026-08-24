@@ -229,6 +229,23 @@ html {
      two large feature surfaces per page (--radius-lg in tokens.css). */
   --radius-control: 0.5rem; /* 8px */
   --radius-card: 1rem; /* 16px */
+
+  /* Tracking for the two uppercase roles, so letter-spacing is chosen from
+     the scale rather than typed per rule.
+
+     The Label step had five trackings doing one job — 0.14, 0.1, 0.08, 0.07
+     and 0.04em — across sixteen rules that otherwise agreed exactly (heading
+     face, weight 700, --fs-label). Nobody reads 0.07 against 0.08 as intent,
+     so it read as drift, and it is the same drift the type sizes above were
+     already collapsed to fix. 0.14em is not a new number: it is what the two
+     NAMED label styles, .type-label and .eyebrow, already used, so the
+     majority of the labels a reader actually meets are unchanged.
+
+     Nav is its own role and stays in the body face, but it was tracked in
+     px: 0.5px on 21px in the header, 1px on 24px in the mobile menu, which
+     is not the same tracking at two sizes. In em it is. */
+  --tracking-label: 0.14em;
+  --tracking-nav: 0.03em;
 }
 @media (min-width: 1024px) {
   :root {
@@ -367,7 +384,7 @@ body {
     font-size: 0.8125rem; /* 13px */
     line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
+    letter-spacing: var(--tracking-label);
   }
   .type-price {
     font-weight: 800;
@@ -655,9 +672,15 @@ body {
 }
 .vsteps__hint {
   margin-top: 0.1875rem;
+  /* Below the Label step on purpose, unlike every other uppercase label: this
+     sits in a nowrap row of three, and the row is already sized to just clear
+     a phone's width (see .vsteps__label above). Family, weight and tracking
+     are the Label's; only the size steps down, so it still reads as the same
+     kind of text. */
+  font-family: var(--font-display);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-mute);
   line-height: 1.4;

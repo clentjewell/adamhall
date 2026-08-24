@@ -53,9 +53,13 @@
   color: #d64545;
   font-size: var(--fs-small);
 }
+/* An uppercase label, and now typed as one: it was the only one on the site
+   left in the body face, at a step above the Label with its own tracking. */
 .ah-site .vform__step {
-  font-size: var(--fs-small);
-  letter-spacing: 0.08em;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--c-text);
   margin: 0;

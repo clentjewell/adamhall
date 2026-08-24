@@ -219,7 +219,7 @@
   padding: 0.85rem 0;
   font-family: var(--font-body);
   font-size: var(--fs-small);
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-nav);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
@@ -321,7 +321,7 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--fs-body);
-  letter-spacing: 0.5px;
+  letter-spacing: var(--tracking-nav);
   text-transform: uppercase;
   color: var(--c-text-dark);
   position: relative;
@@ -407,7 +407,7 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--fs-lead);
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-nav);
   text-transform: uppercase;
   color: var(--c-white);
   padding: 0.85rem 0;

@@ -312,7 +312,7 @@
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--fs-label);
-  letter-spacing: 0.08em;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   line-height: 1;
   /* Neutral by default: a PPSR note is a fact, not an accent moment. */
