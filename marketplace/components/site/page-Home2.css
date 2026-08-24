@@ -110,17 +110,35 @@
    sits on the existing tokens: --rhythm-section for the block, the type
    scale for the headings, so it inherits any future change to either
    rather than carrying its own numbers. */
+/* Cream, not white, at Adam's direction. Coming out of a full screen of dark
+   green film into pure white was the hardest edge on the page: white is
+   brighter than the page's own ground, so the section read as a slab dropped
+   on top of the site rather than the site continuing. On cream it flows out of
+   the film, and it runs into the stock section below as one passage — what
+   this is, then the cars — with the hairline as the only thing between them.
+   The white band further down (.mp2-band) stays white, so the alternation
+   white and cream give the page is still there, just later. */
 .ah-site .mp2-intro {
-  background: var(--c-white);
+  background: var(--c-cream);
   padding-block: var(--rhythm-section);
   border-bottom: 1px solid var(--c-border);
 }
-/* The Subheading step. This is a section of the page introducing the page,
-   not a second title competing with the hero's h1. */
+/* The Display step, matching the hero's headline, at Adam's direction. It was
+   the section step (38px) and deliberately smaller so as not to compete with
+   the hero — but the hero is a full screen of film at 56px and this is the
+   first thing after it, so 38px read as the page losing its voice the moment
+   the film ended.
+
+   Worth flagging rather than burying: the identity reserves the Display step
+   for a page's hero, so this is the second element on the site to take it and
+   a departure in the same class as the scroll film itself. Line height and
+   tracking follow the display style so the two headings are the same piece of
+   type, not the same size in two different cuts. Reversing it is one token —
+   back to --fs-section-title. */
 .ah-site .mp2-intro__title {
-  font-size: var(--fs-section-title);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-hero);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
   max-width: 20ch;
   margin: 0.5rem 0 0;
 }
@@ -147,7 +165,11 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 1.75rem;
-  background: var(--c-cream);
+  /* White on the cream section, which is the way round it has to be now the
+     section itself is cream. These were cream panels on white; left alone,
+     the ground change made them cream on cream and they collapsed to a pair
+     of faint outlines. Inverting keeps the panel reading as a panel. */
+  background: var(--c-white);
   border: 1px solid var(--c-border);
   border-radius: 1rem;
 }
