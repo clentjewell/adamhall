@@ -5,9 +5,10 @@
    (desktop 1280) and 1d (mobile 390). Colour and type come from the live
    identity via tokens.css, never from the mockup. No hexes here.
 
-   Sticky offsets read --sticky-offset (globals.css), which is the header's
-   height while it is showing and zero while it is hidden. The filter bar
-   parks directly under the header, and the sidebar parks under both.
+   The filter bar is static and scrolls away with the page. The sidebar is
+   the one sticky thing here, and it parks on --sticky-offset (globals.css),
+   which is the header's height while it is showing and zero while it is
+   hidden.
    =================================================================== */
 
 .ah-site.mp-cars2 .eyebrow {
@@ -35,26 +36,23 @@
   text-wrap: pretty;
 }
 
-/* --- Sticky filter bar ------------------------------------------------
-   What is currently narrowing the list, kept in reach while scrolling.
-   The bar is opaque so results never show through it.
+/* --- Filter bar -------------------------------------------------------
+   A band above the results stating what is currently narrowing the list.
 
-   It parks on --sticky-offset rather than a fixed number. It used to sit at
-   a hard 64px, which was the header's height two redesigns ago and took no
-   account of the header hiding on the way down: scrolled far enough, the
-   header slid off and left 64px of bare viewport above an opaque bar, with
-   the results moving past inside it. Over the sold cards that read as the
-   bar cutting the photos in half. The offset now collapses to zero with the
-   header, so the bar sits flush to the top edge whenever the header is not
-   there, and the move is eased on the header's own curve so the two travel
-   together instead of one jumping. */
+   Static, at Adam's direction: it scrolls away with the page rather than
+   following the reader down it. It was sticky, and that was the source of
+   the artefact over the sold cards — an opaque bar riding down the page
+   through the card photos. Chasing the header's hide with --sticky-offset
+   fixed the see-through strip above it, but the bar was still a band moving
+   across the results, and a band that stays out of the way is the simpler
+   answer. Nothing here positions itself now, so there is no stacking or
+   offset to keep in step with the header.
+
+   The ground and the hairline stay: this is still a band, and the results
+   below it still need something to start under. */
 .ah-site .mp2-filterbar {
-  position: sticky;
-  top: var(--sticky-offset);
-  z-index: 4;
   background: var(--c-cream);
   border-bottom: 1px solid var(--c-border);
-  transition: top 360ms var(--header-ease, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .ah-site .mp2-filterbar__inner {
   display: flex;
@@ -196,10 +194,12 @@
   border-radius: var(--radius);
   padding: 1.25rem;
   position: sticky;
-  /* Clears the header and the filter bar. The header's share tracks its
-     hiding via --sticky-offset; 4.5rem is the bar itself, which does not
-     move. Was a flat 8.5rem against the old 64px header. */
-  top: calc(var(--sticky-offset) + 4.5rem);
+  /* Clears the header, and nothing else: the filter bar above it is static
+     now and scrolls away, so the 4.5rem this used to add for it would just
+     be a dead gap. The header's share collapses when it hides — see
+     --sticky-offset — and 1.75rem is the same breathing room the car page's
+     rail and the FAQ aside use. */
+  top: calc(var(--sticky-offset) + 1.75rem);
   transition: top 360ms var(--header-ease, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .ah-site .mp2-sidebar__title {
