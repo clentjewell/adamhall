@@ -147,6 +147,25 @@ export default function Header() {
     };
   }, [open]);
 
+  // --- Telling the rest of the page where the header currently is --------
+  // Sticky things further down the page have to park under the header, which
+  // means they need to know that it hides. Without this they park at a fixed
+  // offset and, the moment the header slides away, that offset becomes a
+  // see-through strip above them with the page scrolling past inside it —
+  // which is exactly what the /cars filter bar was doing.
+  //
+  // Published as an attribute on the root element rather than passed down,
+  // because the elements that need it (the filter bar, the /cars sidebar, the
+  // car page's buying rail, the FAQ aside) are nowhere near this component in
+  // the tree. globals.css turns it into --sticky-offset; nothing reads the
+  // attribute directly.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (hidden) root.setAttribute("data-header-hidden", "true");
+    else root.removeAttribute("data-header-hidden");
+    return () => root.removeAttribute("data-header-hidden");
+  }, [hidden]);
+
   // --- Reading the ground it is sitting on -------------------------------
   useEffect(() => {
     const grounds = Array.from(document.querySelectorAll(DARK_GROUNDS)).filter(

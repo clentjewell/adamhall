@@ -246,6 +246,22 @@ html {
      is not the same tracking at two sizes. In em it is. */
   --tracking-label: 0.14em;
   --tracking-nav: 0.03em;
+
+  /* Where a sticky element below the header should park.
+     The header is --site-header-h tall and sticky at top:0, but it also
+     HIDES on the way down (Header.tsx), so this cannot be a constant. Every
+     sticky offset on the site was hard-coded against a 64px header that has
+     been 80px for a while, and none of them knew about the hiding — so once
+     the header slid away, each one was left floating with an empty strip
+     above it and the page scrolling past inside it. On /cars that strip was
+     64px of moving car photos above an opaque filter bar.
+     Header.tsx sets data-header-hidden on the root element; the rule below
+     collapses this to zero for as long as that is there. Anything sticky
+     adds its own clearance on top with calc(). */
+  --sticky-offset: var(--site-header-h);
+}
+:root[data-header-hidden="true"] {
+  --sticky-offset: 0px;
 }
 @media (min-width: 1024px) {
   :root {

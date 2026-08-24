@@ -93,7 +93,9 @@
 /* --- Sticky rail ------------------------------------------------------ */
 .ah-site .mp2-faq__aside {
   position: sticky;
-  top: 5.75rem;
+  /* Same offset as the car page's rail; see --sticky-offset. */
+  top: calc(var(--sticky-offset) + 1.75rem);
+  transition: top 360ms var(--header-ease, cubic-bezier(0.4, 0, 0.2, 1));
 }
 .ah-site .mp2-faq__card {
   background: var(--c-white);
