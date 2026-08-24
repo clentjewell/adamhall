@@ -30,9 +30,21 @@ import { brand } from "@/lib/brand";
  * is simply full, and it goes.
  */
 
-/** How long a navigation has to be in flight before the screen is worth it.
-    Under this, the reader never sees it — which on this site is most clicks. */
-const DELAY_MS = 400;
+/** No wait: the screen opens on the click. It was 400ms and then 80ms, both
+    chosen to keep it off navigations that were already fast — but Next
+    prefetches the links in view, so those resolve in twenty or thirty
+    milliseconds and beat any delay worth having. The result was a screen that
+    never appeared on the deployed site at all. Adam wants it on every page, so
+    it opens immediately and MIN_VISIBLE_MS is what stops it flashing.
+    Zero rather than no timer: a task boundary still lets a handler that
+    cancels the navigation run first. */
+const DELAY_MS = 0;
+/** Once open, the screen stays at least this long even if the page has already
+    arrived. This is what stops it strobing: without it a 90ms navigation would
+    show a green flash and nothing legible, which is worse than no screen. With
+    it the screen reads as a deliberate transition. The cost is honest — it can
+    add a fraction of a second to a page that was already there. */
+const MIN_VISIBLE_MS = 420;
 /** Must match .nav-screen.is-leaving's transition in globals.css: the element
     is unmounted after it, so a shorter value here would cut the fade off. */
 const FADE_OUT_MS = 180;
@@ -70,15 +82,22 @@ function NavLoaderInner() {
   const delayRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const safetyRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const outRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const holdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** When the screen actually opened, for the minimum-visible hold. */
+  const openedAtRef = useRef(0);
 
   const clearTimers = useCallback(() => {
-    for (const ref of [delayRef, safetyRef, outRef]) {
+    for (const ref of [delayRef, safetyRef, outRef, holdRef]) {
       if (ref.current) clearTimeout(ref.current);
       ref.current = null;
     }
   }, []);
 
-  const hide = useCallback(() => {
+  /** Take it down now, whatever it has been on screen for. Used by the
+      minimum-visible hold once that has elapsed, and by the teardown paths
+      where waiting would mean holding a screen over a document that is
+      already going. */
+  const close = useCallback(() => {
     clearTimers();
     if (!shownRef.current) return;
     shownRef.current = false;
@@ -96,13 +115,37 @@ function NavLoaderInner() {
     );
   }, [clearTimers]);
 
+  /** The page has arrived. Cancels a screen still waiting to open, and holds
+      one that is already up until it has been readable. */
+  const hide = useCallback(() => {
+    if (delayRef.current) {
+      // Never opened: the navigation beat the delay, which is the whole point
+      // of the delay.
+      clearTimeout(delayRef.current);
+      delayRef.current = null;
+    }
+    if (!shownRef.current) return;
+    if (holdRef.current) return; // already counting down
+    const shownFor = Date.now() - openedAtRef.current;
+    const remaining = MIN_VISIBLE_MS - shownFor;
+    if (remaining <= 0) {
+      close();
+      return;
+    }
+    holdRef.current = setTimeout(() => {
+      holdRef.current = null;
+      close();
+    }, remaining);
+  }, [close]);
+
   const open = useCallback(() => {
     shownRef.current = true;
     setShown(true);
     setLeaving(false);
     setRule(0);
-    safetyRef.current = setTimeout(hide, SAFETY_MS);
-  }, [hide]);
+    openedAtRef.current = Date.now();
+    safetyRef.current = setTimeout(close, SAFETY_MS);
+  }, [close]);
 
   // Move the rule off zero once the screen is mounted. An effect rather than a
   // requestAnimationFrame: rAF is a frame callback, and the frames are exactly
@@ -171,22 +214,23 @@ function NavLoaderInner() {
   // down: the route resolved, the reader went back, or the document is being
   // torn down for a full page load.
   useEffect(() => {
-    const onPageHide = () => hide();
-    const onPopState = () => hide();
+    // No minimum hold on these: the document is going, or the reader has moved
+    // themselves, and neither is a moment to keep a cover up.
+    const onPageHide = () => close();
+    const onPopState = () => close();
     window.addEventListener("pagehide", onPageHide);
     window.addEventListener("popstate", onPopState);
     return () => {
       window.removeEventListener("pagehide", onPageHide);
       window.removeEventListener("popstate", onPopState);
     };
-  }, [hide]);
+  }, [close]);
 
   // The route changed, so the page the reader asked for is here. This also
   // cancels a screen that was armed but had not opened yet, which is the
   // ordinary case on a fast navigation.
   useEffect(() => {
-    clearTimers();
-    if (shownRef.current) hide();
+    hide();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams]);
 
