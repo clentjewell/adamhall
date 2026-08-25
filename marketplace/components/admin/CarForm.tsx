@@ -7,6 +7,7 @@ import {
   ArrowCounterClockwise,
   ArrowLeft,
   ArrowRight,
+  Camera,
   Sparkle,
   Star,
   UploadSimple,
@@ -14,6 +15,7 @@ import {
 } from "@phosphor-icons/react";
 import { saveCar, type CarInput } from "@/app/actions/admin";
 import { compressImage } from "@/lib/upload";
+import type { Identification } from "@/lib/identify-car";
 import { createClient } from "@/lib/supabase/client";
 import type { Car, CarPhoto } from "@/lib/types";
 
@@ -39,6 +41,11 @@ export default function CarForm({
   // What the box said before the last draft, so a draft the dealer doesn't
   // like costs nothing. Cleared once they edit the text themselves.
   const [undoTo, setUndoTo] = useState<string | null>(null);
+  const [identifying, setIdentifying] = useState(false);
+  /** The outcome line under the specs: what got filled, or what went wrong. */
+  const [identifyNote, setIdentifyNote] = useState<
+    { ok: boolean; text: string } | null
+  >(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   async function onFiles(files: FileList | null) {
@@ -60,6 +67,80 @@ export default function CarForm({
       } finally {
         setUploading((n) => n - 1);
       }
+    }
+  }
+
+  /**
+   * Fill the spec fields from the photographs. Claude answers with what a
+   * photo can actually show (lib/identify-car.ts holds the rules), and the
+   * answer lands ONLY in fields that are still empty — the dealer's own
+   * typing is never overwritten, and everything stays editable. A year the
+   * model can only place as a range becomes a hint, not a value: the dealer
+   * knows the real year and a plausible wrong one saved quietly is the
+   * failure this whole feature must not have.
+   */
+  async function fillFromPhotos() {
+    const form = formRef.current;
+    if (!form || identifying || photos.length === 0) return;
+    setIdentifying(true);
+    setIdentifyNote(null);
+    try {
+      const res = await fetch("/api/admin/identify-car", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ photos: photos.map((p) => p.url) }),
+      });
+      if (!res.ok) {
+        const { error: e } = await res
+          .json()
+          .catch(() => ({ error: "Identifying failed." }));
+        throw new Error(e || "Identifying failed.");
+      }
+      const { fields } = (await res.json()) as { fields: Identification };
+
+      const filled: string[] = [];
+      const fill = (name: string, label: string, value?: string | number) => {
+        if (value === undefined || value === null || value === "") return;
+        const el = form.elements.namedItem(name);
+        if (el instanceof HTMLInputElement && !el.value.trim()) {
+          el.value = String(value);
+          filled.push(label);
+        }
+      };
+      fill("make", "make", fields.make);
+      fill("model", "model", fields.model);
+      fill("badge", "badge", fields.badge);
+      fill("body_type", "body type", fields.body_type);
+      fill("colour", "colour", fields.colour);
+      fill("fuel", "fuel", fields.fuel);
+      fill("transmission", "transmission", fields.transmission);
+      fill("seats", "seats", fields.seats);
+      if (fields.year_min && fields.year_min === fields.year_max) {
+        fill("year", "year", fields.year_min);
+      }
+
+      let note: string;
+      if (filled.length > 0) {
+        note = `Filled ${filled.join(", ")} from the photos — a best guess, so check each one.`;
+      } else {
+        note = "Nothing filled: the fields it could read are already typed in, or the photos didn't say enough.";
+      }
+      if (
+        fields.year_min &&
+        fields.year_max &&
+        fields.year_min !== fields.year_max &&
+        !(form.elements.namedItem("year") as HTMLInputElement | null)?.value.trim()
+      ) {
+        note += ` Looks like a ${fields.year_min}–${fields.year_max} model — set the exact year.`;
+      }
+      setIdentifyNote({ ok: true, text: note });
+    } catch (e) {
+      setIdentifyNote({
+        ok: false,
+        text: e instanceof Error ? e.message : "Identifying failed.",
+      });
+    } finally {
+      setIdentifying(false);
     }
   }
 
@@ -207,7 +288,25 @@ export default function CarForm({
   return (
     <form ref={formRef} action={onSubmit} className="space-y-6">
       <section className="card p-5">
-        <h2 className="font-bold mb-4">The car</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <h2 className="font-bold">The car</h2>
+          <button
+            type="button"
+            onClick={fillFromPhotos}
+            disabled={!aiConfigured || identifying || photos.length === 0}
+            title={
+              !aiConfigured
+                ? "Add ANTHROPIC_API_KEY in Cloudflare to enable this"
+                : photos.length === 0
+                  ? "Add photos below first"
+                  : undefined
+            }
+            className="btn-secondary !py-2 text-sm"
+          >
+            <Camera size={16} weight="bold" />
+            {identifying ? "Reading the photos…" : "Fill from photos"}
+          </button>
+        </div>
         <div className="grid sm:grid-cols-3 gap-4">
           {field("make", "Make", { required: true }, car?.make)}
           {field("model", "Model", { required: true }, car?.model)}
@@ -222,6 +321,14 @@ export default function CarForm({
           {field("colour", "Colour", {}, car?.colour)}
           {field("seats", "Seats", { type: "number" }, car?.seats)}
         </div>
+        {identifyNote && (
+          <p
+            className={identifyNote.ok ? "text-sm font-medium text-forest-700 mt-4" : "error-text mt-4"}
+            role={identifyNote.ok ? "status" : "alert"}
+          >
+            {identifyNote.text}
+          </p>
+        )}
       </section>
 
       <section className="card p-5">

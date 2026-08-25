@@ -38,7 +38,7 @@ npm run dev
 | `RESEND_API_KEY` | resend.com — leave empty in dev, emails log to console |
 | `EMAIL_FROM`, `ADMIN_NOTIFY_EMAIL` | your sending identity + Adam's inbox |
 | `NEXT_PUBLIC_SITE_URL` | the deployed URL (used in emails + sitemap) |
-| `ANTHROPIC_API_KEY` | console.anthropic.com — the Assistant and the listing-description drafting; both say they are switched off without it |
+| `ANTHROPIC_API_KEY` | console.anthropic.com — the Assistant, "Fill from photos" and the listing-description drafting; all say they are switched off without it |
 
 ## Database
 

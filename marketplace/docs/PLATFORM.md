@@ -506,7 +506,7 @@ deploy instructions.
 | `RESEND_API_KEY` | runtime secret | empty in dev → emails log to console instead of sending |
 | `EMAIL_FROM` | runtime secret | sending identity |
 | `ADMIN_NOTIFY_EMAIL` | runtime secret | Adam's inbox for new-lead notifications |
-| `ANTHROPIC_API_KEY` | runtime secret | the Assistant and "Draft with AI" on a listing description; absent, both routes answer 503 and the UI says so |
+| `ANTHROPIC_API_KEY` | runtime secret | the Assistant, "Fill from photos" and "Draft with AI" on a listing; absent, the routes answer 503 and the UI says so |
 
 **Cloudflare Workers build settings** (Git-connected `adamhall-marketplace`
 service):
