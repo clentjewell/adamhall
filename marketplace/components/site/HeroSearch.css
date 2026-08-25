@@ -116,7 +116,35 @@
 
 /* --- The quick search ------------------------------------------------- */
 .ah-site .hsearch__quick {
-  display: block;
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.ah-site .hsearch__input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+/* The glass. A square the input's height, on the input's own materials, so
+   the bar ends in a control without competing with the sand count button. */
+.ah-site .hsearch__qbtn {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  border: 1px solid var(--hsearch-line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--c-white);
+  cursor: pointer;
+  transition: background-color 160ms cubic-bezier(0, 0, 0.2, 1);
+}
+.ah-site .hsearch__qbtn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+.ah-site .hsearch__qbtn:focus-visible {
+  outline: 2px solid var(--c-sand);
+  outline-offset: 1px;
 }
 .ah-site .hsearch__input {
   width: 100%;
@@ -394,11 +422,10 @@
 @media (min-width: 900px) {
   .ah-site .hsearch {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
-      "head  types"
-      "quick types"
-      "row   types";
+      "head quick quick"
+      "row  row   types";
     column-gap: 2rem;
     row-gap: 1rem;
     align-items: end;
@@ -409,9 +436,15 @@
   .ah-site .hsearch__head {
     grid-area: head;
     align-self: start;
+    /* Room between the words and the bar beside them. */
+    padding-right: 2rem;
+    width: auto;
   }
   .ah-site .hsearch__quick {
     grid-area: quick;
+    /* Optically level with the head's two lines rather than hanging from
+       the row's top edge. */
+    align-self: center;
   }
   .ah-site .hsearch__row {
     grid-area: row;
@@ -469,15 +502,12 @@
   .ah-site .hsearch__snap {
     display: none;
   }
-  /* The quick row is the band's newest inch, and on a short frame it is the
-     inch there isn't room for twice: the label goes (the placeholder says
-     what the box is) and the controls drop to the compact height. */
-  .ah-site .hsearch__quick .hsearch__label {
-    display: none;
-  }
   .ah-site .hsearch__input,
   .ah-site .hsearch__select {
     min-height: 36px;
+  }
+  .ah-site .hsearch__qbtn {
+    width: 36px;
   }
 }
 

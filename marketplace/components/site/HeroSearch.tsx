@@ -101,6 +101,10 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
   /** Only a keystroke may write the URL — not the mount, and not the
       initial read-back of a shared link's q. */
   const quickTouched = useRef(false);
+  /** The debounce in flight, so a deliberate commit can cancel it — measured
+      without this, the stale write landed 250ms after the glass was pressed
+      and took the scroll with it. */
+  const quickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   /** Phone and small tablet only: the band collapses to its own head so it
       cannot push the hero's words off a pinned screen. Wide screens ignore
       this entirely — the stylesheet shows the body and the toggle is not
@@ -134,14 +138,18 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
   // the URL is written when the reader pauses, not on every keystroke.
   useEffect(() => {
     if (!quickTouched.current) return;
-    const t = setTimeout(() => {
+    quickTimer.current = setTimeout(() => {
+      quickTimer.current = null;
       const next = new URLSearchParams(window.location.search);
       const v = quick.trim();
       if (v) next.set("q", v);
       else next.delete("q");
       router.replace(`${pathname}${next.size ? `?${next}` : ""}`, { scroll: false });
     }, 250);
-    return () => clearTimeout(t);
+    return () => {
+      if (quickTimer.current) clearTimeout(quickTimer.current);
+      quickTimer.current = null;
+    };
   }, [quick, router, pathname]);
 
   const selection = useMemo(
@@ -237,6 +245,21 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
 
   const touched = Boolean(quick || make || body || fuel || priceMax);
 
+  /** Enter or the search button: apply q immediately and go to the results.
+      The debounced write covers typing; this is the deliberate act. */
+  const commitQuick = () => {
+    if (quickTimer.current) {
+      clearTimeout(quickTimer.current);
+      quickTimer.current = null;
+    }
+    const next = new URLSearchParams(window.location.search);
+    const v = quick.trim();
+    if (v) next.set("q", v);
+    else next.delete("q");
+    router.replace(`${pathname}${next.size ? `?${next}` : ""}`, { scroll: false });
+    document.getElementById("browse")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const pick = (t: Tile) => {
     const on = t.key === "body" ? body === t.value : fuel === t.value;
     if (t.key === "body") setBody(on ? "" : t.value);
@@ -286,9 +309,10 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
           head opens and closes. */}
       <div id={bodyId} className={`hsearch__body${open ? " is-open" : ""}`}>
         {/* The quick search: type the car instead of building it from the
-            selects. Filters the list below as it is typed. */}
-        <label className="hsearch__quick">
-          <span className="hsearch__label">Quick search</span>
+            selects. Filters the list below as it is typed; Enter or the
+            glass jumps to it. On a wide screen it sits beside the head, one
+            bar to the band's edge, per Adam's sketch. */}
+        <div className="hsearch__quick">
           <input
             type="search"
             className="hsearch__input"
@@ -297,11 +321,39 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
               quickTouched.current = true;
               setQuick(e.target.value);
             }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                commitQuick();
+              }
+            }}
             placeholder={`Try “Hilux” or “Toyota diesel”`}
+            aria-label="Quick search"
             autoComplete="off"
             enterKeyHint="search"
           />
-        </label>
+          <button
+            type="button"
+            className="hsearch__qbtn"
+            aria-label="Search"
+            onClick={commitQuick}
+          >
+            {/* A glass, drawn like every other stroke on the band. */}
+            <svg
+              viewBox="0 0 24 24"
+              width={18}
+              height={18}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <circle cx="10.5" cy="10.5" r="6" />
+              <path d="M15 15 L20 20" />
+            </svg>
+          </button>
+        </div>
         <div className="hsearch__row">
           <div className="hsearch__fields">
             <label className="hsearch__field">
