@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useId, useMemo, useState } from "react";
 import { Link } from "next-view-transitions";
 import { applyFilters, type Filterable } from "@/lib/filters";
+import TypeIcon from "@/components/site/TypeIcon";
 import "@/components/site/HeroSearch.css";
 
 /**
@@ -22,12 +22,11 @@ import "@/components/site/HeroSearch.css";
  * on top of it. The blur is the same device the header already uses when it
  * floats over a page.
  *
- * The tiles are the reason the band is worth looking at, and they are REAL
- * CARS — the lead photograph of a car of that type currently on the lot, not a
- * stock silhouette or a studio render. A dealer with six cars has one
- * advantage over carsales here and it is exactly this: the categories can be
- * photographs of the actual stock, so the tile row IS the snapshot as well as
- * the way in, and there is no artwork to maintain as the lot changes.
+ * The tiles carry a drawn icon of the type. They held the lead photograph of a
+ * real car of that type until Adam asked for icons instead, and he is right:
+ * at 88px a photograph of one particular Hilux is a picture of one car, where a
+ * silhouette is the whole class. It also means the hero no longer fetches five
+ * photographs to draw five buttons. See TypeIcon for the set.
  *
  * The mockup's own tiles read New Cars, EV, Hybrid, SUV, Ute. Two of those
  * cannot be honest here: there are no new cars on a used-car lot and no EV in
@@ -58,10 +57,10 @@ import "@/components/site/HeroSearch.css";
  * shareable.
  */
 
-/** The fields filtering reads, plus the one photograph the tiles need. The
-    band runs in the browser, so what it is given is what the page ships —
-    see the projection in app/page.tsx. */
-export type HeroSearchCar = Filterable & { photo: string | null };
+/** Just the fields filtering reads. The band runs in the browser, so what it
+    is given is what the page ships — see the projection in app/page.tsx. It
+    carried one photo URL per car until the tiles became drawn icons. */
+export type HeroSearchCar = Filterable;
 
 /** Price ceilings offered, coarsest first. Only those that would actually
     return something are shown, so the ladder shortens with the lot. */
@@ -86,7 +85,6 @@ type Tile = {
   total: number;
   /** What is left of the group under the other choices. */
   count: number;
-  photo: string | null;
 };
 
 export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
@@ -180,23 +178,13 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
         .sort((a, z) => group("fuel", z.value).length - group("fuel", a.value).length),
     ].slice(0, MAX_TILES);
 
-    // One photograph per tile, and not the same car twice where the lot allows
-    // it — the SUV tile and the Hybrid tile would otherwise both be the RAV4,
-    // which makes a row of five look like a row of three.
-    const used = new Set<string>();
     return ordered.map(({ key, value }) => {
       const g = group(key, value);
-      const photo =
-        g.find((c) => c.photo && !used.has(c.photo))?.photo ??
-        g.find((c) => c.photo)?.photo ??
-        null;
-      if (photo) used.add(photo);
       return {
         key,
         value,
         total: g.length,
         count: countWith({ [key]: value } as Partial<typeof selection>),
-        photo,
       };
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -368,18 +356,9 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
                     onClick={() => pick(t)}
                   >
                     <span className="hsearch__tileimg">
-                      {t.photo ? (
-                        <Image
-                          src={t.photo}
-                          // Decorative: the type is named in text below it, and
-                          // the car in the photograph is an example of the type
-                          // rather than the thing being chosen.
-                          alt=""
-                          fill
-                          sizes="160px"
-                          className="hsearch__tilephoto"
-                        />
-                      ) : null}
+                      {/* Decorative: the type is named in text directly
+                          below it. */}
+                      <TypeIcon value={t.value} className="hsearch__ico" />
                     </span>
                     <span className="hsearch__tileline">
                       <span className="hsearch__tilename">{t.value}</span>
