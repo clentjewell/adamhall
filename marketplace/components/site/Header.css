@@ -102,8 +102,12 @@
   display: flex;
   align-items: center;
 }
+/* Larger, at Adam's direction. 52px in an 80px bar leaves 14px of air either
+   side, which is the most the row can give the mark without the bar having to
+   grow — and --site-header-h is the offset every sticky thing on the site is
+   measured against, so it stays where it is. */
 .ah-site .site-header__logo img {
-  height: 42px;
+  height: 52px;
   width: auto;
 }
 
@@ -219,8 +223,6 @@
   padding: 0.85rem 0;
   font-family: var(--font-body);
   font-size: var(--fs-small);
-  letter-spacing: var(--tracking-nav);
-  text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
   cursor: pointer;
 }
@@ -262,14 +264,16 @@
   /* At rest the row spans the screen, so the mark sits at the left edge and
      the actions at the right. That is the position they travel from.
 
-     How far they can travel is set by the row's own content, not by taste:
-     the nav is six uppercase items and measures 753px on its own, so the
-     three pods and their gaps need about 1250px however they are arranged.
-     Condensing to that width is therefore the whole of the available
-     movement — 96px a side on a 1440 screen, 336px on a 1920 one. It reads
-     clearly on a wide monitor and is modest on a laptop, and there is no way
-     to make it larger without shortening the nav itself. The min() keeps a
-     narrow desktop from clipping rather than converging. */
+     How far they can travel is set by the row's own content, not by taste,
+     and the nav losing its capitals bought most of it. In caps the six items
+     measured 753px and the three pods needed about 1250px however they were
+     arranged, which left 96px a side on a 1440 screen. Set as written the nav
+     is 538px condensed, the three pods measure 912px together, and 66rem
+     leaves 144px of slack — 72px between each pod. So the row now draws in
+     192px a side at 1440 and 432px at 1920: twice the movement, from the same
+     change that made the words easier to read. Measured at 1201, the narrowest
+     width the nav appears at: 960px of content into a 1056px row. The min()
+     keeps a narrow desktop from clipping rather than converging. */
   .ah-site .site-header__inner {
     /* 100%, not none. `none` is not an interpolable value, so animating from
        it to a length does nothing at all and the row simply teleports to its
@@ -278,21 +282,35 @@
     max-width: 100%;
   }
   .ah-site.site-header.is-condensed .site-header__inner {
-    max-width: min(78rem, 100% - 2rem);
+    max-width: min(66rem, 100% - 2rem);
     padding-inline: 1rem;
   }
-  .ah-site.site-header.is-condensed .site-header__pod {
+  /* :not(.site-header__logo) because the mark does not take a chip. It has
+     its own silhouette and its own reverse cut for dark grounds, so a rounded
+     rectangle behind it adds an edge that competes with the artwork instead of
+     protecting anything. The other two pods keep theirs: they hold type that
+     has to stay legible over whatever the film is doing underneath. */
+  .ah-site.site-header.is-condensed .site-header__pod:not(.site-header__logo) {
     padding-inline: 0.875rem;
     padding-block: 0.5rem;
     background: var(--c-cream);
     border-color: var(--c-border);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   }
-  /* The mark comes down a step as it draws in, so the pod around it reads at
-     the same height as the other two rather than towering over them. */
+  /* The mark still comes down a step as the row draws in — the whole row
+     tightens, and the mark tightening with it is what makes that read as one
+     movement. It no longer has to match a pod's height, because it no longer
+     has a pod. */
   .ah-site.site-header.is-condensed .site-header__logo img {
-    height: 34px;
-    transition: height 480ms var(--header-ease);
+    height: 44px;
+    /* Losing the chip exposed something the chip had been hiding rather than
+       solving: once the bar goes transparent the page scrolls under the mark,
+       and on /cars it lands over the filter panel. A shadow separates it from
+       whatever is behind without drawing an edge around it — which is the
+       thing that was asked to go. Faint on purpose: enough to read against a
+       white card, invisible against the cream bar. */
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.28));
+    transition: height 480ms var(--header-ease), filter 480ms var(--header-ease);
   }
   /* The bar itself is no longer needed once each pod carries its own ground,
      and losing it is what makes them read as floating on the page. */
@@ -304,7 +322,8 @@
      which is a firmer guarantee of contrast than the wash the un-condensed
      header uses: the type sits on a known ground rather than on whatever the
      frame happens to be doing. */
-  .ah-site.site-header.is-condensed.is-on-dark .site-header__pod {
+  .ah-site.site-header.is-condensed.is-on-dark
+    .site-header__pod:not(.site-header__logo) {
     background: rgba(0, 26, 21, 0.62);
     border-color: rgba(255, 255, 255, 0.16);
     box-shadow: none;
@@ -317,12 +336,17 @@
   gap: 1rem;
   list-style: none;
 }
+/* Set as written, not shouted. The labels in site-data are already in their
+   proper case — "The Marketplace", "FAQ", "Contact Us" — and uppercasing them
+   in CSS cost the words their shapes: six items in caps read as six blocks of
+   the same height, which is slower to scan than ascenders and descenders, and
+   it turned an acronym and a two-word page name into the same texture. The
+   tracking went with it: letter-spacing is a fix for the gaps caps leave, and
+   mixed-case body type at 21px does not want it. */
 .ah-site .site-header__nav a {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--fs-body);
-  letter-spacing: var(--tracking-nav);
-  text-transform: uppercase;
   color: var(--c-text-dark);
   position: relative;
   padding-block: 0.3rem;
@@ -402,13 +426,12 @@
   flex-direction: column;
   gap: 0.4rem;
 }
+/* The same nav on a phone, so the same treatment. */
 .ah-site .mobile-menu a {
   display: block;
   font-family: var(--font-body);
   font-weight: 400;
   font-size: var(--fs-lead);
-  letter-spacing: var(--tracking-nav);
-  text-transform: uppercase;
   color: var(--c-white);
   padding: 0.85rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -432,7 +455,7 @@
     display: none;
   }
   .ah-site .site-header__logo img {
-    height: 36px;
+    height: 44px;
   }
   .ah-site .burger {
     display: flex;

@@ -267,11 +267,12 @@ html {
      NAMED label styles, .type-label and .eyebrow, already used, so the
      majority of the labels a reader actually meets are unchanged.
 
-     Nav is its own role and stays in the body face, but it was tracked in
-     px: 0.5px on 21px in the header, 1px on 24px in the mobile menu, which
-     is not the same tracking at two sizes. In em it is. */
+     Nav had its own token here for the same reason — it was tracked in px,
+     0.5px on 21px in the header against 1px on 24px in the mobile menu, which
+     is not the same tracking at two sizes. It is gone rather than fixed: the
+     nav is no longer uppercase (Header.css), and letter-spacing on mixed-case
+     body type at 21px is a solution to a problem caps create. */
   --tracking-label: 0.14em;
-  --tracking-nav: 0.03em;
 
   /* How far the navigation screen's rule runs while it waits. Short of the
      end on purpose: the last of it belongs to the page arriving. */
