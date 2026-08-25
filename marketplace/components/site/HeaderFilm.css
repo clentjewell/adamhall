@@ -1,0 +1,130 @@
+/* ============================================================
+   Page header film.
+
+   Deliberately unscoped rather than sitting under .ah-site: the same band is
+   used by the ported pages and by the Tailwind-built valuation page, and one
+   set of rules for both is what keeps them looking like the same site.
+
+   The film is a background layer. It never carries meaning, so it is
+   aria-hidden in the component and its container is inert here: nothing in
+   this file can receive a pointer or a focus ring.
+   ============================================================ */
+.mp2-headfilm {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* The ground under the film, and what the band shows on its own when the
+     film is refused: reduced motion, save-data, or autoplay declined. The
+     headings were drawn for white-on-green, so the band reads correctly with
+     no film at all. */
+  background: var(--color-forest-700, #003a30);
+}
+.mp2-headfilm video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  /* 400ms is the identity's longest step, used here because this is a fade of
+     a background rather than a change the eye is following. */
+  transition: opacity 400ms cubic-bezier(0.2, 0, 0.2, 1);
+}
+.mp2-headfilm video.is-playing {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mp2-headfilm video {
+    display: none;
+  }
+}
+/* Heavy at the left where the words sit, clearing towards the right so the
+   film is actually visible rather than a green wash with a shape in it. The
+   same gradient the valuation band uses, so the two read as one device. */
+.mp2-headfilm__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 51, 43, 0.92) 0%,
+    rgba(0, 51, 43, 0.82) 42%,
+    rgba(0, 51, 43, 0.35) 100%
+  );
+}
+@media (max-width: 700px) {
+  /* On a phone the copy sits over the middle of the frame, so the wash turns
+     vertical and deepens: a left-to-right gradient leaves the last lines of a
+     wrapped heading sitting on bare film. */
+  .mp2-headfilm__scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 51, 43, 0.72) 0%,
+      rgba(0, 51, 43, 0.9) 100%
+    );
+  }
+}
+
+/* --- The band itself -------------------------------------------------------
+   A page header carrying a film, run full page at Adam's direction: every
+   page now opens on a screen of film the way the home page does, and the
+   page's own content begins below the fold.
+
+   The band runs the full viewport and pulls up behind the header, so there
+   is nothing to expose when the header hides. Both the pull-up and the top
+   padding read --header-h rather than repeating a number, so the band keeps
+   its relationship to the header whatever height the header is. dvh rather
+   than vh so a phone's collapsing address bar cannot crop the frame. */
+/* Doubled class on purpose: page-Cars2.css sets .ah-site .mp2-pagehead to a
+   white ground, and at equal specificity the later file would win. This band
+   has to be dark for white type to sit on it. */
+.ah-site .mp2-pagehead.mp2-pagehead--film,
+.mp2-pagehead--film {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  /* The whole viewport, pulled up behind the header. The header now hides on
+     the way down, and a band that started below it would leave a strip of
+     bare green across the top when it went. The extra top padding is what
+     keeps the heading clear of the header while it is showing. */
+  margin-top: calc(var(--site-header-h) * -1);
+  /* A band, not a screen. This was 100dvh, which on an inner page meant the
+     reader met a full viewport of green carrying three lines of text and then
+     had to scroll to reach anything: measured at 1440x900, the band was 900px
+     tall around 143px of content on /faq and /contact-us and 176px on /cars —
+     84% and 80% empty. The home hero earns a whole screen because it is the
+     hero and has the search band in it; an inner page's title does not.
+     Sized so the content sits in it with air rather than adrift in it, and
+     the marketplace grid, the question list and the contact form all start
+     above the fold now. */
+  min-height: clamp(19rem, 44vh, 25rem);
+  background: var(--color-forest-700, #003a30);
+  border-bottom: 0;
+  padding-block: calc(clamp(2.75rem, 6vw, 4.5rem) + var(--site-header-h))
+    clamp(2.75rem, 6vw, 4.5rem);
+}
+/* Only the content column is lifted above the film. A blanket `> *` also hit
+   the film's own wrapper and replaced its position:absolute with relative,
+   which collapsed it to nothing and left the band empty. */
+.mp2-pagehead--film > .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+/* Each ported page sets its own .ah-site.mp-xxx .eyebrow colour, which ties
+   with a two-class selector here and wins on file order. The doubled class
+   lifts this above them so the eyebrow is legible on the dark band. */
+.ah-site .mp2-pagehead.mp2-pagehead--film .eyebrow,
+.mp2-pagehead--film .eyebrow {
+  color: var(--c-sand, #f3dcb3);
+}
+.ah-site .mp2-pagehead.mp2-pagehead--film .mp2-pagehead__title,
+.mp2-pagehead--film .mp2-pagehead__title {
+  color: #ffffff;
+}
+.ah-site .mp2-pagehead.mp2-pagehead--film .mp2-pagehead__sub,
+.mp2-pagehead--film .mp2-pagehead__sub {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 54ch;
+}

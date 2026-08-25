@@ -144,7 +144,7 @@ export default async function SubmissionDetailPage({ params }: Props) {
             </p>
             {tradeCarRes.data && (
               <p className="mt-3 text-sm bg-amber-soft rounded-lg px-3 py-2">
-                <span className="font-bold text-amber-accent">Trade-in deal:</span>{" "}
+                <span className="font-bold text-[#8a5a1e]">Trade-in deal:</span>{" "}
                 they want the{" "}
                 <Link href={`/cars/${tradeCarRes.data.slug}`} className="font-semibold underline">
                   {tradeCarRes.data.year} {tradeCarRes.data.make} {tradeCarRes.data.model}

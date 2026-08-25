@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>The Adam Hall Operating System — Proposal · Jewell Projects</title>
+    <meta name="description" content="Getting what's in your head onto paper — so the business can grow past you, not stall on you. A proposal by Jewell Projects for Adam Hall Buy My Car, delivered through the 3D Process™." />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#FAF8F4" />
+    <link rel="icon" href="/jewell-logo.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      :root {
+        --cream: #FAF8F4;
+        --black: #111111;
+        --calm-grey: #EDEBEA;
+        --signal-blue: #2D5BFF;
+        --mid-grey: #666666;
+        --rule: #D4D2D0;
+        --rule-dark: rgba(250,248,244,0.14);
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--cream); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+      .progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--signal-blue); z-index: 400; }
+
+      .header { position: fixed; top: 0; left: 0; right: 0; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(24px, 5vw, 80px); z-index: 350; transition: background .4s var(--ease), backdrop-filter .4s var(--ease), border-color .4s var(--ease); border-bottom: 1px solid transparent; }
+      .header.scrolled { background: rgba(250,248,244,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--rule); }
+      .wm-logo { height: 22px; width: auto; display: block; }
+      .header-meta { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); }
+
+      .section { position: relative; padding: clamp(90px, 13vh, 170px) clamp(24px, 6vw, 80px); }
+      .section.bg-cream { background: var(--cream); }
+      .section.bg-conf { background: #0C0C0C; }
+      .wrap { max-width: 1080px; margin: 0 auto; width: 100%; }
+      .full { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+      .full-end { min-height: 92vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(70px, 12vh, 140px); }
+
+      .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid-grey); margin-bottom: 28px; }
+      .eyebrow.light { color: rgba(250,248,244,0.45); }
+      .h-hero { font-size: clamp(48px, 8vw, 104px); font-weight: 600; line-height: 1.02; letter-spacing: -0.03em; }
+      .h-section { font-size: clamp(30px, 4.4vw, 60px); font-weight: 600; line-height: 1.06; letter-spacing: -0.025em; max-width: 900px; }
+      .h-closer { font-size: clamp(80px, 14vw, 200px); font-weight: 600; letter-spacing: -0.04em; line-height: 0.9; }
+      .light { color: var(--cream); }
+      .lead { font-size: clamp(16px, 1.5vw, 19px); font-weight: 400; line-height: 1.7; color: var(--mid-grey); max-width: 720px; }
+      .body { font-size: clamp(15px, 1.25vw, 17px); font-weight: 400; line-height: 1.75; max-width: 760px; }
+      .body.grey { color: var(--mid-grey); }
+      .body.light { color: rgba(250,248,244,0.78); }
+      .note { font-size: 13px; line-height: 1.65; color: var(--mid-grey); }
+      .note.light { color: rgba(250,248,244,0.4); }
+      .mt12 { margin-top: 12px; } .mt20 { margin-top: 20px; } .mt28 { margin-top: 28px; } .mt40 { margin-top: 40px; } .mt56 { margin-top: 56px; }
+
+      .rule { height: 1px; background: var(--rule); width: 100%; }
+      .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+      .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(32px, 4vw, 56px); align-items: start; }
+      .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 44px); align-items: start; }
+      .col-label { font-size: 15px; font-weight: 600; margin-bottom: 12px; line-height: 1.35; }
+      .col-label.light { color: var(--cream); }
+      .col-body { font-size: 15px; font-weight: 400; line-height: 1.7; color: var(--mid-grey); }
+
+      .idx { color: var(--signal-blue); font-weight: 600; }
+      .num-lg { font-size: clamp(30px, 3.4vw, 44px); font-weight: 600; color: var(--signal-blue); letter-spacing: -0.02em; line-height: 1; margin-bottom: 14px; }
+      .stat-num { font-size: clamp(38px, 4.6vw, 60px); font-weight: 600; color: var(--signal-blue); letter-spacing: -0.03em; line-height: 1; margin-bottom: 12px; }
+      .big-num { font-size: clamp(96px, 22vw, 260px); font-weight: 600; color: var(--signal-blue); line-height: 0.82; letter-spacing: -0.04em; }
+
+      .gap-item { padding: 28px 0; border-bottom: 1px solid var(--rule); font-size: clamp(18px, 2vw, 26px); font-weight: 400; line-height: 1.4; letter-spacing: -0.01em; }
+      .gap-item:first-child { border-top: 1px solid var(--rule); }
+      .gap-item .idx { margin-right: 18px; }
+      .gap-item.light { color: var(--cream); border-bottom-color: var(--rule-dark); }
+      .gap-item.light:first-child { border-top-color: var(--rule-dark); }
+
+      .budget-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--rule); font-size: 16px; }
+      .budget-row:first-child { border-top: 1px solid var(--rule); }
+      .budget-row-label { font-weight: 600; min-width: 190px; flex-shrink: 0; }
+      .budget-row-mid { font-weight: 400; color: var(--mid-grey); flex: 1; line-height: 1.5; }
+      .budget-row-val { font-weight: 500; color: var(--signal-blue); white-space: nowrap; text-align: right; }
+
+      .row.dark { display: flex; gap: clamp(20px, 4vw, 56px); padding: 22px 0; border-bottom: 1px solid var(--rule-dark); }
+      .row.dark:first-child { border-top: 1px solid var(--rule-dark); }
+      .row.dark .row-k { font-size: 16px; font-weight: 600; min-width: 240px; flex-shrink: 0; color: var(--cream); }
+      .row.dark .row-v { font-size: 15px; font-weight: 400; color: rgba(250,248,244,0.6); line-height: 1.65; }
+
+      .outcome-row { display: flex; gap: clamp(20px, 4vw, 44px); align-items: center; padding: 24px 0; border-bottom: 1px solid var(--rule); }
+      .outcome-row:first-child { border-top: 1px solid var(--rule); }
+      .outcome-num { font-size: clamp(30px, 3.6vw, 46px); font-weight: 600; color: var(--signal-blue); min-width: 180px; flex-shrink: 0; letter-spacing: -0.02em; line-height: 1; }
+      .outcome-desc { font-size: 15px; font-weight: 400; color: var(--mid-grey); line-height: 1.6; }
+
+      .callout { border-left: 2px solid var(--signal-blue); padding: 6px 0 6px 26px; margin-top: 40px; font-size: clamp(18px, 2vw, 24px); font-weight: 400; line-height: 1.45; letter-spacing: -0.01em; max-width: 820px; }
+      .callout.light { color: var(--cream); }
+
+      .conf-badge { display: inline-block; padding: 7px 16px; border: 1px solid rgba(250,248,244,0.25); border-radius: 4px; font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,248,244,0.5); margin-bottom: 36px; }
+
+      .link { color: var(--signal-blue); text-decoration: none; font-weight: 500; }
+      .link:hover { text-decoration: underline; }
+      .links { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
+      .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 30px; background: var(--signal-blue); color: var(--cream); text-decoration: none; font-weight: 600; font-size: 15px; border-radius: 6px; transition: transform .3s var(--ease), opacity .3s var(--ease); }
+      .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+      .closer-logo { height: 26px; filter: brightness(0) invert(1); opacity: .85; }
+
+      .reveal { opacity: 0; transform: translateY(46px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+      .reveal.in { opacity: 1; transform: none; }
+      .stagger > * { opacity: 0; transform: translateY(34px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+      .stagger.in > * { opacity: 1; transform: none; }
+      .stagger.in > *:nth-child(1){ transition-delay: .04s; } .stagger.in > *:nth-child(2){ transition-delay: .12s; }
+      .stagger.in > *:nth-child(3){ transition-delay: .20s; } .stagger.in > *:nth-child(4){ transition-delay: .28s; }
+      .stagger.in > *:nth-child(5){ transition-delay: .36s; } .stagger.in > *:nth-child(6){ transition-delay: .44s; }
+
+      .scroll-cue { position: absolute; left: 50%; bottom: 36px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid-grey); }
+      .scroll-cue .dot { width: 22px; height: 36px; border: 1.5px solid var(--rule); border-radius: 12px; position: relative; }
+      .scroll-cue .dot::after { content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%); width: 3px; height: 7px; border-radius: 2px; background: var(--mid-grey); animation: cue 1.8s var(--ease) infinite; }
+      @keyframes cue { 0% { opacity: 0; top: 6px; } 30% { opacity: 1; } 60% { opacity: 1; } 100% { opacity: 0; top: 18px; } }
+
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .reveal, .stagger > * { opacity: 1 !important; transform: none !important; transition: none !important; } }
+      @media (max-width: 900px) { .cols-4 { grid-template-columns: 1fr 1fr; gap: 32px; } }
+      @media (max-width: 760px) {
+        .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; gap: 36px; }
+        .row.dark { flex-direction: column; gap: 8px; } .row.dark .row-k { min-width: 0; }
+        .outcome-row { flex-direction: column; align-items: flex-start; gap: 10px; } .outcome-num { min-width: 0; }
+        .budget-row { flex-direction: column; gap: 6px; } .budget-row-label { min-width: 0; } .budget-row-val { text-align: left; }
+        .header-meta { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="progress-bar" id="prog"></div>
+    <header class="header" id="header">
+      <a class="wm" href="https://jewellprojects.com" target="_blank" rel="noopener"><img class="wm-logo" src="/jewell-logo.svg" alt="Jewell Projects" /></a>
+      <span class="header-meta">Adam Hall · Proposal</span>
+    </header>
+
+    <!-- HERO -->
+    <section class="section bg-cream full">
+      <div class="wrap">
+        <p class="eyebrow reveal">Proposal · Adam Hall Buy My Car</p>
+        <h1 class="h-hero reveal">The Adam Hall<br />Operating System.</h1>
+        <p class="lead mt28 reveal">Getting what's in your head onto paper — so the business can grow past you, not stall on you. Designed and delivered by Jewell&nbsp;Projects through the 3D&nbsp;Process™.</p>
+        <p class="mt28 reveal links">
+          <a class="link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Buy%20My%20Car" target="_blank" rel="noopener">Talk to Jewell ↗</a>
+          <a class="link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Buy%20My%20Car" target="_blank" rel="noopener">clent@jewellprojects.com</a>
+        </p>
+        <p class="note mt20 reveal">Prepared for Adam Hall · 15 July 2026</p>
+      </div>
+      <div class="scroll-cue"><span class="dot"></span>Scroll</div>
+    </section>
+
+    <!-- 01 WHERE YOU STAND -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">01 — Where you stand</p>
+        <h2 class="h-section reveal">A $5M business, built one conversation at a time.</h2>
+        <div class="cols-4 mt56 stagger">
+          <div><div class="stat-num">~$5M</div><div class="col-body">turnover a year</div></div>
+          <div><div class="stat-num">~25</div><div class="col-body">cars a month (range 20–30)</div></div>
+          <div><div class="stat-num">90/10</div><div class="col-body">retail / wholesale</div></div>
+          <div><div class="stat-num">~$4,200</div><div class="col-body">average retail gross a car</div></div>
+        </div>
+        <p class="body grey mt56 reveal">Your customers are mostly 60 to 75 and older. They come to you because they trust you before they trust the price. That's rare. It's the whole business.</p>
+      </div>
+    </section>
+
+    <!-- 02 THE GAP -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">02 — What holds it back</p>
+        <h2 class="h-section light reveal">Right now, the business is you.</h2>
+        <p class="body light mt28 reveal">How you value a car in thirty seconds. When you say yes and when you say no. How you calm a nervous seller. How you handle the money and the paperwork so nothing goes wrong. None of it is written down — it all lives in one place: your head.</p>
+        <div class="callout light reveal">Undocumented, you can't hire into it with confidence, can't scale past where you are, and can't sell it — because there's nothing to sell except you.</div>
+      </div>
+    </section>
+
+    <!-- 03 NORTH STAR -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">03 — Why this is worth doing</p>
+        <h2 class="h-section reveal">You already know the outcome you want.</h2>
+        <p class="body grey mt28 reveal">Cars For Us. Started in 2019. Built to $500M. Sold to Toyota for around $120M. The gap between here and there isn't ambition — it's a documented system.</p>
+        <div class="cols-3 mt56 stagger">
+          <div><div class="num-lg">2019</div><div class="col-label">Started</div><div class="col-body">From a standing start, the same trust-first model.</div></div>
+          <div><div class="num-lg">$500M</div><div class="col-label">Built to</div><div class="col-body">A named, trusted buying brand at scale.</div></div>
+          <div><div class="num-lg">~$120M</div><div class="col-label">Sold to Toyota</div><div class="col-body">A business a buyer would pay for — because it ran without one person.</div></div>
+        </div>
+        <div class="callout reveal">$5M&nbsp;→&nbsp;$7M&nbsp;→ a business that runs, and sells, without you.</div>
+      </div>
+    </section>
+
+    <!-- 04 THE WORK -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">04 — Our approach</p>
+        <h2 class="h-section reveal">The 3D Process™ — Re-Discover, Design, Deploy.</h2>
+        <p class="body grey mt28 reveal">Capture first, build later. Nothing gets automated in the room.</p>
+        <div class="cols-3 mt56 stagger">
+          <div><div class="num-lg">01</div><div class="col-label">Re-Discover</div><div class="col-body">Live sessions that capture how you actually run it. For every "I just know," we find the rule underneath.</div></div>
+          <div><div class="num-lg">02</div><div class="col-label">Design</div><div class="col-body">Turn that judgement into the Adam Hall Standard: SOPs, scripts, valuation rules, a hiring brief, the brand.</div></div>
+          <div><div class="num-lg">03</div><div class="col-label">Deploy</div><div class="col-body">Put it to work. The team runs the system, the brand goes public, marketing runs always-on.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 STAGE 1 -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">05 — Stage 1 · Discover: The CORE</p>
+        <h2 class="h-section reveal">We get what's in your head onto paper.</h2>
+        <p class="body grey mt28 reveal">Two sessions a week while Clent's in the country. One question at a time. No laptop between you and the conversation. Where an answer goes vague, we slow down and ask for the last real example — an actual deal, not a generalisation.</p>
+        <div class="cols-2 mt56 reveal">
+          <div>
+            <div class="col-label">What you get</div>
+            <div class="col-body mt12">Your completed 3D Process Summary — one page per phase, the validated view of the business and the plan to grow it.</div>
+          </div>
+          <div>
+            <div class="stat-num">$5,000</div>
+            <div class="col-body mt12">Credited in full against the rest of the project if you proceed. Closes at Gate 1, where you decide whether to go on.</div>
+          </div>
+        </div>
+        <p class="note mt28 reveal">High-control: anything touching money, ID, finance owing, ownership, rego or settlement is confirmed with you directly, every time. We never guess at this.</p>
+      </div>
+    </section>
+
+    <!-- 06 THE 22 QUESTIONS -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">06 — Stage 1 · The CORE</p>
+        <h2 class="h-section light reveal">22 questions that unlock everything else.</h2>
+        <p class="body light mt28 reveal">These are the questions that turn instinct into a system. Your answers, in your words, lock the parameters everything downstream depends on. A few of them:</p>
+        <div class="mt56 stagger">
+          <div class="gap-item light"><span class="idx">01</span>Standing in a driveway, what do you weigh — in order — before you say a number?</div>
+          <div class="gap-item light"><span class="idx">02</span>Think of the last car you walked away from. What flipped your yes to a no?</div>
+          <div class="gap-item light"><span class="idx">03</span>Walk me through the money: agreed price to cash paid and clean title.</div>
+          <div class="gap-item light"><span class="idx">04</span>If you sold this in five years, what does "sellable" look like in numbers?</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 STAGE 2 -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">07 — Stage 2 · Design</p>
+        <h2 class="h-section reveal">Turn the CORE into a business that runs.</h2>
+        <p class="body grey mt28 reveal">Stage 2 turns your answers into a working strategy — a full Sales, Marketing, Brand and Activation plan — plus the tools to run it on.</p>
+        <div class="cols-2 mt56 stagger">
+          <div><div class="col-label">Brand book revamp</div><div class="col-body">A tickle-up, not a rebuild. It's already sound.</div></div>
+          <div><div class="col-label">Website sitemap &amp; build plan</div><div class="col-body">The blueprint for the site — built to be found by AI search, not just Google.</div></div>
+          <div><div class="col-label">CRM &amp; vehicle input tool</div><div class="col-body">Capture a car in the field, switch cost view to a customer report, feed inventory and the marketplace.</div></div>
+          <div><div class="col-label">Operating System portal</div><div class="col-body">The online home for SOPs, scripts and rules, kept current by JewellAI.</div></div>
+        </div>
+        <div class="callout reveal">To be plain: the website build itself isn't in Stage 2. The online marketplace to sell cars is a bigger job — scoped and priced separately once the plan exists to scope it against.</div>
+        <p class="note mt28 reveal">Quoted at Gate 1, once Stage 1 is signed off — with your $5,000 credited against it.</p>
+      </div>
+    </section>
+
+    <!-- 08 STAGE 3 -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">08 — Stage 3 · Deploy: In-Market Activation</p>
+        <h2 class="h-section reveal">The plan goes live — and stays live.</h2>
+        <p class="body grey mt28 reveal">A documented system only earns its keep if it runs. Stage 3 is a monthly engagement, not a one-off.</p>
+        <div class="cols-3 mt56 stagger">
+          <div><div class="col-label">Marketing, always-on</div><div class="col-body">Campaigns and content moving through Maxxim — without you managing them day to day.</div></div>
+          <div><div class="col-label">The system, live in your team</div><div class="col-body">The judgement we captured shows up in how your people actually work.</div></div>
+          <div><div class="col-label">A monthly rhythm</div><div class="col-body">Activity, reporting and review — with a deeper quarterly check on progress toward $7M.</div></div>
+        </div>
+        <p class="note mt28 reveal">Monthly recurring, quoted at Gate 2 once Stage 2 is signed off.</p>
+      </div>
+    </section>
+
+    <!-- 09 THE STANDARD -->
+    <section class="section bg-conf">
+      <div class="wrap">
+        <p class="eyebrow light reveal">09 — The centrepiece</p>
+        <h2 class="h-section light reveal">The Adam Hall Standard, made teachable.</h2>
+        <div class="mt56 stagger">
+          <div class="gap-item light"><span class="idx">01</span>Empathy first, then the solution.</div>
+          <div class="gap-item light"><span class="idx">02</span>Daily self-reflection for improvement.</div>
+          <div class="gap-item light"><span class="idx">03</span>Ownership, not excuses.</div>
+          <div class="gap-item light"><span class="idx">04</span>Stay in the room.</div>
+          <div class="gap-item light"><span class="idx">05</span>Value your time commercially.</div>
+        </div>
+        <p class="body light mt40 reveal">We hire and train for these values first, skills second. The trust moments — the home visit, the conversation with a grieving widow selling her late husband's car — we document so we can <em>train</em> people to handle them well. Never to replace you in that room.</p>
+      </div>
+    </section>
+
+    <!-- 10 BEHIND THE WORK -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">10 — What sits behind the work</p>
+        <h2 class="h-section reveal">You do the trust. We supply the system.</h2>
+        <div class="cols-2 mt56 stagger">
+          <div><div class="num-lg">JewellAI</div><div class="col-body">Keeps the documented Operating System current. New calls and situations get captured and folded back in, so it never goes stale like a one-off manual.</div></div>
+          <div><div class="num-lg">Maxxim</div><div class="col-body">Runs the always-on marketing system in Stage 3, end to end — campaigns, content and scheduling across your channels.</div></div>
+        </div>
+        <p class="note mt28 reveal">Both are already running for Beyond the Clinic and other Jewell Projects clients. This isn't an experiment — it's a proven method, tuned for a trust-conversion business.</p>
+      </div>
+    </section>
+
+    <!-- 11 SIX WORKSTREAMS -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">11 — What the engagement covers</p>
+        <h2 class="h-section reveal">Six things, one system.</h2>
+        <div class="cols-3 mt56 stagger">
+          <div><div class="num-lg">01</div><div class="col-label">Strategy</div><div class="col-body">Mapping your judgement into a documented operating system.</div></div>
+          <div><div class="num-lg">02</div><div class="col-label">Brand</div><div class="col-body">A brand book revamp in your voice.</div></div>
+          <div><div class="num-lg">03</div><div class="col-label">Marketplace</div><div class="col-body">An e-commerce site built to be found by AI search, not just Google.</div></div>
+          <div><div class="num-lg">04</div><div class="col-label">Input tool</div><div class="col-body">Field capture that feeds inventory and the website.</div></div>
+          <div><div class="num-lg">05</div><div class="col-label">Marketing</div><div class="col-body">Socials, EDMs and the full activation plan.</div></div>
+          <div><div class="num-lg">06</div><div class="col-label">AI portal</div><div class="col-body">An "ask it anything" brain for you and the team.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 INVESTMENT -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">12 — Investment</p>
+        <h2 class="h-section reveal">Three stages. Nothing commits you past the first.</h2>
+        <div class="mt56 reveal">
+          <div class="budget-row"><span class="budget-row-label">1 · Discover: The CORE</span><span class="budget-row-mid">Your validated 3D Process Summary</span><span class="budget-row-val">$5,000 — credited in full</span></div>
+          <div class="budget-row"><span class="budget-row-label">2 · Design</span><span class="budget-row-mid">Strategy, brand, tools, the Operating System portal</span><span class="budget-row-val">Quoted at Gate 1 · $5,000 credited</span></div>
+          <div class="budget-row"><span class="budget-row-label">3 · Deploy</span><span class="budget-row-mid">Always-on marketing, the system live in your team</span><span class="budget-row-val">Monthly recurring · at Gate 2</span></div>
+        </div>
+        <p class="note mt28 reveal">No stage starts without sign-off on the one before it. You decide at every gate.</p>
+      </div>
+    </section>
+
+    <!-- 13 WHAT WE NEED -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">13 — Your side of it</p>
+        <h2 class="h-section reveal">Time, straight answers, real examples.</h2>
+        <div class="mt56 stagger">
+          <div class="gap-item"><span class="idx">01</span>Time for the CORE sessions — your full attention, not a phone in your hand.</div>
+          <div class="gap-item"><span class="idx">02</span>Straight answers, including on the calls you make automatically and can't easily explain.</div>
+          <div class="gap-item"><span class="idx">03</span>A real example when something's vague — an actual deal.</div>
+          <div class="gap-item"><span class="idx">04</span>A decision at each gate.</div>
+          <div class="gap-item"><span class="idx">05</span>Direct confirmation on anything high-control — money, ID, finance owing, ownership, rego, settlement.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTATION -->
+    <section class="section bg-cream">
+      <div class="wrap">
+        <p class="eyebrow reveal">Your quotation</p>
+        <h2 class="h-section reveal">Gate One, ready to approve.</h2>
+        <p class="body mt28 reveal">We've prepared your formal quotation in Xero. Review the scope and the figures, and approve it online when you're ready — approval books your first CORE session and starts the work.</p>
+        <div class="mt56 reveal">
+          <div class="budget-row"><span class="budget-row-label">Gate One · Discover: The CORE</span><span class="budget-row-mid">Discovery &amp; strategy, branding refresh, website with marketplace, online platform setup</span><span class="budget-row-val">$5,000 + GST · credited in full</span></div>
+        </div>
+        <p class="note mt28 reveal">Payable on acceptance. Nothing beyond Gate One commits you.</p>
+        <p class="mt40 reveal">
+          <a class="btn" href="https://in.xero.com/el77HA73LmEtvhRf8nc7nVzkjZeQGxqLMvfuWUkv" target="_blank" rel="noopener">Review &amp; approve quotation in Xero ↗</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- CLOSER -->
+    <section class="section bg-conf full-end">
+      <div class="wrap">
+        <span class="conf-badge">Next step</span>
+        <h2 class="h-closer light reveal">Let's begin.</h2>
+        <p class="body light mt28 reveal">Sign off Stage 1 and we book the first CORE session this week. $5,000 gets what's in your head onto paper and gives you the plan to grow the business past you — credited in full if you go on.</p>
+        <p class="mt40 reveal links">
+          <a class="btn" href="https://in.xero.com/el77HA73LmEtvhRf8nc7nVzkjZeQGxqLMvfuWUkv" target="_blank" rel="noopener">Review &amp; approve quotation ↗</a>
+          <a class="link" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=clent@jewellprojects.com&amp;su=Adam%20Hall%20Buy%20My%20Car" target="_blank" rel="noopener">Talk to Jewell ↗</a>
+        </p>
+        <div class="mt56 reveal"><img class="closer-logo" src="/jewell-logo.svg" alt="Jewell Projects" /></div>
+        <p class="note light mt20 reveal">© <span id="yr"></span> Adam Hall Buy My Car — a Jewell Projects delivery, through the 3D Process™.</p>
+      </div>
+    </section>
+
+    <script>
+      const prog = document.getElementById('prog');
+      const header = document.getElementById('header');
+      const root = document.documentElement;
+      function onScroll() {
+        const max = root.scrollHeight - root.clientHeight;
+        prog.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+        header.classList.toggle('scrolled', root.scrollTop > 40);
+      }
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.18 });
+      document.querySelectorAll('.reveal, .stagger').forEach((el) => io.observe(el));
+
+      document.getElementById('yr').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

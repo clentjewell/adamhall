@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import type { Car } from "@/lib/types";
 
 // RLS already limits anon reads to published + recently sold cars; the
-// 30-day sold window is enforced in the policy itself.
+// 90-day sold window is enforced in the policy itself (migration 0004).
 export async function fetchPublicCars(): Promise<Car[]> {
   const supabase = await createClient();
   const { data, error } = await supabase

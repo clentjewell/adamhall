@@ -1,0 +1,387 @@
+/* ===================================================================
+   FINANCE — REDESIGN (route: /finance2)
+   -------------------------------------------------------------------
+   Layout from the "Carmarketplace UI mockups" artifact, frame 1g.
+   Colour and type come from the live identity via tokens.css. The
+   artifact's near-black band becomes deep forest, because the identity
+   leads with green on every dark ground. No hexes here.
+   =================================================================== */
+
+/* Green on light grounds; sand only where the eyebrow sits on the dark
+   band, which is the one place green would disappear. */
+.ah-site.mp-finance2 .eyebrow {
+  color: var(--c-green);
+}
+.ah-site.mp-finance2 .mp2-fin-hero .eyebrow {
+  color: var(--c-sand);
+}
+
+/* --- Hero band -------------------------------------------------------- */
+.ah-site .mp2-fin-hero {
+  /* position + isolation so the header film sits behind this band's words
+     rather than over them, and cannot escape its own stacking context. */
+  position: relative;
+  isolation: isolate;
+  /* Full page and pulled up behind the header, matching every other film
+     band. It used to stop short of the header instead, which left a strip of
+     pale page between the two: harmless while the header was solid cream,
+     but the header now turns white over this band, and white type was
+     landing on that pale strip. See HeaderFilm.css. */
+  display: flex;
+  align-items: center;
+  margin-top: calc(var(--site-header-h) * -1);
+  /* Same reasoning as the film page-head (HeaderFilm.css): a band rather than
+     a screen. 71% of this one was empty at 1440x900. It keeps more height than
+     the others because the calculator card rides up over its bottom edge and
+     needs something to ride up over. */
+  min-height: clamp(24rem, 56vh, 32rem);
+  background: var(--c-green-deep);
+  padding-block: calc(clamp(2.5rem, 5vw, 3.5rem) + var(--site-header-h))
+    clamp(3.5rem, 6vw, 5rem);
+}
+.ah-site .mp2-fin-hero > .container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+.ah-site .mp2-fin-hero__title {
+  color: var(--c-white);
+  font-size: var(--fs-page-title);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-fin-hero__sub {
+  color: var(--color-forest-200);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 1rem 0 0;
+  text-wrap: pretty;
+}
+
+/* --- Calculator card, riding up over the band ------------------------- */
+.ah-site .mp2-fin-calc {
+  margin-top: -2rem;
+  /* The ride-up only works if the card paints above the band. The hero is
+     position:relative (so the header film stays behind its words), and a
+     positioned box paints over a static one whatever the document order —
+     so without this the card's top 2rem slid UNDER the band: no rounded
+     corners, no shadow, and the CAR PRICE row crammed against the seam as
+     if the band were a rule inside the card. Positioning the wrapper puts
+     the two in document order again, and the overlap reads as intended. */
+  position: relative;
+  z-index: 1;
+}
+.ah-site .mp2-calc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 2.5rem;
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: var(--shadow);
+}
+.ah-site .mp2-calc__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ah-site .mp2-calc__row--spaced {
+  margin-top: 1.875rem;
+}
+.ah-site .mp2-calc__label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-text);
+  margin: 0 0 0.5rem;
+  display: block;
+}
+.ah-site .mp2-calc__row .mp2-calc__label {
+  margin-bottom: 0;
+}
+.ah-site .mp2-calc__value {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.375rem;
+  color: var(--c-black);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.ah-site .mp2-calc__scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: var(--fs-label);
+  color: var(--c-text);
+}
+
+/* Range input, drawn on tokens in both engines. */
+.ah-site .mp2-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  margin-top: 0.75rem;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.ah-site .mp2-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--c-border);
+}
+.ah-site .mp2-range::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--c-border);
+}
+.ah-site .mp2-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border-radius: 50%;
+  background: var(--c-white);
+  box-shadow: 0 0 0 3px var(--c-green), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.ah-site .mp2-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--c-white);
+  box-shadow: 0 0 0 3px var(--c-green), 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.ah-site .mp2-range::-moz-range-progress {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--c-green);
+}
+
+.ah-site .mp2-calc__pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.ah-site .mp2-calc__pair--fields {
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+.ah-site .mp2-calc__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+/* .mp2-chip / .mp2-chip--on, .mp2-field__label and .mp2-select are defined
+   in page-Cars2.css and shared across the redesigned pages. */
+.ah-site .mp2-calc__chips .mp2-chip {
+  min-height: 40px;
+}
+.ah-site .mp2-input {
+  width: 100%;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-white);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--c-text-dark);
+  min-height: 40px;
+}
+.ah-site .mp2-input:focus-visible {
+  border-color: var(--c-green);
+}
+
+/* --- Results panel ---------------------------------------------------- */
+.ah-site .mp2-calc__result {
+  background: var(--color-forest-50);
+  border-radius: var(--radius);
+  padding: clamp(1.25rem, 2.5vw, 1.625rem);
+  display: flex;
+  flex-direction: column;
+}
+.ah-site .mp2-calc__big {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 4.5vw, 3.375rem);
+  line-height: 1;
+  color: var(--c-green-deep);
+  margin: 0.5rem 0 0;
+}
+.ah-site .mp2-calc__period {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-text-dark);
+  margin: 0.25rem 0 0;
+}
+.ah-site .mp2-calc__breakdown {
+  list-style: none;
+  margin: 1.375rem 0 0;
+  padding: 1.125rem 0 0;
+  border-top: 1px solid var(--color-forest-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  font-size: var(--fs-small);
+}
+.ah-site .mp2-calc__breakdown li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ah-site .mp2-calc__breakdown span {
+  color: var(--c-text-dark);
+}
+.ah-site .mp2-calc__breakdown b {
+  color: var(--c-black);
+}
+.ah-site .mp2-calc__cta {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.ah-site .mp2-calc__disclaimer {
+  font-size: var(--fs-label);
+  line-height: 1.5;
+  color: var(--c-text);
+  margin: 0.75rem 0 0;
+}
+
+/* --- How it works ----------------------------------------------------- */
+.ah-site .mp2-fin-steps {
+  padding-block: var(--rhythm-section) 0;
+}
+.ah-site .mp2-fin-steps__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.ah-site .mp2-fin-step {
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 1.625rem;
+}
+.ah-site .mp2-fin-step__num {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
+  color: var(--c-green);
+  margin: 0;
+}
+.ah-site .mp2-fin-step__title {
+  font-size: var(--fs-h4);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0.75rem 0 0;
+}
+.ah-site .mp2-fin-step__body {
+  color: var(--c-text-dark);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  margin: 0.5rem 0 0;
+}
+
+/* --- The quote form --------------------------------------------------- */
+.ah-site .mp2-fin-quote {
+  padding-block: var(--rhythm-section);
+  scroll-margin-top: 5rem;
+}
+.ah-site .mp2-fin-quote__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+.ah-site .mp2-fin-quote__title {
+  font-size: var(--fs-subsection-title);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+.ah-site .mp2-fin-quote__intro p {
+  color: var(--c-text-dark);
+  line-height: 1.6;
+  max-width: 44ch;
+  margin: 0;
+}
+.ah-site .mp2-fin-legal {
+  margin: 2rem auto 0;
+  max-width: 70ch;
+  text-align: center;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text);
+}
+
+/* ---------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  /* The results panel moves under the controls rather than beside them. */
+  .ah-site .mp2-calc {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+  .ah-site .mp2-fin-steps__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ah-site .mp2-fin-quote__inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .ah-site .mp2-fin-calc {
+    margin-top: -1.25rem;
+  }
+  .ah-site .mp2-calc__pair {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+  .ah-site .mp2-fin-steps__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A range input's hit area is its box, not its track. On a phone the box is
+   grown to a thumb-friendly height while the track stays 6px. */
+@media (max-width: 639px) {
+  .ah-site .mp2-range {
+    height: 44px;
+  }
+  .ah-site .mp2-range::-webkit-slider-thumb {
+    margin-top: -7px;
+  }
+}
+
+/* FinanceEnquiryForm's consent checkbox is 16px. Its label is associated,
+   so the effective tap target is the whole sentence, but on a phone the box
+   itself is grown too. Scoped here so the live /finance page is untouched. */
+@media (max-width: 639px) {
+  .ah-site.mp-finance2 input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+
+/* --- Phone touch targets ---------------------------------------------------
+   The term and frequency chips and the text inputs were 40px at 390px. See
+   the same block in page-Cars2.css for why it lives here. */
+@media (max-width: 767px) {
+  .ah-site .mp2-calc__chips .mp2-chip,
+  .ah-site .mp2-input {
+    min-height: 44px;
+  }
+}

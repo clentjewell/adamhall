@@ -1,0 +1,20 @@
+/* scoped port of WaveDivider.css */
+.ah-site .wave-divider {
+  line-height: 0;
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+.ah-site .wave-divider svg {
+  display: block;
+  width: 100%;
+  height: clamp(40px, 6vw, 88px);
+}
+.ah-site .wave-divider--green {
+  color: var(--c-green);
+}
+.ah-site .wave-divider--cream {
+  color: var(--c-cream);
+}
+.ah-site .wave-divider.is-flip svg {
+  transform: scaleY(-1);
+}

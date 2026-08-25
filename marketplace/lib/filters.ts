@@ -2,6 +2,8 @@ import type { Car } from "@/lib/types";
 
 // Pure filtering — shared by the client-side browser and any server code.
 export interface CarFilters {
+  /** Free-typed quick search — see matchesQuery for what it looks at. */
+  q?: string;
   make?: string;
   model?: string;
   yearMin?: number;
@@ -15,8 +17,44 @@ export interface CarFilters {
   sort?: "newest" | "price-asc" | "price-desc";
 }
 
-export function applyFilters(cars: Car[], f: CarFilters): Car[] {
+/**
+ * The fields filtering actually reads. Named so callers can pass a projection
+ * rather than whole cars: the hero's search panel runs this in the browser
+ * over every published car, and shipping the descriptions and photo lists to
+ * do it would put the whole catalogue in the page's payload for the sake of
+ * eight numbers. A full Car satisfies this, so every existing caller is
+ * unchanged.
+ */
+export type Filterable = Pick<
+  Car,
+  | "make"
+  | "model"
+  | "year"
+  | "price"
+  | "body_type"
+  | "transmission"
+  | "fuel"
+  | "odometer_km"
+>;
+
+/**
+ * The quick-search match: every whitespace-separated word the buyer typed has
+ * to appear somewhere in what the car is — year, make, model, body, fuel or
+ * transmission. Word by word rather than as one phrase, so "toyota diesel"
+ * finds the Hilux and the Prado even though no single field says both.
+ * Substring rather than whole-word, so "hilux" matches while half-typed.
+ */
+export function matchesQuery(car: Filterable, q: string): boolean {
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!words.length) return true;
+  const hay =
+    `${car.year} ${car.make} ${car.model} ${car.body_type} ${car.fuel} ${car.transmission}`.toLowerCase();
+  return words.every((w) => hay.includes(w));
+}
+
+export function applyFilters<T extends Filterable>(cars: T[], f: CarFilters): T[] {
   let out = cars.filter((c) => {
+    if (f.q && !matchesQuery(c, f.q)) return false;
     if (f.make && c.make !== f.make) return false;
     if (f.model && c.model !== f.model) return false;
     if (f.yearMin && c.year < f.yearMin) return false;

@@ -1,35 +1,350 @@
 @import "tailwindcss";
 
 /*
-  Adam Hall design tokens.
+  ===========================================================================
+  Car Marketplace design tokens — THE source of truth for colour and type.
+  Source: "Car Marketplace by Adam Hall — Brand Identity", Edition 1,
+  August 2026 (Liz / Jewell Projects). Names and the logo live in lib/brand.ts.
+
+  No component may hard-code a hex. components/site/tokens.css derives its
+  variables from this block so the ported pages re-skin from here too.
+
+  Locked and inherited from the parent brand: green #004438, black, white,
+  lilac. Proposed and pending Adam's approval: sand, the buy-side accent.
+  Neutrals were observed in the parent identity rather than specified, and are
+  proposed here as the working ramp.
+
+  Balance rule (inherited): lead with green and white. One accent per view,
+  never two. Sand carries the single action that matters on each screen.
   Shape rule (locked): buttons = pill, cards = rounded-2xl, inputs = rounded-lg.
-  One accent (forest green) everywhere; amber reserved for status/highlight only.
+  ===========================================================================
 */
 @theme {
-  --color-ink: #16211b;
-  --color-paper: #f4f5f2;
-  --color-card: #ffffff;
-  --color-forest-50: #eef4f0;
-  --color-forest-100: #d8e6dd;
-  --color-forest-200: #b0cdbb;
-  --color-forest-500: #2e6e4e;
-  --color-forest-600: #1e5c41;
-  --color-forest-700: #174a34;
-  --color-forest-800: #123a29;
-  --color-amber-accent: #c47b0a;
-  --color-amber-soft: #fdf3e2;
+  /* --- Type scale ------------------------------------------------------
+     Shifted up for Mr Eaves Modern. Its x-height ratio is 0.341 against
+     Arial's 0.519, measured off the font file, so it draws about a third
+     smaller than most faces at the same px value — Tailwind's stock 16px
+     base was reading like 11px of a normal font.
 
-  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+     These are the raw text-* utilities, kept in step with the --fs-* tokens
+     the public pages use and the type-* classes above, so the same words are
+     the same size whichever of the three a component happens to reach for.
+     That mismatch is what made the site look like it had no scale at all.
+
+     Each one lands exactly on a --fs-* step, so a component reaching for
+     text-sm and one reaching for --fs-small end up the same size instead of
+     a pixel apart. text-sm and text-xs still move less than the base: they
+     are the console's working sizes, and dragging a dense list of enquiries
+     up to the body step would cost more than it gained. */
+  --text-xs: 0.8125rem; /* 13px, was 12 — the Label step */
+  --text-sm: 1.0625rem; /* 17px, was 14 — the Caption step */
+  --text-base: 1.3125rem; /* 21px, was 16 — the body step */
+  --text-lg: 1.5rem; /* 24px, was 18 — the Lead step */
+  --text-xl: 1.625rem; /* 26px, was 20 — the Price step */
+
+  /* --- Inherited, locked --------------------------------------------- */
+  /* Green leads everywhere: header, footer, hero, every dark band. PMS 3308 C. */
+  --color-forest-600: #004438;
+  --color-forest-700: #003a30;
+  --color-forest-800: #00332b;
+  --color-forest-500: #0a5a4a;
+  --color-forest-200: #b3ccc6;
+  --color-forest-100: #d6e3df;
+  --color-forest-50: #edf3f1;
+  --color-card: #ffffff;
+  /* The parent's human accent. Steps back on the buy side, where it is used
+     only for moments that are Adam himself. PMS 2567 C. */
+  --color-lilac: #c29fd8;
+  --color-lilac-dark: #b184cd;
+
+  /* --- Proposed distinguishing accent (needs Adam's approval) -------- */
+  /* Sand: sampled from the parent's own website hero CTA, so it is already
+     Adam's colour rather than an invention. Primary buttons, "just in" flags,
+     finance highlights. Deliberately low-chroma: a bright accent on a
+     used-car site reads as a sale sticker. */
+  --color-sand: #f3dcb3;
+  --color-sand-dark: #e7c68e; /* hover for the sand CTA button */
+
+  /* --- Neutral ramp (proposed) --------------------------------------- */
+  --color-cream: #f7f6f2;    /* page ground, warmer than grey */
+  --color-hairline: #e4e1d8; /* card borders, dividers, 1px only */
+  --color-mute: #9a9f99;     /* disabled controls, sold prices, placeholders */
+  --color-meta: #7b827d;     /* captions, specs, odometer lines, legal */
+  --color-soft-ink: #2f3833; /* running body copy — never pure black */
+  --color-headline: #000000; /* headings and the mark only */
+
+  /* --- Semantic aliases --------------------------------------------- */
+  /* `ink` is the body colour, so text-ink resolves to soft ink everywhere.
+     Headings are pulled back to true black by the element rules below. */
+  --color-ink: var(--color-soft-ink);
+  --color-paper: var(--color-cream);
+  /* Kept so existing markup keeps working. tan and brand-purple are the old
+     names for sand and lilac; amber-* remains status-only (SOLD, response
+     stat, draft banners) and is not part of the brand palette. */
+  --color-tan: var(--color-sand);
+  --color-brand-purple: var(--color-lilac);
+  --color-brand-purple-dark: var(--color-lilac-dark);
+  --color-peach: #ffbc7d;
+  --color-amber-accent: #d99a4e;
+  --color-amber-soft: #f9f0e0;
+
+  /* --- Type ---------------------------------------------------------- */
+  /* The same type as the parent brand: Neue Haas Grotesk Display for headings,
+     Mr Eaves Modern for body, from Adam's Adobe Fonts web project (the Typekit
+     kit loaded in app/layout.tsx). Stacks and fallbacks match the parent site
+     exactly so the two brands read as one family.
+
+     The kit ships weights 400, 500, 600, 700. The type scale still asks for
+     800 and 900 in places; `font-synthesis: none` on the body makes those
+     render in the real 700 face rather than a synthesised faux-heavy, and 300
+     in the real 400. Every weight on the page is a weight Adobe actually
+     serves. If heavier cuts are added to the web project later, the scale
+     picks them up with no code change.
+
+     The parent's brush script and Adam's signature are deliberately absent. A
+     listings page carries too much information to support a script, and the
+     signature is the parent's asset, used only where Adam signs off himself. */
+  --font-display: "neue-haas-grotesk-display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "mr-eaves-modern", "mr-eaves-fallback", "Avenir Next", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Type scale, desktop. Step down one size on mobile.
+   Display 900 · Heading 900 · Subheading 800 · Lead 300 · Body 400 ·
+   Caption 500 · Label 700 · Price 800 with tabular figures, always. */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-headline);
+    font-family: var(--font-display);
+  }
+  /* Prices and odometers must not reflow as digits change. */
+  .tabular,
+  [data-price] {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+/* ---- Webfont swap: hold the apparent size steady -------------------------
+   Mr Eaves Modern has an extraordinarily small x-height. Measured from the
+   font itself (OS/2 sxHeight 341, unitsPerEm 1000) and confirmed against
+   browser ink metrics:
+
+     Mr Eaves Modern   x-height ratio 0.341   cap 0.600
+     Arial / Helvetica x-height ratio ~0.519
+
+   So at any given pixel size it renders roughly 35% smaller than the system
+   faces it falls back to. Without this, a page paints in the fallback and
+   then every line of body type visibly shrinks the moment Typekit arrives.
+
+   A metric-matched fallback face fixes it: `size-adjust` scales ONLY this
+   @font-face, so the real Mr Eaves is never touched, the display face and
+   its headings are untouched, and it needs no JavaScript and no
+   per-selector opt-outs. It applies automatically wherever --font-body is
+   used, which is the only stack that needs it — Neue Haas Grotesk Display
+   has a normal x-height and its Helvetica fallback already matches.
+
+   66% = 0.341 / 0.519. The source is pinned to Arial and Helvetica (which
+   agree to within 1%) rather than the whole fallback list, so the ratio is
+   deterministic instead of depending on which face a given machine happens
+   to match first. The wider stack still follows in --font-body as a safety
+   net for machines with neither. */
+@font-face {
+  font-family: "mr-eaves-fallback";
+  src: local("Arial"), local("Helvetica");
+  size-adjust: 66%;
+  font-display: swap;
 }
 
 html {
   scroll-behavior: smooth;
+  /* Keep in-page anchors clear of the sticky header. */
+  scroll-padding-top: 5rem;
+}
+
+/* ---- Page geometry -------------------------------------------------------
+   One grid for the whole site.
+
+   The site grew two layout systems: the ported brochure pages measured
+   1200/1140/960px on a 20px gutter, the marketplace pages 1152px on 16px.
+   Moving between them, the content edge stepped sideways by up to 60px, and
+   /about-adam-hall rendered four different measures on one page. Premium
+   here is not ornament, it is the column never moving.
+
+   Two measures, and only two: wide carries anything with pictures or cards
+   in it, text carries statements and prose. Both stacks below point at
+   these, so neither can drift again. */
+:root {
+  --measure-wide: 1200px;
+  --measure-text: 800px;
+  --gutter-page: 1.25rem; /* 20px */
+  /* Vertical rhythm. Three named steps, in place of the 44/64/96/100.8/144/
+     224px that had accumulated: band for strips and bars, section for the
+     ordinary case, lg for the moments that open or close a page. */
+  /* The header's height, in one place. Everything that has to clear it or
+     pull up behind it reads this rather than repeating 4rem: the home film,
+     the page-head film bands, the finance hero and the valuation band. It
+     went from 64px to 80px because at 64 the lockup sat almost against the
+     top edge of the screen with nothing above it, which read as cramped at
+     the one moment the page is trying to look composed.
+
+     Named --site-header-h and not --header-h, which is already taken twice
+     over by the parent brand's stylesheets: 150px in tokens.css for the old
+     header, and 0.5rem in base.css under .ah-site. Using that name collapsed
+     this header to 8px, because .ah-site's 0.5rem is the one that wins here.
+     page-Home.css already carried a warning about the same trap. */
+  --site-header-h: 5rem; /* 80px */
+
+  --rhythm-band: clamp(2rem, 3vw, 2.75rem); /* 32 -> 44px, strips and bars */
+  --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
+  /* The distance from the header to a page's first heading, and from its last
+     element to the footer. One value each, because they were five: the page
+     wrappers on /cars, /compare, /contact-us, /faq and /saved each carried
+     their own clamp — 26->48, 28->44, 32->56 twice — so the same kind of page
+     began at a different height depending on which one you were on, which is
+     the sort of thing a reader feels as sloppiness without being able to name
+     it. Measured before: /faq's title sat 8px lower than /compare's at 1440
+     and 6px higher at 390. Both ends now come from here. */
+  /* A card's name, as one token rather than three numbers. .type-card-title
+     (CarCard and a dozen account panels) stepped 19 -> 21 at 640; the home
+     page's showcase card was a flat 20; the /cars listing card and the
+     saved-car card were a flat 21. The home rule even documented itself as
+     "the live listing card's name size" while that card was a pixel larger.
+     The 19 -> 21 step is the one most of the site was already on, so it wins
+     and the others follow it — and the step now happens in one place instead
+     of being a size repeated in four files. */
+  /* The panel step — a heading inside a card or a panel, below a section
+     title and above a card name. The scale had no name for it, which is
+     exactly why four ported files invented their own clamp for it
+     (20->24, 22->24 on two different slopes, and two flat 20s) and why
+     `font-display font-bold text-lg` turns up as an ad-hoc panel heading in
+     a dozen components. Named once here. */
+  --fs-panel-title: clamp(1.375rem, 1.7vw, 1.5rem); /* 22 -> 24px */
+  --fs-card-title: 1.1875rem; /* 19px, stepping to 21 at 640 below */
+  --rhythm-page-start: clamp(2rem, 4vw, 3rem); /* 32 -> 48px */
+  --rhythm-page-end: clamp(3rem, 6vw, 4.5rem); /* 48 -> 72px */
+  --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
+
+  /* One step for every section heading on the site. Five classes were each
+     carrying their own clamp and landing on 36px, 38px and 40px at 1440 —
+     three sizes doing one job, which reads as drift rather than hierarchy
+     because nobody can perceive two pixels as intent. Measured, then
+     collapsed onto the 38px the majority already used. */
+  --fs-section-title: clamp(1.75rem, 3vw, 2.375rem); /* 28 -> 38px */
+
+  /* The page's own h1 on the inner pages. Six classes carried their own
+     clamp and landed on 42px, 44px and 46px — one role, three sizes, none
+     of them distinguishable as intent. The hero h1 on the home page is a
+     different role and keeps the Display step. */
+  --fs-page-title: clamp(2rem, 3.7vw, 2.875rem); /* 32 -> 46px */
+
+  /* The step below a section heading, for headings inside a section: the
+     car page's rail and "also looking at", and the finance quote panel.
+     They were 30px, 30px and 32px, which is the same drift one step down.
+     28px is the identity's Subheading. */
+  --fs-subsection-title: clamp(1.5rem, 2.4vw, 1.75rem); /* 24 -> 28px */
+
+  /* Shape. These name the rule already locked at the top of this file:
+     pill for anything you press, 16px for cards and media, 8px for inputs
+     and small chrome. The public pages had drifted to 6 and 12px as well,
+     which the identity does not allow. 28px stays reserved for the one or
+     two large feature surfaces per page (--radius-lg in tokens.css). */
+  --radius-control: 0.5rem; /* 8px */
+  --radius-card: 1rem; /* 16px */
+
+  /* Tracking for the two uppercase roles, so letter-spacing is chosen from
+     the scale rather than typed per rule.
+
+     The Label step had five trackings doing one job — 0.14, 0.1, 0.08, 0.07
+     and 0.04em — across sixteen rules that otherwise agreed exactly (heading
+     face, weight 700, --fs-label). Nobody reads 0.07 against 0.08 as intent,
+     so it read as drift, and it is the same drift the type sizes above were
+     already collapsed to fix. 0.14em is not a new number: it is what the two
+     NAMED label styles, .type-label and .eyebrow, already used, so the
+     majority of the labels a reader actually meets are unchanged.
+
+     Nav had its own token here for the same reason — it was tracked in px,
+     0.5px on 21px in the header against 1px on 24px in the mobile menu, which
+     is not the same tracking at two sizes. It is gone rather than fixed: the
+     nav is no longer uppercase (Header.css), and letter-spacing on mixed-case
+     body type at 21px is a solution to a problem caps create. */
+  --tracking-label: 0.14em;
+
+  /* How far the navigation screen's rule runs while it waits. Short of the
+     end on purpose: the last of it belongs to the page arriving. */
+  --nav-rule-wait: 0.72;
+
+  /* Where a sticky element below the header should park.
+     The header is --site-header-h tall and sticky at top:0, but it also
+     HIDES on the way down (Header.tsx), so this cannot be a constant. Every
+     sticky offset on the site was hard-coded against a 64px header that has
+     been 80px for a while, and none of them knew about the hiding — so once
+     the header slid away, each one was left floating with an empty strip
+     above it and the page scrolling past inside it. On /cars that strip was
+     64px of moving car photos above an opaque filter bar.
+     Header.tsx sets data-header-hidden on the root element; the rule below
+     collapses this to zero for as long as that is there. Anything sticky
+     adds its own clearance on top with calc(). */
+  --sticky-offset: var(--site-header-h);
+}
+:root[data-header-hidden="true"] {
+  --sticky-offset: 0px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --gutter-page: 1.5rem; /* 24px once there is room for it */
+  }
+}
+
+/* The one layout primitive. Replaces `max-w-6xl mx-auto px-4` everywhere, so
+   the measure is set in a single place rather than restated per page. */
+@utility page-shell {
+  width: 100%;
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter-page);
+}
+/* Same grid, narrowed to a reading measure. Sits inside page-shell or alone. */
+@utility text-shell {
+  width: 100%;
+  max-width: var(--measure-text);
+  margin-inline: auto;
+  padding-inline: var(--gutter-page);
+}
+/* Section rhythm, so vertical space is chosen from the scale rather than
+   typed in per section. */
+@utility section-y {
+  padding-block: var(--rhythm-section);
+}
+@utility section-y-lg {
+  padding-block: var(--rhythm-section-lg);
+}
+
+/* The off-canvas mobile drawer parks at translateX(100%), which extends the
+   document's scrollable width and leaves the whole site scrolling sideways on
+   a phone (461px of scroll in a 390px viewport). Clip the horizontal axis at
+   the root. `clip` rather than `hidden` because `hidden` would make this a
+   scroll container and break the sticky header. */
+html,
+body {
+  overflow-x: clip;
 }
 
 body {
   @apply bg-paper text-ink font-body antialiased;
+  /* The body step, so text with no size class of its own is the same size
+     as text that asks for it. */
+  font-size: var(--text-base);
+  /* The Adobe kit ships 400–700 only. Never fake a heavier or lighter cut:
+     let the browser fall to the nearest real weight instead. */
+  font-synthesis: none;
 }
+
+
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -43,6 +358,51 @@ body {
   }
 }
 
+/* ---- Navigation screen ---------------------------------------------------
+   The between-pages screen (NavLoader) and the rule under its mark.
+
+   No CSS animations here, deliberately, and the reason is worth keeping. Both
+   the screen's fade and the rule's travel were animations at first, and both
+   held their `from` frame indefinitely wherever the renderer was not producing
+   animation frames — measured in a headless browser mid-navigation, where the
+   animation reported playState "running" with currentTime pinned at 0 for
+   seconds. A running animation overrides the base style for its whole active
+   duration, fill mode or not, so a frozen one does not fall through to the
+   settled value: the rule sat at scaleX(0) and the screen would have sat at
+   opacity 0 — invisible.
+
+   So the settled state is plain CSS that needs no frames, and the movement is
+   a transition driven by a state change in the component. A transition that
+   never gets frames simply lands on its target, which is the right answer.
+   The screen has no entrance: after a 400ms wait it is more useful arriving at
+   once than spending another quarter second becoming visible. */
+.nav-screen {
+  opacity: 1;
+}
+.nav-screen.is-leaving {
+  opacity: 0;
+  transition: opacity 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scaled from the left, so the rule never lays out. It runs to
+   --nav-rule-wait while waiting and to full when the page lands; the component
+   sets which. No loop: this is a screen nobody chose to look at, and a pulsing
+   indicator on it would be an attention device rather than information. */
+.nav-rule {
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+/* The page is here. Shorter, because the screen is fading out over it. */
+.nav-rule.is-done {
+  transition-duration: 220ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-screen.is-leaving,
+  .nav-rule {
+    transition: none;
+  }
+}
+
 @utility btn {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none;
 }
@@ -52,8 +412,214 @@ body {
 @utility btn-secondary {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none border-2 border-forest-600 text-forest-700 hover:bg-forest-50 px-6 py-3;
 }
+/* Brand conversion CTA. Sand is the buy-side accent for the one action that
+   matters on each screen (identity section 04). Sand is a light ground, so the
+   label is dark ink, never white. Lilac is the parent's accent and does not
+   appear on the marketplace. */
+@utility btn-cta {
+  @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none bg-sand text-ink hover:bg-sand-dark px-6 py-3;
+}
 @utility btn-ghost {
   @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors whitespace-nowrap active:translate-y-px disabled:opacity-50 disabled:pointer-events-none text-forest-700 hover:bg-forest-50 px-4 py-2;
+}
+
+/* ---- Type scale (identity section 05) ------------------------------------
+   One named class per style so sizes stay uniform instead of ad hoc.
+   Desktop values with the identity's one-step-down on mobile. The scale's
+   900/800 weights render in the kit's real 700 via font-synthesis: none.
+   Display (the hero) stays with the hero components; Body is the base.
+   Price deliberately inherits its font family: figures set in whichever
+   face their context uses, but always 800, tight, and tabular. */
+@layer components {
+  /* Display. The one size above Heading, and only a page's hero may take
+     it. Page heroes used to set their own 60px while the ported heroes set
+     62px and the stat counter 60px, which put three near-identical display
+     sizes on the site with nothing to tell them apart. */
+  /* Now the same token the ported page heads use. This utility was 56px
+     while .mp2-pagehead__title and friends were 46px, which put the inner
+     pages' h1 on two sizes depending on whether the page had been ported or
+     built from utilities — the two scales this file was meant to have
+     collapsed. Five pages were already on 46, so 46 it is. The home hero is
+     a different role and keeps its own Display step. */
+  .type-hero {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: var(--fs-page-title);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+  .type-heading {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 2rem; /* 32px mobile */
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  /* Tracking to match the rest of the display scale. This was the one style
+     in it set at `normal`, which put every 28px heading on the site — the
+     sold band on /cars, the finance quote, the valuation panels, the contact
+     form — a hair looser than the 38px headings above them and the 19px card
+     titles below them, both of which are tracked in. -0.02em is not a new
+     number: it is the step between .type-heading's -0.03 and
+     .type-card-title's -0.01, and it is what the one ported rule that got
+     this right (.mp2-rail__title) already used. */
+  .type-subheading {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem; /* 24px mobile */
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .type-lead {
+    font-weight: 300;
+    font-size: 1.375rem; /* 22px mobile */
+    line-height: 1.55;
+  }
+  .type-caption {
+    font-weight: 500;
+    font-size: 1.0625rem; /* 17px — the Caption step, sized for Mr Eaves */
+    line-height: 1.5;
+  }
+  .type-label {
+    font-weight: 700;
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+  }
+  .type-price {
+    font-weight: 800;
+    font-size: 1.625rem; /* 26px */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+  /* Card scale. A listing card is a component inside a page, not a section
+     of one, so it does not take the page-level Subheading and Price: six
+     cards set at 28px and 26px crowd the 40px h1 that titles them. Name and
+     figure share one size and are told apart by colour, which keeps a grid
+     of cards quiet and lets the page heading lead. */
+  /* A heading inside a card or panel. Same family and weight as the
+     Subheading it sits under, one step down, tracked like everything else on
+     the display scale. */
+  .type-panel-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--fs-panel-title);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .type-card-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--fs-card-title);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .type-card-price {
+    font-weight: 800;
+    font-size: 1.1875rem; /* 19px mobile */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+  .type-price-lg {
+    font-weight: 800;
+    font-size: 1.875rem; /* 30px mobile */
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+  @media (min-width: 640px) {
+    .type-heading {
+      /* Same story: 40px here against the ported section headings' 38px.
+         Two pixels apart is not hierarchy, it is two systems. */
+      font-size: var(--fs-section-title);
+    }
+    .type-subheading {
+      font-size: 1.75rem; /* 28px */
+    }
+    .type-lead {
+      font-size: 1.5rem; /* 24px */
+    }
+    .type-price-lg {
+      font-size: 2.125rem; /* 34px */
+    }
+    .type-card-price {
+      /* The Lead step. These were 20px against Lead's 21, which is a
+         difference no reader can see and one more number to keep track of.
+         Weight tells the roles apart, not size. */
+      font-size: 1.3125rem; /* 21px */
+    }
+  }
+}
+
+/* The card name's one step up, on the token rather than on each rule that
+   uses it — .type-card-title used to carry it alone, which is why the ported
+   card rules that could not see it had a flat size instead. */
+@media (min-width: 640px) {
+  :root {
+    --fs-card-title: 1.3125rem; /* 21px */
+  }
+}
+
+/* ---- Page transitions (View Transitions API) -----------------------------
+   Route changes cross-fade on the identity's motion tokens (section 13):
+   the old page leaves quickly on the exit curve, the new one arrives on
+   the entrance curve, and nothing runs past 320ms. A car's photo carries
+   from the listing card to the car-page hero through a shared
+   view-transition-name, so the click reads as continuity, not a jump.
+   Browsers without the API just navigate instantly. */
+::view-transition-old(root) {
+  animation-duration: 0.2s;
+  animation-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+::view-transition-group(*) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.2, 1);
+}
+/* The chrome holds still while the page changes between header and
+   footer: each gets its own snapshot group pinned in place. */
+.vt-site-header {
+  view-transition-name: site-header;
+}
+.vt-site-footer {
+  view-transition-name: site-footer;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* The gauge at fine scale, green on light: the identity's one pattern
+   device (section 12) as a section transition on long pages. Same
+   proportions as the footer's medium cut — short tick 45% of tall, tall
+   every fifth position, gap eight times the tick weight — at almost no
+   contrast, structural rather than decorative. Budget: twice per page,
+   and the footer's gauge counts as one. */
+@layer components {
+  .gauge-fine {
+    height: 9px;
+    color: var(--color-forest-600);
+    opacity: 0.3;
+    background-image:
+      linear-gradient(currentColor, currentColor),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px),
+      repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 40px);
+    background-repeat: repeat-x;
+    background-position: left bottom;
+    background-size:
+      100% 1px,
+      8px 4px,
+      40px 8px;
+  }
 }
 
 @utility card {
@@ -75,4 +641,253 @@ body {
 
 @utility skeleton {
   @apply animate-pulse bg-stone-200 rounded-lg;
+}
+
+/* Focus visibility: one consistent ring everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+}
+
+/* CTA micro-interaction: trailing icon nudges on hover */
+.btn-primary svg:last-child,
+.btn-secondary svg:last-child,
+.btn-ghost svg:last-child {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-primary:hover svg:last-child,
+.btn-secondary:hover svg:last-child,
+.btn-ghost:hover svg:last-child {
+  transform: translateX(3px);
+}
+
+/* Makes marquee — pauses on hover, static under reduced motion */
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-x 30s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Edit mode (admin iframe only): outline editable fields and pause the
+   marquee so text doesn't scroll away mid-edit. */
+.edit-mode [data-edit] {
+  outline: 1.5px dashed rgba(30, 92, 65, 0.55);
+  outline-offset: 2px;
+  cursor: text;
+  min-width: 1ch;
+}
+.edit-mode [data-edit]:hover,
+.edit-mode [data-edit]:focus {
+  outline-color: var(--color-forest-500);
+  background: rgba(30, 92, 65, 0.06);
+}
+.edit-mode .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---- Valuation steps -----------------------------------------------------
+   The three steps of getting a range. Shape and colour come from the same
+   tokens as everything else: a pill marker, the forest ramp, sand nowhere
+   (it is reserved for the one action that matters, which on this page is
+   the submit button, not the progress line).
+
+   Each step carries its own trailing connector as a flex filler, so the rule
+   takes whatever room is left after that step's words and stops before the
+   next marker. It used to be an absolutely positioned bar spanning the whole
+   column, which ran along behind the labels at the same height as their first
+   line and left the whole row looking crammed together. A filler cannot do
+   that: it only ever occupies empty space. */
+.vsteps {
+  display: flex;
+  align-items: center;
+  margin: 0 0 2.5rem;
+  padding: 0;
+  list-style: none;
+}
+.vsteps__step {
+  /* Steps share the leftover width so the connectors stretch evenly. The
+     last one takes only what its words need — there is nothing after it to
+     reach towards. */
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+}
+.vsteps__step:last-child {
+  flex: 0 0 auto;
+}
+.vsteps__step::after {
+  content: "";
+  flex: 1 1 auto;
+  min-width: 1.25rem;
+  height: 2px;
+  margin-inline: 1.25rem;
+  background: var(--color-hairline);
+}
+.vsteps__step:last-child::after {
+  content: none;
+}
+/* A step's trailing rule is green once that step is behind you. The current
+   step's rule stays grey, because the step it points at has not happened. */
+.vsteps__step.is-done::after {
+  background: var(--color-forest-600);
+}
+.vsteps__marker {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-hairline);
+  background: #ffffff;
+  color: var(--color-meta);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+.vsteps__step.is-done .vsteps__marker {
+  background: var(--color-forest-600);
+  border-color: var(--color-forest-600);
+  color: #ffffff;
+}
+.vsteps__step.is-now .vsteps__marker {
+  border-color: var(--color-forest-600);
+  color: var(--color-forest-700);
+  box-shadow: 0 0 0 4px var(--color-forest-50);
+}
+.vsteps__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.vsteps__label {
+  font-weight: 600;
+  /* The Caption step rather than full body: three of these sit in a nowrap
+     row with their markers and connectors, and the body step would push the
+     row past a phone's width. Still a real size — at 13.5px this was a
+     caption doing a label's job. */
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--color-meta);
+  white-space: nowrap;
+}
+.vsteps__step.is-done .vsteps__label,
+.vsteps__step.is-now .vsteps__label {
+  color: var(--color-forest-700);
+}
+.vsteps__hint {
+  margin-top: 0.1875rem;
+  /* Below the Label step on purpose, unlike every other uppercase label: this
+     sits in a nowrap row of three, and the row is already sized to just clear
+     a phone's width (see .vsteps__label above). Family, weight and tracking
+     are the Label's; only the size steps down, so it still reads as the same
+     kind of text. */
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-mute);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+/* Narrow screens: the hints go first, then the connectors tighten. Three
+   markers and three labels still fit; three hints do not. */
+@media (max-width: 767px) {
+  .vsteps__hint {
+    display: none;
+  }
+  .vsteps__step::after {
+    min-width: 0.75rem;
+    margin-inline: 0.75rem;
+  }
+}
+/* On a phone only the step you are on is named. Three labels and three
+   markers together leave about a centimetre for each connector, which turns
+   the rule into a dash and the whole row back into the crammed thing this
+   was meant to stop being. One label has room to breathe, and the markers
+   still carry where you are in the three. */
+@media (max-width: 560px) {
+  .vsteps {
+    margin-bottom: 2rem;
+  }
+  /* Taken out of the layout, not out of the page: display:none would drop
+     these from the accessibility tree too, leaving a screen reader with
+     three steps and only one of them named. */
+  .vsteps__step:not(.is-now) .vsteps__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .vsteps__step {
+    gap: 0.625rem;
+  }
+  .vsteps__label {
+    font-size: 0.9375rem;
+  }
+  .vsteps__marker {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8125rem;
+  }
+}
+
+/* ============================================================
+   Mobile touch targets.
+
+   Nothing here changes what the site can do — every control is the same
+   control, reachable in the same place. It changes how big the thing your
+   thumb has to find is. Measured at 390px before this block: a 16px range
+   input on the valuation tool, 40px chips on finance, 40px save and compare
+   buttons on a listing card, a 24px text button on the sell flow and 28px
+   links in the footer. The floor for a touch target is 44px.
+
+   Scoped to a phone width so the desktop pointer sizes are untouched.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* A 16px slider is not draggable with a thumb. The track and the handle
+     are drawn by their own pseudo-elements, so growing the input grows the
+     area you can grab without changing what the control looks like.
+     Doubled class because page-Finance2.css sets an explicit height at the
+     same specificity and would otherwise win on file order. */
+  .ah-site .mp2-range.mp2-range,
+  input[type="range"] {
+    height: 44px;
+  }
+
+  /* Chips, selects and the listing-card icon buttons are raised in
+     page-Cars2.css and page-Finance2.css instead: those files are imported
+     after this one, so a rule here loses the tie at equal specificity. */
+
+  /* Footer links sit in a dense list, so they get the height through
+     padding rather than a min-height that would space the list out twice. */
+  .ah-site .site-footer a {
+    display: inline-block;
+    padding-block: 0.5625rem;
+  }
+
+  /* The lockup is the way home from every page. It was a 36px target in an
+     80px header. */
+  .ah-site .site-header__logo a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
 }

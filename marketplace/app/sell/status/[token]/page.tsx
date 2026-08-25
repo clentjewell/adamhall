@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { notFound } from "next/navigation";
 import { CheckCircle, Circle, Phone } from "@phosphor-icons/react/dist/ssr";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 // Public pipeline view. Declined shows as a kind close-out, not a red X.
 const PIPELINE = [
   { status: "new", label: "Received", blurb: "Your car is in the queue." },
-  { status: "reviewing", label: "Adam's reviewing it", blurb: "He's looking at your photos and the numbers." },
-  { status: "offer_made", label: "Offer made", blurb: "Check your email — the number is there." },
+  { status: "reviewing", label: "We're reviewing it", blurb: "We're looking at your photos and the numbers." },
+  { status: "offer_made", label: "Offer made", blurb: "Check your email. The number is there." },
   { status: "accepted", label: "Deal agreed", blurb: "We're organising inspection and paperwork." },
   { status: "settled", label: "Settled", blurb: "Money moved. Done." },
 ] as const;
@@ -30,10 +30,10 @@ export default async function StatusPage({ params }: Props) {
   if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 text-center">
-        <h1 className="font-display font-extrabold text-2xl">Status tracking is warming up</h1>
+        <h1 className="type-heading">Status tracking is warming up</h1>
         <p className="text-stone-600 mt-3">
           This page isn&apos;t wired up in this environment yet. Your submission
-          is safe — Adam will be in touch within 1 business day.
+          is safe. We will be in touch within 1 business day.
         </p>
       </div>
     );
@@ -64,7 +64,7 @@ export default async function StatusPage({ params }: Props) {
   return (
     <div className="max-w-xl mx-auto px-4 py-12">
       <p className="text-sm font-semibold text-forest-700">Your submission</p>
-      <h1 className="font-display font-extrabold text-3xl tracking-tight mt-1">
+      <h1 className="type-heading mt-1">
         {title}
       </h1>
       <p className="text-stone-500 text-sm mt-1">
@@ -73,8 +73,8 @@ export default async function StatusPage({ params }: Props) {
 
       {declined ? (
         <div className="card p-6 mt-8">
-          <p className="font-display font-bold text-lg">
-            We passed on this one — and said why
+          <p className="font-display font-bold type-lead">
+            We passed on this one, and said why
           </p>
           <p className="text-stone-600 mt-2 leading-relaxed">
             {submission.declined_reason ??
@@ -128,12 +128,11 @@ export default async function StatusPage({ params }: Props) {
       <div className="card p-5 mt-10 flex items-center gap-4">
         <Phone size={24} className="text-forest-600 shrink-0" weight="duotone" />
         <p className="text-sm text-stone-600">
-          Questions while you wait? Call us — a human answers, and it&apos;s
-          usually Adam.
+          Questions while you wait? Call us. A human answers.
         </p>
       </div>
 
-      <Link href="/cars" className="btn-ghost mt-6 text-sm">
+      <Link href="/" className="btn-ghost mt-6 text-sm">
         Browse the cars while you&apos;re here
       </Link>
     </div>

@@ -1,0 +1,47 @@
+{
+  // Root config for the git-connected `adamhall` Workers service.
+  //
+  // That service builds this repository from its ROOT on every push, and
+  // for a year the root had no Wrangler config, so every build failed
+  // ("Workers Builds: adamhall" red on every PR). The worker itself is
+  // live and serves the Adam Hall Operating System proposal one-pager.
+  //
+  // This config makes the repo own exactly what is already deployed:
+  // `adamhall-site/` is a byte-for-byte mirror of the live worker's
+  // assets (index.html + jewell-logo.svg, mirrored 2026-08-11), served
+  // as a static-assets worker. Builds now succeed and deploy the same
+  // page that was already there. To change the proposal page, edit
+  // `adamhall-site/` — the next push to the default branch ships it.
+  //
+  // The marketplace app is a SEPARATE service (`adamhall-marketplace`,
+  // root directory `marketplace`) and is untouched by this config.
+  //
+  // BUILD WATCH PATHS — set these in the dashboard, they cannot live here.
+  // Both services are git-connected to this one repo and both rebuild on
+  // every push to every branch, so each push costs two builds. Measured on
+  // the carmarketplace branch: twelve consecutive commits touched
+  // `marketplace/` and not one touched `adamhall-site/`, so this service
+  // rebuilt twelve times for nothing.
+  //
+  // Cloudflare dashboard -> Workers -> adamhall -> Settings -> Build ->
+  // Build watch paths -> Include:
+  //
+  //     adamhall-site/*
+  //     wrangler.jsonc
+  //
+  // and on adamhall-marketplace, Include:
+  //
+  //     marketplace/*
+  //
+  // Excludes are applied first, then includes; a push matching nothing is
+  // skipped. Wildcards are a single `*` at the start or end of a rule, so
+  // `marketplace/*` is the whole subtree. Cloudflare builds anyway, watch
+  // paths or not, when a push has zero changed files, 3000+ changed files,
+  // or 20+ commits — so a big rebase will still run both.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "adamhall",
+  "compatibility_date": "2025-05-05",
+  "assets": {
+    "directory": "adamhall-site"
+  }
+}

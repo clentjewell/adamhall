@@ -17,7 +17,7 @@ ap-southeast-2, Jewell Org).
 
 | Surface | Routes | What it does |
 | --- | --- | --- |
-| Public marketplace | `/`, `/cars`, `/cars/[slug]` | Filterable inventory (URL-synced filters), car detail with gallery, trust block (PPSR badge, inspection, service history, "Adam's take"), walk-around video slot, enquire / book-a-look forms, SOLD cars visible 30 days then auto-archived, per-car OG tags + `Vehicle` JSON-LD + sitemap |
+| Public marketplace | `/`, `/cars`, `/cars/[slug]` | Filterable inventory (URL-synced filters), car detail with gallery, trust block (PPSR badge, inspection, service history, "Adam's take"), walk-around video slot, enquire / book-a-look forms, SOLD cars visible 90 days then auto-archived, per-car OG tags + `Vehicle` JSON-LD + sitemap |
 | Sell your car | `/sell`, `/sell/status/[token]` | 4-step conversational form (rego → condition → photos → contact), direct-to-Storage uploads with on-device compression, localStorage save-and-resume, tokenised status page (no account), live "typical response" stat from real audit events, trade-in bridge from any car page (`/sell?trade=slug`) |
 | Admin | `/admin/*` | Supabase Auth with email allowlist (no signup), dashboard counts, submissions queue with `New → Reviewing → Offer made → Accepted → Declined → Settled` pipeline, valuation worksheet (offer / expected retail / recon, auto margin, private notes), one-click templated offer + kind decline emails, inventory manager with convert-to-listing, enquiries inbox, settlement checklist (PPSR, payout letter, ID, rego transfer, funds — each tick stamped with who + when), full audit trail |
 
@@ -38,6 +38,7 @@ npm run dev
 | `RESEND_API_KEY` | resend.com — leave empty in dev, emails log to console |
 | `EMAIL_FROM`, `ADMIN_NOTIFY_EMAIL` | your sending identity + Adam's inbox |
 | `NEXT_PUBLIC_SITE_URL` | the deployed URL (used in emails + sitemap) |
+| `ANTHROPIC_API_KEY` | console.anthropic.com — the Assistant, "Fill from photos" and the listing-description drafting; all say they are switched off without it |
 
 ## Database
 
@@ -47,13 +48,15 @@ Schema lives in `supabase/migrations/` (already applied to the live project):
   `valuations`, `enquiries`, `settlement_checklists`, `status_events`,
   `admin_users`, `watchlist_alerts`), RLS policies, storage buckets
 - `0002_submission_audit_trigger.sql` — auto-log `new` events on submission
-- `0003_sold_auto_archive.sql` — pg_cron nightly archive of 30-day-old solds
+- `0003_sold_auto_archive.sql` — pg_cron nightly archive of stale solds
+- `0004_sold_window_90_days.sql` — widens the sold window from 30 to 90 days,
+  in the RLS policy and the archive job together
 
 `supabase/seed.sql` holds the demo data: 8 realistic cars (one sold) and
 3 submissions mid-pipeline with a filled valuation worksheet.
 
 **RLS in one paragraph:** anon can read published cars (plus sold ones for
-30 days), insert submissions/photos/enquiries/watchlist rows, and nothing
+90 days), insert submissions/photos/enquiries/watchlist rows, and nothing
 else. Sellers never read their submission via the API — the status page
 resolves the token server-side with the service role. Admins (rows in
 `admin_users`) get full access via the `is_admin()` helper. Submission
@@ -94,9 +97,24 @@ Cloudflare dashboard (Settings → Build):
 - **Deploy command:** `npx opennextjs-cloudflare deploy`
 - **Build variables:** `NEXT_PUBLIC_SUPABASE_URL`,
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL`
+
+  These have to be *build* variables, under Settings -> Build -> Variables
+  and secrets, not the runtime Variables and Secrets panel. Next inlines
+  every `NEXT_PUBLIC_*` value into the bundle during `next build`, so a
+  runtime variable arrives too late: the compiled code already reads
+  `undefined ?? "http://localhost:3000"`.
+
+  Setting one is not enough on its own. Nothing changes until something
+  rebuilds, and the build cache can serve compiled output from before the
+  change, so clear it if a rebuild still emits the old value.
+
+  `NEXT_PUBLIC_SITE_URL` unset is not a quiet failure. It puts
+  `http://localhost:3000` into `metadataBase` (canonical, OG and Twitter
+  tags), every sitemap URL, the robots sitemap line, the AutoDealer JSON-LD,
+  and the seller status links inside customer emails.
 - **Runtime secrets** (Settings → Variables and Secrets):
   `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`,
-  `ADMIN_NOTIFY_EMAIL`
+  `ADMIN_NOTIFY_EMAIL`, `ANTHROPIC_API_KEY`
 
 Before go-live, also put real values in `lib/config.ts` (Google reviews)
 and `components/Header.tsx` (phone number).
