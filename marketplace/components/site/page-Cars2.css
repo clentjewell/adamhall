@@ -335,17 +335,36 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4375rem;
+  /* Wider than the dotted row this was: the glyphs are the separators now,
+     and facts need clear air between them to read as four items. */
+  gap: 0.375rem 0.875rem;
   margin: 0.75rem 0 0;
   padding-top: 0.75rem;
   border-top: 1px solid var(--c-border);
   font-size: var(--fs-label);
   color: var(--c-text);
 }
-.ah-site .mp2-lcard__spec span + span::before {
-  content: "·";
-  margin-right: 0.4375rem;
-  color: var(--c-border);
+.ah-site .mp2-lcard__spec span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3125rem;
+  white-space: nowrap;
+}
+/* The glyphs. Two families at two widths, same as the hero band's tiles: a
+   car profile drawn in a wide box collapses to a sliver at a square's width,
+   and a pump stretched to a car's width arrives twice the weight. */
+.ah-site .mp2-lcard__glyph {
+  flex: 0 0 auto;
+  color: var(--c-text-mute, currentColor);
+  opacity: 0.75;
+}
+.ah-site .mp2-lcard__glyph[data-icon="square"] {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+.ah-site .mp2-lcard__glyph[data-icon="wide"] {
+  width: 1.5rem;
+  height: 0.75rem;
 }
 
 /* --- Empty state ------------------------------------------------------ */

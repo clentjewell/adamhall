@@ -4,6 +4,8 @@ import type { Car } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
 import { availabilityBadge, isJustIn } from "@/lib/car-flags";
 import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
+import MetaIcon from "@/components/site/MetaIcon";
+import TypeIcon from "@/components/site/TypeIcon";
 
 /**
  * Listing card for the redesigned cars grid (artifact frames 1c / 1d).
@@ -54,7 +56,9 @@ export default function ListingCard({
 
           {/* One badge, most-important-first: sold, then availability (a
               reserved car matters more to a buyer than a new one), then
-              just-in, then the PPSR reassurance as the resting state. */}
+              just-in. The PPSR flag came off the photographs at Adam's
+              direction — every car is checked, so a badge saying so on each
+              card was furniture. The car's own page still states it. */}
           {sold ? (
             <span className="mp2-lcard__badge mp2-lcard__badge--sold">SOLD</span>
           ) : availability ? (
@@ -63,8 +67,6 @@ export default function ListingCard({
             </span>
           ) : justIn ? (
             <span className="mp2-lcard__badge mp2-lcard__badge--new">Just in</span>
-          ) : car.ppsr_clear ? (
-            <span className="mp2-lcard__badge">PPSR clear</span>
           ) : null}
         </div>
 
@@ -73,11 +75,29 @@ export default function ListingCard({
           <p className={`mp2-lcard__price${sold ? " is-sold" : ""}`}>
             {sold ? "Sold" : formatPrice(car.price)}
           </p>
+          {/* Each fact carries its glyph: the body and fuel are the same
+              drawings the hero band's tiles use, so the card and the search
+              speak one icon vocabulary; the gauge and the shift gate are
+              their meta-row cousins (MetaIcon). The glyphs replace the dot
+              separators — two kinds of punctuation in one row is one too
+              many. */}
           <p className="mp2-lcard__spec">
-            <span>{formatKm(car.odometer_km)}</span>
-            <span>{car.transmission}</span>
-            <span>{car.fuel}</span>
-            <span>{car.body_type}</span>
+            <span>
+              <MetaIcon kind="odometer" className="mp2-lcard__glyph" />
+              {formatKm(car.odometer_km)}
+            </span>
+            <span>
+              <MetaIcon kind="transmission" className="mp2-lcard__glyph" />
+              {car.transmission}
+            </span>
+            <span>
+              <TypeIcon value={car.fuel} className="mp2-lcard__glyph" />
+              {car.fuel}
+            </span>
+            <span>
+              <TypeIcon value={car.body_type} className="mp2-lcard__glyph" />
+              {car.body_type}
+            </span>
           </p>
         </div>
       </Link>

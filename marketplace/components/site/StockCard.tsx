@@ -61,8 +61,6 @@ export default function StockCard({
           </span>
         ) : justIn ? (
           <span className="mp2-card__badge mp2-card__badge--new">Just in</span>
-        ) : car.ppsr_clear ? (
-          <span className="mp2-card__badge">PPSR clear</span>
         ) : null}
       </div>
 
