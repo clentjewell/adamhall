@@ -22,6 +22,7 @@ export default async function EditCarPage({ params }: Props) {
     .eq("id", id)
     .maybeSingle<Car>();
   if (!car) notFound();
+  const aiConfigured = !!process.env.ANTHROPIC_API_KEY;
 
   return (
     <div>
@@ -50,7 +51,7 @@ export default async function EditCarPage({ params }: Props) {
           . The seller&apos;s photos were copied across.
         </p>
       )}
-      <CarForm car={car} />
+      <CarForm car={car} aiConfigured={aiConfigured} />
     </div>
   );
 }

@@ -3,6 +3,8 @@ import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import CarForm from "@/components/admin/CarForm";
 
 export default function NewCarPage() {
+  const aiConfigured = !!process.env.ANTHROPIC_API_KEY;
+
   return (
     <div>
       <Link href="/admin/inventory" className="btn-ghost text-sm -ml-3 mb-3">
@@ -10,7 +12,7 @@ export default function NewCarPage() {
         Inventory
       </Link>
       <h1 className="font-display font-extrabold text-2xl mb-6">New listing</h1>
-      <CarForm car={null} />
+      <CarForm car={null} aiConfigured={aiConfigured} />
     </div>
   );
 }

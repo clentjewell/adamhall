@@ -1,21 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, Star, UploadSimple, X } from "@phosphor-icons/react";
+import {
+  ArrowCounterClockwise,
+  ArrowLeft,
+  ArrowRight,
+  Sparkle,
+  Star,
+  UploadSimple,
+  X,
+} from "@phosphor-icons/react";
 import { saveCar, type CarInput } from "@/app/actions/admin";
 import { compressImage } from "@/lib/upload";
 import { createClient } from "@/lib/supabase/client";
 import type { Car, CarPhoto } from "@/lib/types";
 
-export default function CarForm({ car }: { car: Car | null }) {
+export default function CarForm({
+  car,
+  aiConfigured = false,
+}: {
+  car: Car | null;
+  /** Whether ANTHROPIC_API_KEY is set, so the draft button can say why not. */
+  aiConfigured?: boolean;
+}) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [photos, setPhotos] = useState<CarPhoto[]>(car?.photos ?? []);
   const [uploading, setUploading] = useState(0);
+  // The description is the one field held in state: the draft button streams
+  // into it. Everything else stays uncontrolled and is read out of the form.
+  const [description, setDescription] = useState(car?.description ?? "");
+  const [drafting, setDrafting] = useState(false);
+  const [draftError, setDraftError] = useState<string | null>(null);
+  // What the box said before the last draft, so a draft the dealer doesn't
+  // like costs nothing. Cleared once they edit the text themselves.
+  const [undoTo, setUndoTo] = useState<string | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function onFiles(files: FileList | null) {
     if (!files) return;
@@ -36,6 +60,92 @@ export default function CarForm({ car }: { car: Car | null }) {
       } finally {
         setUploading((n) => n - 1);
       }
+    }
+  }
+
+  /**
+   * Draft the description from the photos on the car and the specs as they
+   * stand in the form. Nothing is saved: the draft lands in the textarea and
+   * the dealer edits it and saves the form as usual.
+   */
+  async function draftDescription() {
+    const form = formRef.current;
+    if (!form || drafting) return;
+    const data = new FormData(form);
+    const text = (name: string) => {
+      const v = data.get(name);
+      const trimmed = typeof v === "string" ? v.trim() : "";
+      return trimmed || undefined;
+    };
+    const num = (name: string) => {
+      const v = text(name);
+      if (!v) return undefined;
+      const n = Number(v);
+      return Number.isFinite(n) ? n : undefined;
+    };
+
+    if (!text("make") || !text("model")) {
+      setDraftError("Fill in the make and model first.");
+      return;
+    }
+
+    const previous = description;
+    setDraftError(null);
+    setDrafting(true);
+    setUndoTo(previous);
+    setDescription("");
+
+    try {
+      const res = await fetch("/api/admin/draft-description", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          spec: {
+            make: text("make"),
+            model: text("model"),
+            badge: text("badge"),
+            year: num("year"),
+            price: num("price"),
+            odometer_km: num("odometer_km"),
+            body_type: text("body_type"),
+            transmission: text("transmission"),
+            fuel: text("fuel"),
+            drivetrain: text("drivetrain"),
+            colour: text("colour"),
+            seats: num("seats"),
+            service_history: text("service_history"),
+            ppsr_clear: data.get("ppsr_clear") === "on",
+            inspection_summary: text("inspection_summary"),
+            adams_take: text("adams_take"),
+          },
+          photos: photos.map((p) => p.url),
+        }),
+      });
+      if (!res.ok || !res.body) {
+        const { error: e } = await res
+          .json()
+          .catch(() => ({ error: "Drafting failed." }));
+        throw new Error(e || "Drafting failed.");
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let draft = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        draft += decoder.decode(value, { stream: true });
+        setDescription(draft);
+      }
+      if (!draft.trim()) {
+        throw new Error("Claude came back with nothing. Try again.");
+      }
+    } catch (e) {
+      // Put back exactly what was in the box, not the stale state value.
+      setDescription(previous);
+      setUndoTo(null);
+      setDraftError(e instanceof Error ? e.message : "Drafting failed.");
+    } finally {
+      setDrafting(false);
     }
   }
 
@@ -95,7 +205,7 @@ export default function CarForm({ car }: { car: Car | null }) {
   );
 
   return (
-    <form action={onSubmit} className="space-y-6">
+    <form ref={formRef} action={onSubmit} className="space-y-6">
       <section className="card p-5">
         <h2 className="font-bold mb-4">The car</h2>
         <div className="grid sm:grid-cols-3 gap-4">
@@ -241,7 +351,52 @@ export default function CarForm({ car }: { car: Car | null }) {
       </section>
 
       <section className="card p-5">
-        <h2 className="font-bold mb-4">Listing copy</h2>
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-1">
+          <h2 className="font-bold">Listing copy</h2>
+          <div className="flex items-center gap-2">
+            {undoTo !== null && !drafting && (
+              <button
+                type="button"
+                onClick={() => {
+                  setDescription(undoTo);
+                  setUndoTo(null);
+                }}
+                className="btn-ghost !py-2 text-sm"
+              >
+                <ArrowCounterClockwise size={16} weight="bold" />
+                Undo draft
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={draftDescription}
+              disabled={!aiConfigured || drafting || uploading > 0}
+              title={
+                aiConfigured
+                  ? undefined
+                  : "Add ANTHROPIC_API_KEY in Cloudflare to enable drafting"
+              }
+              className="btn-secondary !py-2 text-sm"
+            >
+              <Sparkle size={16} weight="bold" />
+              {drafting
+                ? "Drafting…"
+                : description.trim()
+                  ? "Redraft with AI"
+                  : "Draft with AI"}
+            </button>
+          </div>
+        </div>
+        <p className="text-sm text-stone-500 mb-4">
+          {!aiConfigured
+            ? "Drafting needs an ANTHROPIC_API_KEY secret in Cloudflare."
+            : photos.length > 0
+              ? "Drafting reads the photos above and the specs you have typed in. Read it before you save."
+              : "Drafting reads the specs you have typed in. Add photos above and it will describe what is in them too. Read it before you save."}
+        </p>
+        {draftError && (
+          <p className="error-text mb-4" role="alert">{draftError}</p>
+        )}
         <div>
           <label htmlFor="car-desc" className="label">Description</label>
           <textarea
@@ -249,7 +404,12 @@ export default function CarForm({ car }: { car: Car | null }) {
             name="description"
             rows={5}
             className="input resize-y"
-            defaultValue={car?.description ?? ""}
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              setUndoTo(null);
+            }}
+            readOnly={drafting}
           />
         </div>
         <div className="mt-4">
@@ -260,7 +420,13 @@ export default function CarForm({ car }: { car: Car | null }) {
       {error && <p className="error-text" role="alert">{error}</p>}
       {saved && <p className="text-sm font-medium text-forest-700" role="status">Saved.</p>}
 
-      <button type="submit" disabled={pending || uploading > 0} className="btn-primary">
+      {/* Drafting blocks saving too: a half-streamed description saved mid
+          draft would look like the dealer's own words. */}
+      <button
+        type="submit"
+        disabled={pending || uploading > 0 || drafting}
+        className="btn-primary"
+      >
         {pending ? "Saving…" : car ? "Save changes" : "Create draft listing"}
       </button>
     </form>

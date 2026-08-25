@@ -1,4 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
+import { apiError, requireAdminApi } from "@/lib/admin";
+import {
+  ANTHROPIC_MESSAGES_URL,
+  anthropicHeaders,
+  relayTextDeltas,
+  textStreamResponse,
+} from "@/lib/anthropic";
 import { getContent } from "@/lib/content";
 
 // The Assistant — an admin-only assistant that answers anything about
@@ -7,21 +14,13 @@ import { getContent } from "@/lib/content";
 // and general advice. It runs on Claude (Anthropic Messages API) and is
 // grounded in a live snapshot of the yard's stock and the current site copy.
 //
-// We call the API over raw fetch rather than the SDK: this handler runs in
-// the Cloudflare Worker runtime, and a zero-dependency streaming proxy keeps
-// the bundle small and avoids edge-bundling surprises.
+// The admin gate, the request headers and the SSE-to-plain-text relay are
+// shared with the listing-description route: see lib/admin.ts and
+// lib/anthropic.ts, which carry why these call the API over raw fetch.
 
-const ANTHROPIC_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-opus-4-8";
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
-
-function bad(status: number, message: string) {
-  return new Response(JSON.stringify({ error: message }), {
-    status,
-    headers: { "content-type": "application/json" },
-  });
-}
 
 async function buildSnapshot(
   supabase: Awaited<ReturnType<typeof createClient>>,
@@ -90,7 +89,7 @@ THE DEALER CONSOLE (the dealer's side, at /admin, private login):
 - Dashboard (/admin): the morning glance — new submissions, open enquiries, live listings, sold this month, plus a recent activity feed.
 - Assistant (/admin/adam-ai): this assistant.
 - Submissions (/admin/submissions): people selling their car. Open one, review it, make an offer; the seller is updated automatically as the status moves.
-- Inventory (/admin/inventory): the live stock. Add a car with photos/specs/price, publish to put it on the site, unpublish to pull it, and mark it sold when it's gone. There's also a one-click duplicate-as-draft (PPSR and service history reset on the copy).
+- Inventory (/admin/inventory): the live stock. Add a car with photos/specs/price, publish to put it on the site, unpublish to pull it, and mark it sold when it's gone. There's also a one-click duplicate-as-draft (PPSR and service history reset on the copy). On the listing form, "Draft with AI" under Listing copy writes a first draft of the description from the photos and the specs already filled in; it is a draft, so read it before saving, and "Undo draft" puts back whatever was there.
 - Enquiries (/admin/enquiries): buyer questions and book-a-look requests; reply and mark handled.
 - Finance (/admin/finance): finance leads in one list.
 - Site copy (/admin/content): edit the words on the site yourself — phone, opening hours, address, hero copy, trust points, sell band, page intros, footer, and the reviews. Saves publish to the live site in seconds. This is where the dealer sets the real phone, address, hours and licence number.
@@ -119,23 +118,13 @@ How to answer:
 }
 
 export async function POST(req: Request) {
-  // Admin gate — same allowlist check as requireAdmin, but this is an API
-  // route so we return 401 rather than redirecting.
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return bad(401, "Not signed in.");
-  const { data: adminRow } = await supabase
-    .from("admin_users")
-    .select("id")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (!adminRow) return bad(403, "Not authorised.");
+  const gate = await requireAdminApi();
+  if (!gate.ok) return gate.response;
+  const { supabase } = gate;
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return bad(
+    return apiError(
       503,
       "The Assistant isn't switched on yet. Add an ANTHROPIC_API_KEY secret in Cloudflare and it'll come to life.",
     );
@@ -145,25 +134,21 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return bad(400, "Bad request.");
+    return apiError(400, "Bad request.");
   }
   const messages = (body.messages ?? [])
     .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
     .slice(-20)
     .map((m) => ({ role: m.role, content: m.content.slice(0, 8000) }));
   if (!messages.length || messages[messages.length - 1].role !== "user") {
-    return bad(400, "No message to answer.");
+    return apiError(400, "No message to answer.");
   }
 
   const snapshot = await buildSnapshot(supabase);
 
-  const upstream = await fetch(ANTHROPIC_URL, {
+  const upstream = await fetch(ANTHROPIC_MESSAGES_URL, {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-    },
+    headers: anthropicHeaders(apiKey),
     body: JSON.stringify({
       model: MODEL,
       max_tokens: 2048,
@@ -176,57 +161,8 @@ export async function POST(req: Request) {
   if (!upstream.ok || !upstream.body) {
     const detail = await upstream.text().catch(() => "");
     console.error("adam-ai upstream error:", upstream.status, detail.slice(0, 300));
-    return bad(502, "The Assistant couldn't reach Claude just now. Try again in a moment.");
+    return apiError(502, "The Assistant couldn't reach Claude just now. Try again in a moment.");
   }
 
-  // Parse Anthropic's SSE and re-emit just the text deltas as a plain stream,
-  // so the client doesn't have to understand the event protocol.
-  const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
-  let buffer = "";
-
-  const stream = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      const reader = upstream.body!.getReader();
-      try {
-        for (;;) {
-          const { done, value } = await reader.read();
-          if (done) break;
-          buffer += decoder.decode(value, { stream: true });
-          const parts = buffer.split("\n\n");
-          buffer = parts.pop() ?? "";
-          for (const part of parts) {
-            const dataLine = part.split("\n").find((l) => l.startsWith("data:"));
-            if (!dataLine) continue;
-            const json = dataLine.slice(5).trim();
-            if (!json || json === "[DONE]") continue;
-            try {
-              const evt = JSON.parse(json);
-              if (
-                evt.type === "content_block_delta" &&
-                evt.delta?.type === "text_delta" &&
-                evt.delta.text
-              ) {
-                controller.enqueue(encoder.encode(evt.delta.text));
-              }
-            } catch {
-              // ignore malformed keep-alive lines
-            }
-          }
-        }
-      } catch (err) {
-        console.error("adam-ai stream error:", err);
-      } finally {
-        controller.close();
-        reader.releaseLock();
-      }
-    },
-  });
-
-  return new Response(stream, {
-    headers: {
-      "content-type": "text/plain; charset=utf-8",
-      "cache-control": "no-store",
-    },
-  });
+  return textStreamResponse(relayTextDeltas(upstream.body, "adam-ai"));
 }

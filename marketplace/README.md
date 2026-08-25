@@ -38,6 +38,7 @@ npm run dev
 | `RESEND_API_KEY` | resend.com — leave empty in dev, emails log to console |
 | `EMAIL_FROM`, `ADMIN_NOTIFY_EMAIL` | your sending identity + Adam's inbox |
 | `NEXT_PUBLIC_SITE_URL` | the deployed URL (used in emails + sitemap) |
+| `ANTHROPIC_API_KEY` | console.anthropic.com — the Assistant and the listing-description drafting; both say they are switched off without it |
 
 ## Database
 
@@ -113,7 +114,7 @@ Cloudflare dashboard (Settings → Build):
   and the seller status links inside customer emails.
 - **Runtime secrets** (Settings → Variables and Secrets):
   `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`,
-  `ADMIN_NOTIFY_EMAIL`
+  `ADMIN_NOTIFY_EMAIL`, `ANTHROPIC_API_KEY`
 
 Before go-live, also put real values in `lib/config.ts` (Google reviews)
 and `components/Header.tsx` (phone number).
