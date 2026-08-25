@@ -7,41 +7,51 @@ import { applyFilters, type Filterable } from "@/lib/filters";
 import "@/components/site/HeroSearch.css";
 
 /**
- * The search panel in the home hero, and the marketplace's snapshot of itself.
+ * The search band across the foot of the home hero, and the marketplace's
+ * snapshot of itself.
  *
- * Modelled on the pattern every Australian car buyer already knows — a panel
- * floating on the hero, tiles of the body types with a photograph in each, a
- * live "show N cars" button — but built for this lot rather than copied from a
- * site with two hundred thousand cars on it.
+ * Laid out to Adam's mockup: one band the width of the page, the fields and
+ * the count button on the left, a row of type tiles on the right behind a
+ * hairline. It was a cream card floating on the right of the frame before
+ * that; the band is the shape he drew, and it gives the film its right-hand
+ * half back — which is the half the scrim clears, and the only part of the
+ * picture that was ever properly visible.
  *
- * That difference decides the whole design. On a national classifieds site the
- * dropdowns are a way through a haystack, and it does not matter that most
- * combinations return nothing, because something always remains. On a lot of
- * six the same controls would mostly return one car or none, and a search
- * that dead-ends makes a curated range look empty rather than chosen.
+ * Glass rather than cream, also from the mockup: forest at 62% over the film
+ * with a blur behind it, so the band belongs to the frame instead of sitting
+ * on top of it. The blur is the same device the header already uses when it
+ * floats over a page.
  *
- * So every option here is DERIVED FROM STOCK and carries its own count. If a
- * make is not on the lot it is not in the list; if a price step would return
- * nothing it is not offered; a type tile that the other choices have ruled out
- * goes flat and stops responding rather than promising cars it cannot deliver.
- *
- * The tiles are the reason the panel is worth looking at, and they are REAL
+ * The tiles are the reason the band is worth looking at, and they are REAL
  * CARS — the lead photograph of a car of that type currently on the lot, not a
- * stock silhouette. A dealer with six cars has one advantage over carsales
- * here and it is exactly this: the categories can be photographs of the actual
- * stock, so the tile row IS the snapshot Adam asked for. It also means the
- * tiles change as the lot does, with no artwork to maintain.
+ * stock silhouette or a studio render. A dealer with six cars has one
+ * advantage over carsales here and it is exactly this: the categories can be
+ * photographs of the actual stock, so the tile row IS the snapshot as well as
+ * the way in, and there is no artwork to maintain as the lot changes.
  *
- * The tiles select rather than navigate. Everything else in the panel counts
- * live, and a tile that jumped straight to /cars would be a second mechanism
- * competing with the first — pick a type, watch the number on the button move,
- * go when it says what you want. There is no body-type dropdown because the
- * tiles are it.
+ * The mockup's own tiles read New Cars, EV, Hybrid, SUV, Ute. Two of those
+ * cannot be honest here: there are no new cars on a used-car lot and no EV in
+ * the range, and a tile leading to an empty page is worse than a shorter row.
+ * So the row is built from what is actually on the lot — the body types, then
+ * the fuels worth naming — which today is five tiles, the same five the
+ * mockup has room for.
+ *
+ * Everything in the band is DERIVED FROM STOCK and carries its own count. If a
+ * make is not on the lot it is not in the list; if a price step would return
+ * nothing it is not offered; a tile the other choices have ruled out goes flat
+ * and stops responding. The count is the button's label, so it can never
+ * promise a page of results that is not there.
+ *
+ * The tiles select rather than navigate. Everything else counts live, and a
+ * tile that jumped straight to /cars would be a second mechanism competing
+ * with the first — pick a type, watch the number on the button move, go when
+ * it says what you want. The body tiles and the body-type select are two ways
+ * into the same state, so choosing in one lights up the other.
  *
  * There is no Location select, though the reference has one. There is one
  * dealer in one place; a state dropdown would be furniture.
  *
- * The panel holds nothing of its own in the URL: it is a way in, not the
+ * The band holds nothing of its own in the URL: it is a way in, not the
  * results page. Choosing narrows the count in place, and the button hands the
  * whole selection to /cars as query parameters that page already reads
  * (useCarFilters), so a search started here arrives there intact and
@@ -49,7 +59,7 @@ import "@/components/site/HeroSearch.css";
  */
 
 /** The fields filtering reads, plus the one photograph the tiles need. The
-    panel runs in the browser, so what it is given is what the page ships —
+    band runs in the browser, so what it is given is what the page ships —
     see the projection in app/page.tsx. */
 export type HeroSearchCar = Filterable & { photo: string | null };
 
@@ -57,22 +67,42 @@ export type HeroSearchCar = Filterable & { photo: string | null };
     return something are shown, so the ladder shortens with the lot. */
 const PRICE_CEILINGS = [25000, 35000, 50000, 75000];
 
+/** Fuels worth a tile of their own, in the order a buyer would ask for them.
+    Only the ones actually on the lot get one. */
+const FUELS = ["Hybrid", "Diesel"];
+
+/** More than this and the row stops being a row. */
+const MAX_TILES = 6;
+
 const money = (n: number) =>
   n >= 1000 ? `$${Math.round(n / 1000)}k` : `$${n.toLocaleString("en-AU")}`;
+
+type Tile = {
+  /** Which filter the tile sets. Body tiles share their state with the
+      body-type select; fuel tiles have no select of their own. */
+  key: "body" | "fuel";
+  value: string;
+  /** The size of the group, which is what decides the row's order. */
+  total: number;
+  /** What is left of the group under the other choices. */
+  count: number;
+  photo: string | null;
+};
 
 export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
   const [make, setMake] = useState("");
   const [body, setBody] = useState("");
+  const [fuel, setFuel] = useState("");
   const [priceMax, setPriceMax] = useState("");
-  /** Phone only: the card collapses to its own head so it cannot push the
-      hero's words off a pinned screen. Desktop ignores this entirely — the
-      body is shown by the stylesheet and the toggle is not rendered to the
-      accessibility tree at all. */
+  /** Phone and small tablet only: the band collapses to its own head so it
+      cannot push the hero's words off a pinned screen. Wide screens ignore
+      this entirely — the stylesheet shows the body and the toggle is not
+      rendered to the accessibility tree at all. */
   const [open, setOpen] = useState(false);
-  /** Whether the card is in its collapsing range at all. The head is a real
-      button there and an inert heading above it: a control that reports
-      aria-expanded while the stylesheet keeps the body open regardless would
-      be lying to anyone not looking at it. Starts false so the server and the
+  /** Whether the band is in its collapsing range. The head is a real button
+      there and an inert heading above it: a control reporting aria-expanded
+      while the stylesheet keeps the body open regardless would be lying to
+      anyone not looking at the screen. Starts false so the server and the
       first client render agree, then corrects on mount. */
   const [narrow, setNarrow] = useState(false);
   const bodyId = useId();
@@ -89,9 +119,10 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
     () => ({
       make: make || undefined,
       body: body || undefined,
+      fuel: fuel || undefined,
       priceMax: priceMax ? Number(priceMax) : undefined,
     }),
-    [make, body, priceMax],
+    [make, body, fuel, priceMax],
   );
 
   /** The live count. The same applyFilters the results page uses, so the
@@ -112,7 +143,14 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cars, selection],
   );
-
+  const bodies = useMemo(
+    () =>
+      [...new Set(cars.map((c) => c.body_type).filter(Boolean))]
+        .sort()
+        .map((b) => ({ value: b, count: countWith({ body: b }) })),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cars, selection],
+  );
   const ceilings = useMemo(
     () =>
       PRICE_CEILINGS.map((p) => ({ value: p, count: countWith({ priceMax: p }) }))
@@ -123,24 +161,44 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
     [cars, selection],
   );
 
-  /** One tile per body type on the lot, biggest group first, each carrying the
-      lead photograph of a car of that type. `total` is the size of the group
-      and never moves — it is what the tile is advertising. `count` is what is
-      left of it under the current make and price, and is what decides whether
-      the tile still leads anywhere. */
-  const types = useMemo(() => {
-    const names = [...new Set(cars.map((c) => c.body_type).filter(Boolean))];
-    return names
-      .map((name) => {
-        const group = cars.filter((c) => c.body_type === name);
-        return {
-          name,
-          total: group.length,
-          count: countWith({ body: name }),
-          photo: group.find((c) => c.photo)?.photo ?? null,
-        };
-      })
-      .sort((a, z) => z.total - a.total || a.name.localeCompare(z.name));
+  const tiles = useMemo<Tile[]>(() => {
+    const group = (key: Tile["key"], value: string) =>
+      cars.filter((c) => (key === "body" ? c.body_type : c.fuel) === value);
+
+    const bodyNames = [...new Set(cars.map((c) => c.body_type).filter(Boolean))];
+    const fuelNames = FUELS.filter((f) => cars.some((c) => c.fuel === f));
+
+    const ordered: { key: Tile["key"]; value: string }[] = [
+      // Body types first, then fuels: like with like, and each block biggest
+      // first, so the row opens on the largest thing in the range.
+      ...bodyNames
+        .map((value) => ({ key: "body" as const, value }))
+        .sort((a, z) => group("body", z.value).length - group("body", a.value).length ||
+          a.value.localeCompare(z.value)),
+      ...fuelNames
+        .map((value) => ({ key: "fuel" as const, value }))
+        .sort((a, z) => group("fuel", z.value).length - group("fuel", a.value).length),
+    ].slice(0, MAX_TILES);
+
+    // One photograph per tile, and not the same car twice where the lot allows
+    // it — the SUV tile and the Hybrid tile would otherwise both be the RAV4,
+    // which makes a row of five look like a row of three.
+    const used = new Set<string>();
+    return ordered.map(({ key, value }) => {
+      const g = group(key, value);
+      const photo =
+        g.find((c) => c.photo && !used.has(c.photo))?.photo ??
+        g.find((c) => c.photo)?.photo ??
+        null;
+      if (photo) used.add(photo);
+      return {
+        key,
+        value,
+        total: g.length,
+        count: countWith({ [key]: value } as Partial<typeof selection>),
+        photo,
+      };
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cars, selection]);
 
@@ -148,91 +206,187 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
     const q = new URLSearchParams();
     if (make) q.set("make", make);
     if (body) q.set("body", body);
+    if (fuel) q.set("fuel", fuel);
     if (priceMax) q.set("priceMax", priceMax);
     const s = q.toString();
     return `/cars${s ? `?${s}` : ""}`;
-  }, [make, body, priceMax]);
+  }, [make, body, fuel, priceMax]);
 
-  const touched = Boolean(make || body || priceMax);
+  const touched = Boolean(make || body || fuel || priceMax);
 
-  // Nothing to search, and a panel of empty dropdowns over the film would say
-  // so louder than the words do. The hero falls back to its own single column.
+  const pick = (t: Tile) => {
+    const on = t.key === "body" ? body === t.value : fuel === t.value;
+    if (t.key === "body") setBody(on ? "" : t.value);
+    else setFuel(on ? "" : t.value);
+  };
+
+  // Nothing to search, and a band of empty dropdowns across the film would
+  // say so louder than the words do.
   if (cars.length === 0) return null;
+
+  const head = (
+    <>
+      <span className="hsearch__headtext">
+        <span className="hsearch__title">Find your next car</span>
+        <span className="hsearch__snap">
+          {cars.length} on the lot &middot; every one PPSR checked
+        </span>
+      </span>
+      {/* Only shown collapsed, where the head is the whole band and this is
+          the one number there is to read. */}
+      <span className="hsearch__headcount">
+        {matches} car{matches === 1 ? "" : "s"}
+      </span>
+      <span className="hsearch__chev" aria-hidden="true" />
+    </>
+  );
 
   return (
     <search className={`hsearch${open ? " is-open" : ""}`}>
-      {/* The head is the card's cap on a wide screen and its whole collapsed
-          state on a phone, which is why the count lives in it: closed, it is
-          the only thing there is to read. */}
-      {(() => {
-        const inside = (
-          <>
-            <span className="hsearch__headtext">
-              <span className="hsearch__title">Find your next car</span>
-              <span className="hsearch__snap">
-                {cars.length} on the lot &middot; every one PPSR checked
-              </span>
-            </span>
-            <span className="hsearch__headcount">
-              {matches} car{matches === 1 ? "" : "s"}
-            </span>
-            <span className="hsearch__chev" aria-hidden="true" />
-          </>
-        );
-        return narrow ? (
-          <button
-            type="button"
-            className="hsearch__head"
-            aria-expanded={open}
-            aria-controls={bodyId}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {inside}
-          </button>
-        ) : (
-          <p className="hsearch__head">{inside}</p>
-        );
-      })()}
+      {narrow ? (
+        <button
+          type="button"
+          className="hsearch__head"
+          aria-expanded={open}
+          aria-controls={bodyId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          {head}
+        </button>
+      ) : (
+        <p className="hsearch__head">{head}</p>
+      )}
 
+      {/* display: contents on a wide screen, so the row and the tiles sit in
+          the band's own grid beside the head rather than nested inside a box
+          of their own. A plain block below the split, where it is what the
+          head opens and closes. */}
       <div id={bodyId} className={`hsearch__body${open ? " is-open" : ""}`}>
-        {/* Only worth showing when there is more than one type to choose
-            between: a single tile is a label, not a choice. */}
-        {types.length > 1 && (
+        <div className="hsearch__row">
+          <div className="hsearch__fields">
+            <label className="hsearch__field">
+              <span className="hsearch__label">Make</span>
+              <select
+                className="hsearch__select"
+                value={make}
+                onChange={(e) => setMake(e.target.value)}
+              >
+                <option value="">Any make</option>
+                {makes.map((m) => (
+                  // Shown, so the reader can see what the lot carries, but not
+                  // selectable at zero: the count is there to explain why.
+                  <option key={m.value} value={m.value} disabled={m.count === 0}>
+                    {m.value} ({m.count})
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            {/* The same state the body tiles set, from the other end: choose
+                here and the tile lights up. It stands down under 1200px,
+                where the row cannot hold three fields, the button and the
+                tiles at once — and it is the field the tiles already are. */}
+            <label className="hsearch__field hsearch__field--body">
+              <span className="hsearch__label">Body type</span>
+              <select
+                className="hsearch__select"
+                value={body}
+                onChange={(e) => setBody(e.target.value)}
+              >
+                <option value="">Any body</option>
+                {bodies.map((b) => (
+                  <option key={b.value} value={b.value} disabled={b.count === 0}>
+                    {b.value} ({b.count})
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="hsearch__field">
+              <span className="hsearch__label">Up to</span>
+              <select
+                className="hsearch__select"
+                value={priceMax}
+                onChange={(e) => setPriceMax(e.target.value)}
+              >
+                <option value="">Any price</option>
+                {ceilings.map((p) => (
+                  <option key={p.value} value={String(p.value)}>
+                    {money(p.value)} ({p.count})
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="hsearch__go">
+            {/* The count is the label. At zero it says so and does not link —
+                there is nowhere honest for it to go. */}
+            {matches > 0 ? (
+              <Link href={href} className="hsearch__btn">
+                Show {matches} car{matches === 1 ? "" : "s"}
+                <span className="hsearch__arrow" aria-hidden="true">
+                  &rarr;
+                </span>
+              </Link>
+            ) : (
+              <span className="hsearch__btn is-empty" aria-disabled="true">
+                Nothing matches yet
+              </span>
+            )}
+            {touched && (
+              <button
+                type="button"
+                className="hsearch__clear"
+                onClick={() => {
+                  setMake("");
+                  setBody("");
+                  setFuel("");
+                  setPriceMax("");
+                }}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+        </div>
+
+        {tiles.length > 1 && (
           <div className="hsearch__types">
-            <p className="hsearch__label">Browse by type</p>
+            <p className="hsearch__label">Explore by type</p>
             <div className="hsearch__tiles">
-              {types.map((t) => {
-                const on = body === t.name;
+              {tiles.map((t) => {
+                const on = t.key === "body" ? body === t.value : fuel === t.value;
                 const dead = t.count === 0 && !on;
                 return (
                   <button
-                    key={t.name}
+                    key={`${t.key}:${t.value}`}
                     type="button"
                     className={`hsearch__tile${on ? " is-on" : ""}${dead ? " is-dead" : ""}`}
                     aria-pressed={on}
                     disabled={dead}
-                    onClick={() => setBody(on ? "" : t.name)}
+                    onClick={() => pick(t)}
                   >
                     <span className="hsearch__tileimg">
                       {t.photo ? (
                         <Image
                           src={t.photo}
-                          // Decorative: the type is named in text beside it,
-                          // and the car in the photograph is an example of the
-                          // type rather than the thing being chosen.
+                          // Decorative: the type is named in text below it, and
+                          // the car in the photograph is an example of the type
+                          // rather than the thing being chosen.
                           alt=""
                           fill
-                          sizes="180px"
+                          sizes="160px"
                           className="hsearch__tilephoto"
                         />
                       ) : null}
                     </span>
                     <span className="hsearch__tileline">
-                      <span className="hsearch__tilename">{t.name}</span>
+                      <span className="hsearch__tilename">{t.value}</span>
                       {/* Always what is actually there under the current
                           choices — which with nothing chosen is the whole
                           group. A tile that kept advertising three while a
-                          make had cut it to one would be the panel's one
+                          make had cut it to one would be the band's one
                           lie. */}
                       <span className="hsearch__tilen">{t.count}</span>
                     </span>
@@ -242,73 +396,6 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
             </div>
           </div>
         )}
-
-        <div className="hsearch__fields">
-          <label className="hsearch__field">
-            <span className="hsearch__label">Make</span>
-            <select
-              className="hsearch__select"
-              value={make}
-              onChange={(e) => setMake(e.target.value)}
-            >
-              <option value="">Any make</option>
-              {makes.map((m) => (
-                // Shown, so the reader can see what the lot carries, but not
-                // selectable at zero: the count is there to explain why.
-                <option key={m.value} value={m.value} disabled={m.count === 0}>
-                  {m.value} ({m.count})
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className="hsearch__field">
-            <span className="hsearch__label">Up to</span>
-            <select
-              className="hsearch__select"
-              value={priceMax}
-              onChange={(e) => setPriceMax(e.target.value)}
-            >
-              <option value="">Any price</option>
-              {ceilings.map((p) => (
-                <option key={p.value} value={String(p.value)}>
-                  {money(p.value)} ({p.count})
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-
-        <div className="hsearch__go">
-          {/* The count is the label, so the button never promises a page of
-              results that is not there. At zero it says so and does not
-              link — there is nowhere honest for it to go. */}
-          {matches > 0 ? (
-            <Link href={href} className="hsearch__btn">
-              Show {matches} car{matches === 1 ? "" : "s"}
-              <span className="hsearch__arrow" aria-hidden="true">
-                &rarr;
-              </span>
-            </Link>
-          ) : (
-            <span className="hsearch__btn is-empty" aria-disabled="true">
-              Nothing matches yet
-            </span>
-          )}
-          {touched && (
-            <button
-              type="button"
-              className="hsearch__clear"
-              onClick={() => {
-                setMake("");
-                setBody("");
-                setPriceMax("");
-              }}
-            >
-              Clear
-            </button>
-          )}
-        </div>
       </div>
     </search>
   );

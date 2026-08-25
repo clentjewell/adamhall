@@ -113,50 +113,67 @@ export default function HeroFilm({
         )}
         <span className="hfilm__scrim" />
 
-        {/* Two columns once there is room: the words on the left, where the
-            forest wash is heaviest, and the search panel on the right, where
-            it clears and the film is still visible behind it. One column when
-            the panel has nothing to search. */}
-        <div
-          className={`container container--wide hfilm__inner${
-            cars.length > 0 ? " hfilm__inner--split" : ""
-          }`}
-        >
-          <div className="hfilm__content">
-            <span className="hfilm__eyebrow">
-              Gold Coast &middot; Brisbane &middot; Northern Rivers
-            </span>
+        {/* One column of words above, one band across the foot — Adam's
+            mockup. The band used to be a card floating on the right of the
+            frame, which covered the only part of the film the scrim ever
+            clears; across the bottom it leaves the picture alone. */}
+        <div className="hfilm__stage">
+          <div className="container container--wide hfilm__inner">
+            <div className="hfilm__content">
+              <span className="hfilm__eyebrow">
+                {/* A pin, from the mockup. The site already draws its own
+                    icons inline (the footer, the spec lists, the accordion),
+                    so this brings in no new dependency and no icon font. */}
+                <svg
+                  className="hfilm__pin"
+                  viewBox="0 0 24 24"
+                  width="13"
+                  height="13"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.6A2.6 2.6 0 1 1 12 6.4a2.6 2.6 0 0 1 0 5.2Z"
+                    fill="currentColor"
+                  />
+                </svg>
+                Gold Coast &middot; Brisbane &middot; Northern Rivers
+              </span>
 
-            {/* One sand word, the accent device the valuation band and the
-                stock flags already use: the accent marks the thing that
-                matters rather than the whole line. */}
-            <h1 className="hfilm__title">
-              Cars worth putting our <span className="hfilm__accent">name</span> on
-            </h1>
+              {/* One sand word, the accent device the valuation band and the
+                  stock flags already use: the accent marks the thing that
+                  matters rather than the whole line. */}
+              <h1 className="hfilm__title">
+                Cars worth putting our <span className="hfilm__accent">name</span> on
+              </h1>
 
-            <p className="hfilm__sub">
-              Every car here is one we decided was worth buying. What the listing
-              says is what you get.
-            </p>
+              <p className="hfilm__sub">
+                Every car here is one we decided was worth buying. What the
+                listing says is what you get.
+              </p>
 
-            {/* Neither of these is the buy path: the panel beside them is, at
-                every width — the full card on a wide screen, its collapsed
-                head on a phone. So the buttons are the two things the panel
-                cannot do, which is also the two halves of the business. */}
-            <div className="hfilm__actions">
-              <Button href={site.phoneHref} variant="outline-white">
-                Call {site.phoneDisplay}
-              </Button>
-              <Button to="/car-valuations" variant="outline-white" arrow>
-                What&rsquo;s my car worth?
-              </Button>
+              {/* Neither of these is the buy path: the band below them is, at
+                  every width — open on a wide screen, collapsed to its head on
+                  a phone. So the buttons are the two things the band cannot
+                  do, which is also the two halves of the business. */}
+              <div className="hfilm__actions">
+                <Button href={site.phoneHref} variant="outline-white">
+                  Call {site.phoneDisplay}
+                </Button>
+                <Button to="/car-valuations" variant="outline-white" arrow>
+                  What&rsquo;s my car worth?
+                </Button>
+              </div>
             </div>
           </div>
 
-          {/* The marketplace, on the frame: the range's size, a tile per body
-              type with a real car in it, and one button that says how many
-              cars it will show. */}
-          <HeroSearch cars={cars} />
+          {/* The marketplace, across the foot of the frame: the range's size,
+              three fields counted against real stock, and a tile per slice of
+              the lot with a real car in it. */}
+          {cars.length > 0 && (
+            <div className="container container--wide hfilm__base">
+              <HeroSearch cars={cars} />
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -30,8 +30,6 @@
 
 .ah-site .hfilm__panel {
   position: relative;
-  display: flex;
-  align-items: center;
   overflow: hidden;
   isolation: isolate;
   background: var(--c-green);
@@ -88,17 +86,40 @@
   );
 }
 
-.ah-site .hfilm__inner {
+/* The frame's two rows. The words take whatever height is left over and sit
+   centred in it; the band takes what it needs at the foot. Sizing the words
+   off the remainder rather than the other way round is what keeps the two off
+   each other on a short screen — the band's height is the fixed quantity,
+   because what is in it does not wrap. */
+.ah-site .hfilm__stage {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.ah-site .hfilm__inner {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
   width: 100%;
+  /* A flex item that can shrink below its content would clip the words before
+     the band gave up anything. */
+  min-height: 0;
+}
+.ah-site .hfilm__base {
+  flex: 0 0 auto;
+  width: 100%;
+  padding-bottom: 1.625rem;
 }
 .ah-site .hfilm__content {
   max-width: 46rem;
 }
 
 .ah-site .hfilm__eyebrow {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: var(--fs-label);
@@ -136,6 +157,12 @@
 .ah-site .hfilm__accent {
   color: var(--c-sand);
 }
+/* Optically a shade below the cap height of the label beside it, which is
+   where a pin wants to sit. */
+.ah-site .hfilm__pin {
+  flex: 0 0 auto;
+  margin-top: -1px;
+}
 
 .ah-site .hfilm__actions {
   display: flex;
@@ -144,60 +171,49 @@
   margin-top: 2rem;
 }
 
-/* --- The frame's two columns -----------------------------------------
-   Adam asked for the marketplace itself to be on the hero — the range's size
-   and a way into it — rather than a screen of film with the cars a scroll
-   away. So above 900px the frame splits: the words keep the left, where the
-   forest wash is at .92 and type is at its most legible, and the search panel
-   takes the right, where the wash clears to .35 and the film is still visible
-   behind the card. The gradient was already built that way for the film's
-   sake; the card simply sits in the half it was clearing.
+/* Below 900px the band cannot stay open: it collapses to its own head, and
+   that head has to be anchored to the foot of the frame rather than sitting in
+   the flow of it. In flow, opening it pushed the words up by the height of
+   everything inside — and the panel is exactly 100dvh and clips, so the
+   eyebrow and the top of the headline went off the top of the screen.
+   Measured before this rule went in: the top of the words landed at -99px.
 
-   The column is a clamp rather than a fixed width so the card narrows with the
-   viewport instead of eating the headline's measure at 900px. 26rem is what
-   three photographs need to read as photographs. */
-@media (min-width: 900px) {
-  .ah-site .hfilm__inner--split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(20rem, 30vw, 26rem);
-    gap: clamp(2rem, 4vw, 3.5rem);
-    align-items: center;
-  }
-}
-
-/* Below the split the frame reads bottom-up: the card pinned to the foot of
-   it, the words stacked above. The card is positioned rather than stacked —
-   see HeroSearch.css for the measurement that forced that — so the words
-   reserve exactly the collapsed head's height plus a gap, and opening the card
-   moves nothing: it grows upward over the film.
-
-   Bottom-aligning the panel is what gives the card a fixed home to grow from.
-   It was already the treatment below 640px, where a left-to-right wash leaves
-   the last lines of a wrapped heading on bare film; carrying it up to the
-   split means one composition for every width that is not two columns. */
+   Anchored, the words reserve the collapsed head's height and nothing moves
+   when it opens; the band grows upward over the film it is searching, which is
+   also the honest reading of the gesture. */
 @media (max-width: 899px) {
-  .ah-site .hfilm__panel {
-    align-items: flex-end;
+  .ah-site .hfilm__stage {
+    justify-content: flex-end;
   }
   .ah-site .hfilm__inner {
-    padding-bottom: 1.625rem;
+    flex: 0 0 auto;
+    /* The band's collapsed head, plus the gap it sits above the frame's foot
+       by, plus a gap of its own. Measured without the middle term: the last
+       button ended four pixels inside the band's top edge. */
+    padding-bottom: calc(var(--hsearch-bar) + 1.625rem + 1rem);
   }
-  .ah-site .hfilm__inner--split .hfilm__content {
-    margin-bottom: calc(var(--hsearch-bar) + 1rem);
-    /* Coming back when the card closes. The identity's arrival step. */
+  .ah-site .hfilm__base {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.625rem;
+    padding-bottom: 0;
+  }
+  .ah-site .hfilm__content {
+    /* Coming back when the band closes. The identity's arrival step. */
     transition: opacity 200ms cubic-bezier(0, 0, 0.2, 1) 120ms,
       visibility 0s 120ms;
   }
-  /* While the card is open it IS the frame. The words go rather than being
-     half-covered: the card grows up from the foot and, on a phone, stops short
+  /* While the band is open it IS the frame. The words go rather than being
+     half-covered: the band grows up from the foot and, on a phone, stops short
      of the eyebrow, so a sliver of it showed above the top edge and read as a
      mistake rather than a layer. A reader who has opened the search is looking
      at the search; the words come back the moment it closes.
 
      :has() rather than a class on the wrapper because the state belongs to the
-     card, which is the later sibling. Where it is not supported the words
+     band, which is the later sibling. Where it is not supported the words
      simply stay, which is the sliver — a worse frame, not a broken one. */
-  .ah-site .hfilm__inner--split:has(.hsearch.is-open) .hfilm__content {
+  .ah-site .hfilm__stage:has(.hsearch.is-open) .hfilm__content {
     opacity: 0;
     visibility: hidden;
     transition: opacity 120ms cubic-bezier(0.4, 0, 1, 1), visibility 0s 120ms;
@@ -242,16 +258,16 @@
    — then the air between the lines tightens. That is 62px at 320 wide, which
    is 14 more than the overflow. */
 @media (max-width: 899px) and (max-height: 700px) {
-  .ah-site .hfilm__inner--split .hfilm__eyebrow {
+  .ah-site .hfilm__eyebrow {
     display: none;
   }
-  .ah-site .hfilm__inner--split .hfilm__title {
+  .ah-site .hfilm__title {
     margin-top: 0;
   }
-  .ah-site .hfilm__inner--split .hfilm__sub {
+  .ah-site .hfilm__sub {
     margin-top: 0.75rem;
   }
-  .ah-site .hfilm__inner--split .hfilm__actions {
+  .ah-site .hfilm__actions {
     margin-top: 0.875rem;
   }
 }
@@ -260,11 +276,14 @@
    it header. On top of the above, the headline gives up its Display size,
    which is a size for a screen and not for a letterbox. */
 @media (max-width: 899px) and (max-height: 480px) {
-  .ah-site .hfilm__inner--split .hfilm__title {
+  .ah-site .hfilm__title {
     font-size: var(--fs-h3);
   }
-  .ah-site .hfilm__inner--split {
-    padding-bottom: 1rem;
+  .ah-site .hfilm__base {
+    bottom: 1rem;
+  }
+  .ah-site .hfilm__inner {
+    padding-bottom: calc(var(--hsearch-bar) + 1rem + 0.75rem);
   }
 }
 
