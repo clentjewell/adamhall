@@ -50,11 +50,20 @@
      single Display moment and the only size above the identity's Heading. */
   --fs-hero: clamp(2.5rem, 4.6vw, 3.5rem); /* 40 -> 56px, matches .type-hero */
   --fs-h2: clamp(2rem, 3vw, 2.5rem); /* 32 -> 40px, Heading */
-  --fs-h3: clamp(1.5rem, 2.2vw, 1.75rem); /* 24 -> 28px, Subheading */
+  /* The Subheading step, and the identity's own one. It used to be a second
+     clamp with the same two endpoints and a different slope
+     (2.2vw against 2.4vw), so a heading on --fs-h3 and one on
+     --fs-subsection-title agreed at 640 and at 1200 and disagreed by a pixel
+     or two everywhere between — two tokens for one step, which is how a scale
+     stops being a scale. */
+  --fs-h3: var(--fs-subsection-title); /* 24 -> 28px, Subheading */
   /* Sits on the Lead step, as it always has: same size, told apart from Lead
      by family and weight. Raised with the body so it stays a step above it
      rather than landing on top of it. */
-  --fs-h4: clamp(1.375rem, 1.7vw, 1.5rem); /* 22 -> 24px, Lead */
+  /* The panel step, named in globals.css as --fs-panel-title. Same value it
+     always had; pointing at the shared one keeps the two halves of the site
+     from drifting the next time it changes. */
+  --fs-h4: var(--fs-panel-title); /* 22 -> 24px */
   /* The body steps are set for Mr Eaves Modern, not for a nominal 16px.
      Its x-height ratio is 0.341 against Arial's 0.519 — measured off the
      font file, not guessed — so it draws about a third smaller than most

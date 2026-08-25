@@ -89,7 +89,16 @@
      bare green across the top when it went. The extra top padding is what
      keeps the heading clear of the header while it is showing. */
   margin-top: calc(var(--site-header-h) * -1);
-  min-height: 100dvh;
+  /* A band, not a screen. This was 100dvh, which on an inner page meant the
+     reader met a full viewport of green carrying three lines of text and then
+     had to scroll to reach anything: measured at 1440x900, the band was 900px
+     tall around 143px of content on /faq and /contact-us and 176px on /cars —
+     84% and 80% empty. The home hero earns a whole screen because it is the
+     hero and has the search band in it; an inner page's title does not.
+     Sized so the content sits in it with air rather than adrift in it, and
+     the marketplace grid, the question list and the contact form all start
+     above the fold now. */
+  min-height: clamp(19rem, 44vh, 25rem);
   background: var(--color-forest-700, #003a30);
   border-bottom: 0;
   padding-block: calc(clamp(2.75rem, 6vw, 4.5rem) + var(--site-header-h))

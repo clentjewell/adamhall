@@ -20,7 +20,7 @@ export default function FinanceEnquiryForm({
   if (state.ok) {
     return (
       <div className="card p-6 text-center" role="status">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-panel-title text-forest-700">
           Good as sorted.
         </p>
         <p className="text-stone-600 mt-2 text-sm leading-relaxed">

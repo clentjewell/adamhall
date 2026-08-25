@@ -30,7 +30,11 @@
   display: flex;
   align-items: center;
   margin-top: calc(var(--site-header-h) * -1);
-  min-height: 100dvh;
+  /* Same reasoning as the film page-head (HeaderFilm.css): a band rather than
+     a screen. 71% of this one was empty at 1440x900. It keeps more height than
+     the others because the calculator card rides up over its bottom edge and
+     needs something to ride up over. */
+  min-height: clamp(24rem, 56vh, 32rem);
   background: var(--c-green-deep);
   padding-block: calc(clamp(2.5rem, 5vw, 3.5rem) + var(--site-header-h))
     clamp(3.5rem, 6vw, 5rem);
@@ -275,7 +279,8 @@
   margin: 0;
 }
 .ah-site .mp2-fin-step__title {
-  font-size: 1.25rem;
+  font-size: var(--fs-h4);
+  letter-spacing: -0.01em;
   line-height: 1.2;
   margin: 0.75rem 0 0;
 }
@@ -300,6 +305,7 @@
 .ah-site .mp2-fin-quote__title {
   font-size: var(--fs-subsection-title);
   line-height: 1.15;
+  letter-spacing: -0.02em;
   margin: 0 0 0.75rem;
 }
 .ah-site .mp2-fin-quote__intro p {

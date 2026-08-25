@@ -98,7 +98,7 @@ export default function ComparePageClient() {
       <div className="page-shell section-y">
         <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">Couldn&apos;t load these cars</p>
+          <p className="type-panel-title">Couldn&apos;t load these cars</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
             Something went wrong reaching our cars just now. Check your
             connection and try again.
@@ -120,7 +120,7 @@ export default function ComparePageClient() {
       <div className="page-shell section-y">
         <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">Nothing to compare yet</p>
+          <p className="type-panel-title">Nothing to compare yet</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
             Tap the scales icon on any car to add it here. Pick up to three
             to line them up side by side.

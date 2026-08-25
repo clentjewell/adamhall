@@ -14,7 +14,7 @@ export default function ForgotPasswordForm() {
   if (state.ok) {
     return (
       <div role="status">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-panel-title text-forest-700">
           Check your email
         </p>
         <p className="helper mt-2">

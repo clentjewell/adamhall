@@ -201,6 +201,32 @@ html {
 
   --rhythm-band: clamp(2rem, 3vw, 2.75rem); /* 32 -> 44px, strips and bars */
   --rhythm-section: clamp(4rem, 6vw, 6rem); /* 64 -> 96px */
+  /* The distance from the header to a page's first heading, and from its last
+     element to the footer. One value each, because they were five: the page
+     wrappers on /cars, /compare, /contact-us, /faq and /saved each carried
+     their own clamp — 26->48, 28->44, 32->56 twice — so the same kind of page
+     began at a different height depending on which one you were on, which is
+     the sort of thing a reader feels as sloppiness without being able to name
+     it. Measured before: /faq's title sat 8px lower than /compare's at 1440
+     and 6px higher at 390. Both ends now come from here. */
+  /* A card's name, as one token rather than three numbers. .type-card-title
+     (CarCard and a dozen account panels) stepped 19 -> 21 at 640; the home
+     page's showcase card was a flat 20; the /cars listing card and the
+     saved-car card were a flat 21. The home rule even documented itself as
+     "the live listing card's name size" while that card was a pixel larger.
+     The 19 -> 21 step is the one most of the site was already on, so it wins
+     and the others follow it — and the step now happens in one place instead
+     of being a size repeated in four files. */
+  /* The panel step — a heading inside a card or a panel, below a section
+     title and above a card name. The scale had no name for it, which is
+     exactly why four ported files invented their own clamp for it
+     (20->24, 22->24 on two different slopes, and two flat 20s) and why
+     `font-display font-bold text-lg` turns up as an ad-hoc panel heading in
+     a dozen components. Named once here. */
+  --fs-panel-title: clamp(1.375rem, 1.7vw, 1.5rem); /* 22 -> 24px */
+  --fs-card-title: 1.1875rem; /* 19px, stepping to 21 at 640 below */
+  --rhythm-page-start: clamp(2rem, 4vw, 3rem); /* 32 -> 48px */
+  --rhythm-page-end: clamp(3rem, 6vw, 4.5rem); /* 48 -> 72px */
   --rhythm-section-lg: clamp(5rem, 8vw, 7.5rem); /* 80 -> 120px */
 
   /* One step for every section heading on the site. Five classes were each
@@ -428,11 +454,20 @@ body {
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
+  /* Tracking to match the rest of the display scale. This was the one style
+     in it set at `normal`, which put every 28px heading on the site — the
+     sold band on /cars, the finance quote, the valuation panels, the contact
+     form — a hair looser than the 38px headings above them and the 19px card
+     titles below them, both of which are tracked in. -0.02em is not a new
+     number: it is the step between .type-heading's -0.03 and
+     .type-card-title's -0.01, and it is what the one ported rule that got
+     this right (.mp2-rail__title) already used. */
   .type-subheading {
     font-family: var(--font-display);
     font-weight: 800;
     font-size: 1.5rem; /* 24px mobile */
     line-height: 1.2;
+    letter-spacing: -0.02em;
   }
   .type-lead {
     font-weight: 300;
@@ -463,10 +498,20 @@ body {
      cards set at 28px and 26px crowd the 40px h1 that titles them. Name and
      figure share one size and are told apart by colour, which keeps a grid
      of cards quiet and lets the page heading lead. */
+  /* A heading inside a card or panel. Same family and weight as the
+     Subheading it sits under, one step down, tracked like everything else on
+     the display scale. */
+  .type-panel-title {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--fs-panel-title);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
   .type-card-title {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: 1.1875rem; /* 19px mobile, the Lead step */
+    font-size: var(--fs-card-title);
     line-height: 1.25;
     letter-spacing: -0.01em;
   }
@@ -499,13 +544,21 @@ body {
     .type-price-lg {
       font-size: 2.125rem; /* 34px */
     }
-    .type-card-title,
     .type-card-price {
       /* The Lead step. These were 20px against Lead's 21, which is a
          difference no reader can see and one more number to keep track of.
          Weight tells the roles apart, not size. */
       font-size: 1.3125rem; /* 21px */
     }
+  }
+}
+
+/* The card name's one step up, on the token rather than on each rule that
+   uses it — .type-card-title used to carry it alone, which is why the ported
+   card rules that could not see it had a flat size instead. */
+@media (min-width: 640px) {
+  :root {
+    --fs-card-title: 1.3125rem; /* 21px */
   }
 }
 

@@ -362,7 +362,7 @@
   padding: 1.125rem 1.125rem 1.25rem;
 }
 .ah-site .mp2-card__title {
-  font-size: 1.25rem; /* 20px, the live listing card's name size */
+  font-size: var(--fs-card-title);
   line-height: 1.2;
   letter-spacing: -0.01em;
   margin: 0;

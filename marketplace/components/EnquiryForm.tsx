@@ -35,7 +35,7 @@ export default function EnquiryForm({ carId, carName }: { carId: string; carName
   if (state.ok) {
     return (
       <div className="card p-6 text-center" role="status">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-panel-title text-forest-700">
           Got it. We will be in touch shortly.
         </p>
         <p className="text-stone-600 mt-1 text-sm">

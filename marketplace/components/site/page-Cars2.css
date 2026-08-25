@@ -19,7 +19,11 @@
 .ah-site .mp2-pagehead {
   background: var(--c-white);
   border-bottom: 1px solid var(--c-border);
-  padding-block: clamp(1.625rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.25rem);
+  /* Start on the shared page rhythm. The END stays small and local: this
+     band is a bar with a rule under it and the filter bar follows
+     immediately, so the page's own bottom breathing belongs to the results
+     layout below, not here. */
+  padding-block: var(--rhythm-page-start) clamp(1.25rem, 3vw, 2.25rem);
 }
 .ah-site .mp2-pagehead__title {
   font-size: var(--fs-page-title);
@@ -186,7 +190,7 @@
   grid-template-columns: 250px minmax(0, 1fr);
   gap: 2rem;
   align-items: start;
-  padding-block: 1.75rem clamp(3rem, 6vw, 4.5rem);
+  padding-block: 1.75rem var(--rhythm-page-end);
 }
 .ah-site .mp2-sidebar__card {
   background: var(--c-white);
@@ -227,10 +231,13 @@
   color: var(--c-text);
 }
 
+/* The same gap a grid of cards gets everywhere else on the site — the home
+   stock grid and the car page's "also on the lot" row are both 1.5rem. This
+   was 1.25, which is not a different rhythm, just a different number. */
 .ah-site .mp2-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 /* --- Listing card ----------------------------------------------------- */
@@ -303,7 +310,7 @@
   padding: 1rem;
 }
 .ah-site .mp2-lcard__title {
-  font-size: var(--fs-body);
+  font-size: var(--fs-card-title);
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin: 0;
@@ -490,11 +497,17 @@
   padding-top: 2rem;
   border-top: 1px solid var(--c-border);
 }
+/* The subsection spec, same as .type-subheading and .mp2-rail__title. It was
+   --fs-h3 with no tracking: the same two endpoints as
+   --fs-subsection-title but a different slope between them, so this heading
+   drifted a pixel or two off every other 28px heading on the site at the
+   widths in between. */
 .ah-site .mp2-sold__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--fs-h3);
+  font-size: var(--fs-subsection-title);
   line-height: 1.2;
+  letter-spacing: -0.02em;
   color: var(--c-black);
 }
 .ah-site .mp2-sold__sub {

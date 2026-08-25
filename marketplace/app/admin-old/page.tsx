@@ -38,7 +38,7 @@ export default async function AdminOldDashboard() {
         ))}
       </div>
 
-      <h2 className="font-display font-bold text-lg mt-10 mb-4">Latest activity</h2>
+      <h2 className="type-panel-title mt-10 mb-4">Latest activity</h2>
       <div className="card divide-y divide-stone-100">
         {(recentEvents.data ?? []).length === 0 && (
           <p className="p-5 text-sm text-stone-500">

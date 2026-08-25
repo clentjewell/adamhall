@@ -17,7 +17,7 @@
 }
 
 .ah-site .mp2-cmp {
-  padding-block: clamp(1.75rem, 4vw, 2.75rem) clamp(3rem, 6vw, 4.5rem);
+  padding-block: var(--rhythm-page-start) var(--rhythm-page-end);
 }
 .ah-site .mp2-cmp__title {
   font-size: var(--fs-page-title);

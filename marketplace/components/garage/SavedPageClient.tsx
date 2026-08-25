@@ -94,7 +94,7 @@ export default function SavedPageClient() {
         </div>
       ) : (
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">
+          <p className="type-panel-title">
             Nothing saved yet. Tap the heart on any car.
           </p>
           <Link href="/cars" className="btn-cta mt-5 inline-flex">

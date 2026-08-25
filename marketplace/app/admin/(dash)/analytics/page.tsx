@@ -111,7 +111,7 @@ export default async function AnalyticsPage() {
         ))}
       </div>
 
-      <h2 className="font-display font-bold text-lg mt-10 mb-4">Average margin by make</h2>
+      <h2 className="type-panel-title mt-10 mb-4">Average margin by make</h2>
       {marginRows.length === 0 ? (
         <div className="card p-8 text-center text-stone-500 text-sm">
           Fill in valuation worksheets and this table builds itself.

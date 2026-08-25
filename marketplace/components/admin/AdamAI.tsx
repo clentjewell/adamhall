@@ -247,7 +247,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
               <div className="w-14 h-14 rounded-2xl bg-forest-100 text-forest-700 flex items-center justify-center mb-4">
                 <Sparkle size={26} weight="fill" />
               </div>
-              <p className="font-display font-bold text-lg">Ask the Assistant anything</p>
+              <p className="type-panel-title">Ask the Assistant anything</p>
               <p className="text-sm text-stone-500 mt-1 mb-5">
                 It knows your current stock and site copy. Try one of these:
               </p>

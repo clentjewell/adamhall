@@ -16,7 +16,7 @@ export default function TestDriveForm({ carId, carName }: { carId: string; carNa
   if (state.ok) {
     return (
       <div className="card p-6 text-center" role="status">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-panel-title text-forest-700">
           Request in. We&apos;ll call to lock in the exact time. A test drive
           isn&apos;t confirmed until you hear from us.
         </p>
@@ -28,7 +28,7 @@ export default function TestDriveForm({ carId, carName }: { carId: string; carNa
     <form action={action} className="card p-6" id="testdrive">
       <input type="hidden" name="car_id" value={carId} />
 
-      <h3 className="font-display font-bold text-lg mb-4">
+      <h3 className="type-panel-title mb-4">
         Book a test drive
       </h3>
 
