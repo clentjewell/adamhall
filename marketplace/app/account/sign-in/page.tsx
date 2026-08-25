@@ -37,7 +37,7 @@ export default async function SignInPage({ searchParams }: Props) {
           </p>
         )}
         <SignInForm next={next} />
-        <Link href="/cars" className="btn-ghost text-sm mt-6 !px-0">
+        <Link href="/" className="btn-ghost text-sm mt-6 !px-0">
           <ArrowLeft size={16} weight="bold" />
           Back to the Marketplace
         </Link>

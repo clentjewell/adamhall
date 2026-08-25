@@ -8,7 +8,7 @@ export default function NotFound() {
         Like a good car, whatever was here didn&apos;t stick around. The current
         stock is one tap away.
       </p>
-      <Link href="/cars" className="btn-primary mt-8">
+      <Link href="/" className="btn-primary mt-8">
         Browse the cars
       </Link>
     </div>

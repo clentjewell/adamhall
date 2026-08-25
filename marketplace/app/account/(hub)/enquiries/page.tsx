@@ -67,7 +67,7 @@ export default async function AccountEnquiriesPage() {
               When you ask about a car it turns up here so you can see where it
               got to.
             </p>
-            <Link href="/cars" className="btn-cta text-sm mt-5">
+            <Link href="/" className="btn-cta text-sm mt-5">
               Browse the cars
             </Link>
           </div>

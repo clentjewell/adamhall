@@ -125,7 +125,7 @@ export default function ComparePageClient() {
             Tap the scales icon on any car to add it here. Pick up to three
             to line them up side by side.
           </p>
-          <Link href="/cars" className="btn-cta mt-5 inline-flex">
+          <Link href="/" className="btn-cta mt-5 inline-flex">
             Browse cars
           </Link>
         </div>

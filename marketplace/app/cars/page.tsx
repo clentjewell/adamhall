@@ -1,68 +1,25 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import { fetchPublicCars } from "@/lib/cars";
-import { getContent } from "@/lib/content";
-import CarsBrowserV2 from "@/components/site/CarsBrowserV2";
-import WatchlistForm from "@/components/WatchlistForm";
-import SiteReveal from "@/components/site/SiteReveal";
-import HeaderFilm from "@/components/site/HeaderFilm";
-import { headerFilms } from "@/lib/heroes";
+import { permanentRedirect } from "next/navigation";
 
 /**
- * The cars page (route: /cars), built to the "Carmarketplace UI
- * mockups" artifact, frames 1c (desktop) and 1d (mobile).
+ * The marketplace lives on the home page now (Adam's direction), so the old
+ * index redirects there — permanently, since every old link, bookmark and
+ * search result should re-learn the address. The query rides along: a saved
+ * filter link like /cars?fuel=Diesel still lands on the same filtered view,
+ * because home reads exactly the same parameters (useCarFilters).
  *
- * Same data and the same machinery as /cars — fetchPublicCars for stock,
- * getContent for the CMS-editable header, the URL-driven filters via
- * useCarFilters, and the real WatchlistForm with its server action. Only the
- * arrangement is new.
+ * Only the index moved. /cars/[slug] — the individual car pages — stay where
+ * they are: their URLs are in the sitemap, in customer emails and in every
+ * card on the site.
  */
-export const metadata: Metadata = {
-  title: "Cars for sale",
-  description:
-    "Browse our current stock of hand-picked used cars. Every car PPSR checked, honestly described and priced to sell.",
-};
-
-export const revalidate = 60;
-
-export default async function Cars2Page() {
-  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
-  const makes = [...new Set(cars.map((c) => c.make))].sort();
-  const inStock = cars.filter((c) => c.status === "published").length;
-
-  return (
-    <div className="ah-site mp-cars2">
-      <SiteReveal />
-
-      {/* The header carries its own film: a slow pass along a row of cars,
-          which is the page's subject. It is a band rather than a full screen
-          so the filters and the first row of stock still land inside the
-          first viewport. */}
-      <header className="mp2-pagehead mp2-pagehead--film">
-        <HeaderFilm src={headerFilms.cars} />
-        <div className="container container--wide">
-          <p className="eyebrow">
-            {inStock} car{inStock === 1 ? "" : "s"} in stock
-          </p>
-          <h1 data-edit="carsHero.title" className="mp2-pagehead__title">
-            {content.carsHero.title}
-          </h1>
-          <p data-edit="carsHero.sub" className="mp2-pagehead__sub">
-            {content.carsHero.sub}
-          </p>
-        </div>
-      </header>
-
-      {/* The browser reads its filters from the URL via useSearchParams, so
-          it needs a Suspense boundary: without one, any render of this page
-          that isn't already dynamic fails to prerender. */}
-      <Suspense fallback={<div className="mp2-browser-fallback" aria-hidden="true" />}>
-        <CarsBrowserV2
-          cars={cars}
-          basePath="/cars"
-          watchPanel={<WatchlistForm makes={makes} />}
-        />
-      </Suspense>
-    </div>
-  );
+export default async function CarsIndexRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const q = new URLSearchParams();
+  for (const [key, value] of Object.entries(sp)) {
+    if (typeof value === "string" && value) q.set(key, value);
+  }
+  permanentRedirect(`/${q.size ? `?${q}` : ""}`);
 }

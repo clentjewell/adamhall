@@ -114,6 +114,33 @@
   transform: rotate(-135deg);
 }
 
+/* --- The quick search ------------------------------------------------- */
+.ah-site .hsearch__quick {
+  display: block;
+}
+.ah-site .hsearch__input {
+  width: 100%;
+  border: 1px solid var(--hsearch-line);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--c-white);
+  min-height: 44px;
+}
+.ah-site .hsearch__input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.ah-site .hsearch__input:focus-visible {
+  outline: 2px solid var(--c-sand);
+  outline-offset: 1px;
+}
+/* WebKit draws its own clear button dark; the field is on forest. */
+.ah-site .hsearch__input::-webkit-search-cancel-button {
+  filter: invert(1);
+}
+
 /* --- Fields and the count button -------------------------------------- */
 .ah-site .hsearch__row {
   display: flex;
@@ -134,7 +161,10 @@
      sprawling across a 1920 band with the button stranded at the far end. */
   flex: 1 1 0;
   max-width: 11rem;
-  min-width: 0;
+  /* The floor under compression: "Any make" plus the chevron. Without it the
+     Clear link's arrival squeezed each select to 101px and clipped its own
+     resting label. */
+  min-width: 6.5rem;
 }
 .ah-site .hsearch__label {
   display: block;
@@ -366,8 +396,9 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
-      "head types"
-      "row  types";
+      "head  types"
+      "quick types"
+      "row   types";
     column-gap: 2rem;
     row-gap: 1rem;
     align-items: end;
@@ -378,6 +409,9 @@
   .ah-site .hsearch__head {
     grid-area: head;
     align-self: start;
+  }
+  .ah-site .hsearch__quick {
+    grid-area: quick;
   }
   .ah-site .hsearch__row {
     grid-area: row;
@@ -429,11 +463,21 @@
    were four pixels over the frame. */
 @media (min-width: 900px) and (max-height: 760px) {
   .ah-site .hsearch {
-    padding: 1.125rem 1.25rem;
-    row-gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    row-gap: 0.5rem;
   }
   .ah-site .hsearch__snap {
     display: none;
+  }
+  /* The quick row is the band's newest inch, and on a short frame it is the
+     inch there isn't room for twice: the label goes (the placeholder says
+     what the box is) and the controls drop to the compact height. */
+  .ah-site .hsearch__quick .hsearch__label {
+    display: none;
+  }
+  .ah-site .hsearch__input,
+  .ah-site .hsearch__select {
+    min-height: 36px;
   }
 }
 
@@ -460,6 +504,9 @@
      below the split it squeezed the two selects down to nothing — measured at
      390, the labels were overlapping each other. Here the row is a column and
      the fields share a grid. */
+  .ah-site .hsearch__quick {
+    margin-top: 1rem;
+  }
   .ah-site .hsearch__row {
     flex-direction: column;
     align-items: stretch;

@@ -132,7 +132,7 @@ export default async function StatusPage({ params }: Props) {
         </p>
       </div>
 
-      <Link href="/cars" className="btn-ghost mt-6 text-sm">
+      <Link href="/" className="btn-ghost mt-6 text-sm">
         Browse the cars while you&apos;re here
       </Link>
     </div>

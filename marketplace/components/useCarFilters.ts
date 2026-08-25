@@ -19,6 +19,7 @@ function readFilters(sp: URLSearchParams): CarFilters {
     return Number.isFinite(v) && v > 0 ? v : undefined;
   };
   return {
+    q: sp.get("q")?.trim() || undefined,
     make: sp.get("make") ?? undefined,
     model: sp.get("model") ?? undefined,
     yearMin: num("yearMin"),
@@ -94,6 +95,7 @@ export function useCarFilters(cars: Car[]) {
   // visible and undoable without opening the panel.
   const chips = useMemo<FilterChip[]>(() => {
     const out: FilterChip[] = [];
+    if (filters.q) out.push({ key: "q", label: `“${filters.q}”` });
     if (filters.make) out.push({ key: "make", label: filters.make });
     if (filters.model) out.push({ key: "model", label: filters.model });
     if (filters.body) out.push({ key: "body", label: filters.body });

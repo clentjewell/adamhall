@@ -76,8 +76,8 @@ async function buildSnapshot(
 // accurately as it advises on selling. Keep this in step with the real
 // pages and the /admin/guide walkthrough.
 const SITE_OPERATIONS = `THE PUBLIC WEBSITE (what customers use):
-- Home (/): hero, quick search, latest arrivals, why people deal with us, and the reviews wall. All the wording is editable in the console under Site copy.
-- Cars for sale (/cars): the full stock, filterable by make/price/body type. Each car links to its own page.
+- Home (/): the marketplace itself. The hero film with the search band (quick search box plus make/body/price and the type tiles), then the full stock, filterable by make/price/body type, the recently-sold section and the watchlist. /cars redirects here; each car still links to its own page at /cars/[slug].
+- About us (/about-us): who we are and how the lot works — the buy/sell split, the curation and honesty story, and the valuation pitch.
 - A car's page (/cars/[slug]): photo gallery, specs, "Our take", PPSR status, and buttons to enquire or book a look.
 - Sell your car (/sell): a customer enters rego, details and photos in about five minutes; it lands in the console under Submissions and they get a status link to track the offer.
 - Finance (/finance): explains finance and has a repayment calculator and a lead form; leads land under Finance in the console.

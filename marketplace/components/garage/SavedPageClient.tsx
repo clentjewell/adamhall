@@ -97,7 +97,7 @@ export default function SavedPageClient() {
           <p className="type-panel-title">
             Nothing saved yet. Tap the heart on any car.
           </p>
-          <Link href="/cars" className="btn-cta mt-5 inline-flex">
+          <Link href="/" className="btn-cta mt-5 inline-flex">
             Browse cars
           </Link>
         </div>

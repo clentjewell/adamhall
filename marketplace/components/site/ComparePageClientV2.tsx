@@ -185,7 +185,7 @@ export default function ComparePageClientV2() {
             Tap the scales icon on any car to add it here. Pick up to three to
             line them up side by side.
           </p>
-          <Link href="/cars" className="btn btn--tan">
+          <Link href="/" className="btn btn--tan">
             Browse cars
           </Link>
         </div>

@@ -120,7 +120,7 @@ export default async function Car2DetailPage({ params }: Props) {
       <RecentViewTracker carId={car.id} />
 
       <div className="container container--wide mp2-car__back">
-        <Link href="/cars" className="mp2-backlink">
+        <Link href="/" className="mp2-backlink">
           &larr; All cars
         </Link>
       </div>

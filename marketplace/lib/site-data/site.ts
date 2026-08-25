@@ -19,7 +19,8 @@ export const site = {
    Primary navigation — buy side only.
    ------------------------------------------------------------------ */
 export const nav = [
-  { label: 'The Marketplace', to: '/cars' },
+  { label: 'The Marketplace', to: '/' },
+  { label: 'About Us', to: '/about-us' },
   { label: 'Finance', to: '/finance' },
   { label: 'Compare', to: '/compare', garage: 'compare' as const },
   { label: 'Saved', to: '/saved', garage: 'saved' as const },

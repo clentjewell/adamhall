@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Link } from "next-view-transitions";
 import { applyFilters, type Filterable } from "@/lib/filters";
 import TypeIcon from "@/components/site/TypeIcon";
@@ -50,11 +51,13 @@ import "@/components/site/HeroSearch.css";
  * There is no Location select, though the reference has one. There is one
  * dealer in one place; a state dropdown would be furniture.
  *
- * The band holds nothing of its own in the URL: it is a way in, not the
- * results page. Choosing narrows the count in place, and the button hands the
- * whole selection to /cars as query parameters that page already reads
- * (useCarFilters), so a search started here arrives there intact and
- * shareable.
+ * The marketplace lives on this same page now, directly below the hero, so
+ * the band is the top of the results rather than a way to another route. Two
+ * speeds, deliberately: the QUICK SEARCH box writes the q filter to the URL
+ * as it is typed (debounced), so the list below narrows live under the
+ * reader's hands; the selects still commit as one selection when the count
+ * button is pressed, which scrolls to the list. The URL is the shared state
+ * either way — useCarFilters reads it — so a search stays shareable.
  */
 
 /** Just the fields filtering reads. The band runs in the browser, so what it
@@ -88,10 +91,16 @@ type Tile = {
 };
 
 export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
+  const router = useRouter();
+  const pathname = usePathname();
   const [make, setMake] = useState("");
   const [body, setBody] = useState("");
   const [fuel, setFuel] = useState("");
   const [priceMax, setPriceMax] = useState("");
+  const [quick, setQuick] = useState("");
+  /** Only a keystroke may write the URL — not the mount, and not the
+      initial read-back of a shared link's q. */
+  const quickTouched = useRef(false);
   /** Phone and small tablet only: the band collapses to its own head so it
       cannot push the hero's words off a pinned screen. Wide screens ignore
       this entirely — the stylesheet shows the body and the toggle is not
@@ -113,14 +122,37 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
     return () => mql.removeEventListener("change", sync);
   }, []);
 
+  // A shared link arrives with q already in the URL; the box should say so.
+  // Read once on mount rather than via useSearchParams, which would demand a
+  // Suspense boundary over the whole hero for one initial value.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) setQuick(q);
+  }, []);
+
+  // The live half of the band: typing narrows the list below. Debounced so
+  // the URL is written when the reader pauses, not on every keystroke.
+  useEffect(() => {
+    if (!quickTouched.current) return;
+    const t = setTimeout(() => {
+      const next = new URLSearchParams(window.location.search);
+      const v = quick.trim();
+      if (v) next.set("q", v);
+      else next.delete("q");
+      router.replace(`${pathname}${next.size ? `?${next}` : ""}`, { scroll: false });
+    }, 250);
+    return () => clearTimeout(t);
+  }, [quick, router, pathname]);
+
   const selection = useMemo(
     () => ({
+      q: quick.trim() || undefined,
       make: make || undefined,
       body: body || undefined,
       fuel: fuel || undefined,
       priceMax: priceMax ? Number(priceMax) : undefined,
     }),
-    [make, body, fuel, priceMax],
+    [quick, make, body, fuel, priceMax],
   );
 
   /** The live count. The same applyFilters the results page uses, so the
@@ -192,15 +224,18 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
 
   const href = useMemo(() => {
     const q = new URLSearchParams();
+    if (quick.trim()) q.set("q", quick.trim());
     if (make) q.set("make", make);
     if (body) q.set("body", body);
     if (fuel) q.set("fuel", fuel);
     if (priceMax) q.set("priceMax", priceMax);
     const s = q.toString();
-    return `/cars${s ? `?${s}` : ""}`;
-  }, [make, body, fuel, priceMax]);
+    // The results are this page: the button commits the selection to the URL
+    // and the hash walks the reader down to the grid.
+    return `/${s ? `?${s}` : ""}#browse`;
+  }, [quick, make, body, fuel, priceMax]);
 
-  const touched = Boolean(make || body || fuel || priceMax);
+  const touched = Boolean(quick || make || body || fuel || priceMax);
 
   const pick = (t: Tile) => {
     const on = t.key === "body" ? body === t.value : fuel === t.value;
@@ -250,6 +285,23 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
           of their own. A plain block below the split, where it is what the
           head opens and closes. */}
       <div id={bodyId} className={`hsearch__body${open ? " is-open" : ""}`}>
+        {/* The quick search: type the car instead of building it from the
+            selects. Filters the list below as it is typed. */}
+        <label className="hsearch__quick">
+          <span className="hsearch__label">Quick search</span>
+          <input
+            type="search"
+            className="hsearch__input"
+            value={quick}
+            onChange={(e) => {
+              quickTouched.current = true;
+              setQuick(e.target.value);
+            }}
+            placeholder={`Try “Hilux” or “Toyota diesel”`}
+            autoComplete="off"
+            enterKeyHint="search"
+          />
+        </label>
         <div className="hsearch__row">
           <div className="hsearch__fields">
             <label className="hsearch__field">
@@ -331,6 +383,10 @@ export default function HeroSearch({ cars }: { cars: HeroSearchCar[] }) {
                   setBody("");
                   setFuel("");
                   setPriceMax("");
+                  if (quick) {
+                    quickTouched.current = true;
+                    setQuick("");
+                  }
                 }}
               >
                 Clear
