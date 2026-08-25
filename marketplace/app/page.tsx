@@ -219,10 +219,12 @@ export default async function Home2Page() {
         </div>
       </section>
 
-      {/* --- Curation: how the stock gets chosen --------------------------- */}
-      <section className="container container--wide">
+      {/* --- Curation: how the stock gets chosen ---------------------------
+          A two-up card: the words in the padded half, the photograph filling
+          the other half to the card's own edge. Adam's format. */}
+      <section className="container container--wide mp2-splits">
         <div className="mp2-split">
-          <div className="reveal-left">
+          <div className="mp2-split__body reveal-left">
             <span className="eyebrow">Curated, not classified</span>
             <h2 className="mp2-split__title">
               We have already done the sorting
@@ -237,7 +239,7 @@ export default async function Home2Page() {
               <li>The price on the car is the price you pay</li>
             </ul>
             <div className="mp2-split__actions">
-              <Button to="/cars" variant="outline-green" arrow>
+              <Button to="/cars" variant="green" arrow>
                 See what&rsquo;s in stock
               </Button>
             </div>
@@ -255,14 +257,15 @@ export default async function Home2Page() {
       </section>
 
       {/* --- Honesty: what the listing tells you ---------------------------
-          The mirror of the sorting split — photograph left, words right — on
-          a white band, so the two read as a pair rather than as two similar
-          rows. The hassle-free guarantee badge stays out: it is the parent's
-          selling promise, not a buy-side claim. */}
-      <section className="mp2-band">
-        <div className="container container--wide">
-          <div className="mp2-split mp2-split--flip">
-            <div className="reveal-right">
+          The mirror of the sorting card — photograph left, words right. It
+          used to sit on a full-bleed white band, which cannot work now that
+          the card itself is white: the pair reads as two cards on the cream
+          instead, which is the format Adam drew. The hassle-free guarantee
+          badge stays out: it is the parent's selling promise, not a buy-side
+          claim. */}
+      <section className="container container--wide mp2-splits">
+        <div className="mp2-split mp2-split--flip">
+          <div className="mp2-split__body reveal-right">
               <span className="eyebrow">Honestly described</span>
               <h2 className="mp2-split__title">
                 If there&rsquo;s a mark on it, we say so
@@ -283,15 +286,14 @@ export default async function Home2Page() {
                 </Button>
               </div>
             </div>
-            <div className="mp2-split__media reveal-left">
-              <img
-                src="/assets/images/talking-a-buyer-through-a-car.jpg"
-                alt="Talking a buyer through a car"
-                loading="lazy"
-                width={640}
-                height={533}
-              />
-            </div>
+          <div className="mp2-split__media reveal-left">
+            <img
+              src="/assets/images/talking-a-buyer-through-a-car.jpg"
+              alt="Talking a buyer through a car"
+              loading="lazy"
+              width={640}
+              height={533}
+            />
           </div>
         </div>
       </section>

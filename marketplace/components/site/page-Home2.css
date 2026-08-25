@@ -422,15 +422,42 @@
    Two mirrored halves: words and photograph, then photograph and words.
    The second sits on a white band with rules top and bottom so the pair
    is visibly a pair rather than two similar rows. */
+/* Two of these, one after the other, so the rhythm belongs to the pair
+   rather than to each row: the section carries the space above and below and
+   the cards carry the gap between them. */
+.ah-site .mp2-splits {
+  padding-block: var(--rhythm-section);
+}
+.ah-site .mp2-splits + .mp2-splits {
+  padding-top: 0;
+}
+
+/* A two-up card, to Adam's format: the words in a padded half, the
+   photograph filling the other half right out to the card's own edge. It was
+   a bare grid with a 3.5rem gutter between the words and a 6:5 photograph
+   inset inside it, which left the picture floating in the middle of a row
+   with air on all four sides. Stretch, no gap, and the card's overflow does
+   the clipping, so the image's only edge is the card's own corner. */
 .ah-site .mp2-split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-  /* Same rhythm as every other section; was 44-80px on its own scale. */
-  padding-block: var(--rhythm-section);
+  align-items: stretch;
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
+.ah-site .mp2-split__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 3.25rem);
+}
+/* Green, as drawn. A section title on a white card inside a cream page is the
+   one place the headline can take the brand colour without competing with a
+   band that is already green. */
 .ah-site .mp2-split__title {
+  color: var(--c-green-deep);
   font-size: var(--fs-section-title);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -448,11 +475,12 @@
 .ah-site .mp2-split__actions {
   margin-top: 1.875rem;
 }
+/* No aspect ratio and no radius of its own: the cell is as tall as the words
+   beside it and the card clips the corner. A minimum height so a short block
+   of copy cannot squeeze the picture into a letterbox. */
 .ah-site .mp2-split__media {
   position: relative;
-  aspect-ratio: 6 / 5;
-  border-radius: var(--radius);
-  overflow: hidden;
+  min-height: 24rem;
   background: var(--c-cream);
 }
 .ah-site .mp2-split__media img {
@@ -466,15 +494,23 @@
 .ah-site .mp2-split--flip .mp2-split__media {
   order: -1;
 }
+/* Kept for now and unused: the honesty row it used to carry is a card on the
+   cream like its pair. Delete once Adam is happy the cards stay. */
 .ah-site .mp2-band {
   background: var(--c-white);
   border-top: 1px solid var(--c-border);
   border-bottom: 1px solid var(--c-border);
 }
 
-/* Dash list. The artifact marks each point with an em dash rather than a
-   tick, which keeps the claims reading as statements rather than as a
-   feature checklist. */
+/* Ticked list, to Adam's format. It was an em dash — the artifact's own
+   marker, chosen so the claims read as statements rather than as a feature
+   checklist — and these three claims are being presented as a checklist now,
+   so a tick is the honest marker for them.
+
+   Drawn as a mask rather than a background image so the colour comes from the
+   token: a data URI cannot read a custom property, and a hardcoded hex here
+   would be the one green on the site that does not move when the brand
+   does. */
 .ah-site .mp2-list {
   list-style: none;
   margin: 1.5rem 0 0;
@@ -492,10 +528,16 @@
   color: var(--c-text-dark);
 }
 .ah-site .mp2-list li::before {
-  content: "—";
-  color: var(--c-green);
-  font-weight: 800;
+  content: "";
   flex: 0 0 auto;
+  width: 1.25rem;
+  height: 1.25rem;
+  /* Optically centred on the first line rather than its box. */
+  margin-top: 0.1875rem;
+  background: var(--c-green);
+  --tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M8.4 12.4l2.6 2.6 4.6-5.2'/%3E%3C/svg%3E");
+  -webkit-mask: var(--tick) no-repeat center / contain;
+  mask: var(--tick) no-repeat center / contain;
 }
 
 /* --- Valuation band ---------------------------------------------------
@@ -644,8 +686,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .ah-site .mp2-split {
-    gap: 2.5rem;
+  .ah-site .mp2-split__body {
+    padding: clamp(1.75rem, 3.5vw, 2.5rem);
   }
 }
 
@@ -654,7 +696,6 @@
      heading-first. */
   .ah-site .mp2-split {
     grid-template-columns: 1fr;
-    gap: 1.75rem;
   }
   .ah-site .mp2-split--flip .mp2-split__media {
     order: 0;
@@ -663,7 +704,11 @@
   .ah-site .mp2-split__text {
     max-width: none;
   }
+  /* Stacked, the picture has no column of words to match, so it takes a shape
+     of its own again — and the minimum height that stopped it letterboxing
+     beside them would make it a portrait here. */
   .ah-site .mp2-split__media {
+    min-height: 0;
     aspect-ratio: 16 / 10;
   }
 
