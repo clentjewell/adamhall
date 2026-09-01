@@ -19,9 +19,16 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-05-05",
   "compatibility_flags": ["nodejs_compat"],
+  // `run_worker_first` because of the preview lock in middleware.ts. By
+  // default Cloudflare serves anything matching a file in the assets
+  // directory before the Worker is ever invoked, which left /robots.txt and
+  // everything under /public readable while every page returned 401 — a lock
+  // with the windows open. This puts the Worker in front of assets too.
+  // Drop it back to the default if the lock is ever removed for good.
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   // Incremental cache for ISR pages (60s revalidate on /, /cars, etc.)
   "kv_namespaces": [
