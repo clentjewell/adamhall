@@ -2,11 +2,12 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { X } from "@phosphor-icons/react";
 import { createClient } from "@/lib/supabase/client";
 import type { Car, ServiceHistory } from "@/lib/types";
 import { carTitle, formatKm, formatPrice } from "@/lib/format";
+import { estimateWeekly } from "@/lib/finance";
 import { getCompare, toggleCompare, onGarageChange } from "@/lib/garage";
 
 const SERVICE_HISTORY_LABELS: Record<ServiceHistory, string> = {
@@ -16,22 +17,12 @@ const SERVICE_HISTORY_LABELS: Record<ServiceHistory, string> = {
   unknown: "Unknown",
 };
 
-// Rough guide only, not a finance offer: 10% deposit, 60-month term,
-// 9.5% p.a. reducing rate, converted from a monthly amortised payment to a
-// weekly figure. Local to this page — nowhere else needs this maths.
-function estimateWeeklyRepayment(price: number): number {
-  const principal = price * 0.9;
-  const monthlyRate = 0.095 / 12;
-  const months = 60;
-  const factor = Math.pow(1 + monthlyRate, months);
-  const monthlyPayment = (principal * monthlyRate * factor) / (factor - 1);
-  return (monthlyPayment * 12) / 52;
-}
-
 interface Row {
   label: string;
   render: (car: Car) => ReactNode;
   highlight?: (car: Car) => boolean;
+  /** Chip shown on the winning cell, so the best value is named, not just bolded. */
+  highlightLabel?: string;
 }
 
 export default function ComparePageClient() {
@@ -87,8 +78,8 @@ export default function ComparePageClient() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+      <div className="page-shell section-y">
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="grid gap-6 sm:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="space-y-3">
@@ -104,10 +95,10 @@ export default function ComparePageClient() {
 
   if (failed) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+      <div className="page-shell section-y">
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">Couldn&apos;t load these cars</p>
+          <p className="type-panel-title">Couldn&apos;t load these cars</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
             Something went wrong reaching our cars just now. Check your
             connection and try again.
@@ -126,15 +117,15 @@ export default function ComparePageClient() {
 
   if (orderedCars.length === 0) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <h1 className="font-display font-bold text-3xl mb-8">Compare cars</h1>
+      <div className="page-shell section-y">
+        <h1 className="type-heading mb-8">Compare cars</h1>
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">Nothing to compare yet</p>
+          <p className="type-panel-title">Nothing to compare yet</p>
           <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
-            Tap the scales icon on any car to add it here — pick up to three
+            Tap the scales icon on any car to add it here. Pick up to three
             to line them up side by side.
           </p>
-          <Link href="/cars" className="btn-cta mt-5 inline-flex">
+          <Link href="/" className="btn-cta mt-5 inline-flex">
             Browse cars
           </Link>
         </div>
@@ -152,20 +143,23 @@ export default function ComparePageClient() {
       label: "Price",
       render: (car) => (car.status === "sold" ? "Sold" : formatPrice(car.price)),
       highlight: (car) => multiple && car.price === lowestPrice,
+      highlightLabel: "Lowest price",
     },
     {
       label: "Est. weekly repayment*",
-      render: (car) => `~${formatPrice(Math.round(estimateWeeklyRepayment(car.price)))}/wk`,
+      render: (car) => `~${formatPrice(estimateWeekly(car.price))}/wk`,
     },
     {
       label: "Year",
       render: (car) => String(car.year),
       highlight: (car) => multiple && car.year === newestYear,
+      highlightLabel: "Newest",
     },
     {
       label: "Odometer",
       render: (car) => formatKm(car.odometer_km),
       highlight: (car) => multiple && car.odometer_km === lowestKm,
+      highlightLabel: "Lowest kays",
     },
     { label: "Body", render: (car) => car.body_type },
     { label: "Transmission", render: (car) => car.transmission },
@@ -179,8 +173,8 @@ export default function ComparePageClient() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="font-display font-bold text-3xl mb-2">Compare cars</h1>
+    <div className="page-shell section-y">
+      <h1 className="type-heading mb-2">Compare cars</h1>
       <p className="text-stone-500 mb-8">
         {multiple
           ? `Comparing ${orderedCars.length} cars.`
@@ -203,7 +197,7 @@ export default function ComparePageClient() {
                     >
                       <X size={14} weight="bold" />
                     </button>
-                    <div className="relative aspect-[3/2] rounded-xl overflow-hidden bg-stone-200">
+                    <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-stone-200">
                       {car.photos[0] ? (
                         <Image
                           src={car.photos[0].url}
@@ -243,6 +237,11 @@ export default function ComparePageClient() {
                       className={`p-3 align-top min-w-[200px] ${best ? "text-forest-700 font-bold" : "text-ink"}`}
                     >
                       {row.render(car)}
+                      {best && row.highlightLabel && (
+                        <span className="ml-2 inline-block rounded-full bg-forest-50 px-2 py-0.5 align-middle text-xs font-bold text-forest-700">
+                          {row.highlightLabel}
+                        </span>
+                      )}
                     </td>
                   );
                 })}

@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
+import { ArrowRight } from "@phosphor-icons/react";
 import { usePathname } from "next/navigation";
 import { nav, site, preFooterTrust, marketplaceTagline } from "@/lib/site-data/site";
 import { brand } from "@/lib/brand";
 import BrandLockup from "@/components/BrandLockup";
-import CrossSiteBand from "@/components/CrossSiteBand";
+import ValuationBand from "@/components/ValuationBand";
 import "@/components/site/site.css";
 
 // The five legal documents. Every one of these was live and loading but
@@ -20,19 +21,37 @@ const legalLinks = [
 
 /**
  * Public site footer — buy-side only. The pre-footer trust band, the Car
- * Marketplace lockup, the six nav pages, the legal set, and the crossing band
- * back to Adam. This is the one place in the identity where both marks may
- * appear together.
+ * Marketplace lockup, the six nav pages, and the legal set.
  */
 export default function Footer() {
   const pathname = usePathname();
-  // Admin has its own chrome; Buy My Car is a standalone landing with its own footer.
-  if (pathname?.startsWith("/admin") || pathname === "/buy-my-car") return null;
+  // Admin has its own chrome.
+  if (pathname?.startsWith("/admin")) return null;
+
+  // The instant valuation tool had no entry point anywhere on the site.
+  // This band puts one on every page, above the footer, and steps aside on
+  // the pages that already make the pitch: the seller journey, and About Us,
+  // which carries the full valuation band the home page used to.
+  const showValuationCta =
+    pathname !== "/about-us" &&
+    pathname !== "/car-valuations" &&
+    !pathname?.startsWith("/sell");
 
   return (
-    <div className="ah-site">
+    <>
+      {/* Outside the .ah-site wrapper below: that scope's element margins are
+          unlayered, so they beat the band's Tailwind spacing and would
+          distort it. Same reason the home page keeps it out of the wrapper. */}
+      {showValuationCta && (
+        <ValuationBand
+          phoneDisplay={site.phoneDisplay}
+          phoneHref={site.phoneHref}
+        />
+      )}
+
+      <div className="ah-site vt-site-footer">
       {/* Black pre-footer trust band */}
-      <section className="prefooter" aria-label="Why choose Adam Hall">
+      <section className="prefooter" aria-label="Why buy here">
         <div className="container container--wide">
           <ul className="prefooter__items">
             {preFooterTrust.map((t) => (
@@ -51,11 +70,8 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-          <div className="prefooter__gauge" aria-hidden="true" />
         </div>
       </section>
-
-      <CrossSiteBand />
 
       <footer className="site-footer">
         <div className="container container--wide site-footer__grid">
@@ -113,6 +129,7 @@ export default function Footer() {
           <Link href="/legal">Legal</Link>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

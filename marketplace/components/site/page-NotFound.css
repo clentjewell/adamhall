@@ -23,14 +23,14 @@
   margin: 0;
 }
 .ah-site .nf h1 {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   margin-bottom: 1rem;
 }
 .ah-site .nf__text {
   max-width: 30rem;
   margin: 0 auto 2rem;
   color: var(--c-black);
-  font-size: 1.1rem;
+  font-size: var(--fs-body);
 }
 .ah-site .nf__actions {
   display: flex;

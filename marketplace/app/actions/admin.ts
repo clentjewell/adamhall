@@ -1,14 +1,17 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { createServiceClient } from "@/lib/supabase/service";
 import { requireAdmin } from "@/lib/admin";
 import { notifier, emailTemplates } from "@/lib/notify";
 import { carTitle, formatPrice, slugify } from "@/lib/format";
 import {
   CHECKLIST_ITEMS,
+  type CarAvailability,
   type ChecklistKey,
   type Submission,
   type SubmissionStatus,
@@ -41,11 +44,70 @@ export async function signOut(): Promise<void> {
   redirect("/admin/login");
 }
 
+// ── Password recovery ───────────────────────────────────────────────
+
+/** Where Supabase should send the recovery link back to. Read off the
+    request rather than NEXT_PUBLIC_SITE_URL so a preview deployment
+    recovers to itself instead of bouncing the user to production; the env
+    var is the fallback for contexts with no forwarded headers. */
+async function requestOrigin(): Promise<string> {
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "https";
+  return host ? `${proto}://${host}` : (process.env.NEXT_PUBLIC_SITE_URL ?? "");
+}
+
+export async function requestPasswordReset(
+  _prev: AdminActionState,
+  formData: FormData,
+): Promise<AdminActionState> {
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) return { ok: false, error: "Enter your email address." };
+
+  const supabase = await createClient();
+  // The allowlist is deliberately not consulted, and the outcome is
+  // deliberately not reported: answering differently for an address that
+  // exists would turn this form into a way to enumerate who has access.
+  // Supabase replies the same either way, and so does the page.
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${await requestOrigin()}/auth/confirm?next=/admin/reset-password`,
+  });
+  return { ok: true };
+}
+
+export async function updatePassword(
+  _prev: AdminActionState,
+  formData: FormData,
+): Promise<AdminActionState> {
+  const password = String(formData.get("password") ?? "");
+  const confirm = String(formData.get("confirm") ?? "");
+  if (password.length < 10) {
+    return { ok: false, error: "Use at least 10 characters." };
+  }
+  if (password !== confirm) {
+    return { ok: false, error: "The two passwords do not match." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  // The recovery link signs the visitor in; no session means it was already
+  // used, or it timed out.
+  if (!user) {
+    return { ok: false, error: "That link has expired. Ask for a new one." };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) return { ok: false, error: error.message };
+  redirect("/admin");
+}
+
 // ── Audit helper ────────────────────────────────────────────────────
 
 async function logEvent(
   supabase: Awaited<ReturnType<typeof createClient>>,
-  entityType: "submission" | "car" | "enquiry",
+  entityType: "submission" | "car" | "enquiry" | "buyer",
   entityId: string,
   fromStatus: string | null,
   toStatus: string,
@@ -189,7 +251,7 @@ export async function sendOffer(
   await notifier.sendEmail({ to: sub.email, subject: t.subject, html: t.html });
   await notifier.sendSms({
     to: sub.phone,
-    body: `Adam Hall here — our offer on your ${carTitle(sub)} is ${formatPrice(amount)}. Details in your email. Any questions, just call.`,
+    body: `Car Marketplace here. Our offer on your ${carTitle(sub)} is ${formatPrice(amount)}. Details in your email. Any questions, just call.`,
   });
 
   revalidatePath("/admin", "layout");
@@ -443,6 +505,51 @@ export async function setCarStatus(
   return { ok: true };
 }
 
+/**
+ * Sets a car's public availability badge. Entirely manual: there is no timer,
+ * no expiry and nothing that sets this on Adam's behalf. A car goes to
+ * "reserved" because he said so and comes back the same way.
+ *
+ * Deliberately separate from setCarStatus. Status decides whether the car is
+ * on the site at all and drives the public RLS policy; this only decides what
+ * the badge says. Selling a car is still setCarStatus("sold"), and the badge
+ * helpers give that precedence over whatever availability happens to be.
+ */
+export async function setCarAvailability(
+  carId: string,
+  next: CarAvailability,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const { data: car } = await admin.supabase
+    .from("cars")
+    .select("id, availability, slug")
+    .eq("id", carId)
+    .maybeSingle();
+  if (!car) return { ok: false, error: "Car not found." };
+  if (car.availability === next) return { ok: true };
+
+  const { error } = await admin.supabase
+    .from("cars")
+    .update({ availability: next })
+    .eq("id", carId);
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(
+    admin.supabase,
+    "car",
+    carId,
+    `availability:${car.availability}`,
+    `availability:${next}`,
+    admin.name,
+  );
+
+  revalidatePath("/admin", "layout");
+  revalidatePath("/cars");
+  revalidatePath(`/cars/${car.slug}`);
+  revalidatePath("/");
+  return { ok: true };
+}
+
 // Notify every active watchlist alert matching a freshly published car.
 async function matchWatchlist(carId: string) {
   const admin = await requireAdmin();
@@ -558,5 +665,111 @@ export async function setEnquiryStatus(
     .eq("id", enquiryId);
   if (error) return { ok: false, error: error.message };
   revalidatePath("/admin/enquiries");
+  // The same enquiries are listed on a buyer's profile.
+  revalidatePath("/admin/buyers", "layout");
   return { ok: true };
+}
+
+// ── Buyer accounts ──────────────────────────────────────────────────
+//
+// These three reach for the service role, because changing a password,
+// suspending an account or deleting one are Auth admin operations and
+// auth.users is not reachable through the ordinary client. requireAdmin()
+// runs first every time, so the elevated key sits behind the same door as
+// the rest of the console.
+
+/**
+ * Refuses to act on anyone holding console access.
+ *
+ * Without this, the buyers list would be a way to change Adam's own password
+ * or delete his login: an admin who also registered as a buyer appears in
+ * both tables, and nothing else here distinguishes them. Dealer accounts are
+ * managed by hand in Supabase, which is where that belongs.
+ */
+async function assertNotAdmin(
+  admin: Awaited<ReturnType<typeof requireAdmin>>,
+  userId: string,
+): Promise<string | null> {
+  const { data } = await admin.supabase
+    .from("admin_users")
+    .select("id")
+    .eq("id", userId)
+    .maybeSingle();
+  return data ? "That account has console access. Dealer logins are managed in Supabase, not here." : null;
+}
+
+export async function setBuyerPassword(
+  userId: string,
+  password: string,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+  // The same floor the buyer's own form enforces, so a password set here
+  // cannot be weaker than one they could set themselves.
+  if (password.length < 10) return { ok: false, error: "Use at least 10 characters." };
+
+  const { error } = await createServiceClient().auth.admin.updateUserById(userId, {
+    password,
+  });
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(admin.supabase, "buyer", userId, null, "password_reset", admin.name);
+  revalidatePath(`/admin/buyers/${userId}`);
+  return { ok: true };
+}
+
+/**
+ * Suspends or restores an account. Uses Supabase's own ban, so the session is
+ * refused at the auth layer rather than by a flag the app has to remember to
+ * check on every route.
+ */
+export async function setBuyerSuspended(
+  userId: string,
+  suspended: boolean,
+): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+
+  const { error } = await createServiceClient().auth.admin.updateUserById(userId, {
+    // Supabase takes a duration string; "none" lifts it. A hundred years is
+    // the documented way to say "until somebody undoes this".
+    ban_duration: suspended ? "876000h" : "none",
+  });
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(
+    admin.supabase,
+    "buyer",
+    userId,
+    null,
+    suspended ? "suspended" : "restored",
+    admin.name,
+  );
+  revalidatePath(`/admin/buyers/${userId}`);
+  revalidatePath("/admin/buyers");
+  return { ok: true };
+}
+
+/**
+ * Deletes the account and everything keyed to it: profile, shortlist and
+ * comparison all cascade.
+ *
+ * Their enquiries deliberately survive. enquiries.user_id is `on delete set
+ * null`, so what they asked about is still in Adam's inbox and still his to
+ * act on — deleting an account should not quietly erase a conversation he
+ * may be halfway through.
+ */
+export async function deleteBuyer(userId: string): Promise<AdminActionState> {
+  const admin = await requireAdmin();
+  const blocked = await assertNotAdmin(admin, userId);
+  if (blocked) return { ok: false, error: blocked };
+
+  const { error } = await createServiceClient().auth.admin.deleteUser(userId);
+  if (error) return { ok: false, error: error.message };
+
+  await logEvent(admin.supabase, "buyer", userId, null, "deleted", admin.name);
+  revalidatePath("/admin/buyers");
+  redirect("/admin/buyers");
 }

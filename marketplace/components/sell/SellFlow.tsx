@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import {
   ArrowLeft,
   ArrowRight,
@@ -155,7 +155,7 @@ export default function SellFlow({
     }
     if (step === 2) {
       if (draft.photos.length < 4)
-        return "Four photos minimum — front, rear, interior and dash. More is better.";
+        return "Four photos minimum: front, rear, interior and dash. More is better.";
     }
     if (step === 3) {
       if (draft.seller_name.trim().length < 2) return "We need your name.";
@@ -181,7 +181,7 @@ export default function SellFlow({
     const room = 12 - draft.photos.length;
     const list = Array.from(files).slice(0, room);
     if (list.length === 0) {
-      setError("That's the lot — 12 photos is plenty.");
+      setError("That's the lot. 12 photos is plenty.");
       return;
     }
     setUploading((n) => n + list.length);
@@ -249,11 +249,11 @@ export default function SellFlow({
     return (
       <div className="card p-8 text-center max-w-xl mx-auto" role="status">
         <CheckCircle size={56} weight="fill" className="text-forest-600 mx-auto" />
-        <h2 className="font-display font-extrabold text-2xl mt-4">
-          Done. Adam has your car.
+        <h2 className="type-subheading mt-4">
+          Done. We have your car.
         </h2>
         <p className="text-stone-600 mt-3 leading-relaxed">
-          He personally reviews every car that comes through here — you&apos;ll
+          We personally review every car that comes through here. You&apos;ll
           hear back within 1 business day, usually much sooner. We&apos;ve
           emailed you a link, or watch it move here:
         </p>
@@ -292,8 +292,20 @@ export default function SellFlow({
         <div className="card p-4 mb-6 !bg-amber-soft !border-amber-accent/30 text-sm">
           <p className="font-bold">Trading against the {tradeTarget.title}</p>
           <p className="text-stone-600 mt-0.5">
-            Adam will price your car and the changeover together, so you see
+            We will price your car and the changeover together, so you see
             one clean number.
+          </p>
+        </div>
+      )}
+
+      {/* Close the loop from the instant valuation tool: the seller just
+          typed these details there, so say plainly they carried across. */}
+      {prefill && step === 0 && (
+        <div className="card p-4 mb-6 text-sm !border-forest-200 !bg-forest-50">
+          <p className="font-bold">Your details came across from the valuation</p>
+          <p className="text-stone-600 mt-0.5">
+            Make, model, year and kays are already filled in below. Check
+            they&apos;re right and keep going.
           </p>
         </div>
       )}
@@ -301,7 +313,7 @@ export default function SellFlow({
       {restored && step === 0 && (
         <div className="card p-4 mb-6 text-sm flex items-center justify-between gap-3">
           <p className="text-stone-600">
-            Picked up where you left off — your earlier answers are saved.
+            Picked up where you left off. Your earlier answers are saved.
           </p>
           <button
             className="btn-ghost text-sm !py-1.5 shrink-0"
@@ -341,7 +353,7 @@ export default function SellFlow({
       >
       {step === 0 && (
         <section className="space-y-5">
-          <h2 className="font-display font-bold text-2xl">
+          <h2 className="type-subheading">
             Let&apos;s start with the car
           </h2>
           {!draft.manual ? (
@@ -374,7 +386,7 @@ export default function SellFlow({
               </div>
               <button
                 type="button"
-                className="text-sm font-semibold text-forest-700 underline underline-offset-2"
+                className="inline-flex min-h-11 items-center py-2 text-sm font-semibold text-forest-700 underline underline-offset-2"
                 onClick={() => set({ manual: true })}
               >
                 No rego handy? Enter the car manually
@@ -416,7 +428,7 @@ export default function SellFlow({
               onChange={(e) => set({ odometer_km: e.target.value })}
               placeholder="89000"
             />
-            <p className="helper">Near enough is fine — we&apos;ll confirm at inspection.</p>
+            <p className="helper">Near enough is fine. We&apos;ll confirm at inspection.</p>
           </div>
         </section>
       )}
@@ -424,10 +436,10 @@ export default function SellFlow({
       {step === 1 && (
         <section className="space-y-6">
           <div>
-            <h2 className="font-display font-bold text-2xl">How&apos;s it holding up?</h2>
+            <h2 className="type-subheading">How&apos;s it holding up?</h2>
             <p className="text-stone-600 mt-1">
               Be straight with us and we&apos;ll be straight with you. Honest
-              answers get honest offers — nobody&apos;s marking you down for a
+              answers get honest offers. Nobody&apos;s marking you down for a
               worn tyre.
             </p>
           </div>
@@ -510,10 +522,10 @@ export default function SellFlow({
       {step === 2 && (
         <section className="space-y-5">
           <div>
-            <h2 className="font-display font-bold text-2xl">Show us the car</h2>
+            <h2 className="type-subheading">Show us the car</h2>
             <p className="text-stone-600 mt-1">
               Four to twelve photos, phone camera is perfect. This shot list is
-              what Adam looks at first:
+              what we look at first:
             </p>
           </div>
           <ul className="card p-4 space-y-2">
@@ -594,9 +606,9 @@ export default function SellFlow({
       {step === 3 && (
         <section className="space-y-5">
           <div>
-            <h2 className="font-display font-bold text-2xl">Where do we send the offer?</h2>
+            <h2 className="type-subheading">Where do we send the offer?</h2>
             <p className="text-stone-600 mt-1">
-              Adam calls with the number, then confirms it in writing. No
+              We call with the number, then confirm it in writing. No
               lowball-by-text here.
             </p>
           </div>
@@ -632,7 +644,7 @@ export default function SellFlow({
               placeholder="25000"
             />
             <p className="helper">
-              Doesn&apos;t lock anything in — it just tells us where your
+              Doesn&apos;t lock anything in. It just tells us where your
               head&apos;s at.
             </p>
           </div>
@@ -671,7 +683,7 @@ export default function SellFlow({
           </button>
         ) : (
           <button type="button" className="btn-cta" onClick={submit} disabled={submitting}>
-            {submitting ? "Sending to Adam…" : "Send it to Adam"}
+            {submitting ? "Sending…" : "Send it through"}
           </button>
         )}
       </div>

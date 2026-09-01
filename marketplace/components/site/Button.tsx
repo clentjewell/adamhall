@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import type { ReactNode } from "react";
 
 type Variant =
@@ -20,6 +20,9 @@ interface Props {
   type?: "button" | "submit";
   ariaLabel?: string;
   arrow?: boolean;
+  /** Anchor-only. Set for cross-domain links so they open in their own tab.
+      Ignored for `to` (internal routes) and for the plain button. */
+  newTab?: boolean;
 }
 
 /** Pill button/CTA used across the site. Renders as Next Link, anchor or button. */
@@ -33,6 +36,7 @@ export default function Button({
   type = "button",
   ariaLabel,
   arrow = false,
+  newTab = false,
 }: Props) {
   const cls = `btn btn--${variant} ${className}`.trim();
   const inner = (
@@ -54,7 +58,16 @@ export default function Button({
   }
   if (href) {
     return (
-      <a className={cls} href={href} onClick={onClick} aria-label={ariaLabel}>
+      <a
+        className={cls}
+        href={href}
+        onClick={onClick}
+        aria-label={ariaLabel}
+        // noopener but not noreferrer: these cross to Adam's own site, and
+        // stripping the referrer would hide the marketplace from his stats.
+        target={newTab ? "_blank" : undefined}
+        rel={newTab ? "noopener" : undefined}
+      >
         {inner}
       </a>
     );

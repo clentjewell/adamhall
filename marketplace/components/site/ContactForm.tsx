@@ -49,8 +49,8 @@ export default function ContactForm() {
         </div>
         <h3>Message sent!</h3>
         <p>
-          Thanks for getting in touch — Adam will get back to you asap. For
-          anything urgent, call{" "}
+          Thanks for getting in touch. We will get back to you as soon as we
+          can. For anything urgent, call{" "}
           <a href="tel:0404290617">0404&nbsp;290&nbsp;617</a>.
         </p>
       </div>
@@ -58,10 +58,10 @@ export default function ContactForm() {
   }
 
   return (
-    <form className="vform" onSubmit={onSubmit} noValidate aria-label="Contact Adam">
+    <form className="vform" onSubmit={onSubmit} noValidate aria-label="Contact us">
       {status === "error" && (
         <p className="vform__alert" role="alert">
-          Sorry, something went wrong sending your message. Please call Adam on{" "}
+          Sorry, something went wrong sending your message. Please call us on{" "}
           <a href="tel:0404290617">0404 290 617</a>.
         </p>
       )}

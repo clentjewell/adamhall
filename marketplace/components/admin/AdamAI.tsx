@@ -224,7 +224,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
             <Sparkle size={18} weight="fill" />
           </div>
           <div className="min-w-0">
-            <p className="font-display font-bold leading-tight">Adam AI</p>
+            <p className="font-display font-bold leading-tight">Assistant</p>
             <p className="text-xs text-stone-500 leading-tight truncate">
               Your in-house offsider — social, marketing, listings, customers
             </p>
@@ -235,7 +235,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
           <div className="flex items-start gap-2.5 px-5 py-3 bg-amber-50 border-b border-amber-200 text-sm text-amber-900">
             <Warning size={18} weight="fill" className="shrink-0 mt-0.5" />
             <p>
-              Adam AI isn&apos;t switched on yet. Add an <code className="font-mono">ANTHROPIC_API_KEY</code>{" "}
+              Assistant isn&apos;t switched on yet. Add an <code className="font-mono">ANTHROPIC_API_KEY</code>{" "}
               secret in the Cloudflare dashboard and it&apos;ll come to life.
             </p>
           </div>
@@ -247,7 +247,7 @@ export default function AdamAI({ configured }: { configured: boolean }) {
               <div className="w-14 h-14 rounded-2xl bg-forest-100 text-forest-700 flex items-center justify-center mb-4">
                 <Sparkle size={26} weight="fill" />
               </div>
-              <p className="font-display font-bold text-lg">Ask Adam AI anything</p>
+              <p className="type-panel-title">Ask the Assistant anything</p>
               <p className="text-sm text-stone-500 mt-1 mb-5">
                 It knows your current stock and site copy. Try one of these:
               </p>

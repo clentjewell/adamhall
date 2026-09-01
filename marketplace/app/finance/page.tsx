@@ -1,79 +1,109 @@
 import type { Metadata } from "next";
-import { ChatText, HandCoins, PenNib } from "@phosphor-icons/react/dist/ssr";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 import { getContent } from "@/lib/content";
-import PageHero from "@/components/PageHero";
-import FinanceCalculator from "@/components/FinanceCalculator";
+import FinanceCalculatorV2 from "@/components/site/FinanceCalculatorV2";
 import FinanceEnquiryForm from "@/components/FinanceEnquiryForm";
-import { Reveal } from "@/components/motion/Reveal";
+import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 
+/**
+ * The finance page (route: /finance), built to the "Carmarketplace UI
+ * mockups" artifact, frame 1g.
+ *
+ * Copy stays CMS-editable through getContent (same data-edit hooks as
+ * /finance), the repayment maths stays in lib/finance.ts, and the real
+ * FinanceEnquiryForm — with its server action — is kept below the calculator
+ * so "Get a real quote" still leads somewhere.
+ */
 export const metadata: Metadata = {
   title: "Finance",
   description:
-    "Work out a repayment estimate and get finance sorted before you shop — no hype, no approval claims, just the numbers.",
+    "Work out a repayment estimate and get finance sorted before you shop. No hype, no approval claims, just the numbers.",
 };
 
-const STEP_ICONS = [ChatText, HandCoins, PenNib];
-
-export default async function FinancePage() {
-  const content = await getContent();
+export default async function Finance2Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ price?: string }>;
+}) {
+  const [content, { price }] = await Promise.all([getContent(), searchParams]);
+  // "Estimate yours" on a car page arrives with that car's price in the URL,
+  // so the calculator opens on the car being considered.
+  const parsedPrice = Number(price);
+  const defaultPrice =
+    Number.isFinite(parsedPrice) && parsedPrice >= 5000 && parsedPrice <= 500000
+      ? Math.round(parsedPrice)
+      : undefined;
 
   return (
-    <>
-      <PageHero
-        image={pageHeroImages.finance}
-        video={pageHeroVideos.finance}
-        imageAlt="Adam at his desk, ready to talk finance"
-        title={content.financePage.title}
-        titleEditPath="financePage.title"
-      >
-        <p data-edit="financePage.sub" className="text-stone-200 max-w-[52ch] text-lg">
-          {content.financePage.sub}
-        </p>
-      </PageHero>
+    <div className="ah-site mp-finance2">
+      <SiteReveal />
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
-          <Reveal>
-            <FinanceCalculator />
-          </Reveal>
-          <Reveal delay={0.08}>
-            <FinanceEnquiryForm />
-          </Reveal>
+      {/* Dark band, per the artifact: the page states what it is, then the
+          calculator card rides up over the join. */}
+      <section className="mp2-fin-hero">
+        <HeaderFilm src={headerFilms.finance} />
+        <div className="container container--wide">
+          <p className="eyebrow">Finance</p>
+          <h1 data-edit="financePage.title" className="mp2-fin-hero__title">
+            {content.financePage.title}
+          </h1>
+          <p data-edit="financePage.sub" className="mp2-fin-hero__sub">
+            {content.financePage.sub}
+          </p>
         </div>
+      </section>
 
-        <div className="mt-16">
-          <h2 className="font-display font-bold text-2xl text-center mb-8">How it works</h2>
-          <div className="grid gap-8 sm:grid-cols-3">
-            {content.financePage.steps.map((step, i) => {
-              const Icon = STEP_ICONS[i % STEP_ICONS.length];
-              return (
-                <Reveal key={step.title + i} delay={i * 0.08}>
-                  <div className="text-center">
-                    <Icon size={32} className="text-forest-600 mx-auto" weight="duotone" />
-                    <p data-edit={`financePage.steps.${i}.title`} className="font-bold mt-3">
-                      {step.title}
-                    </p>
-                    <p
-                      data-edit={`financePage.steps.${i}.body`}
-                      className="text-sm text-stone-600 mt-1 leading-relaxed"
-                    >
-                      {step.body}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-
-        <p className="helper max-w-3xl mx-auto text-center mt-16 leading-relaxed">
-          Figures on this page are estimates only — not an offer or approval
-          of finance. Actual rates, fees and approval depend on assessment
-          by the lender. Comparison rate warning:{" "}
-          [legal review required for jurisdiction wording].
-        </p>
+      <div className="container container--wide mp2-fin-calc">
+        <FinanceCalculatorV2 defaultPrice={defaultPrice} />
       </div>
-    </>
+
+      {/* How it works — three numbered cards from the CMS steps. */}
+      <section className="container container--wide mp2-fin-steps">
+        <div className="mp2-fin-steps__grid">
+          {content.financePage.steps.map((step, i) => (
+            <div key={step.title + i} className="mp2-fin-step">
+              <p className="mp2-fin-step__num">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3
+                data-edit={`financePage.steps.${i}.title`}
+                className="mp2-fin-step__title"
+              >
+                {step.title}
+              </h3>
+              <p
+                data-edit={`financePage.steps.${i}.body`}
+                className="mp2-fin-step__body"
+              >
+                {step.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* The actual lead. The artifact's "Get a real quote" button targets
+          this, so the CTA is not a dead end. */}
+      <section className="container container--wide mp2-fin-quote" id="finance-quote">
+        <div className="mp2-fin-quote__inner">
+          <div className="mp2-fin-quote__intro">
+            <h2 className="mp2-fin-quote__title">Get a real quote</h2>
+            <p>
+              Send the numbers through and we&rsquo;ll come back with a rate a
+              lender will actually stand behind. No credit check until you say
+              go.
+            </p>
+          </div>
+          <FinanceEnquiryForm defaultAmount={defaultPrice} />
+        </div>
+        <p className="mp2-fin-legal">
+          Figures on this page are estimates only, not an offer or approval of
+          finance. Actual rates, fees and approval depend on assessment by the
+          lender. Comparison rate warning: [legal review required for
+          jurisdiction wording].
+        </p>
+      </section>
+    </div>
   );
 }

@@ -1,80 +1,49 @@
 "use client";
 
-import { useCallback, useMemo, useState, useTransition } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { FunnelSimple, X } from "@phosphor-icons/react";
 import type { Car } from "@/lib/types";
-import { applyFilters, type CarFilters } from "@/lib/filters";
 import CarCard from "@/components/CarCard";
 import SaveCompareButtons from "@/components/garage/SaveCompareButtons";
 import { CardReveal } from "@/components/motion/Reveal";
+import { useCarFilters, PRICE_STEPS, KM_STEPS } from "@/components/useCarFilters";
 
-// Filters live in the URL so any filtered view is shareable; filtering
-// itself is instant client-side over the server-fetched list.
-function readFilters(sp: URLSearchParams): CarFilters {
-  const num = (k: string) => {
-    const v = Number(sp.get(k));
-    return Number.isFinite(v) && v > 0 ? v : undefined;
-  };
-  return {
-    make: sp.get("make") ?? undefined,
-    model: sp.get("model") ?? undefined,
-    yearMin: num("yearMin"),
-    yearMax: num("yearMax"),
-    priceMin: num("priceMin"),
-    priceMax: num("priceMax"),
-    body: sp.get("body") ?? undefined,
-    transmission: sp.get("transmission") ?? undefined,
-    fuel: sp.get("fuel") ?? undefined,
-    kmMax: num("kmMax"),
-    sort: (sp.get("sort") as CarFilters["sort"]) ?? undefined,
-  };
-}
-
-export default function CarsBrowser({ cars }: { cars: Car[] }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
+export default function CarsBrowser({
+  cars,
+  watchPanel,
+}: {
+  cars: Car[];
+  /** "Nothing that fits? Set a watch." Passed in so the server page keeps
+      ownership of the form. Rendered under the results rather than in the
+      filter rail: the rail is 260px, which truncated every field, and the
+      filter card above it is sticky, so once the page scrolled it painted
+      over the top half of the form. Under the results is also where the
+      empty state has always pointed ("use the watchlist below"). */
+  watchPanel?: React.ReactNode;
+}) {
   const [showFilters, setShowFilters] = useState(false);
+  // Filters live in the URL and are shared with the redesigned browser —
+  // see components/useCarFilters.ts.
+  const {
+    filters,
+    setFilter,
+    clearAll,
+    filtered,
+    activeCount,
+    chips,
+    makes,
+    models,
+    bodies,
+    fuels,
+    transmissions,
+    years,
+  } = useCarFilters(cars);
 
-  const filters = useMemo(() => readFilters(new URLSearchParams(searchParams)), [searchParams]);
-
-  const setFilter = useCallback(
-    (key: string, value: string) => {
-      const next = new URLSearchParams(searchParams);
-      if (value) next.set(key, value);
-      else next.delete(key);
-      // make change invalidates model choice
-      if (key === "make") next.delete("model");
-      startTransition(() => {
-        router.replace(`${pathname}${next.size ? `?${next}` : ""}`, { scroll: false });
-      });
-    },
-    [router, pathname, searchParams],
-  );
-
-  const clearAll = useCallback(() => {
-    startTransition(() => router.replace(pathname, { scroll: false }));
-  }, [router, pathname]);
-
-  const makes = useMemo(() => [...new Set(cars.map((c) => c.make))].sort(), [cars]);
-  const models = useMemo(
-    () =>
-      filters.make
-        ? [...new Set(cars.filter((c) => c.make === filters.make).map((c) => c.model))].sort()
-        : [],
-    [cars, filters.make],
-  );
-  const bodies = useMemo(() => [...new Set(cars.map((c) => c.body_type))].sort(), [cars]);
-  const fuels = useMemo(() => [...new Set(cars.map((c) => c.fuel))].sort(), [cars]);
-  const transmissions = useMemo(
-    () => [...new Set(cars.map((c) => c.transmission))].sort(),
-    [cars],
-  );
-
-  const filtered = useMemo(() => applyFilters(cars, filters), [cars, filters]);
-  const activeCount = Object.values(filters).filter(Boolean).length - (filters.sort ? 1 : 0);
+  // Sold cars stay on the site for a month, because seeing what actually
+  // moved is part of the pitch. They do not belong in the same grid as the
+  // cars you can buy, though: mixed in, every third card is a dead end.
+  const forSale = filtered.filter((c) => c.status !== "sold");
+  const sold = filtered.filter((c) => c.status === "sold");
 
   const select = (
     label: string,
@@ -99,10 +68,6 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
     </div>
   );
 
-  const years = Array.from({ length: 20 }, (_, i) => new Date().getFullYear() - i);
-  const priceSteps = [15000, 20000, 25000, 30000, 40000, 50000, 60000, 80000];
-  const kmSteps = [40000, 60000, 80000, 100000, 120000, 150000];
-
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3">
@@ -115,12 +80,24 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
           Filters{activeCount > 0 ? ` (${activeCount})` : ""}
         </button>
         <p className="text-sm text-stone-500">
-          {filtered.length} car{filtered.length === 1 ? "" : "s"}
+          {forSale.length} car{forSale.length === 1 ? "" : "s"} for sale
+          {sold.length > 0 ? `, ${sold.length} recently sold` : ""}
         </p>
+        {chips.map((chip) => (
+          <button
+            key={chip.key}
+            onClick={() => setFilter(chip.key, "")}
+            className="inline-flex items-center gap-1.5 rounded-full border border-forest-200 bg-forest-50 px-3 py-1.5 text-sm font-semibold text-forest-700 hover:border-forest-600"
+            aria-label={`Remove filter: ${chip.label}`}
+          >
+            {chip.label}
+            <X size={12} weight="bold" />
+          </button>
+        ))}
         {activeCount > 0 && (
           <button onClick={clearAll} className="btn-ghost text-sm !py-1.5">
             <X size={14} weight="bold" />
-            Clear filters
+            Clear all
           </button>
         )}
         <div className="ml-auto">
@@ -150,19 +127,19 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
               {select("Year to", "yearMax", filters.yearMax?.toString(), years.map((y) => ({ value: String(y), label: String(y) })), "Any")}
             </div>
             <div className="grid grid-cols-2 gap-3">
-              {select("Price from", "priceMin", filters.priceMin?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${(p / 1000).toFixed(0)}k` })), "Any")}
-              {select("Price to", "priceMax", filters.priceMax?.toString(), priceSteps.map((p) => ({ value: String(p), label: `$${(p / 1000).toFixed(0)}k` })), "Any")}
+              {select("Price from", "priceMin", filters.priceMin?.toString(), PRICE_STEPS.map((p) => ({ value: String(p), label: `$${p.toLocaleString("en-AU")}` })), "Any")}
+              {select("Price to", "priceMax", filters.priceMax?.toString(), PRICE_STEPS.map((p) => ({ value: String(p), label: `$${p.toLocaleString("en-AU")}` })), "Any")}
             </div>
-            {select("Odometer under", "kmMax", filters.kmMax?.toString(), kmSteps.map((k) => ({ value: String(k), label: `${(k / 1000).toFixed(0)},000 km` })), "Any kms")}
+            {select("Odometer under", "kmMax", filters.kmMax?.toString(), KM_STEPS.map((k) => ({ value: String(k), label: `${(k / 1000).toFixed(0)},000 km` })), "Any kms")}
             {select("Transmission", "transmission", filters.transmission, transmissions.map((t) => ({ value: t, label: t })), "Any")}
             {select("Fuel", "fuel", filters.fuel, fuels.map((f) => ({ value: f, label: f })), "Any")}
           </div>
         </aside>
 
         <div>
-          {filtered.length > 0 ? (
+          {forSale.length > 0 ? (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {filtered.map((car, i) => (
+              {forSale.map((car, i) => (
                 <CardReveal key={car.id} index={i}>
                   <div className="relative">
                     <CarCard car={car} priority={i < 3} />
@@ -173,7 +150,7 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
             </div>
           ) : (
             <div className="card p-10 text-center">
-              <p className="font-display font-bold text-lg">Nothing matches those filters right now</p>
+              <p className="type-card-title">No cars for sale match those filters</p>
               <p className="text-stone-600 mt-2 max-w-[46ch] mx-auto">
                 Stock turns over every week. Loosen a filter, or use the
                 watchlist below and we&apos;ll email you the moment the right
@@ -184,6 +161,27 @@ export default function CarsBrowser({ cars }: { cars: Car[] }) {
               </button>
             </div>
           )}
+          {sold.length > 0 && (
+            <section className="mt-12 border-t border-hairline pt-8">
+              <h2 className="type-subheading">Recently sold</h2>
+              <p className="mt-1.5 max-w-[52ch] text-stone-600">
+                These have gone. They stay up for a month so you can see what
+                moves and what it went for.
+              </p>
+              <div className="mt-6 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {sold.map((car, i) => (
+                  <CardReveal key={car.id} index={i}>
+                    <div className="relative">
+                      <CarCard car={car} />
+                      <SaveCompareButtons carId={car.id} variant="card" />
+                    </div>
+                  </CardReveal>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {watchPanel && <div className="mt-8">{watchPanel}</div>}
         </div>
       </div>
     </div>

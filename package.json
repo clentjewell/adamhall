@@ -1,0 +1,8 @@
+{
+  "name": "adamhall-root-worker",
+  "private": true,
+  "description": "Deploy config for the git-connected `adamhall` Workers service (the proposal one-pager in adamhall-site/). The marketplace app lives in marketplace/ with its own package.json.",
+  "devDependencies": {
+    "wrangler": "^4.112.0"
+  }
+}

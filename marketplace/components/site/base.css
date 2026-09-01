@@ -9,7 +9,9 @@
   font-family: var(--font-body);
   font-weight: var(--fw-body);
   font-size: var(--fs-body);
-  line-height: 1.4;
+  /* 1.4 was chosen for 24px text. At the 16px body the whole site now
+     shares, it sets the lines too tight to read comfortably. */
+  line-height: 1.6;
   color: var(--c-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -139,12 +141,15 @@
   color: var(--c-white);
 }
 
-/* Small uppercase eyebrow label */
+/* Small uppercase eyebrow label. Matches the identity's Label exactly:
+   11px, 700, uppercase, 14% tracking. It used to be 14px on 1px of
+   tracking, which is a different label from the one the marketplace pages
+   set with .type-label. */
 .ah-site .eyebrow {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   font-size: var(--fs-label);
-  letter-spacing: 1px;
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--c-purple);
   margin-bottom: 0.6rem;

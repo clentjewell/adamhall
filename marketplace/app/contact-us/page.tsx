@@ -1,48 +1,91 @@
 import type { Metadata } from "next";
-import FaqSection from "@/components/site/FaqSection";
-import PurpleCta from "@/components/site/PurpleCta";
+import { Link } from "next-view-transitions";
 import ContactForm from "@/components/site/ContactForm";
 import SiteReveal from "@/components/site/SiteReveal";
-import HeroVideo from "@/components/HeroVideo";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 import { site } from "@/lib/site-data/site";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
 
 export const metadata: Metadata = {
-  title: "Contact Adam Hall",
+  title: "Contact us",
   description:
-    "Get in touch with Adam Hall for a free, obligation-free car valuation. Servicing the Gold Coast, Brisbane & Northern Rivers. Call 0404 290 617.",
+    "Get in touch for a free, obligation-free car valuation. Servicing the Gold Coast, Brisbane & Northern Rivers. Call 0404 290 617.",
 };
 
-export default function ContactUsPage() {
+/**
+ * The contact page (route: /contact-us), built to the "Carmarketplace
+ * UI mockups" artifact, frame 1k.
+ *
+ * The artifact replaces the film hero with a two-column layout: the phone
+ * number set as the largest thing on the page on the left, the message form
+ * on the right. ContactForm is reused untouched, so the same validation and
+ * the same submitContactMessage server action are behind it.
+ */
+export default function ContactUs2Page() {
   return (
-    <div className="ah-site">
+    <div className="ah-site mp-contact2">
       <SiteReveal />
-      <section className="bg-green contact-hero">
-        <HeroVideo
-          src={pageHeroVideos.contact}
-          poster={pageHeroImages.contact}
-          posterAlt="Adam Hall talking with a customer beside their car"
-        />
-        <div className="contact-hero__scrim" />
-        <div className="container container--wide contact-hero__inner">
-          <div className="contact-hero__content reveal-left">
-            <h1 className="contact-hero__title">Got Questions?</h1>
-            <p className="contact-hero__subtitle">
-              I&rsquo;m here to help. Give me a call or fill in the form below and
-              I will get back to you asap.
-            </p>
-            <a className="contact-hero__phone" href={site.phoneHref}>
-              <span aria-hidden="true">☎</span> {site.phoneDisplay}
-            </a>
-          </div>
-          <div className="contact-hero__form reveal-right">
-            <ContactForm />
-          </div>
-        </div>
-      </section>
 
-      <FaqSection />
-      <PurpleCta />
+      {/* Title in a film band, like every other page. The phone number and
+          the facts stay in the column below, where they are the first thing
+          a visitor reaches for. */}
+      <header className="mp2-pagehead mp2-pagehead--film">
+        <HeaderFilm src={headerFilms.contact} />
+        <div className="container container--wide">
+          <p className="eyebrow">Contact</p>
+          <h1 className="mp2-pagehead__title">
+            The number goes straight to the yard
+          </h1>
+          <p className="mp2-pagehead__sub">
+            No call centre, no ticket number. If we&rsquo;re under a car
+            we&rsquo;ll ring you back.
+          </p>
+        </div>
+      </header>
+
+      <div className="container container--wide mp2-contact">
+        <div className="mp2-contact__intro">
+          <a href={site.phoneHref} className="mp2-contact__phonelink">
+            <span className="eyebrow">Phone</span>
+            <span className="mp2-contact__phone">{site.phoneDisplay}</span>
+          </a>
+
+          <div className="mp2-contact__facts">
+            <div>
+              <p className="eyebrow">Where we operate</p>
+              <p>
+                {site.serviceAreas}. Cars are viewed by appointment.
+              </p>
+            </div>
+            <div>
+              <p className="eyebrow">Hours</p>
+              <p>
+                Mon&ndash;Sat, 7am&ndash;6pm
+                <br />
+                Sunday by arrangement
+              </p>
+            </div>
+          </div>
+
+          <p className="mp2-contact__more">
+            Chasing something specific?{" "}
+            <Link href="/faq">Read the common questions</Link> &mdash; most
+            answers are already there.
+          </p>
+        </div>
+
+        <div className="mp2-contact__panel">
+          <h2 className="mp2-contact__panel-title">Send a message</h2>
+          <p className="mp2-contact__panel-sub">
+            Usually answered within a couple of hours during the day.
+          </p>
+          <ContactForm />
+          <p className="mp2-contact__privacy">
+            We only use your details to answer this enquiry. Nothing gets sold
+            on.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

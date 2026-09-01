@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { SealWarning, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 
 export const metadata: Metadata = {
@@ -49,12 +49,12 @@ export default function LegalIndexPage() {
       <div className="card bg-amber-soft !border-amber-accent/40 p-5 mb-8 flex gap-3 items-start">
         <SealWarning size={22} weight="fill" className="text-[#8a5a1e] shrink-0 mt-0.5" />
         <p className="text-sm font-semibold text-ink">
-          DRAFT — every document below requires review by the dealership&apos;s
+          DRAFT: every document below requires review by the dealership&apos;s
           legal adviser for NSW/QLD before launch.
         </p>
       </div>
 
-      <h1 className="font-display font-extrabold text-3xl md:text-4xl">Legal</h1>
+      <h1 className="type-heading">Legal</h1>
       <p className="text-stone-700 leading-relaxed mt-4 mb-10">
         The policies and disclaimers that apply to this website and to buying a
         car from us. If something here is unclear, ring us and ask.
@@ -68,7 +68,7 @@ export default function LegalIndexPage() {
               className="card p-5 flex items-start justify-between gap-4 hover:border-forest-500 transition-colors group"
             >
               <span>
-                <span className="block font-display font-bold text-lg text-ink">
+                <span className="block font-display font-bold type-lead text-ink">
                   {doc.title}
                 </span>
                 <span className="block text-sm text-stone-600 leading-relaxed mt-1">

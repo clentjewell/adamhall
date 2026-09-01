@@ -6,6 +6,7 @@ import { carTitle } from "@/lib/format";
 import type { Car } from "@/lib/types";
 import CarForm from "@/components/admin/CarForm";
 import CarStatusButtons from "@/components/admin/CarStatusButtons";
+import CarAvailabilityControl from "@/components/admin/CarAvailabilityControl";
 import StatusBadge from "@/components/admin/StatusBadge";
 
 interface Props {
@@ -21,6 +22,7 @@ export default async function EditCarPage({ params }: Props) {
     .eq("id", id)
     .maybeSingle<Car>();
   if (!car) notFound();
+  const aiConfigured = !!process.env.ANTHROPIC_API_KEY;
 
   return (
     <div>
@@ -33,6 +35,13 @@ export default async function EditCarPage({ params }: Props) {
         <StatusBadge status={car.status} />
         <CarStatusButtons carId={car.id} status={car.status} slug={car.slug} />
       </div>
+      <div className="mb-6">
+        <CarAvailabilityControl
+          carId={car.id}
+          availability={car.availability}
+          status={car.status}
+        />
+      </div>
       {car.source_submission_id && (
         <p className="text-sm text-stone-500 mb-6">
           Built from{" "}
@@ -42,7 +51,7 @@ export default async function EditCarPage({ params }: Props) {
           . The seller&apos;s photos were copied across.
         </p>
       )}
-      <CarForm car={car} />
+      <CarForm car={car} aiConfigured={aiConfigured} />
     </div>
   );
 }

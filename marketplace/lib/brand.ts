@@ -1,18 +1,19 @@
 // ---------------------------------------------------------------------------
 // Car Marketplace brand configuration — the one swappable spot.
 //
-// Source: "Car Marketplace by Adam Hall — Brand Identity", Edition 1,
-// August 2026 (Liz / Jewell Projects). Colours and type live in
-// app/globals.css @theme; everything name-, mark- and crossing-related lives
-// here. No component should hard-code a brand string or a logo path.
+// Car Marketplace runs as its own site: no parent, no crossing, no seller
+// pages belonging to anyone else. It keeps the endorsement in its mark, which
+// is a signature on the cars rather than a second business to visit. Colours
+// and type live in app/globals.css @theme; everything name- and mark-related
+// lives here. No component should hard-code a brand string or a logo path.
 //
 // The logo is the primary horizontal lockup Liz supplied (Car Marketplace
-// brand pack, "01 Car_Marketplace_Primary_Logo"), approved for use by the
-// client: the cart, the wordmark and Adam's own signature set as one piece of
-// artwork. It is used as supplied — the signature is drawn, not typeset, so it
-// cannot be rebuilt from live text. `src` is the black cut for light grounds,
-// `srcReverse` the white for green and photography; the mark is black or white
-// and never recoloured (identity section 03). Only BrandLockup reads this.
+// brand pack, "01 Car_Marketplace_Primary_Logo"): the cart, the wordmark and
+// the endorsement set as one piece of artwork. It is used as supplied, because
+// the signature in it is drawn rather than typeset and cannot be rebuilt from
+// live text. `src` is the black cut for light grounds, `srcReverse` the white
+// for green and photography; the mark is black or white and never recoloured
+// (identity section 03). Only BrandLockup reads this.
 // ---------------------------------------------------------------------------
 
 export type BrandLogo =
@@ -28,7 +29,8 @@ export type BrandLogo =
   | { kind: "mark"; cart: string; cartReverse: string };
 
 export const brand = {
-  /** Written in full on first mention, then just `name`. Never "CM", never "Adam Hall Car Marketplace" — the order carries the hierarchy. */
+  /** Written in full on first mention, then just `name`. Never "CM", never
+      "Adam Hall Car Marketplace" — the order carries the hierarchy. */
   name: "Car Marketplace",
   endorsement: "by Adam Hall",
   fullName: "Car Marketplace by Adam Hall",
@@ -46,40 +48,3 @@ export const brand = {
   /** "Curated, not classified." — the two words that separate this from every other place a used car is sold online. */
   essence: "Curated, not classified.",
 } as const;
-
-// ---------------------------------------------------------------------------
-// The parent brand, and the crossing between the two sites.
-//
-// Identity section 08: the crossing is *named*, not a nav item buried in a
-// list. One band at the foot of each site saying plainly what is on the other
-// side. The wording below is quoted from the identity document.
-// ---------------------------------------------------------------------------
-
-export const parentSite = {
-  name: "Adam Hall Buy My Car",
-  shortName: "Adam Hall",
-  url: "https://adamhallbuymycar.com.au",
-
-  /** Footer band on the marketplace, pointing sellers back to Adam. */
-  crossing: {
-    heading: "Selling instead?",
-    body: "Adam will come to you and value it.",
-    cta: "See how selling works",
-  },
-
-  /** Compact version for the header, worded as a service to the seller rather than a cross-sell. */
-  headerLink: "Want to sell your car?",
-} as const;
-
-/**
- * Outbound links to the parent site carry a source tag so the handover between
- * the two domains is measurable. Without it there is no way to tell whether
- * the crossing works.
- */
-export function parentUrl(path = "/", source = "marketplace-footer"): string {
-  const url = new URL(path, parentSite.url);
-  url.searchParams.set("utm_source", brand.domain);
-  url.searchParams.set("utm_medium", "referral");
-  url.searchParams.set("utm_campaign", source);
-  return url.toString();
-}

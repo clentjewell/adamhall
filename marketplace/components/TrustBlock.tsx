@@ -4,11 +4,19 @@ import type { Car } from "@/lib/types";
 const serviceLabels: Record<Car["service_history"], string> = {
   full: "Full service history, books supplied",
   partial: "Partial history, receipts supplied",
-  none: "No books — priced accordingly",
+  none: "No books, priced accordingly",
   unknown: "History being confirmed",
 };
 
-export default function TrustBlock({ car }: { car: Car }) {
+export default function TrustBlock({
+  car,
+  showQuote = true,
+}: {
+  car: Car;
+  /** The car page renders our take as its own dark card in the reading
+      flow, so its rail passes false to avoid saying it twice. */
+  showQuote?: boolean;
+}) {
   return (
     <div className="card p-6 bg-forest-50/60 !border-forest-100">
       <ul className="space-y-3.5">
@@ -40,7 +48,7 @@ export default function TrustBlock({ car }: { car: Car }) {
           </li>
         )}
       </ul>
-      {car.adams_take && (
+      {showQuote && car.adams_take && (
         <figure className="mt-5 pt-5 border-t border-forest-100">
           <div className="flex gap-3">
             <Quotes size={22} weight="fill" className="text-forest-400 shrink-0" />
@@ -49,7 +57,7 @@ export default function TrustBlock({ car }: { car: Car }) {
                 {car.adams_take}
               </blockquote>
               <figcaption className="mt-2 text-sm font-semibold text-forest-700">
-                Adam Hall
+                Our take
               </figcaption>
             </div>
           </div>

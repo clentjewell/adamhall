@@ -1,0 +1,359 @@
+/* ===================================================================
+   CAR DETAIL — REDESIGN (route: /cars2/[slug])
+   -------------------------------------------------------------------
+   Layout from the "Carmarketplace UI mockups" artifact, frames 1e
+   (desktop 1280) and 1f (mobile 390). Colour and type come from the live
+   identity via tokens.css. No hexes here.
+   =================================================================== */
+
+.ah-site.mp-car2 .eyebrow {
+  color: var(--c-green);
+}
+
+.ah-site .mp2-car__back {
+  padding-top: 1.25rem;
+}
+.ah-site .mp2-backlink {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--c-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.ah-site .mp2-backlink:hover {
+  color: var(--c-green);
+}
+
+/* --- Two columns: reading on the left, buying on the right ------------ */
+.ah-site .mp2-car {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: 2.75rem;
+  align-items: start;
+  padding-bottom: var(--rhythm-section);
+}
+.ah-site .mp2-car__main {
+  min-width: 0;
+}
+/* The panel step, and its tracking. This was a private clamp (20->24 on a
+   1.9vw slope) sitting a pixel or two off the same heading everywhere else. */
+.ah-site .mp2-car__h2 {
+  font-size: var(--fs-h4);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 2.75rem 0 1rem;
+}
+.ah-site .mp2-car__body {
+  color: var(--c-text-dark);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  max-width: 66ch;
+  margin: 0;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+.ah-site .mp2-car__video {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--c-black);
+}
+.ah-site .mp2-car__video iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.ah-site .mp2-car__soldnote {
+  margin-top: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--color-amber-soft);
+  border: 1px solid var(--color-amber-accent);
+  padding: 1.25rem;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--c-text-dark);
+}
+.ah-site .mp2-car__soldnote p {
+  margin: 0;
+}
+.ah-site .mp2-car__soldnote-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--c-black);
+  margin-bottom: 0.25rem !important;
+}
+
+/* --- Spec table -------------------------------------------------------
+   A four-across grid of facts, ruled by a 1px gap over a hairline ground
+   so no cell needs its own borders. Cell count varies with the car, and
+   the grid simply wraps. */
+.ah-site .mp2-specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--c-border);
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 0;
+}
+.ah-site .mp2-specs__cell {
+  background: var(--c-white);
+  padding: 1rem;
+}
+.ah-site .mp2-specs dt {
+  font-family: var(--font-heading);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--c-text);
+}
+.ah-site .mp2-specs dd {
+  margin: 0.3125rem 0 0;
+  font-weight: 700;
+  color: var(--c-black);
+}
+
+/* --- Adam's take ------------------------------------------------------ */
+.ah-site .mp2-take {
+  margin: 2rem 0 0;
+  border-radius: var(--radius);
+  background: var(--c-green-deep);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+.ah-site .mp2-take blockquote {
+  margin: 0;
+  color: var(--c-white);
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  font-weight: 500;
+  max-width: 60ch;
+}
+/* An uppercase label, so it sits on the Label step rather than a step above
+   it with its own tracking. */
+.ah-site .mp2-take figcaption {
+  margin-top: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-forest-200);
+}
+
+/* --- Buying rail ------------------------------------------------------ */
+.ah-site .mp2-rail {
+  position: sticky;
+  /* Header plus a gap, and the header's share collapses when it hides —
+     see --sticky-offset. Was a flat 5.75rem against a 64px header. */
+  top: calc(var(--sticky-offset) + 1.75rem);
+  transition: top 360ms var(--header-ease, cubic-bezier(0.4, 0, 0.2, 1));
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* Availability and "just in" can both apply, so they share a row rather than
+   each carrying their own bottom margin. */
+.ah-site .mp2-rail__flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.ah-site .mp2-rail__flag {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  background: var(--c-sand);
+  color: var(--c-black);
+  padding: 0.375rem 0.75rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1;
+}
+/* Amber is the identity's status colour, never an accent. Reserved and
+   "enquiry in progress" are exactly that: status, not a call to action. Text
+   stays on the headline colour so the two flags differ by ground alone. */
+.ah-site .mp2-rail__flag.is-status {
+  background: var(--color-amber-soft);
+}
+/* The scoped site styles run on content-box, so a full-width .btn would add
+   its 30px side padding on top of 100% and push the page sideways on a
+   phone. Border-box keeps the padding inside the width. */
+.ah-site .mp2-rail__interested {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+}
+.ah-site .mp2-rail__title {
+  font-size: var(--fs-subsection-title);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.ah-site .mp2-rail__pricerow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.625rem;
+  margin-top: 0.875rem;
+}
+.ah-site .mp2-rail__price {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(2rem, 3vw, 2.375rem);
+  line-height: 1;
+  color: var(--c-green-deep);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+.ah-site .mp2-rail__price.is-sold {
+  color: var(--color-mute);
+  margin-top: 0.875rem;
+}
+.ah-site .mp2-rail__qualifier {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--c-text);
+  margin: 0;
+}
+.ah-site .mp2-rail__finance {
+  font-size: var(--fs-small);
+  color: var(--c-text-dark);
+  margin: 0.375rem 0 0;
+  line-height: 1.5;
+}
+.ah-site .mp2-rail__finance a {
+  font-weight: 700;
+  color: var(--c-green-deep);
+  text-underline-offset: 3px;
+}
+/* TrustBlock brings its own card; nudge it onto the artifact's tint. */
+.ah-site .mp2-rail__trust .card {
+  border-radius: var(--radius);
+}
+.ah-site .mp2-rail__trade {
+  display: block;
+  border: 1px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-white);
+  padding: 1.125rem;
+  text-decoration: none;
+  color: var(--c-text-dark);
+  transition: border-color var(--transition), transform var(--transition);
+}
+.ah-site .mp2-rail__trade:hover {
+  border-color: var(--c-green);
+  transform: translateY(-2px);
+}
+.ah-site .mp2-rail__trade strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: var(--c-black);
+  margin-bottom: 0.25rem;
+}
+.ah-site .mp2-rail__trade span {
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+
+/* --- Enquiry cards ----------------------------------------------------
+   EnquiryForm brings the artifact's own two-tab control ("Ask a question /
+   Book a look", switching the kind on one server action), so the rail uses
+   it directly. Only its shell is brought onto the redesign's radius; the
+   form's internals are untouched. */
+.ah-site .mp2-rail__form .card {
+  border-radius: var(--radius);
+  border-color: var(--c-border);
+}
+.ah-site .mp2-rail__form .btn {
+  min-height: 44px;
+}
+
+/* --- Also in stock ---------------------------------------------------- */
+.ah-site .mp2-also {
+  background: var(--c-white);
+  border-top: 1px solid var(--c-border);
+  padding-block: var(--rhythm-section);
+}
+.ah-site .mp2-also__title {
+  font-size: var(--fs-subsection-title);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.375rem;
+}
+.ah-site .mp2-also__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ---------------------------------------------------------------------
+   Responsive
+   --------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+  /* The rail follows the gallery rather than sitting beside it, so the
+     price is never below the fold of the description. */
+  .ah-site .mp2-car {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+  .ah-site .mp2-rail {
+    position: static;
+    order: -1;
+  }
+  .ah-site .mp2-car__gallery {
+    order: -2;
+  }
+  .ah-site .mp2-specs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ah-site .mp2-also__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .ah-site .mp2-specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .ah-site .mp2-also__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ah-site .mp2-car__h2 {
+    margin-top: 2rem;
+  }
+  /* MobileActionBar occupies the foot of the screen on a phone; keep the
+     last of the page clear of it. */
+  .ah-site .mp2-also {
+    padding-bottom: 6rem;
+  }
+}
+
+/* "estimate yours" is an inline link inside a sentence, which leaves a
+   16px-tall target on a phone. Give it a real box there. */
+@media (max-width: 639px) {
+  .ah-site .mp2-rail__finance a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 0.25rem;
+  }
+}
+
+/* The enquiry and test-drive forms use a 16px consent checkbox. Its label is
+   associated, so the effective tap target is the whole sentence, but the box
+   is grown here on phones. Scoped so the live car page is untouched. */
+@media (max-width: 639px) {
+  .ah-site.mp-car2 input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+  }
+}

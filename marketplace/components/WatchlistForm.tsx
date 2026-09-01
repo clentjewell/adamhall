@@ -12,10 +12,10 @@ export default function WatchlistForm({ makes }: { makes: string[] }) {
   if (state.ok) {
     return (
       <div className="card p-6 text-center">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-card-title text-forest-700">
           You&apos;re on the list
         </p>
-        <p className="text-stone-600 mt-1">
+        <p className="mt-1 text-stone-600">
           The moment a matching car lands, you&apos;ll get an email. Good cars
           go fast here, so keep an eye on your inbox.
         </p>
@@ -25,13 +25,13 @@ export default function WatchlistForm({ makes }: { makes: string[] }) {
 
   return (
     <form action={action} className="card p-6">
-      <div className="flex items-center gap-2 mb-1">
-        <BellRinging size={20} className="text-forest-600" weight="bold" />
-        <h3 className="font-display font-bold text-lg">
+      <div className="mb-1 flex items-center gap-2">
+        <BellRinging size={22} className="shrink-0 text-forest-600" weight="bold" />
+        <h3 className="type-subheading">
           Chasing something specific?
         </h3>
       </div>
-      <p className="text-stone-600 text-sm mb-5">
+      <p className="mt-2 mb-5 max-w-[60ch] text-stone-600">
         Tell us what you&apos;re after and we&apos;ll email you the moment one
         arrives. No account, no spam, just the car.
       </p>
@@ -60,7 +60,11 @@ export default function WatchlistForm({ makes }: { makes: string[] }) {
         </div>
       </div>
       {state.error && <p className="error-text">{state.error}</p>}
-      <button type="submit" disabled={pending} className="btn-primary mt-5 w-full sm:w-auto">
+      <button
+        type="submit"
+        disabled={pending}
+        className="btn-primary mt-5 w-full sm:w-auto"
+      >
         {pending ? "Saving…" : "Watch for this car"}
       </button>
     </form>

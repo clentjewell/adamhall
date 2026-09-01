@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Lightning, Star } from "@phosphor-icons/react/dist/ssr";
 import { fetchCarBySlug } from "@/lib/cars";
 import { getResponseStat } from "@/lib/stats";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
   title: "Sell your car",
   description:
-    "Sell your car to Adam Hall in about five minutes. Rego, a few photos, done — Adam personally reviews every car and makes a real offer within 1 business day.",
+    "Sell your car to us in about five minutes. Rego, a few photos, done. We personally review every car and make a real offer within 1 business day.",
 };
 
 interface Props {
@@ -80,12 +80,12 @@ export default async function SellPage({ searchParams }: Props) {
       <PageHero
         image={pageHeroImages.sell}
         video={pageHeroVideos.sell}
-        imageAlt="Adam checking over a car's engine"
+        imageAlt="Handing over the keys after a sale"
         title={content.sellHero.title}
         titleEditPath="sellHero.title"
       >
         <div>
-          <p data-edit="sellHero.sub" className="text-stone-200 max-w-[52ch] text-lg">
+          <p data-edit="sellHero.sub" className="text-stone-200 max-w-[52ch] type-lead">
             {content.sellHero.sub}
           </p>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold">
@@ -103,7 +103,7 @@ export default async function SellPage({ searchParams }: Props) {
         </div>
       </PageHero>
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      <div className="page-shell section-y">
         {/* Someone who wants a ballpark before filling in the full form. Only
             offered when they have not already come from the quote tool. */}
         {!prefill && (

@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/PageHero";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
+import { Link } from "next-view-transitions";
 import { getContent } from "@/lib/content";
-import { Reveal } from "@/components/motion/Reveal";
+import { site } from "@/lib/site-data/site";
+import FaqAccordionV2 from "@/components/site/FaqAccordionV2";
+import SiteReveal from "@/components/site/SiteReveal";
+import HeaderFilm from "@/components/site/HeaderFilm";
+import { headerFilms } from "@/lib/heroes";
 
 export const metadata: Metadata = {
   title: "FAQ",
@@ -10,22 +13,21 @@ export const metadata: Metadata = {
     "Straight answers to the questions we get asked most, about buying, selling and the paperwork in between.",
 };
 
-export default async function FaqPage() {
+/**
+ * The FAQ page (route: /faq), built to the "Carmarketplace UI mockups"
+ * artifact, frame 1j.
+ *
+ * The artifact drops the hero film and the group headings for a single
+ * typographic column with a sticky "still not sure?" rail beside it. Content
+ * still comes from getContent, keeps its data-edit hooks, and the FAQPage
+ * JSON-LD is preserved so the answers stay eligible for rich results.
+ *
+ * Groups are flattened here because the artifact runs one continuous list;
+ * the group name is kept on each item's data so nothing is lost in the CMS.
+ */
+export default async function Faq2Page() {
   const content = await getContent();
-  const { items } = content.faq;
-
-  // Group items by their `group` field, preserving first-seen order so the
-  // admin's editing order controls the page layout.
-  const groupNames: string[] = [];
-  for (const item of items) {
-    if (!groupNames.includes(item.group)) groupNames.push(item.group);
-  }
-  const groups = groupNames.map((name) => ({
-    title: name,
-    items: items
-      .map((item, idx) => ({ ...item, idx }))
-      .filter((item) => item.group === name),
-  }));
+  const items = content.faq.items.map((item, idx) => ({ ...item, idx }));
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -33,58 +35,55 @@ export default async function FaqPage() {
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.a,
-      },
+      acceptedAnswer: { "@type": "Answer", text: item.a },
     })),
   };
 
   return (
-    <>
-      <PageHero
-        image={pageHeroImages.faq}
-        video={pageHeroVideos.faq}
-        imageAlt="Adam in the driveway"
-        title={content.faq.title}
-        titleEditPath="faq.title"
-      >
-        <p data-edit="faq.sub" className="text-stone-200 max-w-[56ch] text-lg">
-          {content.faq.sub}
-        </p>
-      </PageHero>
+    <div className="ah-site mp-faq2">
+      <SiteReveal />
 
-      <div className="max-w-3xl mx-auto px-4 py-16 space-y-14">
-        {groups.map((group) => (
-          <Reveal key={group.title}>
-            <div>
-              <h2 className="font-display font-bold text-2xl md:text-3xl mb-5">
-                {group.title}
-              </h2>
-              <div className="space-y-3">
-                {group.items.map((item, i) => (
-                  <details key={group.title + i} className="card group">
-                    <summary className="font-semibold cursor-pointer p-4 list-none flex items-center justify-between gap-4">
-                      <span data-edit={`faq.items.${item.idx}.q`}>{item.q}</span>
-                      <span className="text-forest-600 shrink-0 transition-transform group-open:rotate-45 text-xl leading-none">
-                        +
-                      </span>
-                    </summary>
-                    <p data-edit={`faq.items.${item.idx}.a`} className="p-4 pt-0 text-stone-600 leading-relaxed">
-                      {item.a}
-                    </p>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-        ))}
+      {/* The page title moves into a film band so every page opens the same
+          way. The questions keep their own column below it. */}
+      <header className="mp2-pagehead mp2-pagehead--film">
+        <HeaderFilm src={headerFilms.faq} />
+        <div className="container container--wide">
+          <p className="eyebrow">Questions &amp; answers</p>
+          <h1 data-edit="faq.title" className="mp2-pagehead__title">
+            {content.faq.title}
+          </h1>
+          <p data-edit="faq.sub" className="mp2-pagehead__sub">
+            {content.faq.sub}
+          </p>
+        </div>
+      </header>
+
+      <div className="container container--wide mp2-faq">
+        <div className="mp2-faq__main">
+          <FaqAccordionV2 items={items} />
+        </div>
+
+        <aside className="mp2-faq__aside">
+          <div className="mp2-faq__card">
+            <h2 className="mp2-faq__card-title">Still not sure?</h2>
+            <p>
+              Give us a ring. You will get a person who knows the cars, not a
+              call centre.
+            </p>
+            <a href={site.phoneHref} className="btn btn--green mp2-faq__cta">
+              {site.phoneDisplay}
+            </a>
+            <Link href="/contact-us" className="btn btn--outline-green mp2-faq__cta">
+              Send a message
+            </Link>
+          </div>
+        </aside>
       </div>
 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </>
+    </div>
   );
 }

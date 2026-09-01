@@ -13,25 +13,27 @@
 @import "./Button.css";
 @import "./WaveDivider.css";
 @import "./GreenHero.css";
-@import "./TrustBar.css";
-@import "./PurpleCta.css";
 @import "./IconList.css";
 @import "./StatCounter.css";
 @import "./Accordion.css";
-@import "./FaqSection.css";
-@import "./Testimonials.css";
-@import "./FeaturedTestimonial.css";
-@import "./AudioPlayer.css";
 @import "./ValuationForm.css";
 @import "./Header.css";
+@import "./HeaderFilm.css";
 @import "./Footer.css";
 
 /* Pages */
 @import "./page-Home.css";
-@import "./page-HowItWorks.css";
-@import "./page-About.css";
-@import "./page-Listen.css";
-@import "./page-Contact.css";
-@import "./page-Privacy.css";
-@import "./page-BuyMyCar.css";
+/* Redesign, served at the `2` routes while both versions are live for
+   comparison. Each is scoped under its own page class (.mp-home2,
+   .mp-cars2, ...), so the pages above and every other route are
+   untouched. */
+@import "./page-Home2.css";
+@import "./page-Cars2.css";
+@import "./page-Car2.css";
+@import "./page-Finance2.css";
+@import "./page-Compare2.css";
+@import "./page-Saved2.css";
+@import "./page-Faq2.css";
+@import "./page-Contact2.css";
+@import "./page-Admin2.css";
 @import "./page-NotFound.css";

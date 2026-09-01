@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { submitFinanceEnquiry, type FinanceActionState } from "@/app/actions/finance";
 
 const initial: FinanceActionState = { ok: false };
@@ -20,11 +20,11 @@ export default function FinanceEnquiryForm({
   if (state.ok) {
     return (
       <div className="card p-6 text-center" role="status">
-        <p className="font-display font-bold text-lg text-forest-700">
+        <p className="type-panel-title text-forest-700">
           Good as sorted.
         </p>
         <p className="text-stone-600 mt-2 text-sm leading-relaxed">
-          Adam or our finance partner will call you within one business day.
+          We or our finance partner will call you within one business day.
           No obligation, no credit check until you say go.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default function FinanceEnquiryForm({
   return (
     <form action={action} className="card p-6">
       {carId && <input type="hidden" name="car_id" value={carId} />}
-      <h2 className="font-display font-bold text-xl mb-5">Get finance sorted</h2>
+      <h2 className="type-subheading mb-5">Get finance sorted</h2>
 
       <div className="space-y-4">
         <div>
@@ -137,7 +137,7 @@ export default function FinanceEnquiryForm({
             className="mt-1 w-4 h-4 rounded border-stone-300 text-forest-600 focus:ring-forest-500"
           />
           <label htmlFor="fe-consent" className="text-sm text-stone-600 leading-relaxed">
-            I agree to my details being passed to Adam Hall&apos;s finance
+            I agree to my details being passed to our finance
             partner so they can contact me about this enquiry. See our{" "}
             <Link href="/legal/privacy" className="underline text-forest-700">
               privacy policy

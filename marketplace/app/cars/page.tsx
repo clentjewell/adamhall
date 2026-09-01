@@ -1,44 +1,25 @@
-import type { Metadata } from "next";
-import { fetchPublicCars } from "@/lib/cars";
-import { getContent } from "@/lib/content";
-import { pageHeroImages, pageHeroVideos } from "@/lib/heroes";
-import CarsBrowser from "@/components/CarsBrowser";
-import WatchlistForm from "@/components/WatchlistForm";
-import PageHero from "@/components/PageHero";
-import { Reveal } from "@/components/motion/Reveal";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Cars for sale",
-  description:
-    "Browse Adam Hall's current stock of hand-picked used cars. Every car PPSR checked, honestly described and priced to sell.",
-};
-
-export const revalidate = 60;
-
-export default async function CarsPage() {
-  const [cars, content] = await Promise.all([fetchPublicCars(), getContent()]);
-  const makes = [...new Set(cars.map((c) => c.make))].sort();
-
-  return (
-    <>
-      <PageHero
-        image={pageHeroImages.cars}
-        video={pageHeroVideos.cars}
-        imageAlt="Cars ready for sale, lined up in the morning light"
-        title={content.carsHero.title}
-        titleEditPath="carsHero.title"
-      >
-        <p data-edit="carsHero.sub" className="text-stone-200 max-w-[60ch] text-lg">
-          {content.carsHero.sub}
-        </p>
-      </PageHero>
-
-      <div className="max-w-6xl mx-auto px-4 py-10">
-        <CarsBrowser cars={cars} />
-        <Reveal className="mt-16 max-w-2xl">
-          <WatchlistForm makes={makes} />
-        </Reveal>
-      </div>
-    </>
-  );
+/**
+ * The marketplace lives on the home page now (Adam's direction), so the old
+ * index redirects there — permanently, since every old link, bookmark and
+ * search result should re-learn the address. The query rides along: a saved
+ * filter link like /cars?fuel=Diesel still lands on the same filtered view,
+ * because home reads exactly the same parameters (useCarFilters).
+ *
+ * Only the index moved. /cars/[slug] — the individual car pages — stay where
+ * they are: their URLs are in the sitemap, in customer emails and in every
+ * card on the site.
+ */
+export default async function CarsIndexRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const sp = await searchParams;
+  const q = new URLSearchParams();
+  for (const [key, value] of Object.entries(sp)) {
+    if (typeof value === "string" && value) q.set(key, value);
+  }
+  permanentRedirect(`/${q.size ? `?${q}` : ""}`);
 }

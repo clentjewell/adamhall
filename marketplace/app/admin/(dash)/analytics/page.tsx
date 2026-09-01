@@ -98,7 +98,7 @@ export default async function AnalyticsPage() {
     <div>
       <h1 className="font-display font-extrabold text-2xl mb-1">Offer analytics</h1>
       <p className="text-sm text-stone-500 mb-6">
-        Live from the pipeline. This is Adam&apos;s pricing judgement becoming data.
+        Live from the pipeline. This is our pricing judgement becoming data.
       </p>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -111,7 +111,7 @@ export default async function AnalyticsPage() {
         ))}
       </div>
 
-      <h2 className="font-display font-bold text-lg mt-10 mb-4">Average margin by make</h2>
+      <h2 className="type-panel-title mt-10 mb-4">Average margin by make</h2>
       {marginRows.length === 0 ? (
         <div className="card p-8 text-center text-stone-500 text-sm">
           Fill in valuation worksheets and this table builds itself.

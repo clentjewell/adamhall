@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { notifier, emailTemplates } from "@/lib/notify";
+import { site } from "@/lib/site-data/site";
 
 export interface ActionState {
   ok: boolean;
@@ -17,6 +18,11 @@ const enquirySchema = z.object({
   email: z.string().trim().email("That email doesn't look right").optional().or(z.literal("")),
   preferred_time: z.string().trim().max(200).optional(),
   message: z.string().trim().max(2000).optional(),
+  // Informational: it tells Adam how to answer, it does not branch anything.
+  // Defaulted rather than required so an older cached form still submits.
+  preferred_contact_method: z.enum(["call", "text", "email"]).default("call"),
+  financing_interest: z.boolean(),
+  trade_in_interest: z.boolean(),
 });
 
 export async function submitEnquiry(
@@ -31,41 +37,93 @@ export async function submitEnquiry(
     email: formData.get("email") || undefined,
     preferred_time: formData.get("preferred_time") || undefined,
     message: formData.get("message") || undefined,
+    preferred_contact_method: formData.get("preferred_contact_method") || undefined,
+    // An unticked checkbox sends nothing at all, so absence is the false case.
+    financing_interest: formData.get("financing_interest") === "on",
+    trade_in_interest: formData.get("trade_in_interest") === "on",
   });
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0].message };
   }
 
   const supabase = await createClient();
+
+  // Attribute the enquiry to the sender's account if they happen to be signed
+  // in. Read from the session, never from the form: the client does not get
+  // to say whose enquiry this is. Null is the ordinary case — most people who
+  // ask about a car have no account, and enquiring never requires one.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { error } = await supabase.from("enquiries").insert({
     ...parsed.data,
     email: parsed.data.email || null,
     preferred_time: parsed.data.preferred_time ?? null,
     message: parsed.data.message ?? null,
+    user_id: user?.id ?? null,
   });
   if (error) {
     console.error("submitEnquiry:", error.message);
     return { ok: false, error: "Something went wrong on our end. Please call us instead." };
   }
 
+  // One lookup now feeds both emails. It used to sit inside the admin-email
+  // branch; the buyer's confirmation needs the slug for a link back.
+  const { data: car } = await supabase
+    .from("cars")
+    .select("slug, make, model, year, badge")
+    .eq("id", parsed.data.car_id)
+    .maybeSingle();
+  const carName = car ? `${car.year} ${car.make} ${car.model}` : "a listed car";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+  const carUrl = car ? `${baseUrl}/cars/${car.slug}` : undefined;
+  const wantsLook = parsed.data.kind === "book_look";
+
+  // Neither email is allowed to fail the enquiry: the row is already saved and
+  // the buyer has been told we have it. A dead mail provider must not surface
+  // as "something went wrong" after a successful submit.
   const adminEmail = process.env.ADMIN_NOTIFY_EMAIL;
   if (adminEmail) {
-    const { data: car } = await supabase
-      .from("cars")
-      .select("make, model, year, badge")
-      .eq("id", parsed.data.car_id)
-      .maybeSingle();
-    const carName = car
-      ? `${car.year} ${car.make} ${car.model}`
-      : "a listed car";
-    const t = emailTemplates.enquiryReceived(
+    const t = emailTemplates.enquiryReceived({
       adminEmail,
       carName,
-      parsed.data.name,
-      parsed.data.phone,
-      parsed.data.email || undefined,
-    );
-    await notifier.sendEmail({ to: t.to, subject: t.subject, html: t.html });
+      carUrl,
+      name: parsed.data.name,
+      phone: parsed.data.phone,
+      email: parsed.data.email || undefined,
+      wantsLook,
+      preferredContactMethod: parsed.data.preferred_contact_method,
+      preferredTime: parsed.data.preferred_time,
+      financingInterest: parsed.data.financing_interest,
+      tradeInInterest: parsed.data.trade_in_interest,
+    });
+    try {
+      await notifier.sendEmail({ to: t.to, subject: t.subject, html: t.html });
+    } catch (err) {
+      console.error("submitEnquiry: admin notify failed:", err);
+    }
+  }
+
+  // The buyer's receipt, only where they gave us somewhere to send it. The
+  // on-screen confirmation is what everyone gets; this is in addition to it.
+  if (parsed.data.email) {
+    const t = emailTemplates.enquiryConfirmation({
+      name: parsed.data.name,
+      carName,
+      carUrl,
+      phoneDisplay: site.phoneDisplay,
+      financeUrl: parsed.data.financing_interest ? `${baseUrl}/finance` : undefined,
+    });
+    try {
+      await notifier.sendEmail({
+        to: parsed.data.email,
+        subject: t.subject,
+        html: t.html,
+      });
+    } catch (err) {
+      console.error("submitEnquiry: buyer confirmation failed:", err);
+    }
   }
 
   return { ok: true };

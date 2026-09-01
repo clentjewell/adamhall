@@ -1,13 +1,32 @@
 import type { Metadata } from "next";
-import SavedPageClient from "@/components/garage/SavedPageClient";
+import { fetchPublicCars } from "@/lib/cars";
+import SavedPageClientV2 from "@/components/site/SavedPageClientV2";
+import WatchlistForm from "@/components/WatchlistForm";
 
 export const metadata: Metadata = {
   title: "Saved cars",
   robots: { index: false, follow: false },
 };
 
-// Guest-first saved list lives entirely in localStorage, so this shell just
-// hands off to the client component that reads it and fetches the cars.
-export default function SavedPage() {
-  return <SavedPageClient />;
+export const revalidate = 60;
+
+/**
+ * The saved page (route: /saved), built to the "Carmarketplace UI
+ * mockups" artifact, frame 1i.
+ *
+ * The saved list is guest-first and lives entirely in localStorage, so the
+ * page itself is a shell — the same arrangement as /saved. The one server-side
+ * job is fetching the make list for the watchlist form, which is the real
+ * form with its real server action rather than the artifact's bare email box.
+ */
+export default async function Saved2Page() {
+  const cars = await fetchPublicCars();
+  const makes = [...new Set(cars.map((c) => c.make))].sort();
+
+  return (
+    <SavedPageClientV2
+      basePath="/cars"
+      watchPanel={<WatchlistForm makes={makes} />}
+    />
+  );
 }

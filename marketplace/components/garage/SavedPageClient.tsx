@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { X } from "@phosphor-icons/react";
 import { createClient } from "@/lib/supabase/client";
 import type { Car } from "@/lib/types";
@@ -63,8 +63,8 @@ export default function SavedPageClient() {
     .filter((c): c is Car => Boolean(c));
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10">
-      <h1 className="font-display font-bold text-3xl mb-8">Saved cars</h1>
+    <div className="page-shell section-y">
+      <h1 className="type-heading mb-8">Saved cars</h1>
 
       {loading ? (
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
@@ -94,10 +94,10 @@ export default function SavedPageClient() {
         </div>
       ) : (
         <div className="card p-10 text-center">
-          <p className="font-display font-bold text-lg">
+          <p className="type-panel-title">
             Nothing saved yet. Tap the heart on any car.
           </p>
-          <Link href="/cars" className="btn-cta mt-5 inline-flex">
+          <Link href="/" className="btn-cta mt-5 inline-flex">
             Browse cars
           </Link>
         </div>
@@ -105,18 +105,18 @@ export default function SavedPageClient() {
 
       {(loading || recentCars.length > 0) && (
         <section className="mt-16">
-          <h2 className="font-display font-bold text-xl mb-4">Recently viewed</h2>
+          <h2 className="type-subheading mb-4">Recently viewed</h2>
           <div className="flex gap-4 overflow-x-auto pb-2">
             {loading
               ? Array.from({ length: 4 }).map((_, i) => (
                   <div key={i} className="w-44 shrink-0 space-y-2">
-                    <div className="skeleton aspect-[3/2] rounded-xl" />
+                    <div className="skeleton aspect-[3/2] rounded-2xl" />
                     <div className="skeleton h-4 w-3/4" />
                   </div>
                 ))
               : recentCars.map((car) => (
                   <Link key={car.id} href={`/cars/${car.slug}`} className="w-44 shrink-0 group">
-                    <div className="relative aspect-[3/2] rounded-xl overflow-hidden bg-stone-200">
+                    <div className="relative aspect-[3/2] rounded-2xl overflow-hidden bg-stone-200">
                       {car.photos[0] ? (
                         <Image
                           src={car.photos[0].url}

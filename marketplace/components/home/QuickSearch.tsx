@@ -69,7 +69,7 @@ export default function QuickSearch({
         >
           <option value="">Any price</option>
           {priceSteps.map((p) => (
-            <option key={p} value={p}>Under ${(p / 1000).toFixed(0)}k</option>
+            <option key={p} value={p}>Under ${p.toLocaleString("en-AU")}</option>
           ))}
         </select>
       </div>

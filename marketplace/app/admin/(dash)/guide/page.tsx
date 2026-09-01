@@ -34,7 +34,7 @@ export default async function GuidePage() {
       <div className="card overflow-hidden !p-0">
         <iframe
           src="/site-guide"
-          title="Buy My Car — site guide"
+          title="Car Marketplace site guide"
           className="w-full h-[calc(100dvh-11rem)] min-h-[520px] border-0 bg-ink"
         />
       </div>

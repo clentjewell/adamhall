@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { Phone, ChatCircleText, CalendarCheck } from "@phosphor-icons/react";
 
 export default function MobileActionBar({
@@ -16,7 +16,7 @@ export default function MobileActionBar({
     <div className="md:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-stone-200 pb-[env(safe-area-inset-bottom)]">
       {sold ? (
         <div className="p-3">
-          <Link href="/cars" className="btn-cta w-full text-sm py-2.5">
+          <Link href="/" className="btn-cta w-full text-sm py-2.5">
             See what&apos;s still available
           </Link>
         </div>

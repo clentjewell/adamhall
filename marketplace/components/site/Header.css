@@ -1,15 +1,89 @@
 /* ============================================================
-   Public site header — solid cream, always visible (no scroll
-   hide/show, no tone logic). Kept at 64px + sticky so the rest of
-   the marketplace's full-bleed heroes (which pull up with -mt-16
-   behind a 64px header) stay pixel-correct. Scoped under .ah-site.
+   Public site header — 64px, sticky, and as of Adam's direction it now both
+   hides on the way down and inverts over dark ground. This file used to say
+   "always visible (no scroll hide/show, no tone logic)"; that was the
+   position until he asked for the change, and like the home page's scroll
+   film it is a departure from an identity that rules out scroll motion.
+   Header.tsx carries the reasoning and the Intelligence Brief carries the
+   record.
+
+   Kept at 64px so the marketplace's full-bleed heroes, which pull up behind
+   it, stay pixel-correct. Scoped under .ah-site.
    ============================================================ */
+.ah-site {
+  /* Even in-out, not a front-loaded ease. The first attempt at "slower" used
+     cubic-bezier(0.32, 0.72, 0, 1), which covers 90% of the distance in 69ms
+     of a 480ms transition and then creeps — measured, and it reads as fast
+     followed by a crawl, which is exactly the complaint. This spreads the
+     movement across the whole duration, so the header takes as long as it
+     says it does. */
+  --header-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
 .ah-site.site-header {
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--c-cream);
-  border-bottom: 1px solid var(--c-border);
+  /* No hairline under the header, at Adam's request. Everything that used to
+     subtract it — the film bands' pull-up and their padding, and the tone
+     observer's detection line — is back to a flat 4rem. */
+  /* Slowed at Adam's request: the first pass ran the move at 200ms and
+     everything else at 320ms, which read as a snap rather than a movement.
+
+     The move is 360ms and the tone and the convergence are 480ms. 480 is
+     past the identity's 400ms ceiling, so it is a departure in its own right
+     and is recorded with the others in the Intelligence Brief. The reasoning
+     for allowing it: 400ms is the ceiling for a change of state the reader
+     is waiting on, and none of this is — the header is moving in the corner
+     of the eye while the reader is reading something else, and at that
+     distance a slower move is less distracting rather than more.
+
+     The curve carries most of the "smoother". A long tail means the header
+     covers most of the distance early and then settles, so the eye reads one
+     glide instead of a start and a stop. */
+  transition:
+    transform 360ms var(--header-ease),
+    background-color 480ms var(--header-ease),
+    border-color 480ms var(--header-ease);
+}
+/* Out of the way. Sticky keeps its slot in the flow, so nothing below moves
+   when this happens — the header simply is not drawn. */
+.ah-site.site-header.is-hidden {
+  transform: translateY(-100%);
+}
+
+/* --- Over dark ground ------------------------------------------------
+   Not a flat transparent header: the films are bright at the top in places,
+   and white type over a lit sky is unreadable. A short wash from the top
+   edge guarantees the contrast without reading as a bar. */
+.ah-site.site-header.is-on-dark {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.28) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-bottom-color: transparent;
+}
+.ah-site.site-header.is-on-dark .site-header__nav a,
+.ah-site.site-header.is-on-dark .site-header__account,
+.ah-site.site-header.is-on-dark .site-header__account-name,
+.ah-site.site-header.is-on-dark .site-header__account-out {
+  color: #ffffff;
+}
+/* The underline the nav draws on hover and for the current page has to come
+   with it, or the active item loses its marker on the dark ground. */
+.ah-site.site-header.is-on-dark .site-header__nav a::after {
+  background: var(--c-sand);
+}
+.ah-site.site-header.is-on-dark .burger span {
+  background: #ffffff;
+}
+/* Reduced motion keeps both states, and simply arrives at them. */
+@media (prefers-reduced-motion: reduce) {
+  .ah-site.site-header {
+    transition: none;
+  }
 }
 
 .ah-site .site-header__inner {
@@ -17,7 +91,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  height: 64px;
+  height: var(--site-header-h);
   max-width: var(--container-wide);
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 2.5rem);
@@ -28,8 +102,12 @@
   display: flex;
   align-items: center;
 }
+/* Larger, at Adam's direction. 52px in an 80px bar leaves 14px of air either
+   side, which is the most the row can give the mark without the bar having to
+   grow — and --site-header-h is the offset every sticky thing on the site is
+   measured against, so it stays where it is. */
 .ah-site .site-header__logo img {
-  height: 42px;
+  height: 52px;
   width: auto;
 }
 
@@ -41,7 +119,7 @@
   padding-left: 1.4rem;
   border-left: 1px solid var(--c-border);
   font-family: var(--font-body);
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   /* Soft ink, not meta. Meta is for captions and spec lines; at this size on
      cream it measures 3.64:1, under the 4.5:1 AA floor. Soft ink is 11.2:1. */
@@ -61,23 +139,196 @@
   }
 }
 
+/* The account control sits with the crossing in one utility cluster, sharing
+   the crossing's single divider rather than adding a second one. Same quiet
+   treatment: this is a way in, not a seventh page. */
+.ah-site .site-header__account {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--c-text-dark);
+  text-decoration: none;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+.ah-site a.site-header__account:hover,
+.ah-site a.site-header__account:focus-visible,
+.ah-site .site-header__account-name:hover,
+.ah-site .site-header__account-out:hover {
+  color: var(--c-green);
+  text-decoration: underline;
+}
+/* Signed in, the name carries the weight and the way out stays subordinate to
+   it — the person is not here to sign out, they are here to look at cars. */
+.ah-site .site-header__account-name {
+  font-weight: 700;
+  color: var(--c-green);
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+.ah-site .site-header__account-out {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: var(--c-text-dark);
+  cursor: pointer;
+  text-underline-offset: 3px;
+}
+@media (max-width: 1100px) {
+  .ah-site .site-header__account {
+    /* Follows the crossing out at the same width so the row never carries a
+       lone divider-less utility link next to the phone pill. */
+    display: none;
+  }
+}
+
 /* Same link at the foot of the mobile menu, held apart from the six items. */
 .ah-site .mobile-menu__crossing {
   display: block;
   margin-top: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid var(--c-border);
-  font-size: 1rem !important;
+  font-size: var(--fs-body) !important;
   font-weight: 500;
-  color: var(--c-text) !important;
+  /* White, not --c-text. --c-text is the meta grey (#7b827d), which is fine on
+     cream but measures about 2.6:1 on the menu's green — under the 4.5:1 floor
+     and visibly dimmer than every item above it. The rule above and the lighter
+     weight already hold this link apart; it does not need to be hard to read
+     as well. */
+  color: var(--c-white) !important;
+}
+
+/* Account entry in the mobile menu. The generic ".mobile-menu a" rule already
+   gives it the menu's type and rule-off; this only handles the signed-in pair,
+   where the name and the way out share one row. */
+.ah-site .mobile-menu__account--in {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.ah-site .mobile-menu__account--in a {
+  border-bottom: 0;
+  color: var(--c-sand);
+}
+.ah-site .mobile-menu__account-out {
+  background: none;
+  border: 0;
+  padding: 0.85rem 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
 }
 
 /* Right side: nav items and phone pill on one row */
-.ah-site .site-header__right {
+.ah-site .site-header__actions {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 1.4rem;
+}
+
+/* --- The three pods, and how they draw together ----------------------
+   The mark, the nav and the actions sit at the two edges and the middle of
+   a full-width row. Once the page leaves the top, the row itself narrows
+   and the outer two slide in towards the nav, each taking its own pill of
+   ground while the bar behind them goes away.
+
+   The row's max-width is what animates, rather than the pods being moved
+   individually: space-between then does the work, so the three stay in
+   their own relationship to each other at every width and there is no
+   per-viewport arithmetic to keep in step. */
+.ah-site .site-header__pod {
+  display: flex;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition:
+    background-color 480ms var(--header-ease),
+    border-color 480ms var(--header-ease),
+    box-shadow 480ms var(--header-ease),
+    padding 480ms var(--header-ease);
+}
+.ah-site .site-header__inner {
+  transition: max-width 480ms var(--header-ease);
+}
+
+@media (min-width: 1101px) {
+  /* At rest the row spans the screen, so the mark sits at the left edge and
+     the actions at the right. That is the position they travel from.
+
+     How far they can travel is set by the row's own content, not by taste,
+     and the nav losing its capitals bought most of it. In caps the six items
+     measured 753px and the three pods needed about 1250px however they were
+     arranged, which left 96px a side on a 1440 screen. Set as written the nav
+     is 538px condensed, the three pods measure 912px together, and 66rem
+     leaves 144px of slack — 72px between each pod. So the row now draws in
+     192px a side at 1440 and 432px at 1920: twice the movement, from the same
+     change that made the words easier to read. Measured at 1201, the narrowest
+     width the nav appears at: 960px of content into a 1056px row. The min()
+     keeps a narrow desktop from clipping rather than converging. */
+  .ah-site .site-header__inner {
+    /* 100%, not none. `none` is not an interpolable value, so animating from
+       it to a length does nothing at all and the row simply teleports to its
+       condensed width — measured, 90% of the travel inside 71ms of a 480ms
+       transition. Two lengths interpolate. */
+    max-width: 100%;
+  }
+  .ah-site.site-header.is-condensed .site-header__inner {
+    max-width: min(66rem, 100% - 2rem);
+    padding-inline: 1rem;
+  }
+  /* :not(.site-header__logo) because the mark does not take a chip. It has
+     its own silhouette and its own reverse cut for dark grounds, so a rounded
+     rectangle behind it adds an edge that competes with the artwork instead of
+     protecting anything. The other two pods keep theirs: they hold type that
+     has to stay legible over whatever the film is doing underneath. */
+  .ah-site.site-header.is-condensed .site-header__pod:not(.site-header__logo) {
+    padding-inline: 0.875rem;
+    padding-block: 0.5rem;
+    background: var(--c-cream);
+    border-color: var(--c-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+  /* The mark still comes down a step as the row draws in — the whole row
+     tightens, and the mark tightening with it is what makes that read as one
+     movement. It no longer has to match a pod's height, because it no longer
+     has a pod. */
+  .ah-site.site-header.is-condensed .site-header__logo img {
+    height: 44px;
+    /* Losing the chip exposed something the chip had been hiding rather than
+       solving: once the bar goes transparent the page scrolls under the mark,
+       and on /cars it lands over the filter panel. A shadow separates it from
+       whatever is behind without drawing an edge around it — which is the
+       thing that was asked to go. Faint on purpose: enough to read against a
+       white card, invisible against the cream bar. */
+    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.28));
+    transition: height 480ms var(--header-ease), filter 480ms var(--header-ease);
+  }
+  /* The bar itself is no longer needed once each pod carries its own ground,
+     and losing it is what makes them read as floating on the page. */
+  .ah-site.site-header.is-condensed {
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+  /* Over film and the green bands the pods go dark and translucent instead,
+     which is a firmer guarantee of contrast than the wash the un-condensed
+     header uses: the type sits on a known ground rather than on whatever the
+     frame happens to be doing. */
+  .ah-site.site-header.is-condensed.is-on-dark
+    .site-header__pod:not(.site-header__logo) {
+    background: rgba(0, 26, 21, 0.62);
+    border-color: rgba(255, 255, 255, 0.16);
+    box-shadow: none;
+    backdrop-filter: blur(10px);
+  }
 }
 .ah-site .site-header__nav ul {
   display: flex;
@@ -85,12 +336,17 @@
   gap: 1rem;
   list-style: none;
 }
+/* Set as written, not shouted. The labels in site-data are already in their
+   proper case — "The Marketplace", "FAQ", "Contact Us" — and uppercasing them
+   in CSS cost the words their shapes: six items in caps read as six blocks of
+   the same height, which is slower to scan than ascenders and descenders, and
+   it turned an acronym and a two-word page name into the same texture. The
+   tracking went with it: letter-spacing is a fix for the gaps caps leave, and
+   mixed-case body type at 21px does not want it. */
 .ah-site .site-header__nav a {
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  font-size: var(--fs-body);
   color: var(--c-text-dark);
   position: relative;
   padding-block: 0.3rem;
@@ -170,13 +426,12 @@
   flex-direction: column;
   gap: 0.4rem;
 }
+/* The same nav on a phone, so the same treatment. */
 .ah-site .mobile-menu a {
   display: block;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 1.35rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-size: var(--fs-lead);
   color: var(--c-white);
   padding: 0.85rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -195,11 +450,12 @@
 }
 
 @media (max-width: 1200px) {
-  .ah-site .site-header__right {
+  .ah-site .site-header__nav,
+  .ah-site .site-header__actions {
     display: none;
   }
   .ah-site .site-header__logo img {
-    height: 36px;
+    height: 44px;
   }
   .ah-site .burger {
     display: flex;

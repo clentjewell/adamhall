@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
 export interface Stat {
@@ -11,35 +8,16 @@ export interface Stat {
   icon?: ReactNode;
 }
 
-function useCountUp(end: number, run: boolean, duration = 1800) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!run) return;
-    let raf = 0;
-    let start: number | null = null;
-    const step = (ts: number) => {
-      if (start === null) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
-      // easeOutCubic
-      const eased = 1 - Math.pow(1 - p, 3);
-      setVal(Math.floor(eased * end));
-      if (p < 1) raf = requestAnimationFrame(step);
-      else setVal(end);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [end, run, duration]);
-  return val;
-}
-
-function StatItem({ stat, run }: { stat: Stat; run: boolean }) {
-  const val = useCountUp(stat.end, run);
+// Statically rendered: the identity's motion section rules out counters
+// triggering in the viewport ("anything on scroll: never"), and prices
+// and figures never count up. The number is a fact, so it is simply there.
+function StatItem({ stat }: { stat: Stat }) {
   return (
     <div className="stat">
       <div className="stat__row">
         <div className="stat__number">
           {stat.prefix}
-          {val.toLocaleString("en-AU")}
+          {stat.end.toLocaleString("en-AU")}
           {stat.suffix}
         </div>
         {stat.icon && (
@@ -54,27 +32,10 @@ function StatItem({ stat, run }: { stat: Stat; run: boolean }) {
 }
 
 export default function StatCounter({ stats }: { stats: Stat[] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [run, setRun] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setRun(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.4 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
   return (
-    <div className="stats" ref={ref}>
+    <div className="stats">
       {stats.map((s) => (
-        <StatItem key={s.title} stat={s} run={run} />
+        <StatItem key={s.title} stat={s} />
       ))}
     </div>
   );

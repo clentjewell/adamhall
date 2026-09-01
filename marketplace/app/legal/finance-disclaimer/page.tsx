@@ -15,7 +15,7 @@ function renderLegalText(text: string) {
     const trimmed = block.trim();
     if (trimmed.startsWith("## ")) {
       return (
-        <h2 key={i} className="font-display font-bold text-xl mt-8 mb-3">
+        <h2 key={i} className="type-subheading mt-8 mb-3">
           {trimmed.slice(3).trim()}
         </h2>
       );
@@ -36,12 +36,12 @@ export default async function FinanceDisclaimerPage() {
       <div className="card bg-amber-soft !border-amber-accent/40 p-5 mb-8 flex gap-3 items-start">
         <SealWarning size={22} weight="fill" className="text-[#8a5a1e] shrink-0 mt-0.5" />
         <p className="text-sm font-semibold text-ink">
-          DRAFT — requires review by the dealership's legal adviser for
+          DRAFT: requires review by the dealership's legal adviser for
           NSW/QLD before launch.
         </p>
       </div>
 
-      <h1 className="font-display font-extrabold text-3xl md:text-4xl">Finance Disclaimer</h1>
+      <h1 className="type-heading">Finance Disclaimer</h1>
       {renderLegalText(content.legal.financeDisclaimer)}
     </div>
   );

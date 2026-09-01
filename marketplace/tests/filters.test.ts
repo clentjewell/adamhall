@@ -1,6 +1,6 @@
 import { test, describe } from "node:test";
 import assert from "node:assert/strict";
-import { applyFilters } from "../lib/filters";
+import { applyFilters, matchesQuery } from "../lib/filters";
 import type { Car } from "../lib/types";
 
 let seq = 0;
@@ -29,6 +29,7 @@ function makeCar(overrides: Partial<Car> = {}): Car {
     inspection_summary: null,
     photos: [],
     status: "published",
+    availability: "available",
     published_at: new Date().toISOString(),
     sold_at: null,
     source_submission_id: null,
@@ -99,5 +100,38 @@ describe("applyFilters", () => {
   test("returns empty array when nothing matches", () => {
     const result = applyFilters(fleet, { make: "Ford" });
     assert.equal(result.length, 0);
+  });
+});
+
+describe("quick search (q)", () => {
+  const hilux = makeCar({
+    make: "Toyota",
+    model: "Hilux",
+    year: 2021,
+    body_type: "Ute",
+    fuel: "Diesel",
+    transmission: "Automatic",
+  });
+
+  test("matches a model on its own, case-insensitively and half-typed", () => {
+    assert.ok(matchesQuery(hilux, "hilux"));
+    assert.ok(matchesQuery(hilux, "HIL"));
+  });
+
+  test("every word must match somewhere, across different fields", () => {
+    assert.ok(matchesQuery(hilux, "toyota diesel"));
+    assert.ok(matchesQuery(hilux, "2021 ute"));
+    assert.ok(!matchesQuery(hilux, "toyota petrol"));
+  });
+
+  test("blank and whitespace-only queries match everything", () => {
+    assert.ok(matchesQuery(hilux, ""));
+    assert.ok(matchesQuery(hilux, "   "));
+  });
+
+  test("applyFilters narrows by q alongside the other filters", () => {
+    const cars = [hilux, makeCar({ make: "Mazda", model: "CX-5", fuel: "Petrol" })];
+    assert.equal(applyFilters(cars, { q: "hilux" }).length, 1);
+    assert.equal(applyFilters(cars, { q: "toyota", fuel: "Petrol" }).length, 0);
   });
 });

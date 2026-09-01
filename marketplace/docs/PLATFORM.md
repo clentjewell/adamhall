@@ -187,7 +187,7 @@ Browse (/cars, filtered)
    → Finance calculator (/finance) — repayment estimate, optional finance
      enquiry (writes to `finance_enquiries`)
    → Adam actions the enquiry from /admin/enquiries or /admin/finance
-   → Car eventually flips to `sold` — stays visible 30 days (social proof),
+   → Car eventually flips to `sold` — stays visible 90 days (social proof),
      then a nightly pg_cron job archives it (supabase/migrations/0003_sold_auto_archive.sql)
 ```
 
@@ -238,7 +238,7 @@ Browse (/cars, filtered)
 - Admin dashboard, analytics (accept rate, margin by make, time-to-offer)
 - Content pages (about, contact, FAQ, legal drafts)
 - Audit trail (`status_events`) for submissions
-- Auto-archive of sold listings after 30 days
+- Auto-archive of sold listings after 90 days
 
 **Explicitly out of scope for v1** (deliberate, not oversight):
 
@@ -366,7 +366,7 @@ public site yet.
   (correctly keeps tokenised, PII-bearing status pages out of the index)
 - Clean, human-readable slugs (`slugify()` in `lib/format.ts`)
 - Sold-car handling is SEO-aware: visible (and indexable, lower priority)
-  for 30 days as social proof, then auto-archived by pg_cron so stale
+  for 90 days as social proof, then auto-archived by pg_cron so stale
   "sold" pages don't linger in search results indefinitely
 
 **What's next:**
@@ -388,7 +388,7 @@ public site yet.
 
 | Table | Anon (public) | Admin |
 | --- | --- | --- |
-| `cars` | `select` where `published`, or `sold` within 30 days | full |
+| `cars` | `select` where `published`, or `sold` within 90 days | full |
 | `submissions` | `insert` only (`status = 'new'`); no `select` — see below | full |
 | `submission_photos` | `insert` only | full |
 | `valuations` | none | full |
@@ -447,7 +447,7 @@ deploy instructions.
       narrow correctly and combine without conflicting; price sort works
 - [ ] Filters persist in the URL (shareable link reproduces the same results)
 - [ ] Car detail renders gallery, PPSR badge, service history, "Adam's take"
-- [ ] Sold cars show a SOLD badge and stay visible only within 30 days
+- [ ] Sold cars show a SOLD badge and stay visible only within 90 days
 - [ ] Enquiry and book-a-look forms submit and appear in `/admin/enquiries`,
       correctly tagged by `kind`
 - [ ] Trade-in bridge (`/sell?trade=slug`) pre-fills the target car
@@ -506,6 +506,7 @@ deploy instructions.
 | `RESEND_API_KEY` | runtime secret | empty in dev → emails log to console instead of sending |
 | `EMAIL_FROM` | runtime secret | sending identity |
 | `ADMIN_NOTIFY_EMAIL` | runtime secret | Adam's inbox for new-lead notifications |
+| `ANTHROPIC_API_KEY` | runtime secret | the Assistant, "Fill from photos" and "Draft with AI" on a listing; absent, the routes answer 503 and the UI says so |
 
 **Cloudflare Workers build settings** (Git-connected `adamhall-marketplace`
 service):
@@ -517,7 +518,7 @@ service):
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_SITE_URL`
 - Runtime secrets (Settings → Variables and Secrets):
   `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `EMAIL_FROM`,
-  `ADMIN_NOTIFY_EMAIL`
+  `ADMIN_NOTIFY_EMAIL`, `ANTHROPIC_API_KEY`
 
 **Local setup:**
 
@@ -532,7 +533,9 @@ npm run dev
 
 - `0001_init.sql` — core schema, RLS, storage buckets
 - `0002_submission_audit_trigger.sql` — auto-logs the `new` status event
-- `0003_sold_auto_archive.sql` — nightly pg_cron archive of 30-day-old solds
+- `0003_sold_auto_archive.sql` — nightly pg_cron archive of stale solds
+- `0004_sold_window_90_days.sql` — sold window widened from 30 to 90 days,
+  in the RLS policy and the archive job together
 - `0004_finance_enquiries.sql` — `finance_enquiries` table + RLS
 
 `supabase/seed.sql` loads demo data — **demonstration content only**, see

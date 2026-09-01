@@ -1,14 +1,34 @@
 {
   // Cloudflare Workers config for the adamhall-marketplace service.
   // Built via @opennextjs/cloudflare — see README "Deploying".
+  //
+  // This service shares a repo with the `adamhall` service at the root, and
+  // both rebuild on every push unless build watch paths are set. Set this
+  // one's Include to `marketplace/*` in the dashboard; the reasoning and the
+  // matching settings for the other service are in the root wrangler.jsonc.
+  //
+  // BUILD CACHING — also dashboard-only, same Settings -> Builds panel, and a
+  // bigger win than the watch paths on this service. Every build currently
+  // installs node_modules cold (970MB, 248 packages) and runs `next build`
+  // against an empty compiler cache that reaches 449MB locally. Caching keeps
+  // both between builds. It caches inputs, not results: the build still runs
+  // in full, still typechecks, still prerenders every page, so nothing about
+  // what ships changes.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "adamhall-marketplace",
   "main": ".open-next/worker.js",
   "compatibility_date": "2025-05-05",
   "compatibility_flags": ["nodejs_compat"],
+  // `run_worker_first` because of the preview lock in middleware.ts. By
+  // default Cloudflare serves anything matching a file in the assets
+  // directory before the Worker is ever invoked, which left /robots.txt and
+  // everything under /public readable while every page returned 401 — a lock
+  // with the windows open. This puts the Worker in front of assets too.
+  // Drop it back to the default if the lock is ever removed for good.
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true
   },
   // Incremental cache for ISR pages (60s revalidate on /, /cars, etc.)
   "kv_namespaces": [

@@ -42,12 +42,12 @@ export default function PageHero({
         />
       )}
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/15" />
-      <div className="relative w-full max-w-6xl mx-auto px-4 pb-20 pt-32">
+      <div className="relative w-full page-shell pb-20 pt-32">
         <HeroStagger>
           <HeroItem>
             <h1
               data-edit={titleEditPath}
-              className="font-display font-extrabold text-4xl md:text-6xl tracking-tight text-white leading-tight"
+              className="type-hero tracking-tight text-white"
             >
               {title}
             </h1>

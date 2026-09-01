@@ -1,4 +1,11 @@
 export type CarStatus = "draft" | "published" | "sold" | "archived";
+/**
+ * Public availability, a separate axis from CarStatus. Status decides whether
+ * a car is on the site at all; availability decides what it says while it is.
+ * Sold is deliberately absent — that lives in CarStatus alone, and takes
+ * precedence over anything here. See isSold/availabilityBadge in car-flags.ts.
+ */
+export type CarAvailability = "available" | "enquiry_in_progress" | "reserved";
 export type SubmissionStatus =
   | "new"
   | "reviewing"
@@ -8,6 +15,8 @@ export type SubmissionStatus =
   | "settled";
 export type EnquiryKind = "enquiry" | "book_look";
 export type EnquiryStatus = "new" | "contacted" | "closed";
+/** How the buyer would rather be answered. Informational only. */
+export type EnquiryContactMethod = "call" | "text" | "email";
 export type ServiceHistory = "full" | "partial" | "none" | "unknown";
 
 export interface CarPhoto {
@@ -38,6 +47,7 @@ export interface Car {
   inspection_summary: string | null;
   photos: CarPhoto[];
   status: CarStatus;
+  availability: CarAvailability;
   published_at: string | null;
   sold_at: string | null;
   source_submission_id: string | null;
@@ -104,6 +114,12 @@ export interface Enquiry {
   email: string | null;
   preferred_time: string | null;
   message: string | null;
+  preferred_contact_method: EnquiryContactMethod;
+  financing_interest: boolean;
+  trade_in_interest: boolean;
+  /** The buyer account that sent it, when they were signed in. Null is the
+      ordinary case — enquiring never requires an account. */
+  user_id: string | null;
   status: EnquiryStatus;
   created_at: string;
   cars?: Pick<Car, "slug" | "make" | "model" | "year" | "badge">;
@@ -139,7 +155,7 @@ export interface SettlementChecklist {
 
 export interface StatusEvent {
   id: string;
-  entity_type: "submission" | "car" | "enquiry";
+  entity_type: "submission" | "car" | "enquiry" | "buyer";
   entity_id: string;
   from_status: string | null;
   to_status: string;

@@ -31,28 +31,65 @@
   --font-heading: var(--font-display);
   --font-accent: var(--font-body);
 
-  --fw-heading: 600;
+  --fw-heading: 900;
   --fw-sub: 400;
   --fw-body: 400;
   --fw-accent: 500;
 
-  /* Fluid type scale — desktop targets measured from the live site:
-     h1 62px, h2 56px, h3 48px, h4 36px, intro-h2 40px, body 24px */
-  --fs-hero: clamp(2.5rem, 5.2vw, 3.875rem);      /* ~40 -> 62px */
-  --fs-h2: clamp(2.1rem, 4vw, 3.5rem);             /* ~34 -> 56px */
-  --fs-h3: clamp(1.8rem, 3.4vw, 3rem);             /* ~29 -> 48px */
-  --fs-h4: clamp(1.5rem, 2.5vw, 2.25rem);          /* ~24 -> 36px */
-  --fs-h5: clamp(1.15rem, 1.6vw, 1.375rem);        /* ~18 -> 22px */
-  --fs-label: 0.875rem;                            /* 14px uppercase label */
-  --fs-body: clamp(1.25rem, 1.7vw, 1.5rem);        /* ~20 -> 24px */
-  --fs-small: 1rem;
+  /* Type scale, mapped onto the identity's (globals.css, section 05).
 
-  /* Layout */
-  --container: 1140px;
-  --container-wide: 1200px;
-  --container-narrow: 960px;
-  --gutter: 20px;
-  --section-py: clamp(3rem, 7vw, 6.5rem);
+     These used to be a second, unrelated scale ported from the reference
+     site: headings at 56 and 48px against the identity's 40 and 28, body at
+     24px against 16. The two halves of the site therefore set the same kinds
+     of text at wildly different sizes, and the home page alone carried a
+     dozen distinct styles, including 20.8, 18.4 and 17px, which belonged to
+     no scale at all.
+
+     Hierarchy is now carried by weight and space rather than raw size, which
+     is what makes a page read as composed rather than shouted. Hero is the
+     single Display moment and the only size above the identity's Heading. */
+  --fs-hero: clamp(2.5rem, 4.6vw, 3.5rem); /* 40 -> 56px, matches .type-hero */
+  --fs-h2: clamp(2rem, 3vw, 2.5rem); /* 32 -> 40px, Heading */
+  /* The Subheading step, and the identity's own one. It used to be a second
+     clamp with the same two endpoints and a different slope
+     (2.2vw against 2.4vw), so a heading on --fs-h3 and one on
+     --fs-subsection-title agreed at 640 and at 1200 and disagreed by a pixel
+     or two everywhere between — two tokens for one step, which is how a scale
+     stops being a scale. */
+  --fs-h3: var(--fs-subsection-title); /* 24 -> 28px, Subheading */
+  /* Sits on the Lead step, as it always has: same size, told apart from Lead
+     by family and weight. Raised with the body so it stays a step above it
+     rather than landing on top of it. */
+  /* The panel step, named in globals.css as --fs-panel-title. Same value it
+     always had; pointing at the shared one keeps the two halves of the site
+     from drifting the next time it changes. */
+  --fs-h4: var(--fs-panel-title); /* 22 -> 24px */
+  /* The body steps are set for Mr Eaves Modern, not for a nominal 16px.
+     Its x-height ratio is 0.341 against Arial's 0.519 — measured off the
+     font file, not guessed — so it draws about a third smaller than most
+     faces at the same px value. 16px of Mr Eaves reads like 11px of Arial,
+     which is why the site felt like fine print everywhere.
+
+     Body is 21px, which is the Lead step the scale already had rather than
+     a new number. Everything in the body family moves with it by the same
+     ratio so the steps stay recognisably apart. The display sizes above are
+     untouched: Neue Haas has ordinary metrics and was never the problem. */
+  --fs-h5: 1.3125rem; /* 21px, the body step */
+  --fs-label: 0.8125rem; /* 13px, Label */
+  --fs-body: 1.3125rem; /* 21px, one body size across the whole site */
+  --fs-lead: clamp(1.375rem, 1.7vw, 1.5rem); /* 22 -> 24px, Lead */
+  --fs-small: 1.0625rem; /* 17px, Caption */
+
+  /* Layout. Every one of these now points at the site-wide geometry in
+     globals.css, so the ported pages sit on exactly the same column as the
+     marketplace pages. They used to be three separate measures (1140, 1200,
+     960) on a gutter of their own, which is why the content edge jumped as
+     you moved between the two halves of the site. */
+  --container: var(--measure-wide);
+  --container-wide: var(--measure-wide);
+  --container-narrow: var(--measure-text);
+  --gutter: var(--gutter-page);
+  --section-py: var(--rhythm-section);
 
   /* Radius / shadow / transitions */
   --radius-sm: 8px;

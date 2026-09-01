@@ -1,7 +1,15 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin";
 import { formatDateTime } from "@/lib/format";
-import type { Enquiry } from "@/lib/types";
+import type { Enquiry, EnquiryContactMethod } from "@/lib/types";
+
+// How the buyer asked to be reached. Worded as an instruction to Adam, since
+// that is the only thing this field is for.
+const CONTACT_METHOD_LABELS: Record<EnquiryContactMethod, string> = {
+  call: "Prefers a call",
+  text: "Prefers a text",
+  email: "Prefers email",
+};
 import StatusBadge from "@/components/admin/StatusBadge";
 import EnquiryActions from "@/components/admin/EnquiryActions";
 
@@ -39,8 +47,37 @@ export default async function EnquiriesPage() {
           ) : (
             "car removed"
           )}
+          {" · "}
+          {CONTACT_METHOD_LABELS[e.preferred_contact_method] ?? "Prefers a call"}
+          {/* Most enquiries come from people with no account, so the marker
+              only appears when there is one — worth knowing, because it means
+              you can see their shortlist under Buyers. */}
+          {e.user_id && (
+            <>
+              {" · "}
+              <Link href="/admin/buyers" className="font-semibold text-forest-700 underline">
+                has an account
+              </Link>
+            </>
+          )}
           {e.preferred_time ? ` · ${e.preferred_time}` : ""}
         </p>
+        {/* Only the ticked ones. Two more grey chips on every row would make
+            the ones that matter harder to spot, not easier. */}
+        {(e.financing_interest || e.trade_in_interest) && (
+          <p className="flex flex-wrap gap-1.5 mt-1.5">
+            {e.financing_interest && (
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700">
+                Wants finance
+              </span>
+            )}
+            {e.trade_in_interest && (
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-forest-50 text-forest-700">
+                Has a trade-in
+              </span>
+            )}
+          </p>
+        )}
         {e.message && <p className="text-sm text-stone-600 mt-1">&ldquo;{e.message}&rdquo;</p>}
       </div>
       <span className="text-xs text-stone-400">{formatDateTime(e.created_at)}</span>

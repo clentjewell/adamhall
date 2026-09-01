@@ -1,0 +1,58 @@
+"use client";
+
+import { useActionState } from "react";
+import { Link } from "next-view-transitions";
+import { signInBuyer, type AccountActionState } from "@/app/actions/account";
+
+const initial: AccountActionState = { ok: false };
+
+export default function SignInForm({ next }: { next?: string }) {
+  const [state, action, pending] = useActionState(signInBuyer, initial);
+
+  return (
+    <form action={action} className="space-y-4">
+      {/* Set when something bounced the visitor here, so signing in returns
+          them to it rather than always landing on the shortlist. */}
+      {next && <input type="hidden" name="next" value={next} />}
+      <div>
+        <label className="label" htmlFor="s-email">Email</label>
+        <input
+          id="s-email"
+          name="email"
+          type="email"
+          required
+          autoFocus
+          autoComplete="email"
+          className="input"
+        />
+      </div>
+      <div>
+        <label className="label" htmlFor="s-password">Password</label>
+        <input
+          id="s-password"
+          name="password"
+          type="password"
+          required
+          autoComplete="current-password"
+          className="input"
+        />
+      </div>
+
+      {state.error && <p className="error-text" role="alert">{state.error}</p>}
+
+      <button type="submit" disabled={pending} className="btn-cta w-full">
+        {pending ? "Signing you in…" : "Sign in"}
+      </button>
+
+      <p className="helper">
+        No account yet?{" "}
+        <Link href="/account/register" className="underline">Create one</Link>.
+      </p>
+      <p className="helper">
+        <Link href="/account/forgot-password" className="underline">
+          Forgot your password?
+        </Link>
+      </p>
+    </form>
+  );
+}

@@ -244,7 +244,7 @@ function describeBasis(
 ): string {
   const cars = count === 1 ? "one car" : `${count} cars`;
   if (tier === "model") {
-    return `We lined your car up against ${cars} like it through Adam's books, then corrected for your year and odometer.`;
+    return `We lined your car up against ${cars} like it through our books, then corrected for your year and odometer.`;
   }
   return `We have not had a ${input.make} ${input.model} through recently, so we worked from ${cars} by the same maker. Treat it as a wide guide.`;
 }
@@ -267,7 +267,7 @@ export function estimateValuation(
       ok: false,
       reason: "out_of_range",
       message:
-        "Those details are outside what we can estimate on. Send the car through and Adam will look at it himself.",
+        "Those details are outside what we can estimate on. Send the car through and we will look at it ourselves.",
     };
   }
 
@@ -277,7 +277,7 @@ export function estimateValuation(
       ok: false,
       reason: "no_comparables",
       message:
-        "We have not had one of these through recently, so an instant number would be a guess. Send it through and Adam will come back to you with a real one.",
+        "We have not had one of these through recently, so an instant number would be a guess. Send it through and we will come back to you with a real one.",
     };
   }
 
