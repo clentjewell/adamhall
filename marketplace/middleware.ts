@@ -161,7 +161,10 @@ function gatePage(redirectTo: string, failed: boolean): string {
     color: var(--meta);
     margin-bottom: 0.5rem;
   }
-  input[type="password"] {
+  /* Selected on the wrapper, not on [type="password"]: the reveal button
+     switches the input to type="text", and an attribute selector would drop
+     every one of these rules the moment it did. */
+  .field input {
     width: 100%;
     min-height: 52px;
     padding: 0.75rem 1rem;
@@ -172,11 +175,34 @@ function gatePage(redirectTo: string, failed: boolean): string {
     border: 1px solid var(--hairline);
     border-radius: 10px;
   }
-  input[type="password"]:focus-visible {
+  .field input:focus-visible {
     outline: 3px solid var(--green);
     outline-offset: 1px;
     border-color: var(--green);
   }
+  /* The reveal sits inside the field's box rather than beside it, so the
+     input keeps the full width and the row height stays at the 52px target. */
+  .field { position: relative; }
+  .field input { padding-right: 4.5rem; }
+  #reveal {
+    position: absolute;
+    top: 50%;
+    right: 0.375rem;
+    transform: translateY(-50%);
+    margin: 0;
+    width: auto;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    font-family: var(--display);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--meta);
+    background: none;
+    border-radius: 8px;
+  }
+  #reveal:hover { background: none; color: var(--green); transform: translateY(-50%); }
   button {
     margin-top: 1.25rem;
     width: 100%;
@@ -231,13 +257,39 @@ function gatePage(redirectTo: string, failed: boolean): string {
            person as "the password you gave me is wrong". -->
       <form method="POST" action="${GATE_LOGIN_PATH}" autocomplete="off">
         <label for="preview-key">Preview password</label>
-        <input id="preview-key" type="password" name="preview_key" autocomplete="off" autofocus required>
+        <!-- autocapitalize off matters on a phone: the first letter of a
+             lowercase password gets capitalised silently, and in a masked
+             field there is no way to see it happened. -->
+        <div class="field">
+          <input id="preview-key" type="password" name="preview_key"
+                 autocomplete="off" autocapitalize="none" autocorrect="off"
+                 spellcheck="false" autofocus required>
+          <button type="button" id="reveal" aria-label="Show password">Show</button>
+        </div>
         <input type="hidden" name="redirect" value="${escapeHtml(redirectTo)}">
         <button type="submit">Continue</button>
       </form>
     </div>
     <p class="foot">Car Marketplace by Adam Hall</p>
   </main>
+  <script>
+    // Lets someone see what is actually in the box. A masked field hides the
+    // two things that break this most often — a password manager quietly
+    // refilling an old value, and a trailing space carried in from a paste —
+    // and turns both into "the password you gave me is wrong".
+    (function () {
+      var input = document.getElementById("preview-key");
+      var toggle = document.getElementById("reveal");
+      if (!input || !toggle) return;
+      toggle.addEventListener("click", function () {
+        var masked = input.type === "password";
+        input.type = masked ? "text" : "password";
+        toggle.textContent = masked ? "Hide" : "Show";
+        toggle.setAttribute("aria-label", masked ? "Hide password" : "Show password");
+        input.focus();
+      });
+    })();
+  </script>
 </body>
 </html>`;
 }
@@ -274,7 +326,15 @@ async function preview(
     const form = await request.formData();
     // "password" is still read as a fallback so a page left open in someone's
     // tab from before this change still submits successfully.
-    const supplied = String(form.get("preview_key") ?? form.get("password") ?? "");
+    //
+    // Trimmed, because this password gets pasted out of chat messages and
+    // emails, and a copied trailing space is invisible in a masked field. It
+    // failed, the person saw "that password is not right", and there was no
+    // way for them to tell why. A leading or trailing space is never part of
+    // a password anyone means to type.
+    const supplied = String(
+      form.get("preview_key") ?? form.get("password") ?? "",
+    ).trim();
     const redirectTo = safeRedirect(String(form.get("redirect") ?? "/"));
 
     if (!equal(supplied, password)) return gateResponse(redirectTo, true);
