@@ -224,9 +224,14 @@ function gatePage(redirectTo: string, failed: boolean): string {
       <h1>Not open to the public yet</h1>
       <p class="lead">This site is still being built. Enter the preview password to take a look.</p>
       ${failed ? '<p class="error" role="alert">That password is not right. Try again.</p>' : ""}
-      <form method="POST" action="${GATE_LOGIN_PATH}">
-        <label for="password">Preview password</label>
-        <input id="password" type="password" name="password" autocomplete="current-password" autofocus required>
+      <!-- The field is deliberately not called "password" and asks for no
+           autocomplete. A shared preview password gets changed and re-shared,
+           and a browser that has saved the previous one will refill it into a
+           masked field where nobody can see it is stale — which reads to the
+           person as "the password you gave me is wrong". -->
+      <form method="POST" action="${GATE_LOGIN_PATH}" autocomplete="off">
+        <label for="preview-key">Preview password</label>
+        <input id="preview-key" type="password" name="preview_key" autocomplete="off" autofocus required>
         <input type="hidden" name="redirect" value="${escapeHtml(redirectTo)}">
         <button type="submit">Continue</button>
       </form>
@@ -267,7 +272,9 @@ async function preview(
     if (request.method !== "POST") return gateResponse("/", false);
 
     const form = await request.formData();
-    const supplied = String(form.get("password") ?? "");
+    // "password" is still read as a fallback so a page left open in someone's
+    // tab from before this change still submits successfully.
+    const supplied = String(form.get("preview_key") ?? form.get("password") ?? "");
     const redirectTo = safeRedirect(String(form.get("redirect") ?? "/"));
 
     if (!equal(supplied, password)) return gateResponse(redirectTo, true);
